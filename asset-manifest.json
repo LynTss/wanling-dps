@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "./static/css/main.cc9e00db.css",
+    "main.js": "./static/js/main.d49e41a7.js",
+    "static/media/1.jpg": "./static/media/1.b7b7352e844df9cdddb9.jpg",
+    "static/media/daoru_help_2.png": "./static/media/daoru_help_2.8d37cf94d2cd6a48c68f.png",
+    "static/media/daoru_help_1.png": "./static/media/daoru_help_1.3e48a844d1bfb3a5117c.png",
+    "index.html": "./index.html",
+    "main.cc9e00db.css.map": "./static/css/main.cc9e00db.css.map",
+    "main.d49e41a7.js.map": "./static/js/main.d49e41a7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cc9e00db.css",
+    "static/js/main.d49e41a7.js"
+  ]
+}
