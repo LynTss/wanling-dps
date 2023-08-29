@@ -164,7 +164,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能伤害系数: 4.0625 * 0.9 * 0.85 * 0.9,
     技能基础伤害_最小值: 1450,
     技能基础伤害_最大值: 1525,
-    武器伤害系数: 3,
+    武器伤害系数: 1,
     伤害计算次数: 1,
     技能增益列表: gufengduanlangGainDTO,
   },
