@@ -1,0 +1,31 @@
+.basic-set {
+  display: flex;
+  /* width: 328px; */
+  border-radius: 4px;
+  background:#fff;
+  height: calc(100vh - 72px);
+  overflow-y: auto;
+  padding: 16px 24px;
+  position: relative;
+}
+
+.basic-set-info {
+  width: 300px;
+  padding-bottom: 90px;
+}
+
+.basic-set .ant-divider {
+  margin: 12px 0;
+}
+
+.basic-set-zengyi {
+  width: 0;
+  opacity: 0;
+  transition: .2s;
+  /* overflow: hidden; */
+}
+
+.basic-set-zengyi.basic-set-zengyi-visible {
+  width: 400px;
+  opacity: 1;
+}

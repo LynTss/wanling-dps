@@ -1,0 +1,10 @@
+.character-set {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 8px;
+  padding-bottom: 72px;
+}
+
+.character-set .ant-btn {
+  width: 100%;
+}
