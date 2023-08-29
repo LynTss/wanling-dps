@@ -58,12 +58,12 @@ const XIAOCHI_DATA: XiaochiDataDTO[] = [
     ],
   },
   {
-    小吃名称: '断浪·上品大力丸（力道）',
+    小吃名称: '断浪·上品轻身丹（身法）',
     小吃部位: XiaochiTypeEnum.药品辅助,
     增益集合: [
       {
         增益计算类型: GainDpsTypeEnum.A,
-        增益类型: GainTypeEnum.力道,
+        增益类型: GainTypeEnum.身法,
         增益数值: 403,
       },
     ],
@@ -124,12 +124,12 @@ const XIAOCHI_DATA: XiaochiDataDTO[] = [
     ],
   },
   {
-    小吃名称: '断浪·三鲜粥（力道）',
+    小吃名称: '断浪·杂锦鱼球粥（身法）',
     小吃部位: XiaochiTypeEnum.食品辅助,
     增益集合: [
       {
         增益计算类型: GainDpsTypeEnum.A,
-        增益类型: GainTypeEnum.力道,
+        增益类型: GainTypeEnum.身法,
         增益数值: 314,
       },
     ],
@@ -190,45 +190,45 @@ const XIAOCHI_DATA: XiaochiDataDTO[] = [
     ],
   },
   {
-    小吃名称: '汾酒（力道）',
+    小吃名称: '汾酒（身法）',
     小吃部位: XiaochiTypeEnum.家园酒品,
     增益集合: [
       {
         增益计算类型: GainDpsTypeEnum.A,
-        增益类型: GainTypeEnum.力道,
+        增益类型: GainTypeEnum.身法,
         增益数值: 58,
       },
     ],
   },
   {
-    小吃名称: '汾酒·今朝醉（力道）',
+    小吃名称: '汾酒·今朝醉（身法）',
     小吃部位: XiaochiTypeEnum.家园酒品,
     增益集合: [
       {
         增益计算类型: GainDpsTypeEnum.A,
-        增益类型: GainTypeEnum.力道,
+        增益类型: GainTypeEnum.身法,
         增益数值: 116,
       },
     ],
   },
   {
-    小吃名称: '汾酒·六日醉（力道）',
+    小吃名称: '汾酒·六日醉（身法）',
     小吃部位: XiaochiTypeEnum.家园酒品,
     增益集合: [
       {
         增益计算类型: GainDpsTypeEnum.A,
-        增益类型: GainTypeEnum.力道,
+        增益类型: GainTypeEnum.身法,
         增益数值: 174,
       },
     ],
   },
   {
-    小吃名称: '汾酒·旬又三（力道）',
+    小吃名称: '汾酒·旬又三（身法）',
     小吃部位: XiaochiTypeEnum.家园酒品,
     增益集合: [
       {
         增益计算类型: GainDpsTypeEnum.A,
-        增益类型: GainTypeEnum.力道,
+        增益类型: GainTypeEnum.身法,
         增益数值: 232,
       },
     ],

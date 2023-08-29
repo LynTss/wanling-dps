@@ -48,7 +48,7 @@ const ZhuangbeiGainList = {
   冬至套装: [
     {
       增益计算类型: GainDpsTypeEnum.A,
-      增益类型: GainTypeEnum.力道,
+      增益类型: GainTypeEnum.身法,
       增益数值: 248,
     },
     {

@@ -19,8 +19,8 @@ const XIANGQIAN_DATA: EquipmentInlayBasicDTO[] = [
     ],
   },
   {
-    镶嵌类型: EquipmentInlayEnum.力道,
-    镶嵌增益类型: GainTypeEnum.力道,
+    镶嵌类型: EquipmentInlayEnum.身法,
+    镶嵌增益类型: GainTypeEnum.身法,
     各等级增益数据: [
       { 镶嵌等级: 0, 增益数值: 0 },
       { 镶嵌等级: 1, 增益数值: 7 },

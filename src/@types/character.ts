@@ -17,11 +17,16 @@ export interface BasicDataDTO {
    * @description 游戏内现实的具体无双值
    */
   无双值: number
+  // /**
+  //  * @name 力道
+  //  * @description 游戏内现实的具体力道值
+  //  */
+  // 力道: number
   /**
-   * @name 力道
-   * @description 游戏内现实的具体无双值
+   * @name 身法
+   * @description 游戏内现实的具体身法值
    */
-  力道: number
+  身法: number
   /**
    * @name 体质
    */

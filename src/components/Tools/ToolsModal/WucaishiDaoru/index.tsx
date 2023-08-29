@@ -16,6 +16,7 @@ function WucaishiDaoru() {
         strI = strI
           .replaceAll(`"GainTypeEnum.体质"`, `GainTypeEnum.体质`)
           .replaceAll(`"GainTypeEnum.力道"`, `GainTypeEnum.力道`)
+          .replaceAll(`"GainTypeEnum.身法"`, `GainTypeEnum.身法`)
           .replaceAll(`"GainTypeEnum.基础攻击"`, `GainTypeEnum.基础攻击`)
           .replaceAll(`"GainTypeEnum.加速"`, `GainTypeEnum.加速`)
           .replaceAll(`"GainTypeEnum.破招"`, `GainTypeEnum.破招`)
@@ -25,6 +26,7 @@ function WucaishiDaoru() {
           .replaceAll(`"GainTypeEnum.无双等级"`, `GainTypeEnum.无双等级`)
           .replaceAll(`"GainTypeEnum.近战武器伤害"`, `GainTypeEnum.近战武器伤害`)
           .replaceAll(`"WuCaiShiGainNameEnum.力道"`, `WuCaiShiGainNameEnum.力道`)
+          .replaceAll(`"WuCaiShiGainNameEnum.身法"`, `WuCaiShiGainNameEnum.身法`)
           .replaceAll(`"WuCaiShiGainNameEnum.外功攻击"`, `WuCaiShiGainNameEnum.外功攻击`)
           .replaceAll(`"WuCaiShiGainNameEnum.破招值"`, `WuCaiShiGainNameEnum.破招值`)
           .replaceAll(`"WuCaiShiGainNameEnum.外功会心等级"`, `WuCaiShiGainNameEnum.外功会心等级`)

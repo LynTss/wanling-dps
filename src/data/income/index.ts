@@ -30,11 +30,11 @@ export const IncomeFumo: IncomeDataDTO[] = [
     ],
   },
   {
-    收益计算名称: EnchantNameEnum.力道179,
+    收益计算名称: EnchantNameEnum.身法179,
     增益集合: [
       {
         增益计算类型: GainDpsTypeEnum.A,
-        增益类型: GainTypeEnum.力道,
+        增益类型: GainTypeEnum.身法,
         增益数值: 179,
       },
     ],

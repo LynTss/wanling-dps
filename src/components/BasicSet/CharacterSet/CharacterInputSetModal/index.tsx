@@ -41,7 +41,7 @@ function CharacterInputSetModal({ visible, onClose }) {
       onCancel={() => onClose()}
     >
       <Form colon={false} className="form" form={form} onFinish={beforeOnchange}>
-        <Form.Item label={'力道'} name="力道">
+        <Form.Item label={'身法'} name="身法">
           <InputNumber min={0} max={99999999} />
         </Form.Item>
         {/* <Form.Item label={'强膂'} name="强膂">

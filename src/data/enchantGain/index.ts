@@ -8,12 +8,14 @@ import {
 } from '@/@types/enum'
 import { GongjiEnchantDTO } from './gongji'
 import { WushangEnchantDTO } from './wushang'
-import { LidaoEnchantDTO } from './lidao'
+// import { LidaoEnchantDTO } from './lidao'
+import { ShenfaEnchantDTO } from './shenfa'
 
 // 用于装备上的所有附魔
 export const AllEnchantDTO: EnchantDTO[] = [
   ...GongjiEnchantDTO,
-  ...LidaoEnchantDTO,
+  // ...LidaoEnchantDTO,
+  ...ShenfaEnchantDTO,
   ...WushangEnchantDTO,
   {
     附魔名称: EnchantNameEnum.无双174,

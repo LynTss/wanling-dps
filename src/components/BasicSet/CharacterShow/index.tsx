@@ -32,8 +32,8 @@ export default CharacterShow
 
 const getCharacterData = (key: string, characterFinalData: CharacterFinalDTO) => {
   switch (key) {
-    case '力道':
-      return characterFinalData.力道 || 0
+    case '身法':
+      return characterFinalData.身法 || 0
     case '攻击力':
       return characterFinalData.面板攻击 || 0
     case '会心':
@@ -71,8 +71,8 @@ const getCharacterData = (key: string, characterFinalData: CharacterFinalDTO) =>
 
 const getCharacterDataNumber = (key: string, characterFinalData: CharacterFinalDTO) => {
   switch (key) {
-    case '力道':
-      return characterFinalData.力道 || 0
+    case '身法':
+      return characterFinalData.身法 || 0
     case '攻击力':
       return characterFinalData.面板攻击 || 0
     case '会心':

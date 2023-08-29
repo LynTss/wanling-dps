@@ -16,30 +16,30 @@ export const getFinalCharacterBasicData = (
   return {
     ...data,
     强膂: openQiangLv,
-    面板攻击: getMianBanGongJI(data?.基础攻击, data?.力道),
+    面板攻击: getMianBanGongJI(data?.基础攻击, data?.身法),
   }
 }
 
-export const getLidao = (力道, 强膂, 额外郭氏力道 = 0) => {
-  return 强膂 ? 力道 + Math.floor((力道 * (102 + 额外郭氏力道 || 0)) / 1024) : 力道
+export const getLidao = (身法, 强膂, 额外郭氏身法 = 0) => {
+  return 强膂 ? 身法 + Math.floor((身法 * (102 + 额外郭氏身法 || 0)) / 1024) : 身法
 }
 
-export const getJiChuGongJI = (基础攻击, 面板力道) => {
-  const 力道加成基础攻击 = Math.round(面板力道 * 加成系数.力道加成基础攻击)
-  return 基础攻击 + 力道加成基础攻击
+export const getJiChuGongJI = (基础攻击, 面板身法) => {
+  const 身法加成基础攻击 = Math.round(面板身法 * 加成系数.身法加成基础攻击)
+  return 基础攻击 + 身法加成基础攻击
 }
 
-export const getMianBanGongJI = (基础攻击, 面板力道) => {
-  const 力道加成面板攻击 = Math.round(面板力道 * 加成系数.力道加成面板攻击)
-  return 基础攻击 + 力道加成面板攻击
+export const getMianBanGongJI = (基础攻击, 面板身法) => {
+  const 身法加成面板攻击 = Math.round(面板身法 * 加成系数.身法加成面板攻击)
+  return 基础攻击 + 身法加成面板攻击
 }
 
-export const getLidaoJiachengHuixin = (会心值, 面板力道) => {
-  return (会心值 || 0) + Math.round(面板力道 * 加成系数.力道加成会心)
+export const getLidaoJiachengHuixin = (会心值, 面板身法) => {
+  return (会心值 || 0) + Math.round(面板身法 * 加成系数.身法加成会心)
 }
 
-export const getLidaoJiachengPofang = (破防值, 面板力道) => {
-  return (破防值 || 0) + Math.round(面板力道 * 加成系数.力道加成破防)
+export const getLidaoJiachengPofang = (破防值, 面板身法) => {
+  return (破防值 || 0) + Math.round(面板身法 * 加成系数.身法加成破防)
 }
 
 export const getFinalCharacterBasicDataByEquipment = (
@@ -50,7 +50,7 @@ export const getFinalCharacterBasicDataByEquipment = (
     基础攻击: 3346,
     破防值: 0,
     无双值: 0,
-    力道: 41,
+    身法: 41,
     体质: 41,
     加速值: 0,
     破招值: 0,
@@ -98,14 +98,14 @@ export const getFinalCharacterBasicDataByEquipment = (
       basicDTO = switchZhuangbei(data[item], basicDTO)
     }
   })
-  let 面板力道 = basicDTO.力道
+  let 面板身法 = basicDTO.身法
   if (openQiangLv) {
-    面板力道 = getLidao(basicDTO.力道, true)
+    面板身法 = getLidao(basicDTO.身法, true)
   }
-  basicDTO.力道 = 面板力道
-  basicDTO.基础攻击 = getJiChuGongJI(basicDTO.基础攻击, 面板力道)
-  basicDTO.会心值 = getLidaoJiachengHuixin(basicDTO.会心值, 面板力道)
-  basicDTO.破防值 = getLidaoJiachengPofang(basicDTO.破防值, 面板力道)
+  basicDTO.身法 = 面板身法
+  basicDTO.基础攻击 = getJiChuGongJI(basicDTO.基础攻击, 面板身法)
+  basicDTO.会心值 = getLidaoJiachengHuixin(basicDTO.会心值, 面板身法)
+  basicDTO.破防值 = getLidaoJiachengPofang(basicDTO.破防值, 面板身法)
   const finalData = getFinalCharacterBasicData(basicDTO, openQiangLv)
   return { basicData: basicDTO, finalData }
 }
@@ -163,8 +163,8 @@ const switchData = (
 ): CharacterBasicDTO => {
   const newObj: CharacterBasicDTO = { ...原始属性 }
   switch (增益类型) {
-    case GainTypeEnum.力道:
-      newObj.力道 += 数值
+    case GainTypeEnum.身法:
+      newObj.身法 += 数值
       break
     case GainTypeEnum.体质:
       newObj.体质 += 数值

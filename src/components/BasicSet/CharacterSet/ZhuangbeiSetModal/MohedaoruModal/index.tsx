@@ -237,7 +237,7 @@ const EquipPositionMap = {
 
 // 属性类型枚举（转化魔盒的属性类型为本地属性类型
 const FumoMap = {
-  atStrengthBase: '力道',
+  atAgilityBase: '身法',
   atPhysicsAttackPowerBase: '攻击',
   atHasteBase: '加速',
   atSurplusValueBase: '破招',
@@ -249,7 +249,7 @@ const FumoMap = {
 }
 
 const XiangQianKOngMeiju = {
-  atStrengthBase: '力道',
+  atAgilityBase: '身法',
   atPhysicsAttackPowerBase: '攻击',
   atSurplusValueBase: '破招',
   atPhysicsCriticalStrike: '会心',

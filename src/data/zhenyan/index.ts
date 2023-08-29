@@ -61,12 +61,6 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
       {
         增益计算类型: GainDpsTypeEnum.B,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏力道,
-        增益数值: 31,
-      },
-      {
-        增益计算类型: GainDpsTypeEnum.B,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏无双等级,
         增益数值: 20,
       },
@@ -168,6 +162,12 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
   {
     阵眼名称: '藏剑阵',
     增益集合: [
+      {
+        增益计算类型: GainDpsTypeEnum.B,
+        计算位置: ZengyanZengyiPositionEnum.角色属性,
+        增益类型: GainTypeEnum.郭氏身法,
+        增益数值: 31,
+      },
       {
         增益计算类型: GainDpsTypeEnum.B,
         计算位置: ZengyanZengyiPositionEnum.角色属性,

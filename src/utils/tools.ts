@@ -1,7 +1,7 @@
 import { GainTypeEnum, WuCaiShiGainNameEnum } from '@/@types/enum'
 
-const 切糕名标识 = ['暮祁']
-const 套装名标识 = ['揽江·']
+const 切糕名标识 = ['暮祁', '雪漫']
+const 套装名标识 = ['揽江·', '濯心·']
 
 // 装备导入
 export const zhuangbeidaoru = (list: MoHeZhuangBeiShuJu[]) => {
@@ -188,6 +188,7 @@ interface MoHeWuCaiShiShuJu {
 const ShuxingMeiju = {
   atVitalityBase: 'GainTypeEnum.体质',
   atStrengthBase: 'GainTypeEnum.力道',
+  atAgilityBase: 'GainTypeEnum.身法',
   atPhysicsAttackPowerBase: 'GainTypeEnum.基础攻击',
   atHasteBase: 'GainTypeEnum.加速',
   atSurplusValueBase: 'GainTypeEnum.破招',
@@ -200,6 +201,7 @@ const ShuxingMeiju = {
 
 const XiangQianKOngMeiju = {
   atStrengthBase: 'EquipmentInlayEnum.力道',
+  atAgilityBase: 'EquipmentInlayEnum.身法',
   atPhysicsAttackPowerBase: 'EquipmentInlayEnum.攻击',
   atSurplusValueBase: 'EquipmentInlayEnum.破招',
   atPhysicsCriticalStrike: 'EquipmentInlayEnum.会心',
@@ -210,6 +212,7 @@ const XiangQianKOngMeiju = {
 
 const WuCaiShiGainNameMeiju = {
   atStrengthBase: 'WuCaiShiGainNameEnum.力道',
+  atAgilityBase: 'WuCaiShiGainNameEnum.身法',
   atPhysicsAttackPowerBase: 'WuCaiShiGainNameEnum.外功攻击',
   atSurplusValueBase: 'WuCaiShiGainNameEnum.破招值',
   atPhysicsCriticalStrike: 'WuCaiShiGainNameEnum.外功会心等级',

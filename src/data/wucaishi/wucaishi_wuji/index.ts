@@ -3,10 +3,10 @@ import { GainTypeEnum, WuCaiShiGainNameEnum } from '@/@types/enum'
 
 const wucaishi_wuji: WuCaiShiDTO[] = [
   {
-    五彩石名称: '彩·真刚·锐刃·狂攻(伍)',
+    五彩石名称: '彩·瞬影·锐刃·狂攻(伍)',
     五彩石等级: 5,
     装备增益: [
-      { 增益数值: 109, 增益名称: WuCaiShiGainNameEnum.力道, 增益类型: GainTypeEnum.力道 },
+      { 增益数值: 109, 增益名称: WuCaiShiGainNameEnum.身法, 增益类型: GainTypeEnum.身法 },
       { 增益数值: 436, 增益名称: WuCaiShiGainNameEnum.外功攻击, 增益类型: GainTypeEnum.基础攻击 },
       {
         增益数值: 1309,
@@ -22,10 +22,10 @@ const wucaishi_wuji: WuCaiShiDTO[] = [
     DiamondIntensity3: '90',
   },
   {
-    五彩石名称: '彩·真刚·锐刃·斩铁(伍)',
+    五彩石名称: '彩·瞬影·锐刃·斩铁(伍)',
     五彩石等级: 5,
     装备增益: [
-      { 增益数值: 109, 增益名称: WuCaiShiGainNameEnum.力道, 增益类型: GainTypeEnum.力道 },
+      { 增益数值: 109, 增益名称: WuCaiShiGainNameEnum.身法, 增益类型: GainTypeEnum.身法 },
       { 增益数值: 436, 增益名称: WuCaiShiGainNameEnum.外功攻击, 增益类型: GainTypeEnum.基础攻击 },
       {
         增益数值: 1950,
@@ -41,10 +41,10 @@ const wucaishi_wuji: WuCaiShiDTO[] = [
     DiamondIntensity3: '90',
   },
   {
-    五彩石名称: '彩·真刚·锐刃·痛击(伍)',
+    五彩石名称: '彩·瞬影·锐刃·痛击(伍)',
     五彩石等级: 5,
     装备增益: [
-      { 增益数值: 109, 增益名称: WuCaiShiGainNameEnum.力道, 增益类型: GainTypeEnum.力道 },
+      { 增益数值: 109, 增益名称: WuCaiShiGainNameEnum.身法, 增益类型: GainTypeEnum.身法 },
       { 增益数值: 436, 增益名称: WuCaiShiGainNameEnum.外功攻击, 增益类型: GainTypeEnum.基础攻击 },
       {
         增益数值: 1950,
@@ -60,10 +60,10 @@ const wucaishi_wuji: WuCaiShiDTO[] = [
     DiamondIntensity3: '90',
   },
   {
-    五彩石名称: '彩·真刚·斩铁·狂攻(伍)',
+    五彩石名称: '彩·瞬影·斩铁·狂攻(伍)',
     五彩石等级: 5,
     装备增益: [
-      { 增益数值: 109, 增益名称: WuCaiShiGainNameEnum.力道, 增益类型: GainTypeEnum.力道 },
+      { 增益数值: 109, 增益名称: WuCaiShiGainNameEnum.身法, 增益类型: GainTypeEnum.身法 },
       {
         增益数值: 975,
         增益名称: WuCaiShiGainNameEnum.外功破防等级,
@@ -83,10 +83,10 @@ const wucaishi_wuji: WuCaiShiDTO[] = [
     DiamondIntensity3: '90',
   },
   {
-    五彩石名称: '彩·真刚·斩铁·锐刃(伍)',
+    五彩石名称: '彩·瞬影·斩铁·锐刃(伍)',
     五彩石等级: 5,
     装备增益: [
-      { 增益数值: 109, 增益名称: WuCaiShiGainNameEnum.力道, 增益类型: GainTypeEnum.力道 },
+      { 增益数值: 109, 增益名称: WuCaiShiGainNameEnum.身法, 增益类型: GainTypeEnum.身法 },
       {
         增益数值: 975,
         增益名称: WuCaiShiGainNameEnum.外功破防等级,
@@ -106,10 +106,10 @@ const wucaishi_wuji: WuCaiShiDTO[] = [
     DiamondIntensity3: '90',
   },
   {
-    五彩石名称: '彩·真刚·斩铁·痛击(伍)',
+    五彩石名称: '彩·瞬影·斩铁·痛击(伍)',
     五彩石等级: 5,
     装备增益: [
-      { 增益数值: 109, 增益名称: WuCaiShiGainNameEnum.力道, 增益类型: GainTypeEnum.力道 },
+      { 增益数值: 109, 增益名称: WuCaiShiGainNameEnum.身法, 增益类型: GainTypeEnum.身法 },
       {
         增益数值: 975,
         增益名称: WuCaiShiGainNameEnum.外功破防等级,
@@ -129,10 +129,10 @@ const wucaishi_wuji: WuCaiShiDTO[] = [
     DiamondIntensity3: '90',
   },
   {
-    五彩石名称: '彩·真刚·痛击·狂攻(伍)',
+    五彩石名称: '彩·瞬影·痛击·狂攻(伍)',
     五彩石等级: 5,
     装备增益: [
-      { 增益数值: 109, 增益名称: WuCaiShiGainNameEnum.力道, 增益类型: GainTypeEnum.力道 },
+      { 增益数值: 109, 增益名称: WuCaiShiGainNameEnum.身法, 增益类型: GainTypeEnum.身法 },
       {
         增益数值: 975,
         增益名称: WuCaiShiGainNameEnum.外功会心效果等级,
@@ -152,10 +152,10 @@ const wucaishi_wuji: WuCaiShiDTO[] = [
     DiamondIntensity3: '90',
   },
   {
-    五彩石名称: '彩·真刚·痛击·斩铁(伍)',
+    五彩石名称: '彩·瞬影·痛击·斩铁(伍)',
     五彩石等级: 5,
     装备增益: [
-      { 增益数值: 109, 增益名称: WuCaiShiGainNameEnum.力道, 增益类型: GainTypeEnum.力道 },
+      { 增益数值: 109, 增益名称: WuCaiShiGainNameEnum.身法, 增益类型: GainTypeEnum.身法 },
       {
         增益数值: 975,
         增益名称: WuCaiShiGainNameEnum.外功会心效果等级,
@@ -175,10 +175,10 @@ const wucaishi_wuji: WuCaiShiDTO[] = [
     DiamondIntensity3: '90',
   },
   {
-    五彩石名称: '彩·真刚·痛击·锐刃(伍)',
+    五彩石名称: '彩·瞬影·痛击·锐刃(伍)',
     五彩石等级: 5,
     装备增益: [
-      { 增益数值: 109, 增益名称: WuCaiShiGainNameEnum.力道, 增益类型: GainTypeEnum.力道 },
+      { 增益数值: 109, 增益名称: WuCaiShiGainNameEnum.身法, 增益类型: GainTypeEnum.身法 },
       {
         增益数值: 975,
         增益名称: WuCaiShiGainNameEnum.外功会心效果等级,
@@ -198,10 +198,10 @@ const wucaishi_wuji: WuCaiShiDTO[] = [
     DiamondIntensity3: '90',
   },
   {
-    五彩石名称: '彩·真刚·急速·锐刃(伍)',
+    五彩石名称: '彩·瞬影·急速·锐刃(伍)',
     五彩石等级: 5,
     装备增益: [
-      { 增益数值: 109, 增益名称: WuCaiShiGainNameEnum.力道, 增益类型: GainTypeEnum.力道 },
+      { 增益数值: 109, 增益名称: WuCaiShiGainNameEnum.身法, 增益类型: GainTypeEnum.身法 },
       { 增益数值: 975, 增益名称: WuCaiShiGainNameEnum.加速等级, 增益类型: GainTypeEnum.加速 },
       { 增益数值: 873, 增益名称: WuCaiShiGainNameEnum.外功攻击, 增益类型: GainTypeEnum.基础攻击 },
     ],
