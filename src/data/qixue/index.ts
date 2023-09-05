@@ -70,7 +70,7 @@ const 奇穴数据: QixueListDTO[] = [
     奇穴列表: [
       // { 奇穴名称: '戗风', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
       // { 奇穴名称: '斩颓', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
-      { 奇穴名称: '流岚', 奇穴图片: QIXUEIMG_QIXUE },
+      { 奇穴名称: '诸怀', 奇穴图片: QIXUEIMG_QIXUE },
     ],
   },
   {

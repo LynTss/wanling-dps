@@ -1,1 +1,1 @@
-export const DOMAIN_COLOR = '#e0b356'
+export const DOMAIN_COLOR = '#a69565'

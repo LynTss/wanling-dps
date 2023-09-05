@@ -1,5 +1,5 @@
 import { TuanduiZengyi_DATA } from './../../data/tuanduizengyi/index'
-import { getMianBanGongJI, getLidaoJiachengHuixin } from '@/components/BasicSet/CharacterSet/util'
+import { getMianBanGongJI, getShenfaJiachengHuixin } from '@/components/BasicSet/CharacterSet/util'
 import { GainDpsTypeEnum } from './../../@types/enum'
 import { TargetDTO } from '@/@types/character'
 import { guoshiHuixin, guoshiHuixinLv, guoshiHuixinshanghai, guoshiResult } from '@/utils/help'
@@ -10,7 +10,7 @@ import { SkillBasicDTO, SKillGainData } from '@/@types/skill'
 import { skillFinalDps } from '@/utils/skill-dps'
 import { ZengyixuanxiangDataDTO } from '@/@types/zengyi'
 import { Zhenyan_DATA } from '@/data/zhenyan'
-import { 加成系数 } from '@/data/constant'
+// import { 加成系数 } from '@/data/constant'
 import XIAOCHI_DATA from '@/data/xiaochi'
 import ZhuangbeiGainList from '@/data/zhuangbei/zhuangbeiGain'
 
@@ -312,10 +312,10 @@ export const geSkillTotalDps = (
   // 计算身法带来的面板增益
   const 卢令郭氏身法 = 最终人物属性?.卢令 ? 102 : 0
   // 郭氏身法在是否开启卢令下的提升百分比
-  const guoLidaoPercent =
+  const guoShenfaPercent =
     (1024 + 计算郭氏身法 + 卢令郭氏身法) / 1024 / ((1024 + 卢令郭氏身法) / 1024) - 1
   // 郭式身法对人物属性身法的提升值
-  const 郭式身法对人物属性身法的提升值 = Math.floor(最终人物属性.身法 * guoLidaoPercent)
+  const 郭式身法对人物属性身法的提升值 = Math.floor(最终人物属性.身法 * guoShenfaPercent)
   // 身法数值的提升值
   const 身法提升值 =
     计算身法加成 + Math.floor((计算身法加成 * (计算郭氏身法 + 卢令郭氏身法)) / 1024)
@@ -325,12 +325,10 @@ export const geSkillTotalDps = (
   最终人物属性 = {
     ...最终人物属性,
     身法: 最终人物属性.身法 + 总身法提升值,
-    基础攻击: 最终人物属性.基础攻击 + Math.round(总身法提升值 * 加成系数.身法加成基础攻击),
-    面板攻击:
-      getMianBanGongJI(最终人物属性.面板攻击, 总身法提升值) +
-      Math.round(总身法提升值 * 加成系数.身法加成基础攻击),
-    会心值: getLidaoJiachengHuixin(最终人物属性.会心值, 总身法提升值),
-    破防值: getLidaoJiachengHuixin(最终人物属性.破防值, 总身法提升值),
+    // 基础攻击: 最终人物属性.基础攻击 + Math.round(总身法提升值 * 加成系数.身法加成基础攻击),
+    面板攻击: getMianBanGongJI(最终人物属性.面板攻击, 总身法提升值),
+    会心值: getShenfaJiachengHuixin(最终人物属性.会心值, 总身法提升值),
+    // 破防值: getShenfaJiachengHuixin(最终人物属性.破防值, 总身法提升值),
   }
 
   // 计算身法后再计算其他收益

@@ -19,7 +19,7 @@
   flex-direction: row;
   box-sizing: border-box;
   /* background: #08122b; */
-  background-image: linear-gradient(to right, #2e2917 30%, rgba(43, 37, 8, 0) 100%)
+  background-image: linear-gradient(to right, #2e2917 30%, rgba(105, 86, 5, 0.5) 100%)
 }
 
 .layout-bg {

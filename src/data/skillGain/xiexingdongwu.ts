@@ -1,9 +1,9 @@
 import { GainDpsTypeEnum, GainTypeEnum } from '../../@types/enum'
 import { SkillGainDTO } from '../../@types/skill'
 
-const commonGainDTO: SkillGainDTO[] = [
+const xiexingdongwuGainDTO: SkillGainDTO[] = [
   {
-    增益名称: '承契_自身_5层',
+    增益名称: '承契_动物_5层',
     增益所在位置: '技能',
     常驻增益: true,
     增益集合: [
@@ -16,4 +16,4 @@ const commonGainDTO: SkillGainDTO[] = [
   },
 ]
 
-export default commonGainDTO
+export default xiexingdongwuGainDTO

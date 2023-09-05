@@ -20,43 +20,43 @@ export const getFinalCharacterBasicData = (
   }
 }
 
-export const getLidao = (身法, 卢令, 额外郭氏身法 = 0) => {
+export const getShenfa = (身法, 卢令, 额外郭氏身法 = 0) => {
   return 卢令 ? 身法 + Math.floor((身法 * (102 + 额外郭氏身法 || 0)) / 1024) : 身法
 }
 
-export const getJiChuGongJI = (基础攻击, 面板身法) => {
-  const 身法加成基础攻击 = Math.round(面板身法 * 加成系数.身法加成基础攻击)
-  return 基础攻击 + 身法加成基础攻击
-}
+// export const getJiChuGongJI = (基础攻击, 面板身法) => {
+//   const 身法加成基础攻击 = Math.round(面板身法 * 加成系数.身法加成基础攻击)
+//   return 基础攻击 + 身法加成基础攻击
+// }
 
 export const getMianBanGongJI = (基础攻击, 面板身法) => {
   const 身法加成面板攻击 = Math.round(面板身法 * 加成系数.身法加成面板攻击)
   return 基础攻击 + 身法加成面板攻击
 }
 
-export const getLidaoJiachengHuixin = (会心值, 面板身法) => {
+export const getShenfaJiachengHuixin = (会心值, 面板身法) => {
   return (会心值 || 0) + Math.round(面板身法 * 加成系数.身法加成会心)
 }
 
-export const getLidaoJiachengPofang = (破防值, 面板身法) => {
-  return (破防值 || 0) + Math.round(面板身法 * 加成系数.身法加成破防)
-}
+// export const getShenfaJiachengPofang = (破防值, 面板身法) => {
+//   return (破防值 || 0) + Math.round(面板身法 * 加成系数.身法加成破防)
+// }
 
 export const getFinalCharacterBasicDataByEquipment = (
   data: EquipmentBasicDTO
 ): FinalCharterBasicDataDTO => {
   let basicDTO: CharacterBasicDTO = {
     等级: 120,
-    基础攻击: 3346,
+    基础攻击: 3277 + 6, // 心法基础3277攻击+基础41点力道增加6点攻击
     破防值: 0,
     无双值: 0,
     身法: 41,
     体质: 41,
     加速值: 0,
-    破招值: 0,
+    破招值: 12, // 基础41点力道增加12点破防
     武器伤害_最小值: 0,
     武器伤害_最大值: 0,
-    会心值: 2775 + 26, // 自带2775 自带41身法+26会心
+    会心值: 2929 + 26, // 心法基础2929+基础41点身法增加26会心
     会心效果值: 0,
   }
   let openLuLing = false
@@ -100,12 +100,12 @@ export const getFinalCharacterBasicDataByEquipment = (
   })
   let 面板身法 = basicDTO.身法
   if (openLuLing) {
-    面板身法 = getLidao(basicDTO.身法, true)
+    面板身法 = getShenfa(basicDTO.身法, true)
   }
   basicDTO.身法 = 面板身法
-  basicDTO.基础攻击 = getJiChuGongJI(basicDTO.基础攻击, 面板身法)
-  basicDTO.会心值 = getLidaoJiachengHuixin(basicDTO.会心值, 面板身法)
-  basicDTO.破防值 = getLidaoJiachengPofang(basicDTO.破防值, 面板身法)
+  basicDTO.会心值 = getShenfaJiachengHuixin(basicDTO.会心值, 面板身法)
+  // basicDTO.基础攻击 = getJiChuGongJI(basicDTO.基础攻击, 面板身法)
+  // basicDTO.破防值 = getShenfaJiachengPofang(basicDTO.破防值, 面板身法)
   const finalData = getFinalCharacterBasicData(basicDTO, openLuLing)
   return { basicData: basicDTO, finalData }
 }
