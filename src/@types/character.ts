@@ -80,9 +80,9 @@ export interface CharacterFinalDTO extends CharacterBasicDTO {
    */
   面板攻击: number
   /**
-   * @name 强膂
+   * @name 卢令
    */
-  强膂?: boolean
+  卢令?: boolean
   /**
    * @name 套装会心会效
    */

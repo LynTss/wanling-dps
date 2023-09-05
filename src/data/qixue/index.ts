@@ -61,7 +61,7 @@ const 奇穴数据: QixueListDTO[] = [
   {
     奇穴层数: '第十层',
     奇穴列表: [
-      { 奇穴名称: '强膂', 奇穴图片: QIXUEIMG_QIXUE },
+      { 奇穴名称: '卢令', 奇穴图片: QIXUEIMG_QIXUE },
       // { 奇穴名称: '抵极', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
     ],
   },

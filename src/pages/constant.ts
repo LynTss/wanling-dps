@@ -119,7 +119,7 @@ export const ZENGYI_DATA_DEFAULT = {
 
 export const DEFAULT_EQUIPMENT = {
   wucaishi: '彩·痛击·斩铁·狂攻(陆)',
-  openQiangLv: 1,
+  openLuLing: 1,
   大附魔_伤帽: 1,
   大附魔_伤衣: 1,
   大附魔_伤腰: 1,

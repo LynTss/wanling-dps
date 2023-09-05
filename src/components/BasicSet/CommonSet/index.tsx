@@ -18,7 +18,7 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
   const setCurrentTargetVal = (val) => {
     const target = 目标集合?.find((item) => item.名称 === val)
     if (target) {
-      localStorage?.setItem('当前目标', val)
+      localStorage?.setItem('wl_当前目标', val)
       dispatch(
         setCurrentTarget({
           name: val,
@@ -30,7 +30,7 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
   }
 
   const handleChangeNetwork = (val) => {
-    localStorage?.setItem('network_data', val)
+    localStorage?.setItem('wl_network_data', val)
     dispatch(setNetwork(val))
     getDpsFunction()
   }
@@ -38,7 +38,7 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
   const setCurrentCycleVal = (val) => {
     const cycle = skillCycle?.find((item) => item.name === val)?.cycle || []
     if (cycle) {
-      localStorage?.setItem('当前循环_1', val)
+      localStorage?.setItem('wl_当前循环_1', val)
       dispatch(
         setCurrentCycle({
           name: val,

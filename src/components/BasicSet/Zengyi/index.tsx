@@ -18,7 +18,7 @@ function Zengyi({ getDpsFunction }) {
   }
 
   const saveDataAndGetDps = (newData) => {
-    localStorage?.setItem('zengyi_data_2', JSON.stringify(newData))
+    localStorage?.setItem('wl_zengyi_data_2', JSON.stringify(newData))
     dispatch(setZengyixuanxiangData(newData))
     if (zengyiQiyong) {
       getDpsFunction()
@@ -27,7 +27,7 @@ function Zengyi({ getDpsFunction }) {
 
   const changeZengyiQiyong = (checked) => {
     dispatch(setZengyiQiyong(checked ? true : false))
-    localStorage?.setItem('zengyi_qiyong', (checked ? 1 : 0).toString())
+    localStorage?.setItem('wl_zengyi_qiyong', (checked ? 1 : 0).toString())
     getDpsFunction()
   }
 

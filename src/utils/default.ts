@@ -8,7 +8,7 @@ import {
 } from '@/pages/constant'
 
 export const getDefaultCharacter = () => {
-  const sessionCharacter = localStorage.getItem('character_data_basic')
+  const sessionCharacter = localStorage.getItem('wl_character_data_basic')
   if (sessionCharacter) {
     try {
       const obj = JSON.parse(sessionCharacter)
@@ -24,7 +24,7 @@ export const getDefaultCharacter = () => {
 }
 
 export const getDefaultZengyiData = () => {
-  const sessionCharacter = localStorage.getItem('zengyi_data_2')
+  const sessionCharacter = localStorage.getItem('wl_zengyi_data_2')
   if (sessionCharacter) {
     try {
       const obj = JSON.parse(sessionCharacter)
@@ -40,7 +40,7 @@ export const getDefaultZengyiData = () => {
 }
 
 export const getDefaultZengyiQiyong = () => {
-  const sessiongQiyong = localStorage.getItem('zengyi_qiyong')
+  const sessiongQiyong = localStorage.getItem('wl_zengyi_qiyong')
   if (sessiongQiyong) {
     try {
       return +sessiongQiyong ? true : false || true
@@ -53,7 +53,7 @@ export const getDefaultZengyiQiyong = () => {
 }
 
 export const getDefaultNetwork = () => {
-  const localNetwork = localStorage.getItem('network_data')
+  const localNetwork = localStorage.getItem('wl_network_data')
   if (localNetwork) {
     return +localNetwork
   } else {
@@ -62,7 +62,7 @@ export const getDefaultNetwork = () => {
 }
 
 export const getDefaultEquipment = () => {
-  const localEquipment = localStorage.getItem('zhuangbei_data_basic_1')
+  const localEquipment = localStorage.getItem('wl_zhuangbei_data_basic_1')
   if (localEquipment) {
     try {
       const obj = JSON.parse(localEquipment)
@@ -78,7 +78,7 @@ export const getDefaultEquipment = () => {
 }
 
 export const getDefaultCycle = () => {
-  const currentCycleName = localStorage.getItem('当前循环_1') || skillCycle[0]?.name
+  const currentCycleName = localStorage.getItem('wl_当前循环_1') || skillCycle[0]?.name
   return {
     name: currentCycleName,
     cycle: skillCycle.find((item) => item.name === currentCycleName)?.cycle || skillCycle[0]?.cycle,
@@ -86,7 +86,7 @@ export const getDefaultCycle = () => {
 }
 
 export const getDefaultTarget = () => {
-  const currentTargetName = localStorage.getItem('当前目标') || 目标集合[0]?.名称
+  const currentTargetName = localStorage.getItem('wl_当前目标') || 目标集合[0]?.名称
   return {
     name: currentTargetName,
     target: 目标集合.find((item) => item?.名称 === currentTargetName) || 目标集合[0],
@@ -94,15 +94,15 @@ export const getDefaultTarget = () => {
 }
 
 export const getDefaultTime = () => {
-  return +(localStorage.getItem('计算时间') || 306)
+  return +(localStorage.getItem('wl_计算时间') || 306)
 }
 
 export const getCloseBackgroundImg = () => {
-  return !!(+(localStorage.getItem('close_background_img') || '') || false)
+  return !!(+(localStorage.getItem('wl_close_background_img') || '') || false)
 }
 
 export const getDefaultMijiSelectedData = () => {
-  const localEquipment = localStorage.getItem('miji_selected_data_1')
+  const localEquipment = localStorage.getItem('wl_miji_selected_data_1')
   if (localEquipment) {
     try {
       const obj = JSON.parse(localEquipment)

@@ -197,7 +197,7 @@ const getAllDpsParams = (list) => {
     // console.log('zhuangbeiObj', zhuangbeiObj)
 
     return {
-      openQiangLv: 1,
+      openLuLing: 1,
       wucaishi: '彩·破招·斩铁·狂攻(陆)',
       大附魔_伤帽: 1,
       大附魔_伤腕: 1,

@@ -57,7 +57,7 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
   const initEquipment = (data) => {
     const newObj = {
       wucaishi: data.wucaishi,
-      openQiangLv: data.openQiangLv,
+      openLuLing: data.openLuLing,
       大附魔_伤帽: data?.大附魔_伤帽,
       大附魔_伤衣: data?.大附魔_伤衣,
       大附魔_伤腰: data?.大附魔_伤腰,
@@ -95,10 +95,10 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
   const onOk = () => {
     form.validateFields().then((value) => {
       const data = getNewEquipmentData(value)
-      localStorage?.setItem('zhuangbei_data_basic_1', JSON.stringify(data))
+      localStorage?.setItem('wl_zhuangbei_data_basic_1', JSON.stringify(data))
       dispatch(setEquipmentBasicData(data))
       const { basicData, finalData } = getFinalCharacterBasicDataByEquipment(data)
-      localStorage?.setItem('character_data_basic', JSON.stringify(basicData))
+      localStorage?.setItem('wl_character_data_basic', JSON.stringify(basicData))
       dispatch(setCharacterBasicData(basicData))
       dispatch(
         setCharacterFinalData({
@@ -144,7 +144,7 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
             res[item] &&
             ![
               'wucaishi',
-              'openQiangLv',
+              'openLuLing',
               '大附魔_伤帽',
               '大附魔_伤衣',
               '大附魔_伤腰',
@@ -454,8 +454,8 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
           <Form.Item name={`wucaishi`}>
             <WuCaiShiXuanZe />
           </Form.Item>
-          <Form.Item className="zhuangbei-input-set-modal-form-qianglv" name={`openQiangLv`}>
-            <ValueCheckBox>启用强膂</ValueCheckBox>
+          <Form.Item className="zhuangbei-input-set-modal-form-luling" name={`openLuLing`}>
+            <ValueCheckBox>启用卢令</ValueCheckBox>
           </Form.Item>
           {zhuangbeizengyi ? (
             <div className={'zhuangbei-zengyi-wrapper'}>

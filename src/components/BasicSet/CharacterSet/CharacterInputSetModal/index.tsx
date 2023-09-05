@@ -22,7 +22,7 @@ function CharacterInputSetModal({ visible, onClose }) {
   }, [visible])
 
   const beforeOnchange = (value) => {
-    localStorage?.setItem('character_data_basic', JSON.stringify(value))
+    localStorage?.setItem('wl_character_data_basic', JSON.stringify(value))
     dispatch(setCharacterBasicData(value))
     const final = getFinalCharacterBasicData(value, false)
     dispatch(setCharacterFinalData(final))
@@ -44,7 +44,7 @@ function CharacterInputSetModal({ visible, onClose }) {
         <Form.Item label={'身法'} name="身法">
           <InputNumber min={0} max={99999999} />
         </Form.Item>
-        {/* <Form.Item label={'强膂'} name="强膂">
+        {/* <Form.Item label={'卢令'} name="卢令">
           <ValueCheckBox />
         </Form.Item> */}
         <Form.Item label={'基础攻击'} name="基础攻击">

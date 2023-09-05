@@ -11,17 +11,17 @@ import { jinglianJieguo } from '@/utils/help'
 
 export const getFinalCharacterBasicData = (
   data: CharacterBasicDTO,
-  openQiangLv: boolean
+  openLuLing: boolean
 ): CharacterFinalDTO => {
   return {
     ...data,
-    强膂: openQiangLv,
+    卢令: openLuLing,
     面板攻击: getMianBanGongJI(data?.基础攻击, data?.身法),
   }
 }
 
-export const getLidao = (身法, 强膂, 额外郭氏身法 = 0) => {
-  return 强膂 ? 身法 + Math.floor((身法 * (102 + 额外郭氏身法 || 0)) / 1024) : 身法
+export const getLidao = (身法, 卢令, 额外郭氏身法 = 0) => {
+  return 卢令 ? 身法 + Math.floor((身法 * (102 + 额外郭氏身法 || 0)) / 1024) : 身法
 }
 
 export const getJiChuGongJI = (基础攻击, 面板身法) => {
@@ -59,10 +59,10 @@ export const getFinalCharacterBasicDataByEquipment = (
     会心值: 2775 + 26, // 自带2775 自带41身法+26会心
     会心效果值: 0,
   }
-  let openQiangLv = false
+  let openLuLing = false
   Object.keys(data).map((item) => {
-    if (item === 'openQiangLv') {
-      openQiangLv = data[item] ? true : false
+    if (item === 'openLuLing') {
+      openLuLing = data[item] ? true : false
     } else if (item === 'wucaishi') {
       const wucaishi = WUCAISHI_DATA[5]
         .concat(WUCAISHI_DATA[6])
@@ -99,14 +99,14 @@ export const getFinalCharacterBasicDataByEquipment = (
     }
   })
   let 面板身法 = basicDTO.身法
-  if (openQiangLv) {
+  if (openLuLing) {
     面板身法 = getLidao(basicDTO.身法, true)
   }
   basicDTO.身法 = 面板身法
   basicDTO.基础攻击 = getJiChuGongJI(basicDTO.基础攻击, 面板身法)
   basicDTO.会心值 = getLidaoJiachengHuixin(basicDTO.会心值, 面板身法)
   basicDTO.破防值 = getLidaoJiachengPofang(basicDTO.破防值, 面板身法)
-  const finalData = getFinalCharacterBasicData(basicDTO, openQiangLv)
+  const finalData = getFinalCharacterBasicData(basicDTO, openLuLing)
   return { basicData: basicDTO, finalData }
 }
 

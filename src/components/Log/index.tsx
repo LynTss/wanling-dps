@@ -12,14 +12,14 @@ function Log() {
   }, [])
 
   const checkLogVersion = () => {
-    const storageVersion = localStorage.getItem('new_log_version')
+    const storageVersion = localStorage.getItem('wl_new_log_version')
     if (!storageVersion || storageVersion !== log_data?.[0]?.version) {
       setNewVersionModalVisible(true)
     }
   }
 
   const handleCloseNew = () => {
-    localStorage?.setItem('new_log_version', log_data?.[0]?.version)
+    localStorage?.setItem('wl_new_log_version', log_data?.[0]?.version)
     setNewVersionModalVisible(false)
   }
 

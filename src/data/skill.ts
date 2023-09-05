@@ -5,27 +5,12 @@ import fenjiaoGainDTO from './skillGain/fenjiaoshi'
 import liukeyuGainDTO from './skillGain/liukeyu'
 import jidianshiGainDTO from './skillGain/jidianshi'
 import qiluoshiGainDTO from './skillGain/qiluoshi'
-import canglangsandie1GainDTO from './skillGain/canglangsandie1'
-import canglangsandie2GainDTO from './skillGain/canglangsandie2'
-import canglangsandie3GainDTO from './skillGain/canglangsandie3'
-import hengyunduanlangGainDTO from './skillGain/hengyunduanlang'
-import gufengduanlangGainDTO from './skillGain/gufengduanlang'
-import chushiyuGainDTO from './skillGain/chushiyu'
 import bishijixuGainDTO from './skillGain/bishijixu'
 import { GainDpsTypeEnum, GainTypeEnum } from '@/@types/enum'
 
 const WanlingSkillDataDTO: SkillBasicDTO[] = [
   {
-    技能名称: '行云势·神兵',
-    技能伤害系数: 0.375,
-    技能基础伤害_最小值: 20,
-    技能基础伤害_最大值: 22,
-    武器伤害系数: 0,
-    伤害计算次数: 1,
-    技能增益列表: commonGainDTO,
-  },
-  {
-    技能名称: '行云势·一',
+    技能名称: '劲风簇',
     技能伤害系数: 1.2656,
     技能基础伤害_最小值: 180,
     技能基础伤害_最大值: 195,
@@ -34,25 +19,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能增益列表: fenjiaoGainDTO,
   },
   {
-    技能名称: '行云势·二',
-    技能伤害系数: 1.4906,
-    技能基础伤害_最小值: 216,
-    技能基础伤害_最大值: 234,
-    武器伤害系数: 1.5, // !描述1 实测1.5
-    伤害计算次数: 1,
-    技能增益列表: fenjiaoGainDTO,
-  },
-  {
-    技能名称: '行云势·三',
-    技能伤害系数: 2.6688,
-    技能基础伤害_最小值: 270,
-    技能基础伤害_最大值: 292,
-    武器伤害系数: 2,
-    伤害计算次数: 1,
-    技能增益列表: fenjiaoGainDTO,
-  },
-  {
-    技能名称: '停云势',
+    技能名称: '驰风鸣角',
     技能伤害系数: 2.25 * 0.9,
     技能基础伤害_最小值: 405,
     技能基础伤害_最大值: 420,
@@ -61,7 +28,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能增益列表: guyingshiGainDTO,
   },
   {
-    技能名称: '留客雨',
+    技能名称: '霖急簇',
     技能伤害系数: 1.25,
     技能基础伤害_最小值: 165,
     技能基础伤害_最大值: 181,
@@ -70,7 +37,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能增益列表: liukeyuGainDTO,
   },
   {
-    技能名称: '避实击虚',
+    技能名称: '白羽流星',
     技能伤害系数: 0.5,
     技能基础伤害_最小值: 35,
     技能基础伤害_最大值: 40,
@@ -79,7 +46,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能增益列表: bishijixuGainDTO,
   },
   {
-    技能名称: '决云势',
+    技能名称: '驰风鸣角',
     技能伤害系数: 1.175,
     技能基础伤害_最小值: 196,
     技能基础伤害_最大值: 202,
@@ -88,7 +55,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能增益列表: jidianshiGainDTO,
   },
   {
-    技能名称: '驰风八步·一',
+    技能名称: '流矢雨集',
     技能伤害系数: 0.2813,
     技能基础伤害_最小值: 10,
     技能基础伤害_最大值: 15,
@@ -97,7 +64,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能增益列表: commonGainDTO,
   },
   {
-    技能名称: '驰风八步·二',
+    技能名称: '没石饮羽',
     技能伤害系数: 0.375,
     技能基础伤害_最小值: 10,
     技能基础伤害_最大值: 15,
@@ -106,112 +73,13 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能增益列表: commonGainDTO,
   },
   {
-    技能名称: '断云势',
+    技能名称: '金乌见坠',
     技能伤害系数: 2.374982461 * 0.9,
     技能基础伤害_最小值: 172,
     技能基础伤害_最大值: 194,
     武器伤害系数: 2.5,
     伤害计算次数: 1,
     技能增益列表: qiluoshiGainDTO,
-  },
-  {
-    技能名称: '断云势·额外伤害',
-    技能伤害系数: 0.95,
-    技能基础伤害_最小值: 69,
-    技能基础伤害_最大值: 78,
-    武器伤害系数: 2,
-    伤害计算次数: 1,
-    技能增益列表: qiluoshiGainDTO,
-  },
-  {
-    技能名称: '沧浪三叠·一',
-    技能伤害系数: 1.4375,
-    技能基础伤害_最小值: 293,
-    技能基础伤害_最大值: 316,
-    武器伤害系数: 2,
-    伤害计算次数: 1,
-    技能增益列表: canglangsandie1GainDTO,
-  },
-  {
-    技能名称: '沧浪三叠·二',
-    技能伤害系数: 1.5938,
-    技能基础伤害_最小值: 267,
-    技能基础伤害_最大值: 288,
-    武器伤害系数: 2.5,
-    伤害计算次数: 1,
-    技能增益列表: canglangsandie2GainDTO,
-  },
-  {
-    技能名称: '沧浪三叠·三',
-    技能伤害系数: 1.8125,
-    技能基础伤害_最小值: 204,
-    技能基础伤害_最大值: 220,
-    武器伤害系数: 3,
-    伤害计算次数: 1,
-    技能增益列表: canglangsandie3GainDTO,
-  },
-  {
-    技能名称: '横云断浪',
-    技能伤害系数: 2.8125 * 0.8,
-    技能基础伤害_最小值: 721,
-    技能基础伤害_最大值: 809,
-    武器伤害系数: 3,
-    伤害计算次数: 1,
-    技能增益列表: hengyunduanlangGainDTO,
-  },
-  {
-    技能名称: '孤锋破浪',
-    技能伤害系数: 4.0625 * 0.9 * 0.85 * 0.9,
-    技能基础伤害_最小值: 1450,
-    技能基础伤害_最大值: 1525,
-    武器伤害系数: 1,
-    伤害计算次数: 1,
-    技能增益列表: gufengduanlangGainDTO,
-  },
-  {
-    技能名称: '界破',
-    技能伤害系数: 2.187519428038545,
-    技能基础伤害_最小值: 160,
-    技能基础伤害_最大值: 477,
-    武器伤害系数: 0,
-    伤害计算次数: 1,
-    技能增益列表: commonGainDTO,
-  },
-  {
-    技能名称: '触石雨',
-    技能伤害系数: 1.25,
-    技能基础伤害_最小值: 180,
-    技能基础伤害_最大值: 189,
-    武器伤害系数: 0,
-    伤害计算次数: 1,
-    技能增益列表: chushiyuGainDTO,
-  },
-  {
-    技能名称: '截辕',
-    技能伤害系数: 2.125 * 0.75,
-    技能基础伤害_最小值: 77,
-    技能基础伤害_最大值: 102,
-    武器伤害系数: 0,
-    伤害计算次数: 1,
-    技能增益列表: commonGainDTO,
-  },
-  {
-    技能名称: '截辕（DOT）',
-    技能伤害系数: 0.42 * 0.75,
-    技能基础伤害_最小值: 0,
-    技能基础伤害_最大值: 0,
-    武器伤害系数: 0,
-    伤害计算次数: 1,
-    技能增益列表: commonGainDTO,
-  },
-  {
-    技能名称: '截辕·爆炸',
-    技能伤害系数: 2.5,
-    技能基础伤害_最小值: 109,
-    技能基础伤害_最大值: 147,
-    武器伤害系数: 0,
-    伤害计算次数: 1,
-    技能增益列表: commonGainDTO,
   },
   {
     技能名称: '云刀',
@@ -223,7 +91,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能增益列表: commonGainDTO,
   },
   {
-    技能名称: '流血·一',
+    技能名称: '标鹄',
     技能伤害系数: 0.21215,
     技能基础伤害_最小值: 0,
     技能基础伤害_最大值: 0,
@@ -232,7 +100,16 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能增益列表: commonGainDTO,
   },
   {
-    技能名称: '流血·二',
+    技能名称: '贯穿·一',
+    技能伤害系数: 0.21215,
+    技能基础伤害_最小值: 0,
+    技能基础伤害_最大值: 0,
+    武器伤害系数: 0,
+    伤害计算次数: 1,
+    技能增益列表: commonGainDTO,
+  },
+  {
+    技能名称: '贯穿·二',
     技能伤害系数: 0.21215,
     技能基础伤害_最小值: 0,
     技能基础伤害_最大值: 0,
@@ -241,7 +118,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能增益列表: commonGainDTO,
   },
   {
-    技能名称: '流血·三',
+    技能名称: '贯穿·三',
     技能伤害系数: 0.21215,
     技能基础伤害_最小值: 0,
     技能基础伤害_最大值: 0,
@@ -250,7 +127,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能增益列表: commonGainDTO,
   },
   {
-    技能名称: '流血·四',
+    技能名称: '贯穿·四',
     技能伤害系数: 0.21215,
     技能基础伤害_最小值: 0,
     技能基础伤害_最大值: 0,
@@ -259,7 +136,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能增益列表: commonGainDTO,
   },
   {
-    技能名称: '流血·五',
+    技能名称: '贯穿·五',
     技能伤害系数: 0.21215,
     技能基础伤害_最小值: 0,
     技能基础伤害_最大值: 0,
@@ -268,7 +145,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能增益列表: commonGainDTO,
   },
   {
-    技能名称: '流血·六',
+    技能名称: '贯穿·六',
     技能伤害系数: 0.21215,
     技能基础伤害_最小值: 0,
     技能基础伤害_最大值: 0,
@@ -277,18 +154,9 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能增益列表: commonGainDTO,
   },
   {
-    技能名称: '凝神势·破锋',
-    技能伤害系数: 1.46873461349,
-    技能基础伤害_最小值: 0,
-    技能基础伤害_最大值: 0,
-    武器伤害系数: 2,
-    伤害计算次数: 1,
-    技能增益列表: commonGainDTO,
-  },
-  {
     技能名称: '破',
     // 技能伤害系数: 13.1925 * 0.48 * 1.05, // 修改过一次 原来没有1.05
-    技能伤害系数: 13.1925 * 0.48, // 修改过一次 原来没有1.05
+    技能伤害系数: 13.1925 * 0.15, // 修改过一次 原来没有1.05
     技能基础伤害_最小值: 0,
     技能基础伤害_最大值: 0,
     武器伤害系数: 0,

@@ -19,9 +19,9 @@ export interface EquipmentBasicDTO {
    */
   wucaishi: string
   /**
-   * @name 奇穴是否启用强膂
+   * @name 奇穴是否启用卢令
    */
-  openQiangLv: boolean
+  openLuLing: boolean
   /**
    * @name 套装双会
    */
