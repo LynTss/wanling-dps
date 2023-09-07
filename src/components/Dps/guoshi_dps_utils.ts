@@ -49,104 +49,12 @@ export const getDpsTotal = (props: GetDpsTotalParams) => {
   const 最终人物属性 = {
     ...characterFinalData,
   }
-  let 总增益集合: SKillGainData[] = []
-  const 最终循环: CycleDTO[] = [...currentCycle]
 
-  // 流岚奇穴更改后删除
-  const 开启流岚 = true
+  // 获取装备增益等带来的最终增益集合
+  let 总增益集合: SKillGainData[] = getAllGainData(characterFinalData, [])
 
-  if (开启流岚 == true) {
-    总增益集合 = 总增益集合.concat([
-      {
-        增益计算类型: GainDpsTypeEnum.B,
-        增益类型: GainTypeEnum.郭氏无视防御,
-        // 增益数值: 358,
-        增益数值: 410,
-      },
-    ])
-  }
-  if (characterFinalData?.套装会心会效) {
-    // 偷懒覆盖率测试80%左右
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.套装会心会效)
-  }
-  if (characterFinalData?.切糕会心 && characterFinalData?.切糕会心 > 0) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.切糕会心)
-  }
-  if (characterFinalData?.切糕无双 && characterFinalData?.切糕无双 > 0) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.切糕无双)
-  }
-  if (characterFinalData?.切糕会心_2 && characterFinalData?.切糕会心_2 > 0) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.切糕会心_2)
-  }
-  if (characterFinalData?.切糕无双_2 && characterFinalData?.切糕无双_2 > 0) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.切糕无双_2)
-  }
-  if (characterFinalData?.冬至套装) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.冬至套装)
-  }
-  if (characterFinalData?.水特效武器) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.水特效武器)
-  }
-  if (characterFinalData?.水特效武器_2) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.水特效武器_2)
-  }
-  if (characterFinalData?.龙门武器) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.龙门武器)
-    最终循环.push({
-      技能名称: '剑风',
-      技能数量: Math.floor((dpsTime * 6) / 30),
-      技能增益列表: [{ 增益名称: '灭影随风', 增益技能数: Math.floor(((dpsTime * 6) / 30) * 0.4) }],
-    })
-  }
-  if (characterFinalData?.风特效腰坠) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.风特效腰坠)
-  }
-  if (characterFinalData?.风特效腰坠_2) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.风特效腰坠_2)
-  }
-  // 大附魔增益
-  if (characterFinalData?.大附魔_伤帽) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.大附魔_伤帽)
-  }
-  if (characterFinalData?.大附魔_伤衣) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.大附魔_伤衣)
-  }
-  if (characterFinalData?.大附魔_伤腰) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.大附魔_伤腰)
-  }
-  if (characterFinalData?.大附魔_伤腕) {
-    最终循环.push({
-      技能名称: '昆吾·弦刃',
-      技能数量: Math.floor(dpsTime / 10),
-      技能增益列表: [{ 增益名称: '灭影随风', 增益技能数: Math.floor((dpsTime / 10) * 0.4) }],
-    })
-  }
-  if (characterFinalData?.大附魔_伤鞋) {
-    最终循环.push({
-      技能名称: '刃凌',
-      技能数量: Math.floor(dpsTime / 10),
-      技能增益列表: [{ 增益名称: '灭影随风', 增益技能数: Math.floor((dpsTime / 10) * 0.4) }],
-    })
-  }
-  if (characterFinalData?.大橙武特效) {
-    const 行总数列表 = 最终循环
-      .filter((i) => i.技能名称.includes('行云势'))
-      .map((i) => {
-        return { 技能数量: i.技能数量, 灭影数量: i.技能增益列表?.[0]?.增益技能数 }
-      })
-    let 行总数 = 0
-    let 灭影行总数 = 0
-    const 触发率 = 0.5
-    行总数列表.forEach((i) => {
-      行总数 = 行总数 + i.技能数量
-      灭影行总数 = 灭影行总数 + (i?.灭影数量 || 0)
-    })
-    最终循环.push({
-      技能名称: '行云势·神兵',
-      技能数量: Math.floor(行总数 * 触发率),
-      技能增益列表: [{ 增益名称: '灭影随风', 增益技能数: Math.floor(灭影行总数 * 触发率) }],
-    })
-  }
+  // 根据增益信息修改最终循环内容
+  const 最终循环: CycleDTO[] = getFinalCycleData(characterFinalData, [...currentCycle], dpsTime)
 
   if (zengyiQiyong && zengyixuanxiangData) {
     const 团队增益增益集合 = getZengyi(zengyixuanxiangData)
@@ -181,6 +89,114 @@ export const getDpsTotal = (props: GetDpsTotalParams) => {
   })
 
   return { totalDps: total, dpsList }
+}
+
+// 根据增益信息修改最终循环内容
+export const getFinalCycleData = (characterFinalData, currentCycle, dpsTime): CycleDTO[] => {
+  const 最终循环: CycleDTO[] = [...currentCycle]
+  if (characterFinalData?.装备增益?.大附魔_伤腕) {
+    最终循环.push({
+      技能名称: '昆吾·弦刃',
+      技能数量: Math.floor(dpsTime / 10),
+      技能增益列表: [{ 增益名称: '灭影随风', 增益技能数: Math.floor((dpsTime / 10) * 0.4) }],
+    })
+  }
+  if (characterFinalData?.装备增益?.大附魔_伤鞋) {
+    最终循环.push({
+      技能名称: '刃凌',
+      技能数量: Math.floor(dpsTime / 10),
+      技能增益列表: [{ 增益名称: '灭影随风', 增益技能数: Math.floor((dpsTime / 10) * 0.4) }],
+    })
+  }
+  if (characterFinalData?.装备增益?.大橙武特效) {
+    const 行总数列表 = 最终循环
+      .filter((i) => i.技能名称.includes('行云势'))
+      .map((i) => {
+        return { 技能数量: i.技能数量, 灭影数量: i.技能增益列表?.[0]?.增益技能数 }
+      })
+    let 行总数 = 0
+    let 灭影行总数 = 0
+    const 触发率 = 0.5
+    行总数列表.forEach((i) => {
+      行总数 = 行总数 + i.技能数量
+      灭影行总数 = 灭影行总数 + (i?.灭影数量 || 0)
+    })
+    最终循环.push({
+      技能名称: '行云势·神兵',
+      技能数量: Math.floor(行总数 * 触发率),
+      技能增益列表: [{ 增益名称: '灭影随风', 增益技能数: Math.floor(灭影行总数 * 触发率) }],
+    })
+  }
+  if (characterFinalData?.装备增益?.龙门武器) {
+    最终循环.push({
+      技能名称: '剑风',
+      技能数量: Math.floor((dpsTime * 6) / 30),
+      技能增益列表: [{ 增益名称: '灭影随风', 增益技能数: Math.floor(((dpsTime * 6) / 30) * 0.4) }],
+    })
+  }
+  return 最终循环
+}
+
+// 统计增益，获取增益的集合
+export const getAllGainData = (characterFinalData, defaultGainData?): SKillGainData[] => {
+  let 总增益集合: SKillGainData[] = [...(defaultGainData || [])]
+
+  // 诸怀奇穴更改后删除
+  const 开启诸怀 = true
+  if (开启诸怀 == true) {
+    总增益集合 = 总增益集合.concat([
+      {
+        增益计算类型: GainDpsTypeEnum.B,
+        增益类型: GainTypeEnum.郭氏无视防御,
+        增益数值: 512,
+      },
+    ])
+  }
+  if (characterFinalData?.装备增益?.套装会心会效) {
+    // 偷懒覆盖率测试80%左右
+    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.套装会心会效)
+  }
+  if (characterFinalData?.装备增益?.切糕会心 && characterFinalData?.装备增益?.切糕会心 > 0) {
+    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.切糕会心)
+  }
+  if (characterFinalData?.装备增益?.切糕无双 && characterFinalData?.装备增益?.切糕无双 > 0) {
+    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.切糕无双)
+  }
+  if (characterFinalData?.装备增益?.切糕会心_2 && characterFinalData?.装备增益?.切糕会心_2 > 0) {
+    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.切糕会心_2)
+  }
+  if (characterFinalData?.装备增益?.切糕无双_2 && characterFinalData?.装备增益?.切糕无双_2 > 0) {
+    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.切糕无双_2)
+  }
+  if (characterFinalData?.装备增益?.冬至套装) {
+    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.冬至套装)
+  }
+  if (characterFinalData?.装备增益?.水特效武器) {
+    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.水特效武器)
+  }
+  if (characterFinalData?.装备增益?.水特效武器_2) {
+    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.水特效武器_2)
+  }
+  if (characterFinalData?.装备增益?.风特效腰坠) {
+    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.风特效腰坠)
+  }
+  if (characterFinalData?.装备增益?.风特效腰坠_2) {
+    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.风特效腰坠_2)
+  }
+  // 大附魔增益
+  if (characterFinalData?.装备增益?.大附魔_伤帽) {
+    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.大附魔_伤帽)
+  }
+  if (characterFinalData?.装备增益?.大附魔_伤衣) {
+    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.大附魔_伤衣)
+  }
+  if (characterFinalData?.装备增益?.大附魔_伤腰) {
+    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.大附魔_伤腰)
+  }
+  if (characterFinalData?.装备增益?.龙门武器) {
+    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.龙门武器)
+  }
+  return 总增益集合
 }
 
 // 获取循环内某个技能的总dps
@@ -445,7 +461,7 @@ const getSkillDamage = (
  * 计算不同的增益对属性、技能增伤的影响
  * 返回最终参与技能伤害计算的人物属性、技能增伤等数据
  */
-const switchGain = (
+export const switchGain = (
   人物属性: CharacterFinalDTO,
   增益: SKillGainData,
   当前目标: TargetDTO,
@@ -569,7 +585,7 @@ const switchGain = (
  * @name 该技能数量下同时计算的多个增益的增益集合
  * getGainList
  */
-const getGainList = (增益: CycleGain, 当前技能属性: SkillBasicDTO) => {
+export const getGainList = (增益: CycleGain, 当前技能属性: SkillBasicDTO) => {
   // 将该数量下同时计算的多个增益转为数组
   const gainNameList = 增益.增益名称.split(',')
 
@@ -589,7 +605,7 @@ const getGainList = (增益: CycleGain, 当前技能属性: SkillBasicDTO) => {
 /**
  * 计算增益选项带来的增益。获取增益集合
  */
-const getZengyi = (增益数据: ZengyixuanxiangDataDTO): SKillGainData[] => {
+export const getZengyi = (增益数据: ZengyixuanxiangDataDTO): SKillGainData[] => {
   let 增益集合: SKillGainData[] = []
 
   if (增益数据?.小吃) {
@@ -637,7 +653,7 @@ const getZengyi = (增益数据: ZengyixuanxiangDataDTO): SKillGainData[] => {
 }
 
 // 对增益进行排序
-const getSortZengyiList = (list: SKillGainData[]): SKillGainData[] => {
+export const getSortZengyiList = (list: SKillGainData[]): SKillGainData[] => {
   const SortKeyList = Object.keys(GainTypeEnum)
   const newList = [...list]
 

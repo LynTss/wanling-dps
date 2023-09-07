@@ -1,17 +1,20 @@
-import { 每等级减伤, 非侠系数 } from '@/data/constant'
 // !收益采用非郭式算法
-import { TuanduiZengyi_DATA } from './../../../data/tuanduizengyi/index'
-import { GainDpsTypeEnum } from './../../../@types/enum'
+import { 每等级减伤, 非侠系数 } from '@/data/constant'
 import { TargetDTO } from '@/@types/character'
 import { CharacterFinalDTO } from '@/@types/character'
-import { CycleDTO, CycleGain } from '@/@types/cycle'
+import { CycleDTO } from '@/@types/cycle'
 import { GainTypeEnum } from '@/@types/enum'
 import { SkillBasicDTO, SKillGainData } from '@/@types/skill'
 import { ZengyixuanxiangDataDTO } from '@/@types/zengyi'
-import { Zhenyan_DATA } from '@/data/zhenyan'
 import { 加成系数, 属性系数 } from '@/data/constant'
-import XIAOCHI_DATA from '@/data/xiaochi'
-import ZhuangbeiGainList from '@/data/zhuangbei/zhuangbeiGain'
+import {
+  getAllGainData,
+  getFinalCycleData,
+  getGainList,
+  getSortZengyiList,
+  getZengyi,
+  switchGain,
+} from './guoshi_dps_utils'
 
 interface GetDpsTotalParams {
   currentCycle: CycleDTO[]
@@ -37,9 +40,9 @@ export const getNotGuoDpsTotal = (props: GetDpsTotalParams) => {
     characterFinalData,
     当前目标,
     skillBasicData,
+    dpsTime,
     zengyiQiyong,
     zengyixuanxiangData,
-    dpsTime,
     默认增益集合,
   } = props
   // 总dps
@@ -50,106 +53,12 @@ export const getNotGuoDpsTotal = (props: GetDpsTotalParams) => {
   const 最终人物属性 = {
     ...characterFinalData,
   }
-  let 总增益集合: SKillGainData[] = [...(默认增益集合 || [])]
-  const 最终循环: CycleDTO[] = [...currentCycle]
 
-  // 流岚奇穴更改后删除
-  const 开启诸怀 = true
+  // 获取装备增益等带来的最终增益集合
+  let 总增益集合: SKillGainData[] = getAllGainData(characterFinalData, 默认增益集合)
 
-  if (开启诸怀 == true) {
-    总增益集合 = 总增益集合.concat([
-      {
-        增益计算类型: GainDpsTypeEnum.B,
-        增益类型: GainTypeEnum.郭氏无视防御,
-        // 增益数值: 358,
-        // 增益数值: 410,
-        增益数值: 512,
-      },
-    ])
-  }
-  if (characterFinalData?.套装会心会效) {
-    // 偷懒覆盖率测试80%左右
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.套装会心会效)
-  }
-  if (characterFinalData?.切糕会心 && characterFinalData?.切糕会心 > 0) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.切糕会心)
-  }
-  if (characterFinalData?.切糕无双 && characterFinalData?.切糕无双 > 0) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.切糕无双)
-  }
-  if (characterFinalData?.切糕会心_2 && characterFinalData?.切糕会心_2 > 0) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.切糕会心_2)
-  }
-  if (characterFinalData?.切糕无双_2 && characterFinalData?.切糕无双_2 > 0) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.切糕无双_2)
-  }
-  if (characterFinalData?.冬至套装) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.冬至套装)
-  }
-  if (characterFinalData?.水特效武器) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.水特效武器)
-  }
-  if (characterFinalData?.水特效武器_2) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.水特效武器_2)
-  }
-  if (characterFinalData?.龙门武器) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.龙门武器)
-    最终循环.push({
-      技能名称: '剑风',
-      技能数量: Math.floor((dpsTime * 6) / 30),
-      技能增益列表: [{ 增益名称: '灭影随风', 增益技能数: Math.floor(((dpsTime * 6) / 30) * 0.4) }],
-    })
-  }
-  if (characterFinalData?.风特效腰坠) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.风特效腰坠)
-  }
-  if (characterFinalData?.风特效腰坠_2) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.风特效腰坠_2)
-  }
-  // 大附魔增益
-  if (characterFinalData?.大附魔_伤帽) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.大附魔_伤帽)
-  }
-  if (characterFinalData?.大附魔_伤衣) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.大附魔_伤衣)
-  }
-  if (characterFinalData?.大附魔_伤腰) {
-    总增益集合 = 总增益集合.concat(ZhuangbeiGainList.大附魔_伤腰)
-  }
-  if (characterFinalData?.大附魔_伤腕) {
-    最终循环.push({
-      技能名称: '昆吾·弦刃',
-      技能数量: Math.floor(dpsTime / 10),
-      技能增益列表: [{ 增益名称: '灭影随风', 增益技能数: Math.floor((dpsTime / 10) * 0.4) }],
-    })
-  }
-  if (characterFinalData?.大附魔_伤鞋) {
-    最终循环.push({
-      技能名称: '刃凌',
-      技能数量: Math.floor(dpsTime / 10),
-      技能增益列表: [{ 增益名称: '灭影随风', 增益技能数: Math.floor((dpsTime / 10) * 0.4) }],
-    })
-  }
-
-  if (characterFinalData?.大橙武特效) {
-    const 行总数列表 = 最终循环
-      .filter((i) => i.技能名称.includes('行云势'))
-      .map((i) => {
-        return { 技能数量: i.技能数量, 灭影数量: i.技能增益列表?.[0]?.增益技能数 }
-      })
-    let 行总数 = 0
-    let 灭影行总数 = 0
-    const 触发率 = 0.5
-    行总数列表.forEach((i) => {
-      行总数 = 行总数 + i.技能数量
-      灭影行总数 = 灭影行总数 + (i?.灭影数量 || 0)
-    })
-    最终循环.push({
-      技能名称: '行云势·神兵',
-      技能数量: Math.floor(行总数 * 触发率),
-      技能增益列表: [{ 增益名称: '灭影随风', 增益技能数: Math.floor(灭影行总数 * 触发率) }],
-    })
-  }
+  // 根据增益信息修改最终循环内容
+  const 最终循环: CycleDTO[] = getFinalCycleData(characterFinalData, [...currentCycle], dpsTime)
 
   if (zengyiQiyong && zengyixuanxiangData) {
     const 团队增益增益集合 = getZengyi(zengyixuanxiangData)
@@ -441,234 +350,6 @@ const getSkillDamage = (
 }
 
 /**
- * 计算不同的增益对属性、技能增伤的影响
- * 返回最终参与技能伤害计算的人物属性、技能增伤等数据
- */
-const switchGain = (
-  人物属性: CharacterFinalDTO,
-  增益: SKillGainData,
-  当前目标: TargetDTO,
-  技能增伤: number,
-  郭氏额外会效果值: number,
-  额外会心率: number,
-  郭式无视防御: number,
-  计算身法加成: number,
-  计算郭氏身法: number,
-  计算郭氏无双等级: number,
-  计算郭氏破防等级: number,
-  计算郭氏基础攻击: number,
-  计算郭氏武器伤害: number
-) => {
-  const { 增益数值, 增益类型, 增益计算类型 } = 增益
-  const 计算后人物属性 = { ...人物属性 }
-  let 计算后技能增伤 = 技能增伤
-  let 计算后郭氏额外会效果值 = 郭氏额外会效果值
-  let 计算后额外会心率 = 额外会心率
-  let 计算后目标 = 当前目标
-  let 计算后郭式无视防御 = 郭式无视防御
-  let 计算后身法加成 = 计算身法加成
-  let 计算后郭氏身法 = 计算郭氏身法
-  let 计算后郭氏无双等级 = 计算郭氏无双等级
-  let 计算后郭氏破防等级 = 计算郭氏破防等级
-  let 计算后郭氏基础攻击 = 计算郭氏基础攻击
-  let 计算后郭氏武器伤害 = 计算郭氏武器伤害
-
-  switch (增益类型) {
-    case GainTypeEnum.基础攻击:
-      计算后人物属性.基础攻击 = 计算后人物属性.基础攻击 + 增益数值
-      计算后人物属性.面板攻击 = 计算后人物属性.面板攻击 + 增益数值
-      break
-    case GainTypeEnum.外攻破防等级:
-      计算后人物属性.破防值 = 计算后人物属性.破防值 + 增益数值
-      break
-    case GainTypeEnum.外攻会心等级:
-      计算后人物属性.会心值 = 计算后人物属性.会心值 + 增益数值
-      break
-    case GainTypeEnum.破招:
-      计算后人物属性.破招值 = 计算后人物属性.破招值 + 增益数值
-      break
-    case GainTypeEnum.无视防御:
-      if (计算后目标.防御点数 - 增益数值 > 0) {
-        计算后目标 = {
-          ...计算后目标,
-          防御点数: 计算后目标.防御点数 - 增益数值,
-        }
-      } else {
-        计算后目标 = {
-          ...计算后目标,
-          防御点数: 0,
-        }
-      }
-      break
-    case GainTypeEnum.身法:
-      计算后身法加成 = 计算后身法加成 + 增益数值
-      break
-    case GainTypeEnum.无双等级:
-      计算后人物属性.无双值 = 计算后人物属性.无双值 + 增益数值
-      break
-    case GainTypeEnum.近战武器伤害:
-      计算后人物属性.武器伤害_最小值 += 增益数值
-      计算后人物属性.武器伤害_最大值 += 增益数值
-      break
-    case GainTypeEnum.加速:
-      计算后人物属性.加速值 = 计算后人物属性.加速值 + 增益数值
-      break
-    case GainTypeEnum.外攻会心效果等级:
-      计算后人物属性.会心效果值 = 计算后人物属性.会心效果值 + 增益数值
-      break
-    case GainTypeEnum.郭氏外攻会心效果等级:
-      计算后郭氏额外会效果值 = 计算后郭氏额外会效果值 + 增益数值
-      break
-    case GainTypeEnum.外攻会心百分比:
-      计算后额外会心率 = 计算后额外会心率 + 增益数值
-      break
-    case GainTypeEnum.郭氏无视防御:
-      计算后郭式无视防御 = 计算后郭式无视防御 + 增益数值
-      break
-    case GainTypeEnum.郭氏外攻破防等级:
-      计算后郭氏破防等级 = 计算后郭氏破防等级 + 增益数值
-      break
-    case GainTypeEnum.郭氏无双等级:
-      计算后郭氏无双等级 = 计算后郭氏无双等级 + 增益数值
-      break
-    case GainTypeEnum.郭氏基础攻击:
-      计算后郭氏基础攻击 = 计算后郭氏基础攻击 + 增益数值
-      break
-    case GainTypeEnum.郭氏武器伤害:
-      计算后郭氏武器伤害 = 计算后郭氏武器伤害 + 增益数值
-      break
-    case GainTypeEnum.郭氏身法:
-      计算后郭氏身法 = 计算后郭氏身法 + 增益数值
-      break
-    case GainTypeEnum.伤害百分比:
-      计算后技能增伤 = 计算后技能增伤 + 增益数值
-      break
-    default:
-      if (![GainTypeEnum.伤害百分比, GainTypeEnum.外攻会心百分比].includes(增益?.增益类型)) {
-        console.warn(`存在未计算增益${增益?.增益类型}`, 增益)
-      }
-      break
-  }
-
-  if (增益计算类型 === GainDpsTypeEnum.A) {
-    switch (增益类型) {
-      case GainTypeEnum.外攻会心百分比:
-        计算后人物属性.会心值 = 计算后人物属性.会心值 * (1 + 增益数值)
-        break
-      default:
-        break
-    }
-  } else if (增益计算类型 === GainDpsTypeEnum.B) {
-    switch (增益类型) {
-      case GainTypeEnum.伤害百分比:
-        计算后技能增伤 = 计算后技能增伤 * (1 + 增益数值)
-        break
-      // 所有秘籍的会心按独立数值想买计算
-      default:
-        break
-    }
-  }
-
-  return {
-    计算后人物属性,
-    计算后目标,
-    计算后技能增伤,
-    计算后郭氏额外会效果值,
-    计算后额外会心率,
-    计算后郭式无视防御,
-    计算后身法加成,
-    计算后郭氏身法,
-    计算后郭氏无双等级,
-    计算后郭氏破防等级,
-    计算后郭氏基础攻击,
-    计算后郭氏武器伤害,
-  }
-}
-
-/**
- * @name 该技能数量下同时计算的多个增益的增益集合
- * getGainList
- */
-const getGainList = (增益: CycleGain, 当前技能属性: SkillBasicDTO) => {
-  // 将该数量下同时计算的多个增益转为数组
-  const gainNameList = 增益.增益名称.split(',')
-
-  // 该技能数量下同时计算的多个增益的增益集合
-  let 增益集合列表: SKillGainData[] = []
-
-  gainNameList.forEach((i) => {
-    const findGain = 当前技能属性?.技能增益列表.find((item) => item.增益名称 === i)
-    if (findGain) {
-      增益集合列表 = 增益集合列表.concat(findGain?.增益集合 || [])
-    }
-  })
-
-  return 增益集合列表
-}
-
-/**
- * 计算增益选项带来的增益。获取增益集合
- */
-const getZengyi = (增益数据: ZengyixuanxiangDataDTO): SKillGainData[] => {
-  let 增益集合: SKillGainData[] = []
-
-  if (增益数据?.小吃) {
-    const 小吃数据集合 = XIAOCHI_DATA.filter((item) => 增益数据?.小吃?.includes(item.小吃名称))
-    if (小吃数据集合?.length) {
-      小吃数据集合.forEach((a) => {
-        if (a?.增益集合?.length) {
-          增益集合 = 增益集合.concat(a?.增益集合)
-        }
-      })
-    }
-  }
-
-  if (增益数据?.团队增益?.length) {
-    const 团队增益集合 = 增益数据?.团队增益
-      ?.filter((item) => item.启用)
-      .map((item) => {
-        const data: any = TuanduiZengyi_DATA.find((a) => a.增益名称 === item.增益名称)
-        return {
-          ...data,
-          增益集合: data?.增益集合.map((c) => {
-            return {
-              ...c,
-              增益数值: (c?.增益数值 * item?.层数 * item?.覆盖率) / 100,
-            }
-          }),
-        }
-      })
-
-    if (团队增益集合?.length) {
-      团队增益集合.forEach((item) => {
-        增益集合 = 增益集合.concat(item.增益集合)
-      })
-    }
-  }
-
-  if (增益数据?.阵眼) {
-    const 增益阵眼 = Zhenyan_DATA.find((item) => item.阵眼名称 === 增益数据?.阵眼)
-    if (增益阵眼 && 增益阵眼?.增益集合?.length) {
-      增益集合 = 增益集合.concat(增益阵眼.增益集合)
-    }
-  }
-
-  return 增益集合
-}
-
-// 对增益进行排序
-const getSortZengyiList = (list: SKillGainData[]): SKillGainData[] => {
-  const SortKeyList = Object.keys(GainTypeEnum)
-  const newList = [...list]
-
-  newList.sort((a, b) => {
-    return SortKeyList.indexOf(a.增益类型) - SortKeyList.indexOf(b.增益类型)
-  })
-
-  return newList.filter((item) => !!item)
-}
-
-/**
  * @name 原始伤害计算
  * @params (INT(基础伤害)+INT(攻击力*攻击系数)+INT(武器伤害*武伤系数))*伤害计算次数
  */
@@ -696,10 +377,7 @@ export const skillBasicDps = (skillConfig: SkillBasicDTO, characterConfig: Chara
   const min = getSkill(技能基础伤害_最小值, 武器伤害_最小值) * 伤害计算次数
   const max = getSkill(技能基础伤害_最大值, 武器伤害_最大值) * 伤害计算次数
 
-  return {
-    min,
-    max,
-  }
+  return { min, max }
 }
 
 /**
