@@ -121,22 +121,6 @@ export const 奇穴数据: QixueListDTO[] = [
 
 export default 奇穴数据
 
-// 默认奇穴
-export const DEFAULT_QIXUE_VALUE = [
-  '素矰',
-  '孰湖',
-  '襄尺',
-  '长右',
-  '鹿蜀',
-  '诸怀',
-  '于狩',
-  '卢令',
-  '托月',
-  '从云隐月',
-  '审固',
-  '星烨',
-]
-
 // 奇穴名称枚举
 export const QixueNameMap = [
   '零',

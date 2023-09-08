@@ -273,3 +273,19 @@ export const DEFAULT_MIJI_SELECTED_DATA: MijiSelectedData[] = [
     技能已选秘籍: ['4%伤害', '3%伤害'],
   },
 ]
+
+// 默认奇穴
+export const DEFAULT_QIXUE_VALUE = [
+  '素矰',
+  '孰湖',
+  '襄尺',
+  '长右',
+  '鹿蜀',
+  '诸怀',
+  '于狩',
+  '卢令',
+  '托月',
+  '从云隐月',
+  '审固',
+  '星烨',
+]

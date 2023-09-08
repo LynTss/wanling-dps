@@ -4,6 +4,7 @@ import {
   DEFAULT_CHARACTER,
   DEFAULT_EQUIPMENT,
   DEFAULT_MIJI_SELECTED_DATA,
+  DEFAULT_QIXUE_VALUE,
   ZENGYI_DATA_DEFAULT,
 } from '@/pages/constant'
 
@@ -58,6 +59,21 @@ export const getDefaultNetwork = () => {
     return +localNetwork
   } else {
     return 2
+  }
+}
+
+// 获取奇穴
+export const getDefaultQixue = () => {
+  const sessionCharacter = localStorage.getItem('wl_qixue_data')
+  if (sessionCharacter) {
+    try {
+      const array = JSON.parse(sessionCharacter)
+      return [...(array || DEFAULT_QIXUE_VALUE)]
+    } catch {
+      return [...DEFAULT_QIXUE_VALUE]
+    }
+  } else {
+    return [...DEFAULT_QIXUE_VALUE]
   }
 }
 
