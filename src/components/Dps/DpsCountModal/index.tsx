@@ -61,7 +61,9 @@ function DpsCountModal({ visible, onClose, dpsList, total }) {
       return b.dps - a.dps
     })
 
-    return resList
+    return resList.filter((item) => {
+      return +item.dps > 0
+    })
   }, [dpsList])
 
   return (
@@ -76,7 +78,7 @@ function DpsCountModal({ visible, onClose, dpsList, total }) {
     >
       <div>
         <div className={'dps-skill-count'}>
-          <div className={'dps-line dps-total'}>
+          <div className={'dps-line-header dps-total'}>
             <span>技能名称</span>
             <div className={'dps-count'}>
               <span className="dps-count-1">技能数量</span>
@@ -89,13 +91,19 @@ function DpsCountModal({ visible, onClose, dpsList, total }) {
           <div className={'dps-skill-count'}>
             {sortDpsList.map((item) => {
               return (
-                <div className={'dps-line'} key={item.name}>
-                  <span>{item.name}</span>
-                  <div className={'dps-count'}>
-                    <span className="dps-count-1">{item.number}</span>
-                    <span className="dps-count-2">{item.dps}</span>
-                    <span className="dps-count-3">{((item.dps / total) * 100).toFixed(2)}%</span>
+                <div className={'dps-line-wrap'} key={item.name}>
+                  <div className={'dps-line'}>
+                    <span>{item.name}</span>
+                    <div className={'dps-count'}>
+                      <span className="dps-count-1">{item.number}</span>
+                      <span className="dps-count-2">{item.dps}</span>
+                      <span className="dps-count-3">{((item.dps / total) * 100).toFixed(2)}%</span>
+                    </div>
                   </div>
+                  <div
+                    className={'dps-line-bg'}
+                    style={{ width: `${(item.dps / sortDpsList?.[0]?.dps) * 100}%` }}
+                  />
                 </div>
               )
             })}

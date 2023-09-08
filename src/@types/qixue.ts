@@ -4,10 +4,6 @@
 
 export interface QixueListDTO {
   /**
-   * @name 奇穴层数
-   */
-  奇穴层数: string
-  /**
    * @name 是否不可编辑
    */
   是否不可编辑?: boolean
@@ -32,5 +28,12 @@ export interface QixueDataDTO {
   /**
    * @name 奇穴图片
    */
-  奇穴图片: boolean
+  奇穴图片: string
+  /**
+   * @name 奇穴加成技能
+   */
+  奇穴加成技能?: string | '通用'
+  /**
+   * @name
+   */
 }
