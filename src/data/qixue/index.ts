@@ -1,5 +1,17 @@
 import { QixueListDTO } from '@/@types/qixue'
 import QIXUEIMG_QIXUE from '../../assets/qixue/qixue.png'
+import { CharacterFinalDTO } from '@/@types/character'
+import {
+  getMianBanGongJI,
+  getShenfa,
+  getShenfaJiachengHuixin,
+} from '@/components/BasicSet/CharacterSet/util'
+
+export const 身法加成奇穴 = '卢令'
+
+export const 判断是否开启身法加成奇穴 = (data) => {
+  return data?.some((item) => item === 身法加成奇穴)
+}
 
 export const 奇穴数据: QixueListDTO[] = [
   // 1
@@ -137,3 +149,19 @@ export const QixueNameMap = [
   '十一',
   '十二',
 ]
+
+// 判断身法奇穴加成后面板
+export const 获取身法奇穴加成后面板 = (data: CharacterFinalDTO, openLuLing): CharacterFinalDTO => {
+  if (openLuLing) {
+    const 加成后面板身法 = getShenfa(data.身法, true)
+    return {
+      ...data,
+      身法: 加成后面板身法,
+      // 由于基础面板已经加过会心了，所以只计算增加的身法带来的会心加成
+      会心值: getShenfaJiachengHuixin(data.会心值, 加成后面板身法 - data.身法),
+      面板攻击: getMianBanGongJI(data.基础攻击, 加成后面板身法),
+    }
+  } else {
+    return data
+  }
+}

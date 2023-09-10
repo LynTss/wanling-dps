@@ -35,7 +35,6 @@ export const getNewEquipmentData = (value) => {
   // let 套装_2数量 = 0
   const data: EquipmentBasicDTO = {
     wucaishi: value?.wucaishi,
-    openLuLing: value?.openLuLing,
     大附魔_伤帽: value?.大附魔_伤帽,
     大附魔_伤衣: value?.大附魔_伤衣,
     大附魔_伤腰: value?.大附魔_伤腰,
@@ -46,7 +45,6 @@ export const getNewEquipmentData = (value) => {
         (item) =>
           ![
             'wucaishi',
-            'openLuLing',
             '大附魔_伤帽',
             '大附魔_伤衣',
             '大附魔_伤腰',
@@ -155,7 +153,7 @@ export const getSkillCycleGainData = (
     return {
       ...item,
       技能增益列表:
-        item?.技能名称 === '孤锋破浪'
+        item?.技能名称 === '劲风簇'
           ? item.技能增益列表.map((a) => {
               if (a.增益名称 === '套装10%_1' || a.增益名称 === '套装10%_2') {
                 if (a.增益名称 === '套装10%_1') {

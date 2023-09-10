@@ -13,6 +13,7 @@ import { getDpsTime, getTrueCycleByName, getZengyiJiasu } from '@/utils/skill-dp
 import { setSkillBasicData } from '@/store/zengyiReducer'
 import ValueCheckBox from '@/components/common/ValueCheckBox'
 import { getDpsTotal } from '@/components/Dps/guoshi_dps_utils'
+import { CharacterFinalDTO } from '@/@types/character'
 
 import { getFinalCharacterBasicDataByEquipment } from '../util'
 import { getNewEquipmentData, getSkillCycleGainData } from './utils'
@@ -20,9 +21,8 @@ import ZhuangBeiZengYiTip from './ZhuangBeiZengYiTip'
 import ZhuangbeiSelect from './ZhuangbeiSelect'
 import WuCaiShiXuanZe from './WuCaiShiXuanZe'
 import MohedaoruModal from './MohedaoruModal'
-import MaxDpsFunc from './MaxDpsFunc'
 import './index.css'
-import { CharacterFinalDTO } from '@/@types/character'
+import { 判断是否开启身法加成奇穴 } from '@/data/qixue'
 
 function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
   const [form] = Form.useForm()
@@ -37,6 +37,9 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
   const currentTarget = useAppSelector((state) => state?.basic?.currentTarget)
   const zengyixuanxiangData = useAppSelector((state) => state?.zengyi?.zengyixuanxiangData)
   const zengyiQiyong = useAppSelector((state) => state?.zengyi?.zengyiQiyong)
+
+  const qixueData = useAppSelector((state) => state.basic.qixueData)
+  const isOpenLuLing = 判断是否开启身法加成奇穴(qixueData)
 
   const [zhuangbeizengyi, setZhuangbeizengyi] = useState<any>()
   const [默认镶嵌宝石等级, 设置默认镶嵌宝石等级] = useState<number>(8)
@@ -58,7 +61,6 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
   const initEquipment = (data) => {
     const newObj = {
       wucaishi: data.wucaishi,
-      openLuLing: data.openLuLing,
       大附魔_伤帽: data?.大附魔_伤帽,
       大附魔_伤衣: data?.大附魔_伤衣,
       大附魔_伤腰: data?.大附魔_伤腰,
@@ -147,7 +149,6 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
             res[item] &&
             ![
               'wucaishi',
-              'openLuLing',
               '大附魔_伤帽',
               '大附魔_伤衣',
               '大附魔_伤腰',
@@ -252,6 +253,7 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
         zengyiQiyong,
         zengyixuanxiangData,
         dpsTime,
+        开启卢令: isOpenLuLing,
       })
       console.log('战斗时间', dpsTime)
       setAfterDps(Math.floor(totalDps / dpsTime))
@@ -277,64 +279,6 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
             <span style={{ color: '#F34242', fontSize: 14, marginLeft: 16 }}>
               暂时只推荐1段加速配装，0段、2段伤害计算不准确
             </span>
-          </span>
-          <span className="zhuangbei-input-peizhuangtuijian">
-            <Button
-              // disabled
-              size="small"
-              type="primary"
-              danger
-              onClick={() => {
-                Modal.confirm({
-                  title: '警告',
-                  content:
-                    '本模式可能会造成蓝屏，黑屏等不可控现象，对自己电脑没自信的请勿打开，如果因此产生数据或硬件损失本人概不负责。由于浏览器算力限制，当前算法固定4件套+特效腰坠武器，仅供娱乐。切勿当真。这可能需要几分钟。',
-                  type: 'warning',
-                  onOk() {
-                    MaxDpsFunc({
-                      skillBasicData,
-                      currentCycle,
-                      currentCycleName,
-                      currentTarget,
-                      zengyixuanxiangData,
-                      zengyiQiyong,
-                      network,
-                      equipmentBasicData,
-                      withWufeng: true,
-                    })
-                  },
-                })
-              }}
-            >
-              智能推荐
-            </Button>
-            <Button
-              size="small"
-              type="primary"
-              danger
-              onClick={() => {
-                Modal.confirm({
-                  title: '警告',
-                  content:
-                    '本模式可能会造成蓝屏，黑屏等不可控现象，对自己电脑没自信的请勿打开，如果因此产生数据或硬件损失本人概不负责。由于浏览器算力限制，当前算法固定4件套+特效腰坠武器，仅供娱乐。切勿当真。这可能需要几分钟。',
-                  type: 'warning',
-                  onOk() {
-                    MaxDpsFunc({
-                      skillBasicData,
-                      currentCycle,
-                      currentCycleName,
-                      currentTarget,
-                      zengyixuanxiangData,
-                      zengyiQiyong,
-                      network,
-                      equipmentBasicData,
-                    })
-                  },
-                })
-              }}
-            >
-              智能推荐-过滤无封
-            </Button>
           </span>
         </div>
       }
@@ -432,9 +376,6 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
         <div className="zhuangbei-input-set-modal-form-right">
           <Form.Item name={`wucaishi`}>
             <WuCaiShiXuanZe />
-          </Form.Item>
-          <Form.Item className="zhuangbei-input-set-modal-form-luling" name={`openLuLing`}>
-            <ValueCheckBox>启用卢令</ValueCheckBox>
           </Form.Item>
           {zhuangbeizengyi ? (
             <div className={'zhuangbei-zengyi-wrapper'}>

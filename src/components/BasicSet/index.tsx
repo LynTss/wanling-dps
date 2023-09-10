@@ -7,11 +7,11 @@ import { Divider } from 'antd'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { getFinalCharacterBasicData } from './CharacterSet/util'
 import { setCharacterFinalData } from '@/store/basicReducer'
-import Footer from './Footer'
-import './index.css'
-import Zengyi from './Zengyi'
 import { setSkillBasicData } from '@/store/zengyiReducer'
 import { getSkillBasicData } from './CommonSet/MijiSet/utils'
+import Footer from './Footer'
+import Zengyi from './Zengyi'
+import './index.css'
 
 interface CharacterSetProps {
   getDps: () => void
@@ -35,7 +35,7 @@ function BasicSet(props: CharacterSetProps) {
 
   useEffect(() => {
     if (characterBasicData) {
-      const final = getFinalCharacterBasicData(characterBasicData, equipmentBasicData?.openLuLing)
+      const final = getFinalCharacterBasicData(characterBasicData)
       dispatch(
         setCharacterFinalData({
           ...final,
@@ -71,7 +71,7 @@ function BasicSet(props: CharacterSetProps) {
         return {
           ...item,
           技能增益列表:
-            item?.技能名称 === '孤锋破浪'
+            item?.技能名称 === '劲风簇'
               ? item.技能增益列表.map((a) => {
                   if (a.增益名称 === '套装10%_1' || a.增益名称 === '套装10%_2') {
                     if (a.增益名称 === '套装10%_1') {
@@ -116,6 +116,8 @@ function BasicSet(props: CharacterSetProps) {
       dispatch(setSkillBasicData(newSkillBasicData))
     }
   }, [])
+
+  console.log('characterBasicData', characterBasicData)
 
   return (
     <div className={'basic-set'}>

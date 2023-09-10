@@ -7,51 +7,27 @@ function DpsCountModal({ visible, onClose, dpsList, total }) {
   const sortDpsList = useMemo(() => {
     const list = [...dpsList]
     const resList: DpsListData[] = []
-    const qiluoshiList: DpsListData[] = []
-    const liuxueList: DpsListData[] = []
+    const guanchuanList: DpsListData[] = []
 
     list.forEach((item) => {
-      if (item.name.includes('断云势')) {
-        qiluoshiList.push(item)
-      } else if (item.name.includes('流血')) {
-        liuxueList.push(item)
-      } else if (item.name === '驰风八步·一') {
-        resList.push({
-          ...item,
-          name: item.name.split('·')?.[0],
-        })
+      if (item.name.includes('贯穿')) {
+        guanchuanList.push(item)
       } else {
         resList.push(item)
       }
     })
 
-    if (qiluoshiList?.length) {
-      let qiluoshiNumber = 0
-      let qiluoshiDps = 0
-
-      qiluoshiList.forEach((item) => {
-        qiluoshiNumber = qiluoshiNumber + item?.number
-        qiluoshiDps = qiluoshiDps + item?.dps
-      })
-
-      resList.push({
-        name: '断云势',
-        number: qiluoshiNumber,
-        dps: qiluoshiDps,
-      })
-    }
-
-    if (liuxueList?.length) {
+    if (guanchuanList?.length) {
       let number = 0
       let dps = 0
 
-      liuxueList.forEach((item) => {
+      guanchuanList.forEach((item) => {
         number = number + item?.number
         dps = dps + item?.dps
       })
 
       resList.push({
-        name: '流血（DOT）',
+        name: '贯穿(DOT)',
         number: number,
         dps: dps,
       })

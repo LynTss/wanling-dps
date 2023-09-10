@@ -119,7 +119,6 @@ export const ZENGYI_DATA_DEFAULT = {
 
 export const DEFAULT_EQUIPMENT = {
   wucaishi: '彩·痛击·斩铁·狂攻(陆)',
-  openLuLing: 1,
   大附魔_伤帽: 1,
   大附魔_伤衣: 1,
   大附魔_伤腰: 1,
@@ -265,7 +264,7 @@ export const DEFAULT_MIJI_SELECTED_DATA: MijiSelectedData[] = [
     技能已选秘籍: ['4%伤害', '5%伤害', '3%会心', '4%会心'],
   },
   {
-    技能名称: '孤锋破浪',
+    技能名称: '劲风簇',
     技能已选秘籍: ['4%伤害', '5%伤害', '3%会心', '4%会心'],
   },
   {

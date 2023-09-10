@@ -5,11 +5,18 @@ import { CharacterFinalDTO } from '@/@types/character'
 
 import './index.css'
 import { Tooltip } from 'antd'
+import { 判断是否开启身法加成奇穴, 获取身法奇穴加成后面板 } from '@/data/qixue'
 
 function CharacterShow() {
   const characterFinalData = useAppSelector((state) => state?.basic?.characterFinalData)
+  const qixueData = useAppSelector((state) => state?.basic?.qixueData)
+  const openLuLing = 判断是否开启身法加成奇穴(qixueData)
 
   const mapKeyList = ['身法', '攻击力', '会心', '会心效果', '破防', '无双', '破招', '加速']
+
+  const showData = openLuLing
+    ? 获取身法奇穴加成后面板(characterFinalData, openLuLing)
+    : characterFinalData
 
   return (
     <div className={'character-show'}>
@@ -18,8 +25,8 @@ function CharacterShow() {
         return (
           <div className="character-item" key={item}>
             <h1 className="character-label">{item}</h1>
-            <Tooltip placement="topLeft" title={getCharacterDataNumber(item, characterFinalData)}>
-              <div className="character-content">{getCharacterData(item, characterFinalData)}</div>
+            <Tooltip placement="topLeft" title={getCharacterDataNumber(item, showData)}>
+              <div className="character-content">{getCharacterData(item, showData)}</div>
             </Tooltip>
           </div>
         )

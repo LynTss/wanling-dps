@@ -206,7 +206,7 @@ export const getTrueCycleName = (
   currentCycleName: string,
   characterFinalData: CharacterFinalDTO
 ) => {
-  if (characterFinalData?.装备增益?.大橙武特效 && currentCycleName?.includes('周流')) {
+  if (characterFinalData?.装备增益?.大橙武特效 && currentCycleName?.includes('骑射')) {
     return `${currentCycleName}_cw`
   }
   return currentCycleName
@@ -217,7 +217,7 @@ export const getTrueCycleByName = (
   currentCycle: any,
   characterFinalData: CharacterFinalDTO
 ) => {
-  if (characterFinalData?.装备增益?.大橙武特效 && currentCycleName?.includes('周流')) {
+  if (characterFinalData?.装备增益?.大橙武特效 && currentCycleName?.includes('骑射')) {
     const trueName = `${currentCycleName}_cw`
     return All_Cycle_Data?.find((item) => item.name === trueName)?.cycle || currentCycle
   }

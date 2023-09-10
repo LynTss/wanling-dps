@@ -5,9 +5,10 @@ import { useAppDispatch, useAppSelector } from '@/hooks'
 import { DpsListData, getDpsTotal } from './guoshi_dps_utils'
 import DpsCountModal from './DpsCountModal/index'
 import Income from './Income'
-import './index.css'
 import { setCurrentDps } from '@/store/basicReducer'
 import { getDpsTime, getTrueCycleByName } from '@/utils/skill-dps'
+import { 判断是否开启身法加成奇穴 } from '@/data/qixue'
+import './index.css'
 
 function Dps(props, ref) {
   const { zengyiVisible } = props
@@ -21,6 +22,8 @@ function Dps(props, ref) {
   const skillBasicData = useAppSelector((state) => state?.zengyi?.skillBasicData)
   const zengyixuanxiangData = useAppSelector((state) => state?.zengyi?.zengyixuanxiangData)
   const zengyiQiyong = useAppSelector((state) => state?.zengyi?.zengyiQiyong)
+  const qixueData = useAppSelector((state) => state.basic.qixueData)
+  const isOpenLuLing = 判断是否开启身法加成奇穴(qixueData)
 
   const [total, setTotal] = useState<number>(0)
   const [dpsList, setDpsList] = useState<DpsListData[]>([])
@@ -64,6 +67,7 @@ function Dps(props, ref) {
       zengyiQiyong,
       zengyixuanxiangData,
       dpsTime,
+      开启卢令: isOpenLuLing,
     })
     setTotal(totalDps)
     setDpsList(dpsList)
