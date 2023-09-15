@@ -98,6 +98,8 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
   const onOk = () => {
     form.validateFields().then((value) => {
       const data = getNewEquipmentData(value)
+
+      console.log('data===', data)
       localStorage?.setItem('wl_zhuangbei_data_basic_1', JSON.stringify(data))
       dispatch(setEquipmentBasicData(data))
       const { basicData, finalData } = getFinalCharacterBasicDataByEquipment(data)
