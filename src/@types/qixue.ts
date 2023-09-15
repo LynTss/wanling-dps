@@ -33,7 +33,4 @@ export interface QixueDataDTO {
    * @name 奇穴加成技能
    */
   奇穴加成技能?: string | '通用'
-  /**
-   * @name
-   */
 }

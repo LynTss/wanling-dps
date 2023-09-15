@@ -351,8 +351,8 @@ export const geSkillTotalDps = (
     ...最终人物属性,
     身法: 最终人物属性.身法 + 总身法提升值,
     // 基础攻击: 最终人物属性.基础攻击 + Math.round(总身法提升值 * 加成系数.身法加成基础攻击),
-    面板攻击: getMianBanGongJI(最终人物属性.面板攻击, 总身法提升值),
     会心值: getShenfaJiachengHuixin(最终人物属性.会心值, 总身法提升值),
+    面板攻击: getMianBanGongJI(最终人物属性.面板攻击, 总身法提升值),
     // 破防值: getShenfaJiachengHuixin(最终人物属性.破防值, 总身法提升值),
   }
 
