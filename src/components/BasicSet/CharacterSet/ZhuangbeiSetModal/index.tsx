@@ -22,7 +22,7 @@ import ZhuangbeiSelect from './ZhuangbeiSelect'
 import WuCaiShiXuanZe from './WuCaiShiXuanZe'
 import MohedaoruModal from './MohedaoruModal'
 import './index.css'
-import { 判断是否开启身法加成奇穴 } from '@/data/qixue'
+import { 判断是否开启无视防御奇穴, 判断是否开启身法加成奇穴 } from '@/data/qixue'
 
 function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
   const [form] = Form.useForm()
@@ -40,6 +40,7 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
 
   const qixueData = useAppSelector((state) => state.basic.qixueData)
   const isOpenLuLing = 判断是否开启身法加成奇穴(qixueData)
+  const 开启诸怀 = 判断是否开启无视防御奇穴(qixueData)
 
   const [zhuangbeizengyi, setZhuangbeizengyi] = useState<any>()
   const [默认镶嵌宝石等级, 设置默认镶嵌宝石等级] = useState<number>(8)
@@ -256,6 +257,7 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
         zengyixuanxiangData,
         dpsTime,
         开启卢令: isOpenLuLing,
+        开启诸怀,
       })
       console.log('战斗时间', dpsTime)
       setAfterDps(Math.floor(totalDps / dpsTime))

@@ -8,9 +8,14 @@ import {
 } from '@/components/BasicSet/CharacterSet/util'
 
 export const 身法加成奇穴 = '卢令'
+export const 无视防御奇穴 = '诸怀'
 
 export const 判断是否开启身法加成奇穴 = (data) => {
   return data?.some((item) => item === 身法加成奇穴)
+}
+
+export const 判断是否开启无视防御奇穴 = (data) => {
+  return data?.some((item) => item === 无视防御奇穴)
 }
 
 export const 奇穴数据: QixueListDTO[] = [
@@ -61,10 +66,10 @@ export const 奇穴数据: QixueListDTO[] = [
   },
   // 6
   {
-    是否不可编辑: true,
+    // 是否不可编辑: true,
     奇穴列表: [
       { 奇穴名称: '诸怀', 奇穴图片: QIXUEIMG_QIXUE },
-      { 奇穴名称: '灌羽', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
+      { 奇穴名称: '灌羽', 奇穴图片: QIXUEIMG_QIXUE },
       { 奇穴名称: '镇祟', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
       { 奇穴名称: '桑柘', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
     ],

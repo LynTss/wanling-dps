@@ -18,7 +18,7 @@ import {
 } from '@/data/income'
 import './index.css'
 import { DOMAIN_COLOR } from '@/utils/system_constant'
-import { 判断是否开启身法加成奇穴 } from '@/data/qixue'
+import { 判断是否开启身法加成奇穴, 判断是否开启无视防御奇穴 } from '@/data/qixue'
 
 const checkTypeList = [
   { label: '附魔', list: IncomeFumo },
@@ -40,6 +40,7 @@ function Income({ zengyiVisible }, ref) {
 
   const qixueData = useAppSelector((state) => state.basic.qixueData)
   const isOpenLuLing = 判断是否开启身法加成奇穴(qixueData)
+  const 开启诸怀 = 判断是否开启无视防御奇穴(qixueData)
 
   const [chartData, setChartData] = useState<any>()
   const [currentIncomeType, setCunrrentIncomeType] = useState<string>('附魔')
@@ -73,6 +74,7 @@ function Income({ zengyiVisible }, ref) {
       zengyixuanxiangData,
       dpsTime,
       开启卢令: isOpenLuLing,
+      开启诸怀,
     })
 
     const 增益集合 = [
@@ -94,6 +96,7 @@ function Income({ zengyiVisible }, ref) {
       dpsTime,
       默认增益集合: 增益集合,
       开启卢令: isOpenLuLing,
+      开启诸怀,
     })
 
     return Number((newTotalDps / oldDps - 1) * 100)

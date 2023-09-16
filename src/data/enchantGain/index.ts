@@ -66,6 +66,17 @@ export const AllEnchantDTO: EnchantDTO[] = [
     ],
   },
   {
+    附魔名称: EnchantNameEnum.无双883,
+    附魔支持部位: [EquipmentPositionEnum.护腕, EquipmentPositionEnum.下装],
+    增益集合: [
+      {
+        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: GainTypeEnum.无双等级,
+        增益数值: +CommonEnchantNum.赛季883,
+      },
+    ],
+  },
+  {
     附魔名称: EnchantNameEnum.破防491,
     附魔支持部位: [
       EquipmentPositionEnum.护腕,
@@ -111,6 +122,21 @@ export const AllEnchantDTO: EnchantDTO[] = [
     ],
   },
   {
+    附魔名称: EnchantNameEnum.破防883,
+    附魔支持部位: [
+      EquipmentPositionEnum.护腕,
+      EquipmentPositionEnum.下装,
+      EquipmentPositionEnum.暗器,
+    ],
+    增益集合: [
+      {
+        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: GainTypeEnum.外攻破防等级,
+        增益数值: +CommonEnchantNum.赛季883,
+      },
+    ],
+  },
+  {
     附魔名称: EnchantNameEnum.会心491,
     附魔支持部位: [EquipmentPositionEnum.护腕, EquipmentPositionEnum.下装],
     增益集合: [
@@ -144,6 +170,17 @@ export const AllEnchantDTO: EnchantDTO[] = [
     ],
   },
   {
+    附魔名称: EnchantNameEnum.会心883,
+    附魔支持部位: [EquipmentPositionEnum.护腕, EquipmentPositionEnum.下装],
+    增益集合: [
+      {
+        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: GainTypeEnum.外攻会心等级,
+        增益数值: +CommonEnchantNum.赛季883,
+      },
+    ],
+  },
+  {
     附魔名称: EnchantNameEnum.会效491,
     附魔支持部位: [],
     增益集合: [
@@ -173,6 +210,17 @@ export const AllEnchantDTO: EnchantDTO[] = [
         增益计算类型: GainDpsTypeEnum.A,
         增益类型: GainTypeEnum.外攻会心效果等级,
         增益数值: +CommonEnchantNum.赛季799,
+      },
+    ],
+  },
+  {
+    附魔名称: EnchantNameEnum.会效883,
+    附魔支持部位: [],
+    增益集合: [
+      {
+        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: GainTypeEnum.外攻会心效果等级,
+        增益数值: +CommonEnchantNum.赛季883,
       },
     ],
   },
@@ -218,6 +266,21 @@ export const AllEnchantDTO: EnchantDTO[] = [
         增益计算类型: GainDpsTypeEnum.A,
         增益类型: GainTypeEnum.破招,
         增益数值: +CommonEnchantNum.赛季799,
+      },
+    ],
+  },
+  {
+    附魔名称: EnchantNameEnum.破招883,
+    附魔支持部位: [
+      EquipmentPositionEnum.帽子,
+      EquipmentPositionEnum.鞋子,
+      EquipmentPositionEnum.戒指,
+    ],
+    增益集合: [
+      {
+        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: GainTypeEnum.破招,
+        增益数值: +CommonEnchantNum.赛季883,
       },
     ],
   },
@@ -272,6 +335,21 @@ export const AllEnchantDTO: EnchantDTO[] = [
         增益计算类型: GainDpsTypeEnum.A,
         增益类型: GainTypeEnum.加速,
         增益数值: +CommonEnchantNum.赛季799,
+      },
+    ],
+  },
+  {
+    附魔名称: EnchantNameEnum.加速883,
+    附魔支持部位: [
+      EquipmentPositionEnum.帽子,
+      EquipmentPositionEnum.鞋子,
+      EquipmentPositionEnum.暗器,
+    ],
+    增益集合: [
+      {
+        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: GainTypeEnum.加速,
+        增益数值: +CommonEnchantNum.赛季883,
       },
     ],
   },

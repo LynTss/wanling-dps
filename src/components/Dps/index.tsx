@@ -7,7 +7,7 @@ import DpsCountModal from './DpsCountModal/index'
 import Income from './Income'
 import { setCurrentDps } from '@/store/basicReducer'
 import { getDpsTime, getTrueCycleByName } from '@/utils/skill-dps'
-import { 判断是否开启身法加成奇穴 } from '@/data/qixue'
+import { 判断是否开启身法加成奇穴, 判断是否开启无视防御奇穴 } from '@/data/qixue'
 import './index.css'
 
 function Dps(props, ref) {
@@ -24,6 +24,7 @@ function Dps(props, ref) {
   const zengyiQiyong = useAppSelector((state) => state?.zengyi?.zengyiQiyong)
   const qixueData = useAppSelector((state) => state.basic.qixueData)
   const isOpenLuLing = 判断是否开启身法加成奇穴(qixueData)
+  const 开启诸怀 = 判断是否开启无视防御奇穴(qixueData)
 
   const [total, setTotal] = useState<number>(0)
   const [dpsList, setDpsList] = useState<DpsListData[]>([])
@@ -68,6 +69,7 @@ function Dps(props, ref) {
       zengyixuanxiangData,
       dpsTime,
       开启卢令: isOpenLuLing,
+      开启诸怀,
     })
     setTotal(totalDps)
     setDpsList(dpsList)
