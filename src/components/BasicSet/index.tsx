@@ -117,8 +117,6 @@ function BasicSet(props: CharacterSetProps) {
     }
   }, [])
 
-  console.log('characterBasicData', characterBasicData)
-
   return (
     <div className={'basic-set'}>
       <div className={'basic-set-info'}>

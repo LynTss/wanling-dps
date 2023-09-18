@@ -12,6 +12,8 @@ import All_Cycle_Data from '@/data/skillCycle'
 import { ZengyixuanxiangDataDTO } from '@/@types/zengyi'
 import XIAOCHI_DATA from '@/data/xiaochi'
 import { GainTypeEnum } from '@/@types/enum'
+import 奇穴数据 from '@/data/qixue'
+import { QixueDataDTO } from '@/@types/qixue'
 
 /**
  * @name 破招原始伤害计算
@@ -34,6 +36,7 @@ export const skillBasicDps = (skillConfig: SkillBasicDTO, characterConfig: Chara
     伤害计算次数 = 1,
     技能伤害系数,
   } = skillConfig
+
   if (技能名称 === '破') {
     const poDps = getPoDps(破招值, 技能伤害系数)
     return {
@@ -49,6 +52,7 @@ export const skillBasicDps = (skillConfig: SkillBasicDTO, characterConfig: Chara
       Math.floor(weapon_damage * 武器伤害系数)
     )
   }
+
   const min = getSkill(技能基础伤害_最小值, 武器伤害_最小值) * 伤害计算次数
   const max = getSkill(技能基础伤害_最大值, 武器伤害_最大值) * 伤害计算次数
   return {
@@ -215,11 +219,77 @@ export const getTrueCycleName = (
 export const getTrueCycleByName = (
   currentCycleName: string,
   currentCycle: any,
-  characterFinalData: CharacterFinalDTO
+  characterFinalData: CharacterFinalDTO,
+  qixueData: string[],
+  skillBasicData: SkillBasicDTO[]
 ) => {
+  const trueCycle = [...currentCycle]
+  let newSkillBasicData = [...skillBasicData]
+
   if (characterFinalData?.装备增益?.大橙武特效 && currentCycleName?.includes('骑射')) {
     const trueName = `${currentCycleName}_cw`
     return All_Cycle_Data?.find((item) => item.name === trueName)?.cycle || currentCycle
   }
-  return currentCycle
+
+  // 根据奇穴类型处理各类循环
+  const 全部奇穴信息: QixueDataDTO[] = getAllQixueData(qixueData)
+
+  newSkillBasicData = newSkillBasicData.map((item) => {
+    let res = { ...item }
+    const 所有加成该技能的奇穴 = 全部奇穴信息?.filter(
+      (奇穴) =>
+        奇穴?.奇穴加成对应关系?.[item.技能名称] || 奇穴?.奇穴加成技能?.includes(item?.技能名称)
+    )
+
+    所有加成该技能的奇穴.forEach((当前奇穴) => {
+      if (当前奇穴?.奇穴加成对应关系?.[item.技能名称]) {
+        res = {
+          ...res,
+          技能增益列表: res?.技能增益列表.map((增益) => {
+            if (增益.增益名称 === 当前奇穴?.奇穴加成对应关系?.[item.技能名称]) {
+              return {
+                ...增益,
+                常驻增益: true,
+              }
+            } else {
+              return { ...增益 }
+            }
+          }),
+        }
+      } else if (当前奇穴?.奇穴加成技能?.includes(item?.技能名称)) {
+        res = {
+          ...res,
+          技能增益列表: res?.技能增益列表.map((增益) => {
+            // console.log('a.增益名称', a.增益名称)
+            if (增益.增益名称 === 当前奇穴.奇穴名称) {
+              return {
+                ...增益,
+                常驻增益: true,
+              }
+            } else {
+              return { ...增益 }
+            }
+          }),
+        }
+      }
+    })
+
+    return res
+  })
+
+  return {
+    trueCycle: trueCycle,
+    trueSkillBasicData: newSkillBasicData,
+  }
+}
+
+const getAllQixueData = (qixueData: string[]): QixueDataDTO[] => {
+  const res: QixueDataDTO[] = []
+  奇穴数据.forEach((item) => {
+    const findData = item.奇穴列表?.find((a) => qixueData?.includes(a.奇穴名称))
+    if (findData) {
+      res.push(findData)
+    }
+  })
+  return res
 }

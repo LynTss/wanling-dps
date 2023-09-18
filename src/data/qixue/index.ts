@@ -22,25 +22,43 @@ export const 奇穴数据: QixueListDTO[] = [
   // 1
   {
     奇穴列表: [
-      { 奇穴名称: '彤弓', 奇穴图片: QIXUEIMG_QIXUE },
-      { 奇穴名称: '素矰', 奇穴图片: QIXUEIMG_QIXUE },
+      {
+        奇穴名称: '彤弓',
+        奇穴加成技能: ['劲风簇'],
+        奇穴图片: QIXUEIMG_QIXUE,
+      },
+      {
+        奇穴名称: '素矰',
+        奇穴加成技能: [
+          '贯穿(DOT)·一',
+          '贯穿(DOT)·二',
+          '贯穿(DOT)·三',
+          '贯穿(DOT)·四',
+          '贯穿(DOT)·五',
+          '贯穿(DOT)·六',
+          '贯穿(DOT)·六·引爆',
+        ],
+        奇穴图片: QIXUEIMG_QIXUE,
+      },
       { 奇穴名称: '争疾', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
     ],
   },
   // 2
   {
+    是否不可编辑: true,
     奇穴列表: [
       { 奇穴名称: '棘矢', 奇穴图片: QIXUEIMG_QIXUE },
-      { 奇穴名称: '孰湖', 奇穴图片: QIXUEIMG_QIXUE },
-      { 奇穴名称: '弧旌', 奇穴图片: QIXUEIMG_QIXUE },
+      { 奇穴名称: '孰湖', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
+      { 奇穴名称: '弧旌', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
     ],
   },
   // 3
   {
+    是否不可编辑: true,
     奇穴列表: [
       { 奇穴名称: '襄尺', 奇穴图片: QIXUEIMG_QIXUE },
       { 奇穴名称: '冉遗', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
-      { 奇穴名称: '虹流', 奇穴图片: QIXUEIMG_QIXUE },
+      { 奇穴名称: '虹流', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
       { 奇穴名称: '弋矰', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
     ],
   },
@@ -86,39 +104,43 @@ export const 奇穴数据: QixueListDTO[] = [
   },
   // 8
   {
+    是否不可编辑: true,
     奇穴列表: [
-      { 奇穴名称: '白矢', 奇穴图片: QIXUEIMG_QIXUE },
+      { 奇穴名称: '白矢', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
       { 奇穴名称: '领胡', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
       { 奇穴名称: '时祯', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
-      { 奇穴名称: '九乌', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
+      { 奇穴名称: '九乌', 奇穴图片: QIXUEIMG_QIXUE },
       { 奇穴名称: '卢令', 奇穴图片: QIXUEIMG_QIXUE },
     ],
   },
   // 9
   {
+    是否不可编辑: true,
     奇穴列表: [
       { 奇穴名称: '陆吾', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
       { 奇穴名称: '畴野', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
-      { 奇穴名称: '兴游', 奇穴图片: QIXUEIMG_QIXUE },
+      { 奇穴名称: '兴游', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
       { 奇穴名称: '托月', 奇穴图片: QIXUEIMG_QIXUE },
       { 奇穴名称: '禳灾', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
     ],
   },
   // 10
   {
+    是否不可编辑: true,
     奇穴列表: [
       { 奇穴名称: '佩弦', 奇穴图片: QIXUEIMG_QIXUE },
       { 奇穴名称: '扶国', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
       { 奇穴名称: '泑泽', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
-      { 奇穴名称: '从云隐月', 奇穴图片: QIXUEIMG_QIXUE },
+      { 奇穴名称: '从云隐月', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
       { 奇穴名称: '涉野徒林', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
     ],
   },
   // 11
   {
+    是否不可编辑: true,
     奇穴列表: [
       { 奇穴名称: '命俦', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
-      { 奇穴名称: '贯侯', 奇穴图片: QIXUEIMG_QIXUE },
+      { 奇穴名称: '贯侯', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
       { 奇穴名称: '风止', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
       { 奇穴名称: '审固', 奇穴图片: QIXUEIMG_QIXUE },
       { 奇穴名称: '祛邪', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
@@ -126,10 +148,11 @@ export const 奇穴数据: QixueListDTO[] = [
   },
   // 12
   {
+    是否不可编辑: true,
     奇穴列表: [
       { 奇穴名称: '朱厌', 奇穴图片: QIXUEIMG_QIXUE },
       { 奇穴名称: '祝灵', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
-      { 奇穴名称: '星烨', 奇穴图片: QIXUEIMG_QIXUE },
+      { 奇穴名称: '星烨', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
       { 奇穴名称: '朝仪万汇', 是否不可编辑: true, 奇穴图片: QIXUEIMG_QIXUE },
       { 奇穴名称: '白虹贯日', 奇穴图片: QIXUEIMG_QIXUE },
     ],

@@ -100,7 +100,6 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
     form.validateFields().then((value) => {
       const data = getNewEquipmentData(value)
 
-      console.log('data===', data)
       localStorage?.setItem('wl_zhuangbei_data_basic_1', JSON.stringify(data))
       dispatch(setEquipmentBasicData(data))
       const { basicData, finalData } = getFinalCharacterBasicDataByEquipment(data)
@@ -191,10 +190,8 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
     try {
       const data = getNewEquipmentData(value)
 
-      console.log('data', data)
       const { finalData } = getFinalCharacterBasicDataByEquipment(data)
 
-      console.log('finalData', finalData)
       const final: CharacterFinalDTO = {
         ...finalData,
         装备增益: {
@@ -219,6 +216,7 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
         },
       }
       const 增益加速 = zengyiQiyong ? getZengyiJiasu(zengyixuanxiangData) : 0
+
       设置加速(final.加速值 + 增益加速)
       setZhuangbeizengyi({
         套装双会: data.套装会心会效,
@@ -247,12 +245,19 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
         zengyixuanxiangData
       )
 
-      const trueCycle = getTrueCycleByName(currentCycleName, currentCycle, final)
+      const { trueCycle, trueSkillBasicData } = getTrueCycleByName(
+        currentCycleName,
+        currentCycle,
+        final,
+        qixueData,
+        newSkillBasicData
+      )
+
       const { totalDps } = getDpsTotal({
         currentCycle: trueCycle,
         characterFinalData: final,
         当前目标: currentTarget,
-        skillBasicData: newSkillBasicData,
+        skillBasicData: trueSkillBasicData,
         zengyiQiyong,
         zengyixuanxiangData,
         dpsTime,

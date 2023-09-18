@@ -1,14 +1,13 @@
-import { GainDpsTypeEnum, GainTypeEnum } from '../../@types/enum'
+// import { GainDpsTypeEnum, GainTypeEnum } from '../../@types/enum'
+import { GainDpsTypeEnum, GainTypeEnum } from '@/@types/enum'
 import { SkillGainDTO } from '../../@types/skill'
 import commonGainDTO from './common'
 
-const 贯穿GainDTO: SkillGainDTO[] = [
+const 劲风簇GainDTO: SkillGainDTO[] = [
   ...commonGainDTO,
   {
-    增益名称: '贯穿会心率加成',
-    // TODO
-    // 由于没有弄清楚贯穿的快照机制，怀疑存在当前贯穿持续会心、非会心场景。贯穿计算会心率提高0.1
-    增益所在位置: 'TODO',
+    增益名称: '彤弓',
+    增益所在位置: '奇穴',
     常驻增益: false,
     增益集合: [
       {
@@ -16,20 +15,25 @@ const 贯穿GainDTO: SkillGainDTO[] = [
         增益计算类型: GainDpsTypeEnum.B,
         增益数值: 0.1,
       },
+      {
+        增益类型: GainTypeEnum.郭氏外攻会心效果等级,
+        增益计算类型: GainDpsTypeEnum.B,
+        增益数值: 102,
+      },
     ],
   },
   {
-    增益名称: '素矰',
+    增益名称: '雨积',
     增益所在位置: '奇穴',
     常驻增益: false,
     增益集合: [
       {
         增益类型: GainTypeEnum.伤害百分比,
         增益计算类型: GainDpsTypeEnum.A,
-        增益数值: 0.1,
+        增益数值: 0.15,
       },
     ],
   },
 ]
 
-export default 贯穿GainDTO
+export default 劲风簇GainDTO

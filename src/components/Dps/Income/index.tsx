@@ -63,13 +63,19 @@ function Income({ zengyiVisible }, ref) {
     )
 
     // 获取实际循环
-    const trueCycle = getTrueCycleByName(currentCycleName, currentCycle, characterFinalData)
+    const { trueCycle, trueSkillBasicData } = getTrueCycleByName(
+      currentCycleName,
+      currentCycle,
+      characterFinalData,
+      qixueData,
+      skillBasicData
+    )
 
     const { totalDps: oldDps } = getNotGuoDpsTotal({
       currentCycle: trueCycle,
       characterFinalData,
       当前目标: 计算后目标,
-      skillBasicData,
+      skillBasicData: trueSkillBasicData,
       zengyiQiyong,
       zengyixuanxiangData,
       dpsTime,
@@ -90,7 +96,7 @@ function Income({ zengyiVisible }, ref) {
       currentCycle: trueCycle,
       characterFinalData,
       当前目标: 计算后目标,
-      skillBasicData,
+      skillBasicData: trueSkillBasicData,
       zengyiQiyong,
       zengyixuanxiangData,
       dpsTime,

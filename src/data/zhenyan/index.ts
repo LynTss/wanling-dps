@@ -4,32 +4,32 @@ import { ZhenyanGainDTO } from '@/@types/zhenyan'
 // 用于增益计算的附魔
 export const Zhenyan_DATA: ZhenyanGainDTO[] = [
   {
-    阵眼名称: '刀宗阵(阵眼)',
+    阵眼名称: '万灵阵',
     增益集合: [
       {
+        增益计算类型: GainDpsTypeEnum.B,
+        计算位置: ZengyanZengyiPositionEnum.角色属性,
+        增益类型: GainTypeEnum.外攻会心百分比,
+        增益数值: 0.03,
+      },
+      {
+        增益计算类型: GainDpsTypeEnum.B,
+        计算位置: ZengyanZengyiPositionEnum.角色属性,
+        增益类型: GainTypeEnum.郭氏无双等级,
+        增益数值: 20,
+      },
+      {
         增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.破招,
-        增益数值: 1516,
-      },
-      {
-        增益计算类型: GainDpsTypeEnum.B,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏外攻破防等级,
-        增益数值: 256,
-      },
-      {
-        增益计算类型: GainDpsTypeEnum.B,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏基础攻击,
-        增益数值: 51,
-      },
-      {
-        增益计算类型: GainDpsTypeEnum.B,
         计算位置: ZengyanZengyiPositionEnum.伤害计算,
-        增益类型: GainTypeEnum.郭氏外攻会心效果等级,
-        增益数值: 102,
+        增益类型: GainTypeEnum.伤害百分比,
+        增益数值: 0.06,
       },
+      {
+        增益计算类型: GainDpsTypeEnum.B,
+        计算位置: ZengyanZengyiPositionEnum.角色属性,
+        增益类型: GainTypeEnum.郭氏外攻会心效果等级,
+        增益数值: 154,
+      }, // 第五层阵眼-会心效果15%，覆盖率100%
     ],
   },
   {

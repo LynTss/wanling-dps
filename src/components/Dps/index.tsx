@@ -58,13 +58,19 @@ function Dps(props, ref) {
     )
 
     // 获取实际循环
-    const trueCycle = getTrueCycleByName(currentCycleName, 参与计算循环, characterFinalData)
+    const { trueCycle, trueSkillBasicData } = getTrueCycleByName(
+      currentCycleName,
+      参与计算循环,
+      characterFinalData,
+      qixueData,
+      skillBasicData
+    )
 
     const { totalDps, dpsList } = getDpsTotal({
       currentCycle: trueCycle,
       characterFinalData,
       当前目标: currentTarget,
-      skillBasicData,
+      skillBasicData: trueSkillBasicData,
       zengyiQiyong,
       zengyixuanxiangData,
       dpsTime,

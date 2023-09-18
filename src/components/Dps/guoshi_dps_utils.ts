@@ -261,16 +261,18 @@ export const getSingleSkillTotalDps = (
         无增益技能数 = 无增益技能数 - 增益.增益技能数
         const 技能独立增益集合列表: SKillGainData[] = getGainList(增益, 当前技能属性)
 
-        const { 期望技能总伤 } = geSkillTotalDps(
-          当前技能属性,
-          最终人物属性,
-          增益.增益技能数,
-          计算目标,
-          [...技能增益集合, ...技能独立增益集合列表],
-          开启卢令,
-          单技能数据测试
-        )
-        totalDps = totalDps + 期望技能总伤
+        if (增益.增益技能数) {
+          const { 期望技能总伤 } = geSkillTotalDps(
+            当前技能属性,
+            最终人物属性,
+            增益.增益技能数,
+            计算目标,
+            [...技能增益集合, ...技能独立增益集合列表],
+            开启卢令,
+            单技能数据测试
+          )
+          totalDps = totalDps + 期望技能总伤
+        }
       })
     }
 
@@ -486,13 +488,15 @@ const getSkillDamage = (
 
   const 平均伤害 = Math.floor((最小技能总伤 + 最大技能总伤) / 2)
 
-  const 会心数量 = guoshiHuixin(最终人物属性.会心值, 技能总数)
-
   const 会心期望率 = 单技能数据测试 ? 0 : guoshiHuixinLv(最终人物属性.会心值) + 额外会心率
+
+  const 会心数量 = guoshiHuixin(最终人物属性.会心值, 技能总数)
 
   const 会心实际伤害 = guoshiHuixinshanghai(最终人物属性.会心效果值, 平均伤害, 郭氏额外会效果值)
 
-  const 期望技能总伤 = Math.floor(平均伤害 + 会心期望率 * (会心实际伤害 - 平均伤害)) * 技能总数
+  const 技能期望伤害 = Math.floor(平均伤害 + 会心期望率 * (会心实际伤害 - 平均伤害))
+
+  const 期望技能总伤 = (技能期望伤害 ? 技能期望伤害 : 1) * 技能总数
 
   return { 期望技能总伤, 会心数量 }
 }

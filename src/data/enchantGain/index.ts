@@ -92,6 +92,17 @@ export const AllEnchantDTO: EnchantDTO[] = [
     ],
   },
   {
+    附魔名称: EnchantNameEnum.破防24,
+    附魔支持部位: [EquipmentPositionEnum.腰带, EquipmentPositionEnum.衣服],
+    增益集合: [
+      {
+        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: GainTypeEnum.外攻破防等级,
+        增益数值: +CommonEnchantNum.衣服腰带24,
+      },
+    ],
+  },
+  {
     附魔名称: EnchantNameEnum.破防723,
     附魔支持部位: [
       EquipmentPositionEnum.护腕,
