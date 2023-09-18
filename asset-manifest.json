@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "./static/css/main.c15acd15.css",
-    "main.js": "./static/js/main.dba5a8c3.js",
+    "main.js": "./static/js/main.a69827ff.js",
     "static/media/1.jpg": "./static/media/1.b7b7352e844df9cdddb9.jpg",
     "static/media/daoru_help_2.png": "./static/media/daoru_help_2.8d37cf94d2cd6a48c68f.png",
     "static/media/2.jpg": "./static/media/2.b4322b705ba4834fa388.jpg",
     "static/media/daoru_help_1.png": "./static/media/daoru_help_1.3e48a844d1bfb3a5117c.png",
     "index.html": "./index.html",
     "main.c15acd15.css.map": "./static/css/main.c15acd15.css.map",
-    "main.dba5a8c3.js.map": "./static/js/main.dba5a8c3.js.map"
+    "main.a69827ff.js.map": "./static/js/main.a69827ff.js.map"
   },
   "entrypoints": [
     "static/css/main.c15acd15.css",
-    "static/js/main.dba5a8c3.js"
+    "static/js/main.a69827ff.js"
   ]
 }
