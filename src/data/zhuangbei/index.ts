@@ -10,28 +10,28 @@ import ZHUANGBEI_JIEZHI from './jiezhi'
 import ZHUANGBEI_YUANCHENGWUQI from './yuanchengwuqi'
 import ZHUANGBEI_JINSHENWUQI from './jinshenwuqi'
 
-export const 龙门_武器Ids = [34553]
+export const 龙门_武器Ids: EquipmentIds[] = []
 // 特效武器
-export const 特效_武器Ids = [32989]
-export const 特效_武器_2Ids = [34765]
+export const 特效_武器Ids: EquipmentIds[] = []
+export const 特效_武器_2Ids: EquipmentIds[] = []
 // 特效腰坠
-export const 特效_腰椎Ids = [34381]
-export const 特效_腰椎_2Ids = [37719]
+export const 特效_腰椎Ids: EquipmentIds[] = []
+export const 特效_腰椎_2Ids: EquipmentIds[] = []
 // 切糕套装
-export const 切糕套装_1Ids = [91291, 91315, 91309, 91303, 91297, 91321]
-export const 切糕套装_2Ids = [94463, 94487, 94481, 94475, 94469, 94493]
+export const 切糕套装_1Ids: EquipmentIds[] = []
+export const 切糕套装_2Ids: EquipmentIds[] = []
 // 大CW特效Ids
-export const 大CW特效Ids = [33107, 33137, 34373, 34403, 34433, 35597, 35627]
-export const 小CW特效Ids: number[] = [34313]
+export const 大CW特效Ids: EquipmentIds[] = []
+export const 小CW特效Ids: EquipmentIds[] = []
 
 // 2022冬至套装
-export const 冬至套装_1Ids: number[] = [37662, 34503, 94122, 94151]
+export const 冬至套装_1Ids: EquipmentIds[] = []
 
-// 2件套会心 4件套孤锋10%
-export const 套装_1Ids = [91076, 91163, 91134, 91105, 91192]
-// 2件套孤锋10% 4件套会心
-export const 套装_2Ids = [90763, 90850, 90821, 90792, 90879]
-export const 套装_3Ids = [94248, 94335, 94306, 94277, 94364]
+// 2件套会心 4件套XX10%
+export const 套装_1Ids: EquipmentIds[] = []
+// 2件套XX10% 4件套会心
+export const 套装_2Ids: EquipmentIds[] = []
+export const 套装_3Ids: EquipmentIds[] = []
 
 const ZUANGBEI_DATA = {
   帽子: ZHUANGBEI_MAOZI,
@@ -48,3 +48,5 @@ const ZUANGBEI_DATA = {
 }
 
 export default ZUANGBEI_DATA
+
+type EquipmentIds = number[]

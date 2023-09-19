@@ -44,8 +44,7 @@ export const getFinalCharacterBasicDataByEquipment = (
   let basicDTO: CharacterBasicDTO = {
     等级: 120,
     基础攻击: 3277 + 7, // 心法基础3277攻击+基础41点力道增加6点攻击
-    破防值: 12 + 868, // 基础41力道增加12点破防
-    // TODO 868删除，PVP两件套测试用
+    破防值: 12, // 基础41力道增加12点破防
     无双值: 0,
     身法: 41,
     体质: 41,

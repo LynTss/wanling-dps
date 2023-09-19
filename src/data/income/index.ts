@@ -40,16 +40,6 @@ export const IncomeFumo: IncomeDataDTO[] = [
     ],
   },
   {
-    收益计算名称: EnchantNameEnum.武伤540,
-    增益集合: [
-      {
-        增益计算类型: GainDpsTypeEnum.A,
-        增益类型: GainTypeEnum.近战武器伤害,
-        增益数值: 540,
-      },
-    ],
-  },
-  {
     收益计算名称: EnchantNameEnum.破防799,
     增益集合: [
       {
@@ -96,6 +86,16 @@ export const IncomeFumo: IncomeDataDTO[] = [
         增益计算类型: GainDpsTypeEnum.A,
         增益类型: GainTypeEnum.破招,
         增益数值: +CommonEnchantNum.赛季799,
+      },
+    ],
+  },
+  {
+    收益计算名称: EnchantNameEnum.武伤540,
+    增益集合: [
+      {
+        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: GainTypeEnum.近战武器伤害,
+        增益数值: 540,
       },
     ],
   },
