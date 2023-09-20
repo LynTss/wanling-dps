@@ -5,6 +5,7 @@
 .qixue-set-drawer .ant-drawer-body {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .qixue-set-drawer-wrap {
@@ -12,10 +13,11 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  max-width: 1366px;
 }
 
 .qixue-set-item {
-  width: calc(100vw / 12 - 24px);
+  width: calc(100% / 12 - 24px);
   margin: 0;
 }
 
@@ -40,7 +42,8 @@
 
 .qixue-set-item-select-text {
   font-size: 18px;
-  line-height: 32px;;
+  line-height: 32px;
+  ;
 }
 
 .qixue-set-item-select.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
@@ -88,7 +91,7 @@
 
 .qixue-label-img {
   display: block;
-  margin:0 auto;
+  margin: 0 auto;
   width: 60%;
   border-radius: 50%;
 }
