@@ -220,7 +220,7 @@ export const DEFAULT_QIXUE_VALUE = [
   '诸怀',
   '于狩',
   '九乌',
-  '陆吾',
+  '托月',
   '佩弦',
   '审固',
   '朱厌',
