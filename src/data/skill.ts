@@ -5,7 +5,7 @@ import 贯穿GainDTO from './skillGain/贯穿'
 import 劲风簇GainDTO from './skillGain/劲风簇'
 
 // const 贯穿伤害系数 = 0.15495 // 0.2
-const 贯穿伤害系数 = 0.3359375
+const 贯穿伤害系数 = 0.3359375 * 0.7
 const 贯穿基础伤害 = 29
 
 const WanlingSkillDataDTO: SkillBasicDTO[] = [
@@ -14,7 +14,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能伤害系数: 1.34375,
     技能基础伤害_最小值: 37,
     技能基础伤害_最大值: 42,
-    武器伤害系数: 0,
+    武器伤害系数: 1,
     伤害计算次数: 1,
     技能增益列表: 劲风簇GainDTO,
   },
@@ -23,7 +23,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能伤害系数: 3.2, // 3
     技能基础伤害_最小值: 70,
     技能基础伤害_最大值: 90,
-    武器伤害系数: 0,
+    武器伤害系数: 2,
     伤害计算次数: 1,
     技能增益列表: commonGainDTO,
   },
@@ -177,7 +177,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能基础伤害_最小值: 贯穿基础伤害,
     技能基础伤害_最大值: 贯穿基础伤害,
     武器伤害系数: 0,
-    伤害计算次数: 6 * 3,
+    伤害计算次数: 6 * 2,
     技能增益列表: 贯穿GainDTO,
   },
   {
@@ -201,7 +201,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
   {
     技能名称: '破',
     // 技能伤害系数: 13.1925 * 0.48 * 1.05, // 修改过一次 原来没有1.05
-    技能伤害系数: 13.1925 * 0.15, // 修改过一次 原来没有1.05
+    技能伤害系数: 13.1925 * 0.15 * 2, // 修改过一次 原来没有1.05
     技能基础伤害_最小值: 0,
     技能基础伤害_最大值: 0,
     武器伤害系数: 0,
