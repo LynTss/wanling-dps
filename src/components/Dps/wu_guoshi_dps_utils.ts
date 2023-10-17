@@ -83,7 +83,6 @@ export const getNotGuoDpsTotal = (props: GetDpsTotalParams) => {
       最终循环.push({
         技能名称: '逐云寒蕊',
         技能数量: Math.floor(dpsTime * 0.13),
-        技能增益列表: [{ 增益名称: '灭影随风', 增益技能数: Math.floor(dpsTime * 0.13 * 0.4) }],
       })
     }
   }
