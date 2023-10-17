@@ -244,7 +244,6 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
         zengyiQiyong,
         zengyixuanxiangData
       )
-
       const { trueCycle, trueSkillBasicData } = getTrueCycleByName(
         currentCycleName,
         currentCycle,

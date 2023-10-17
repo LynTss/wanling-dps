@@ -226,10 +226,10 @@ export const getTrueCycleByName = (
   const trueCycle = [...currentCycle]
   let newSkillBasicData = [...skillBasicData]
 
-  if (characterFinalData?.装备增益?.大橙武特效 && currentCycleName?.includes('骑射')) {
-    const trueName = `${currentCycleName}_cw`
-    return All_Cycle_Data?.find((item) => item.name === trueName)?.cycle || currentCycle
-  }
+  // if (characterFinalData?.装备增益?.大橙武特效 && currentCycleName?.includes('骑射')) {
+  //   const trueName = `${currentCycleName}_cw`
+  //   return All_Cycle_Data?.find((item) => item.name === trueName)?.cycle || currentCycle
+  // }
 
   // 根据奇穴类型处理各类循环
   const 全部奇穴信息: QixueDataDTO[] = getAllQixueData(qixueData)
