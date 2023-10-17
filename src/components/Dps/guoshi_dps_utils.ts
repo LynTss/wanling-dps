@@ -24,7 +24,7 @@ interface GetDpsTotalParams {
   zengyixuanxiangData: ZengyixuanxiangDataDTO
   dpsTime: number
   开启卢令: boolean
-  开启诸怀: boolean
+  开启无视防御: boolean
 }
 
 export interface DpsListData {
@@ -45,7 +45,7 @@ export const getDpsTotal = (props: GetDpsTotalParams) => {
     zengyixuanxiangData,
     dpsTime,
     开启卢令,
-    开启诸怀,
+    开启无视防御,
   } = props
   // 总dps
   let total = 0
@@ -56,7 +56,7 @@ export const getDpsTotal = (props: GetDpsTotalParams) => {
   const 最终人物属性 = 获取身法奇穴加成后面板(characterFinalData, 开启卢令)
 
   // 获取装备增益等带来的最终增益集合
-  let 总增益集合: SKillGainData[] = getAllGainData(characterFinalData, [], 开启诸怀)
+  let 总增益集合: SKillGainData[] = getAllGainData(characterFinalData, [], 开启无视防御)
 
   // 判断是不是单技能统计循环。如果是则不计入
   const isSingeSkillCycle = currentCycle?.find((item) => item?.技能名称 === '风矢')?.技能数量 === 1
@@ -168,11 +168,11 @@ export const getFinalCycleData = (
 export const getAllGainData = (
   characterFinalData,
   defaultGainData?,
-  开启诸怀?
+  开启无视防御?
 ): SKillGainData[] => {
   let 总增益集合: SKillGainData[] = [...(defaultGainData || [])]
 
-  if (开启诸怀) {
+  if (开启无视防御) {
     总增益集合 = 总增益集合.concat([
       {
         增益计算类型: GainDpsTypeEnum.B,
@@ -637,7 +637,9 @@ export const getGainList = (增益: CycleGain, 当前技能属性: SkillBasicDTO
   let 增益集合列表: SKillGainData[] = []
 
   gainNameList.forEach((i) => {
-    const findGain = 当前技能属性?.技能增益列表.find((item) => item.增益名称 === i)
+    const findGain = 当前技能属性?.技能增益列表.find(
+      (item) => item.增益名称 === i && (item.常驻增益 || item.增益启用开关)
+    )
     if (findGain) {
       增益集合列表 = 增益集合列表.concat(findGain?.增益集合 || [])
     }

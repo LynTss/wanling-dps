@@ -40,7 +40,7 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
 
   const qixueData = useAppSelector((state) => state.basic.qixueData)
   const isOpenLuLing = 判断是否开启身法加成奇穴(qixueData)
-  const 开启诸怀 = 判断是否开启无视防御奇穴(qixueData)
+  const 开启无视防御 = 判断是否开启无视防御奇穴(qixueData)
 
   const [zhuangbeizengyi, setZhuangbeizengyi] = useState<any>()
   const [默认镶嵌宝石等级, 设置默认镶嵌宝石等级] = useState<number>(8)
@@ -220,7 +220,7 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
       设置加速(final.加速值 + 增益加速)
       setZhuangbeizengyi({
         套装双会: data.套装会心会效,
-        套装孤锋: data.套装技能,
+        套装饮雨: data.套装技能,
         龙门武器: data.龙门武器,
         大CW: data.大橙武特效,
         小CW: data.小橙武特效,
@@ -262,7 +262,7 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
         zengyixuanxiangData,
         dpsTime,
         开启卢令: isOpenLuLing,
-        开启诸怀,
+        开启无视防御,
       })
       console.log('战斗时间', dpsTime)
       setAfterDps(Math.floor(totalDps / dpsTime))

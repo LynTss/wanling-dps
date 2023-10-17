@@ -24,7 +24,7 @@ function Dps(props, ref) {
   const zengyiQiyong = useAppSelector((state) => state?.zengyi?.zengyiQiyong)
   const qixueData = useAppSelector((state) => state.basic.qixueData)
   const isOpenLuLing = 判断是否开启身法加成奇穴(qixueData)
-  const 开启诸怀 = 判断是否开启无视防御奇穴(qixueData)
+  const 开启无视防御 = 判断是否开启无视防御奇穴(qixueData)
 
   const [total, setTotal] = useState<number>(0)
   const [dpsList, setDpsList] = useState<DpsListData[]>([])
@@ -75,7 +75,7 @@ function Dps(props, ref) {
       zengyixuanxiangData,
       dpsTime,
       开启卢令: isOpenLuLing,
-      开启诸怀,
+      开启无视防御,
     })
     setTotal(totalDps)
     setDpsList(dpsList)

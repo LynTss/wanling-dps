@@ -55,12 +55,24 @@ const commonGainDTO: SkillGainDTO[] = [
   {
     增益名称: '承契_5层',
     增益所在位置: '技能',
-    常驻增益: false,
+    常驻增益: true,
     增益集合: [
       {
         增益类型: GainTypeEnum.伤害百分比,
         增益计算类型: GainDpsTypeEnum.A,
         增益数值: 承契基础系数 * 5,
+      },
+    ],
+  },
+  {
+    增益名称: '诸怀',
+    增益所在位置: '奇穴',
+    常驻增益: false,
+    增益集合: [
+      {
+        增益类型: GainTypeEnum.郭氏基础攻击,
+        增益计算类型: GainDpsTypeEnum.A,
+        增益数值: 102,
       },
     ],
   },

@@ -28,8 +28,8 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
         增益计算类型: GainDpsTypeEnum.B,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏外攻会心效果等级,
-        增益数值: 154,
-      }, // 第五层阵眼-会心效果15%，覆盖率100%
+        增益数值: 154 * 0.7,
+      }, // 第五层阵眼-会心效果15%，覆盖率70%
     ],
   },
   {

@@ -1,7 +1,7 @@
 import { GainTypeEnum, WuCaiShiGainNameEnum } from '@/@types/enum'
 
-const 切糕名标识 = ['暮祁', '雪漫']
-const 套装名标识 = ['揽江·', '濯心·']
+const 切糕名标识 = ['暮祁', '雪舞', '雪漫', '风停', '弯弓弦月', '飞虹']
+const 套装名标识 = ['揽江·', '濯心·', '灵源·']
 
 // 装备导入
 export const zhuangbeidaoru = (list: MoHeZhuangBeiShuJu[]) => {
@@ -28,9 +28,9 @@ export const zhuangbeidaoru = (list: MoHeZhuangBeiShuJu[]) => {
           : +item.MaxStrengthLevel === 8
           ? `EquipmentTypeEnum.大CW`
           : `EquipmentTypeEnum.小CW`
-        : 切糕名标识?.some((item) => name?.includes(item))
+        : 切糕名标识?.find((item) => name?.includes(item))
         ? `EquipmentTypeEnum.切糕`
-        : 套装名标识.some((item) => name?.includes(item))
+        : 套装名标识?.find((item) => name?.includes(item))
         ? `EquipmentTypeEnum.门派套装`
         : +item.MaxStrengthLevel === 4
         ? `EquipmentTypeEnum.副本精简`

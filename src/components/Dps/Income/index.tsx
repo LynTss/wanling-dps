@@ -40,7 +40,7 @@ function Income({ zengyiVisible }, ref) {
 
   const qixueData = useAppSelector((state) => state.basic.qixueData)
   const isOpenLuLing = 判断是否开启身法加成奇穴(qixueData)
-  const 开启诸怀 = 判断是否开启无视防御奇穴(qixueData)
+  const 开启无视防御 = 判断是否开启无视防御奇穴(qixueData)
 
   const [chartData, setChartData] = useState<any>()
   const [currentIncomeType, setCunrrentIncomeType] = useState<string>('附魔')
@@ -80,7 +80,7 @@ function Income({ zengyiVisible }, ref) {
       zengyixuanxiangData,
       dpsTime,
       开启卢令: isOpenLuLing,
-      开启诸怀,
+      开启无视防御,
     })
 
     const 增益集合 = [
@@ -102,7 +102,7 @@ function Income({ zengyiVisible }, ref) {
       dpsTime,
       默认增益集合: 增益集合,
       开启卢令: isOpenLuLing,
-      开启诸怀,
+      开启无视防御,
     })
 
     return Number((newTotalDps / oldDps - 1) * 100)

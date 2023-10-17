@@ -26,7 +26,7 @@ const 贯穿GainDTO: SkillGainDTO[] = [
       {
         增益类型: GainTypeEnum.伤害百分比,
         增益计算类型: GainDpsTypeEnum.A,
-        增益数值: 0.1,
+        增益数值: 0.05,
       },
     ],
   },
