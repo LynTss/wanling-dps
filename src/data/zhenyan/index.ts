@@ -19,10 +19,10 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
         增益数值: 20,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B, // 独立计算的6%
+        增益计算类型: GainDpsTypeEnum.A, // 和上马、秘籍、承契共同为加法
         计算位置: ZengyanZengyiPositionEnum.伤害计算,
         增益类型: GainTypeEnum.伤害百分比,
-        增益数值: 0.060546875,
+        增益数值: 61 / 1024,
       },
       {
         增益计算类型: GainDpsTypeEnum.A,
