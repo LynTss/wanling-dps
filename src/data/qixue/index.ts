@@ -354,7 +354,6 @@ export const 奇穴数据: QixueListDTO[] = [
   },
   // 12
   {
-    是否不可编辑: true,
     奇穴列表: [
       {
         奇穴名称: '朱厌',
@@ -370,7 +369,8 @@ export const 奇穴数据: QixueListDTO[] = [
       },
       {
         奇穴名称: '星烨',
-        奇穴加成类型: '常驻',
+        奇穴加成类型: '部分数量加成',
+        奇穴加成技能: ['劲风簇'],
         奇穴图片: 'https://icon.jx3box.com/icon/20278.png',
       },
       {

@@ -7,25 +7,25 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '万灵阵',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.外攻会心百分比,
         增益数值: 0.03,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏无双等级,
         增益数值: 20,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
+        增益计算类型: GainDpsTypeEnum.B, // 独立计算的6%
         计算位置: ZengyanZengyiPositionEnum.伤害计算,
         增益类型: GainTypeEnum.伤害百分比,
-        增益数值: 0.06,
+        增益数值: 0.060546875,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏外攻会心效果等级,
         增益数值: 154 * 0.7,
@@ -42,13 +42,13 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
         增益数值: 1516,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏外攻破防等级,
         增益数值: 256,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏基础攻击,
         增益数值: 51,
@@ -59,19 +59,19 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '鲸鱼阵',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏无双等级,
         增益数值: 20,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏外攻破防等级,
         增益数值: 204,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.伤害计算,
         增益类型: GainTypeEnum.外攻会心百分比,
         增益数值: 0.05,
@@ -82,19 +82,19 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '天策阵',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏基础攻击,
         增益数值: 50,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏外攻破防等级,
         增益数值: 200,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏基础攻击,
         增益数值: 51 * 0.4,
@@ -105,25 +105,25 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '霸刀阵',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏基础攻击,
         增益数值: 50,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏无双等级,
         增益数值: 20,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏外攻破防等级,
         增益数值: 102,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.伤害计算,
         增益类型: GainTypeEnum.外攻会心百分比,
         增益数值: 0.05,
@@ -134,25 +134,25 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '剑纯阵',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.外攻会心百分比,
         增益数值: 0.03,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏无双等级,
         增益数值: 20,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏外攻会心效果等级,
         增益数值: 154,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.伤害计算,
         增益类型: GainTypeEnum.外攻会心百分比,
         增益数值: 0.05,
@@ -163,19 +163,19 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '藏剑阵',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏身法,
         增益数值: 31,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏基础攻击,
         增益数值: 51,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏外攻会心效果等级,
         增益数值: 204,
@@ -186,25 +186,25 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '凌雪阵',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏基础攻击,
         增益数值: 50,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.外攻会心百分比,
         增益数值: 0.03,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏外攻会心效果等级,
         增益数值: 154,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.伤害计算,
         增益类型: GainTypeEnum.郭氏基础攻击,
         增益数值: 102 * 0.5,
@@ -215,19 +215,19 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '苍云阵',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.外攻会心百分比,
         增益数值: 0.03,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏无双等级,
         增益数值: 20,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.伤害计算,
         增益类型: GainTypeEnum.郭氏外攻会心效果等级,
         增益数值: 102,
@@ -238,19 +238,19 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '蓬莱阵',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.外攻会心百分比,
         增益数值: 0.03,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏基础攻击,
         增益数值: 102,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏外攻破防等级,
         增益数值: 102,
@@ -261,13 +261,13 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '丐帮阵',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏基础攻击,
         增益数值: 50,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏外攻破防等级,
         增益数值: 102,
@@ -284,19 +284,19 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '天罗阵',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.伤害计算,
         增益类型: GainTypeEnum.郭氏无视防御,
         增益数值: 52,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.角色属性,
         增益类型: GainTypeEnum.郭氏外攻会心效果等级,
         增益数值: 150,
       },
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         计算位置: ZengyanZengyiPositionEnum.伤害计算,
         增益类型: GainTypeEnum.外攻会心百分比,
         增益数值: 0.05,

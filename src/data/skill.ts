@@ -11,7 +11,7 @@ const 贯穿基础伤害 = 29
 const WanlingSkillDataDTO: SkillBasicDTO[] = [
   {
     技能名称: '标鹄',
-    技能伤害系数: 3.675 * 1.15,
+    技能伤害系数: 3.675,
     技能基础伤害_最小值: 30,
     技能基础伤害_最大值: 50,
     武器伤害系数: 0,
@@ -20,7 +20,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
   },
   {
     技能名称: '劲风簇',
-    技能伤害系数: 1.20625 * 1.15,
+    技能伤害系数: 1.20625,
     技能基础伤害_最小值: 37,
     技能基础伤害_最大值: 42,
     武器伤害系数: 0,
@@ -233,7 +233,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
         增益集合: [
           {
             增益类型: GainTypeEnum.郭氏无视防御,
-            增益计算类型: GainDpsTypeEnum.B,
+            增益计算类型: GainDpsTypeEnum.A,
             增益数值: 1024,
           },
         ],

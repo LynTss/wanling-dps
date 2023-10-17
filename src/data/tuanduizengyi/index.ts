@@ -55,7 +55,7 @@ export const TuanduiZengyi_DATA: TuanduiZengyiBasicDataDTO[] = [
     覆盖率: 100,
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         增益类型: GainTypeEnum.郭氏基础攻击,
         增益数值: 51,
       },
@@ -100,7 +100,7 @@ export const TuanduiZengyi_DATA: TuanduiZengyiBasicDataDTO[] = [
     增益集合: [
       {
         增益类型: GainTypeEnum.外攻会心百分比,
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         增益数值: 0.1,
       },
     ],
@@ -111,7 +111,7 @@ export const TuanduiZengyi_DATA: TuanduiZengyiBasicDataDTO[] = [
     覆盖率: 25,
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         增益类型: GainTypeEnum.郭氏武器伤害,
         增益数值: 716,
       },
@@ -137,7 +137,7 @@ export const TuanduiZengyi_DATA: TuanduiZengyiBasicDataDTO[] = [
     覆盖率支持手动录入: true,
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         增益类型: GainTypeEnum.郭氏基础攻击,
         增益数值: 307,
       },
@@ -175,7 +175,7 @@ export const TuanduiZengyi_DATA: TuanduiZengyiBasicDataDTO[] = [
     增益集合: [
       {
         增益类型: GainTypeEnum.郭氏外攻会心效果等级,
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         增益数值: 51,
       },
     ],
@@ -211,7 +211,7 @@ export const TuanduiZengyi_DATA: TuanduiZengyiBasicDataDTO[] = [
     覆盖率支持手动录入: true,
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         增益类型: GainTypeEnum.郭氏无视防御,
         增益数值: 102,
       },
@@ -225,12 +225,12 @@ export const TuanduiZengyi_DATA: TuanduiZengyiBasicDataDTO[] = [
     增益集合: [
       {
         增益类型: GainTypeEnum.外攻会心百分比,
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         增益数值: 0.05,
       },
       {
         增益类型: GainTypeEnum.郭氏外攻会心效果等级,
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         增益数值: 102,
       },
     ],
@@ -241,7 +241,7 @@ export const TuanduiZengyi_DATA: TuanduiZengyiBasicDataDTO[] = [
     覆盖率: 100,
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         增益类型: GainTypeEnum.郭氏无视防御,
         增益数值: 51,
       },
@@ -254,7 +254,7 @@ export const TuanduiZengyi_DATA: TuanduiZengyiBasicDataDTO[] = [
     覆盖率支持手动录入: true,
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.A,
         增益类型: GainTypeEnum.郭氏外攻破防等级,
         增益数值: 204,
       },

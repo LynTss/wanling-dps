@@ -14,6 +14,7 @@ function CharacterShow() {
 
   const mapKeyList = ['身法', '攻击力', '会心', '会心效果', '破防', '无双', '破招', '加速']
 
+  console.log('characterFinalData===', characterFinalData)
   const showData = openLuLing
     ? 获取身法奇穴加成后面板(characterFinalData, openLuLing)
     : characterFinalData
