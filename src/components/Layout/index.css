@@ -19,7 +19,7 @@
   flex-direction: row;
   box-sizing: border-box;
   /* background: #08122b; */
-  background-image: linear-gradient(to right, #270c00 30%, rgba(105, 86, 5, 0.5) 100%)
+  background-image: linear-gradient(to right, rgba(124, 85, 2, 0.4) 5%, rgba(105, 86, 5, 0.15) 70%)
 }
 
 .layout-bg {
@@ -30,6 +30,8 @@
   top: 0;
   z-index: 1;
   margin: auto;
+  width: 100%;
+  /* margin-right:-5%; */
 }
 
 .layout-bg-color {
