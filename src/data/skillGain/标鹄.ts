@@ -2,7 +2,7 @@ import { GainDpsTypeEnum, GainTypeEnum } from '../../@types/enum'
 import { SkillGainDTO } from '../../@types/skill'
 import commonGainDTO from './common'
 
-const 贯穿GainDTO: SkillGainDTO[] = [
+const 标鹄GainDTO: SkillGainDTO[] = [
   ...commonGainDTO,
   {
     增益名称: '贯侯',
@@ -12,10 +12,11 @@ const 贯穿GainDTO: SkillGainDTO[] = [
       {
         增益类型: GainTypeEnum.伤害百分比,
         增益计算类型: GainDpsTypeEnum.A,
-        增益数值: 0.2,
+        增益数值: 0.3,
+        // 增益数值: 0.45, // 按期望算 41次基本标鹄增加36次1.2倍的标鹄。总期望1.05
       },
     ],
   },
 ]
 
-export default 贯穿GainDTO
+export default 标鹄GainDTO

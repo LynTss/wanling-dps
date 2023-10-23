@@ -223,7 +223,7 @@ export const getTrueCycleByName = (
   qixueData: string[],
   skillBasicData: SkillBasicDTO[]
 ) => {
-  const trueCycle = [...currentCycle]
+  let trueCycle = [...currentCycle]
   let newSkillBasicData = [...skillBasicData]
 
   // if (characterFinalData?.装备增益?.大橙武特效 && currentCycleName?.includes('骑射')) {
@@ -283,6 +283,42 @@ export const getTrueCycleByName = (
 
     return res
   })
+
+  // 特殊处理贯侯
+  if (qixueData?.includes('贯侯')) {
+    trueCycle = trueCycle.map((item) => {
+      if (item.技能名称 === '标鹄' && !item.已计算贯侯) {
+        return {
+          ...item,
+          技能数量: item.技能数量 + (item.技能数量 > 5 ? item.技能数量 - 5 : 0),
+          已计算贯侯: true,
+        }
+      } else {
+        return { ...item }
+      }
+    })
+  }
+
+  // 特殊处理桑柘
+  if (qixueData?.includes('桑柘')) {
+    trueCycle = trueCycle.map((item) => {
+      if (item.技能名称 === '贯穿(DOT)·六' && !item.已计算桑柘) {
+        return {
+          ...item,
+          技能数量: item.技能数量 + 36, // 3分钟暂时写死50
+          已计算桑柘: true,
+        }
+      } else if (item.技能名称 === '贯穿(DOT)·六·引爆' && !item.已计算桑柘) {
+        return {
+          ...item,
+          技能数量: item.技能数量 + 14, // 3分钟暂时写死50
+          已计算桑柘: true,
+        }
+      } else {
+        return { ...item }
+      }
+    })
+  }
 
   return {
     trueCycle: trueCycle,

@@ -3,6 +3,7 @@ import { SkillBasicDTO } from '@/@types/skill'
 import { GainDpsTypeEnum, GainTypeEnum } from '@/@types/enum'
 import 贯穿GainDTO from './skillGain/贯穿'
 import 劲风簇GainDTO from './skillGain/劲风簇'
+import 标鹄GainDTO from './skillGain/标鹄'
 
 // const 贯穿伤害系数 = 0.15495 // 0.2
 const 贯穿伤害系数 = 0.3359375 * 0.7 * 1.15
@@ -16,7 +17,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能基础伤害_最大值: 50,
     武器伤害系数: 0,
     伤害计算次数: 1,
-    技能增益列表: commonGainDTO,
+    技能增益列表: 标鹄GainDTO,
   },
   {
     技能名称: '劲风簇',
@@ -200,11 +201,11 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
   },
   {
     技能名称: '朝仪万汇',
-    技能伤害系数: 1.34375,
+    技能伤害系数: 1.34375 * 1.2,
     技能基础伤害_最小值: 37,
     技能基础伤害_最大值: 42,
     武器伤害系数: 0,
-    伤害计算次数: 20,
+    伤害计算次数: 1,
     技能增益列表: commonGainDTO,
   },
   {
