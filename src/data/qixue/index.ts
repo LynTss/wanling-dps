@@ -322,6 +322,7 @@ export const 奇穴数据: QixueListDTO[] = [
   },
   // 11
   {
+    是否不可编辑: true,
     奇穴列表: [
       {
         奇穴名称: '命俦',
