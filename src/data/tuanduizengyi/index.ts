@@ -11,12 +11,12 @@ export const TuanduiZengyi_DATA: TuanduiZengyiBasicDataDTO[] = [
       {
         增益计算类型: GainDpsTypeEnum.A,
         增益类型: GainTypeEnum.无双等级,
-        增益数值: 130,
+        增益数值: 192,
       },
       {
         增益计算类型: GainDpsTypeEnum.A,
         增益类型: GainTypeEnum.破招,
-        增益数值: 130,
+        增益数值: 192,
       },
     ],
   },
@@ -33,7 +33,7 @@ export const TuanduiZengyi_DATA: TuanduiZengyiBasicDataDTO[] = [
     ],
   },
   {
-    增益名称: '水煮鱼',
+    增益名称: '水煮鱼炼',
     层数: 1,
     覆盖率: 100,
     增益集合: [
@@ -46,6 +46,23 @@ export const TuanduiZengyi_DATA: TuanduiZengyiBasicDataDTO[] = [
         增益计算类型: GainDpsTypeEnum.A,
         增益类型: GainTypeEnum.破招,
         增益数值: 100,
+      },
+    ],
+  },
+  {
+    增益名称: '水煮鱼百',
+    层数: 1,
+    覆盖率: 100,
+    增益集合: [
+      {
+        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: GainTypeEnum.无双等级,
+        增益数值: 400,
+      },
+      {
+        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: GainTypeEnum.破招,
+        增益数值: 400,
       },
     ],
   },
@@ -387,6 +404,30 @@ export const TuanduiZengyi_DATA: TuanduiZengyiBasicDataDTO[] = [
         增益计算类型: GainDpsTypeEnum.A,
         增益类型: GainTypeEnum.无双等级,
         增益数值: 60,
+      },
+    ],
+  },
+  {
+    增益名称: '细花糕',
+    层数: 1,
+    覆盖率: 100,
+    增益集合: [
+      {
+        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: GainTypeEnum.外攻会心等级,
+        增益数值: 1887,
+      },
+    ],
+  },
+  {
+    增益名称: '金钱花糕',
+    层数: 1,
+    覆盖率: 100,
+    增益集合: [
+      {
+        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: GainTypeEnum.基础攻击,
+        增益数值: 661,
       },
     ],
   },

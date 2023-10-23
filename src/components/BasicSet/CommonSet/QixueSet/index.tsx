@@ -13,6 +13,8 @@ function QixueSet({ getDpsFunction }) {
   const dispatch = useAppDispatch()
   const qixueData = useAppSelector((state) => state?.basic?.qixueData)
 
+  const isDev = process.env.NODE_ENV === 'development'
+
   const handleChangeQixue = () => {
     setTimeout(() => {
       form?.validateFields().then((values) => {
@@ -37,6 +39,8 @@ function QixueSet({ getDpsFunction }) {
     })
   }, [qixueData])
 
+  console.log('process.env.NODE_ENV', process.env.NODE_ENV)
+
   return (
     <>
       <Button className="qixue-set-button" onClick={() => setDrawerOpen(true)}>
@@ -56,7 +60,7 @@ function QixueSet({ getDpsFunction }) {
               <Form.Item className={'qixue-set-item'} name={index} key={QixueNameMap[index + 1]}>
                 <Select
                   className={'qixue-set-item-select'}
-                  disabled={重?.是否不可编辑}
+                  disabled={isDev ? false : 重?.是否不可编辑}
                   onChange={handleChangeQixue}
                   dropdownMatchSelectWidth={false}
                   optionLabelProp="label"
@@ -69,7 +73,7 @@ function QixueSet({ getDpsFunction }) {
                       <Select.Option
                         value={奇穴?.奇穴名称}
                         key={奇穴?.奇穴名称}
-                        disabled={奇穴?.是否不可编辑}
+                        disabled={isDev ? false : 奇穴?.是否不可编辑}
                         className={'qixue-set-item-select-option'}
                         label={
                           <div className={'qixue-label'}>
