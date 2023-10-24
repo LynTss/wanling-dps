@@ -10,7 +10,7 @@ function ZhuangBeiZengYiTip({ zengyiType, data }) {
           ? data
             ? '开启'
             : '关闭'
-          : zengyiType === '套装XX'
+          : zengyiType === '套装饮雨'
           ? `${data * 10}%`
           : zengyiType === '特效武器'
           ? data
