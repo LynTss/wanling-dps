@@ -57,6 +57,8 @@ function Dps(props, ref) {
       zengyixuanxiangData
     )
 
+    console.log('dpsTime', dpsTime)
+
     // 获取实际循环
     const { trueCycle, trueSkillBasicData } = getTrueCycleByName(
       currentCycleName,

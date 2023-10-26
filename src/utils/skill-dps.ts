@@ -150,6 +150,8 @@ export const getDpsTime = (
   const currentCycleConfig = All_Cycle_Data.find((item) => item.name === trueCurrentCycleName)
   const 增益加速等级 = zengyiQiyong ? getZengyiJiasu(zengyixuanxiangData) : 0
   const 加速等级 = 获取加速等级(characterFinalData.加速值 + 增益加速等级)
+
+  console.log('currentCycleConfig', currentCycleConfig)
   // 暂时去除加速对延迟的计算，加速等级不够1断直接加帧
   // if (currentCycleConfig) {
   //   let 总帧数 = 0
@@ -208,12 +210,14 @@ export const getZengyiJiasu = (zengyixuanxiangData: ZengyixuanxiangDataDTO) => {
 
 export const getTrueCycleName = (
   currentCycleName: string,
-  characterFinalData: CharacterFinalDTO
+  __
+  // characterFinalData: CharacterFinalDTO
 ) => {
-  if (characterFinalData?.装备增益?.大橙武特效 && currentCycleName?.includes('骑射')) {
-    return `${currentCycleName}_cw`
-  }
   return currentCycleName
+  // if (characterFinalData?.装备增益?.大橙武特效 && currentCycleName?.includes('骑射')) {
+  //   return `${currentCycleName}_cw`
+  // }
+  // return currentCycleName
 }
 
 export const getTrueCycleByName = (

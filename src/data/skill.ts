@@ -4,10 +4,11 @@ import { GainDpsTypeEnum, GainTypeEnum } from '@/@types/enum'
 import 贯穿GainDTO from './skillGain/贯穿'
 import 劲风簇GainDTO from './skillGain/劲风簇'
 import 标鹄GainDTO from './skillGain/标鹄'
+import 饮雨簇GainDTO from './skillGain/饮雨簇'
 
 // const 贯穿伤害系数 = 0.15495 // 0.2
 const 贯穿伤害系数 = 0.3359375 * 0.7 * 1.15
-const 贯穿基础伤害 = 29
+const 贯穿基础伤害 = 40
 
 const WanlingSkillDataDTO: SkillBasicDTO[] = [
   {
@@ -21,7 +22,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
   },
   {
     技能名称: '劲风簇',
-    技能伤害系数: 1.20625,
+    技能伤害系数: 1.09375,
     技能基础伤害_最小值: 37,
     技能基础伤害_最大值: 42,
     武器伤害系数: 0,
@@ -30,12 +31,12 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
   },
   {
     技能名称: '饮雨簇',
-    技能伤害系数: 3 * 1.15,
+    技能伤害系数: 3.45,
     技能基础伤害_最小值: 70,
     技能基础伤害_最大值: 90,
     武器伤害系数: 0,
     伤害计算次数: 1,
-    技能增益列表: commonGainDTO,
+    技能增益列表: 饮雨簇GainDTO,
   },
   {
     技能名称: '霖急簇',
@@ -201,7 +202,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
   },
   {
     技能名称: '朝仪万汇',
-    技能伤害系数: 1.34375 * 1.2,
+    技能伤害系数: 1.34375,
     技能基础伤害_最小值: 37,
     技能基础伤害_最大值: 42,
     武器伤害系数: 0,
@@ -267,6 +268,25 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能伤害系数: 0,
     技能基础伤害_最小值: 3040,
     技能基础伤害_最大值: 3040,
+    武器伤害系数: 0,
+    伤害计算次数: 1,
+    技能增益列表: commonGainDTO,
+  },
+  {
+    技能名称: '劲风簇·神兵',
+    技能伤害系数: 0.375,
+    技能基础伤害_最小值: 20,
+    技能基础伤害_最大值: 22,
+    武器伤害系数: 0,
+    伤害计算次数: 1,
+    技能增益列表: commonGainDTO,
+  },
+  // CW期间饮雨命中后施加的额外伤害
+  {
+    技能名称: '月弦激星',
+    技能伤害系数: 2.4375,
+    技能基础伤害_最小值: 20,
+    技能基础伤害_最大值: 22,
     武器伤害系数: 0,
     伤害计算次数: 1,
     技能增益列表: commonGainDTO,
