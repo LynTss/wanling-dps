@@ -161,6 +161,7 @@ export const 奇穴数据: QixueListDTO[] = [
   },
   // 6
   {
+    是否不可编辑: true,
     奇穴列表: [
       {
         奇穴名称: '诸怀',
@@ -170,7 +171,7 @@ export const 奇穴数据: QixueListDTO[] = [
       },
       {
         奇穴名称: '片羽',
-        // 是否不可编辑: true,
+        是否不可编辑: true,
         奇穴加成类型: '无增益',
         奇穴图片: 'https://icon.jx3box.com/icon/20285.png',
       },
@@ -182,7 +183,7 @@ export const 奇穴数据: QixueListDTO[] = [
       },
       {
         奇穴名称: '桑柘',
-        是否不可编辑: true,
+        // 是否不可编辑: true,
         奇穴加成类型: '无增益',
         奇穴图片: 'https://icon.jx3box.com/icon/20280.png',
       },

@@ -12,6 +12,7 @@ function QixueSet({ getDpsFunction }) {
 
   const dispatch = useAppDispatch()
   const qixueData = useAppSelector((state) => state?.basic?.qixueData)
+  const currentCycleName = useAppSelector((state) => state?.basic?.currentCycleName)
 
   const hrefDev = location.href?.includes('?dev=1')
 
@@ -43,6 +44,8 @@ function QixueSet({ getDpsFunction }) {
 
   console.log('process.env.NODE_ENV', process.env.NODE_ENV)
 
+  console.log('currentCycleName', currentCycleName)
+
   return (
     <>
       <Button className="qixue-set-button" onClick={() => setDrawerOpen(true)}>
@@ -58,11 +61,17 @@ function QixueSet({ getDpsFunction }) {
       >
         <Form form={form} className={'qixue-set-drawer-wrap'}>
           {奇穴数据.map((重, index) => {
+            const checkDisabled = isDev
+              ? false
+              : // 额外判断大招流可以切换本奇穴
+              index + 1 === 6 && currentCycleName?.includes('大招')
+              ? false
+              : 重?.是否不可编辑
             return (
               <Form.Item className={'qixue-set-item'} name={index} key={QixueNameMap[index + 1]}>
                 <Select
                   className={'qixue-set-item-select'}
-                  disabled={isDev ? false : 重?.是否不可编辑}
+                  disabled={checkDisabled}
                   onChange={handleChangeQixue}
                   dropdownMatchSelectWidth={false}
                   optionLabelProp="label"
