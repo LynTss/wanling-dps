@@ -15,7 +15,7 @@ function QixueSet({ getDpsFunction }) {
 
   const hrefDev = location.href?.includes('?dev=1')
 
-  const isDev = process.env.NODE_ENV !== 'development' || hrefDev
+  const isDev = process.env.NODE_ENV === 'development' || hrefDev
 
   const handleChangeQixue = () => {
     setTimeout(() => {
