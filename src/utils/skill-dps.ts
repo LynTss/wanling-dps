@@ -151,7 +151,6 @@ export const getDpsTime = (
   const 增益加速等级 = zengyiQiyong ? getZengyiJiasu(zengyixuanxiangData) : 0
   const 加速等级 = 获取加速等级(characterFinalData.加速值 + 增益加速等级)
 
-  console.log('currentCycleConfig', currentCycleConfig)
   // 暂时去除加速对延迟的计算，加速等级不够1断直接加帧
   // if (currentCycleConfig) {
   //   let 总帧数 = 0
@@ -170,7 +169,7 @@ export const getDpsTime = (
       const 循环帧 = (item.循环完整帧数 - item.计算技能数 * (1 - network * 0.5)) * item.循环次数
       总帧数 = 总帧数 + 循环帧
     })
-    time = (总帧数 + (加速等级 < 1 ? 300 : 0)) / 16 + 18
+    time = (总帧数 + (加速等级 < 1 ? 300 : 加速等级 === 2 ? -60 : 0)) / 16 + 18
   }
   if (cons) {
     console.log('战斗时间', time)
