@@ -1,5 +1,9 @@
 export default [
   {
+    version: '1.0.1',
+    content: ['更新小CW落梨雪'],
+  },
+  {
     version: '1.0.0',
     content: ['万灵正式版', '暂无CW循环'],
   },

@@ -24,7 +24,7 @@ export const 切糕套装_2Ids: EquipmentIds = [96367, 96391, 96385, 96379, 9637
 // 大CW特效Ids
 export const 大CW特效Ids: EquipmentIds = [33133, 34369, 34399, 34429, 35593, 35623, 36797]
 // export const 大CW特效Ids: EquipmentIds = []
-export const 小CW特效Ids: EquipmentIds = []
+export const 小CW特效Ids: EquipmentIds = [36807]
 
 // 2022冬至套装
 export const 冬至套装_1Ids: EquipmentIds = []
