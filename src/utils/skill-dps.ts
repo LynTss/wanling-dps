@@ -304,23 +304,48 @@ export const getTrueCycleByName = (
 
   // 特殊处理桑柘
   if (qixueData?.includes('桑柘')) {
+    let 减少低层贯穿数量 = 0 // 加到贯穿六上，桑柘的贯穿质量较高
     trueCycle = trueCycle.map((item) => {
       if (item.技能名称 === '贯穿(DOT)·六' && !item.已计算桑柘) {
         return {
           ...item,
-          技能数量: item.技能数量 + 26, // 3分钟暂时写死50
+          技能数量: item.技能数量 + 26,
           已计算桑柘: true,
         }
       } else if (item.技能名称 === '贯穿(DOT)·六·引爆' && !item.已计算桑柘) {
         return {
           ...item,
-          技能数量: item.技能数量 + 14, // 3分钟暂时写死50
+          技能数量: item.技能数量 + 14,
+          已计算桑柘: true,
+        }
+      } else if (item.技能名称.includes('贯穿(DOT)·') && !item.已计算桑柘) {
+        const 新数量 = item.技能数量 - 4 >= 0 ? item.技能数量 - 4 : 0
+        const 减少数量 = item.技能数量 - 新数量
+        减少低层贯穿数量 = 减少低层贯穿数量 + 减少数量
+        return {
+          ...item,
+          技能数量: 新数量,
           已计算桑柘: true,
         }
       } else {
         return { ...item }
       }
     })
+
+    console.log('减少低层贯穿数量', 减少低层贯穿数量)
+    trueCycle = trueCycle.map((item) => {
+      if (item.技能名称 === '贯穿(DOT)·六' && !item.已计算差异增加) {
+        return {
+          ...item,
+          技能数量: item.技能数量 + 减少低层贯穿数量,
+          已计算差异增加: true,
+        }
+      } else {
+        return { ...item }
+      }
+    })
+
+    console.log('trueCycle', trueCycle)
   }
 
   return {
