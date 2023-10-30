@@ -162,6 +162,8 @@ const getEquipData = (data) => {
         const basicData = data[item]
         const fumoType = basicData?.enhance?.Attribute1ID
         const fumoValue = basicData?.enhance?.Attribute1Value1
+
+        console.log('basicData', basicData)
         if (!FumoMap[fumoType]) {
           console.warn(`存在计算器未内置附魔${fumoType}${fumoValue}`)
         }
