@@ -15,15 +15,6 @@ const All_Cycle_Data = [
   //   qixue: 九乌奇穴,
   // },
   {
-    name: '星烨',
-    title: '星烨',
-    cycle: 星烨,
-    hide: false,
-    cycleList: [{ 计算技能数: 15, 循环完整帧数: 288, 循环次数: 9 }],
-    type: '星烨',
-    qixue: 星烨奇穴,
-  },
-  {
     name: '朱厌',
     title: '朱厌',
     cycle: 朱厌,
@@ -31,6 +22,15 @@ const All_Cycle_Data = [
     cycleList: [{ 计算技能数: 15, 循环完整帧数: 288, 循环次数: 9 }],
     type: '朱厌',
     qixue: 朱厌奇穴,
+  },
+  {
+    name: '星烨',
+    title: '星烨',
+    cycle: 星烨,
+    hide: false,
+    cycleList: [{ 计算技能数: 15, 循环完整帧数: 288, 循环次数: 9 }],
+    type: '星烨',
+    qixue: 星烨奇穴,
   },
   {
     name: '朝仪万汇',
