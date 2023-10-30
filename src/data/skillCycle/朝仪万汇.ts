@@ -3,7 +3,7 @@ import { CycleDTO } from '../../@types/cycle'
 const cycle: CycleDTO[] = [
   {
     技能名称: '标鹄',
-    技能数量: 41,
+    技能数量: 77,
   },
   {
     技能名称: '饮雨簇',
@@ -79,7 +79,7 @@ export default cycle
 
 export const 循环默认奇穴 = [
   '素矰',
-  '孰湖', // '棘矢',
+  '棘矢', // '棘矢',
   '襄尺',
   '长右',
   '鹿蜀',

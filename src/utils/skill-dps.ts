@@ -287,20 +287,20 @@ export const getTrueCycleByName = (
     return res
   })
 
-  // 特殊处理贯侯
-  if (qixueData?.includes('贯侯')) {
-    trueCycle = trueCycle.map((item) => {
-      if (item.技能名称 === '标鹄' && !item.已计算贯侯) {
-        return {
-          ...item,
-          技能数量: item.技能数量 + (item.技能数量 > 5 ? item.技能数量 - 5 : 0),
-          已计算贯侯: true,
-        }
-      } else {
-        return { ...item }
-      }
-    })
-  }
+  // // 特殊处理贯侯
+  // if (qixueData?.includes('贯侯')) {
+  //   trueCycle = trueCycle.map((item) => {
+  //     if (item.技能名称 === '标鹄' && !item.已计算贯侯) {
+  //       return {
+  //         ...item,
+  //         技能数量: item.技能数量 + (item.技能数量 > 5 ? item.技能数量 - 5 : 0),
+  //         已计算贯侯: true,
+  //       }
+  //     } else {
+  //       return { ...item }
+  //     }
+  //   })
+  // }
 
   // 特殊处理桑柘
   if (qixueData?.includes('桑柘')) {
