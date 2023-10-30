@@ -64,7 +64,7 @@ function QixueSet({ getDpsFunction }) {
             const checkDisabled = isDev
               ? false
               : // 额外判断大招流可以切换本奇穴
-              index + 1 === 6 && currentCycleName?.includes('大招')
+              index + 1 === 6 && currentCycleName?.includes('朝仪万汇')
               ? false
               : 重?.是否不可编辑
             return (
