@@ -308,7 +308,7 @@ export const getTrueCycleByName = (
       if (item.技能名称 === '贯穿(DOT)·六' && !item.已计算桑柘) {
         return {
           ...item,
-          技能数量: item.技能数量 + 36, // 3分钟暂时写死50
+          技能数量: item.技能数量 + 26, // 3分钟暂时写死50
           已计算桑柘: true,
         }
       } else if (item.技能名称 === '贯穿(DOT)·六·引爆' && !item.已计算桑柘) {
