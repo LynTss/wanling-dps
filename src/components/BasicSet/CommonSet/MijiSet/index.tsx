@@ -17,6 +17,7 @@ function MijiSet({ getDpsFunction }) {
     const newData = mijiSelectedData.map((item) => {
       if (item.技能名称 === skillData?.描述技能名称) {
         if (e) {
+          console.log('item', item)
           if (item.技能名称 === '饮雨簇' && item.技能已选秘籍?.length > 0) {
             message.error('饮雨簇最多可以选择一个秘籍')
             return { ...item }
@@ -41,7 +42,7 @@ function MijiSet({ getDpsFunction }) {
         return { ...item }
       }
     })
-    localStorage.setItem('wl_miji_selected_data_1', JSON.stringify(newData))
+    localStorage.setItem('wl_miji_selected_data_2', JSON.stringify(newData))
     dispatch(setMijiSelectedData(newData))
 
     const newSkillBasicData = getSkillBasicData(skillBasicData, newData)
