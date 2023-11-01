@@ -1,7 +1,8 @@
 // import 九乌, { 循环默认奇穴 as 九乌奇穴 } from './九乌'
 import 星烨, { 循环默认奇穴 as 星烨奇穴 } from './星烨'
 import 朱厌, { 循环默认奇穴 as 朱厌奇穴 } from './朱厌'
-import 朝仪万汇, { 循环默认奇穴 as 朝仪万汇奇穴 } from './朝仪万汇'
+import 朝仪万汇_诸怀, { 循环默认奇穴 as 朝仪万汇_诸怀奇穴 } from './朝仪万汇_诸怀'
+import 朝仪万汇_桑拓, { 循环默认奇穴 as 朝仪万汇_桑拓奇穴 } from './朝仪万汇_桑拓'
 // import single_skill_cycle, { 循环默认奇穴 as 常规奇穴 } from './single_skill_cycle'
 
 const All_Cycle_Data = [
@@ -33,13 +34,22 @@ const All_Cycle_Data = [
     qixue: 星烨奇穴,
   },
   {
-    name: '朝仪万汇',
-    title: '朝仪万汇',
-    cycle: 朝仪万汇,
+    name: '朝仪万汇_诸怀',
+    title: '朝仪万汇_诸怀',
+    cycle: 朝仪万汇_诸怀,
     hide: false,
-    cycleList: [{ 计算技能数: 15, 循环完整帧数: 292, 循环次数: 9 }],
-    type: '朝仪万汇',
-    qixue: 朝仪万汇奇穴,
+    cycleList: [{ 计算技能数: 15, 循环完整帧数: 288, 循环次数: 9 }],
+    type: '朝仪万汇_诸怀',
+    qixue: 朝仪万汇_诸怀奇穴,
+  },
+  {
+    name: '朝仪万汇_桑拓',
+    title: '朝仪万汇_桑拓',
+    cycle: 朝仪万汇_桑拓,
+    hide: false,
+    cycleList: [{ 计算技能数: 15, 循环完整帧数: 288, 循环次数: 9 }],
+    type: '朝仪万汇_桑拓',
+    qixue: 朝仪万汇_桑拓奇穴,
   },
   // {
   //   name: '单技能伤害期望统计-仅参考',

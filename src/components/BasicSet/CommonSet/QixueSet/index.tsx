@@ -61,12 +61,7 @@ function QixueSet({ getDpsFunction }) {
       >
         <Form form={form} className={'qixue-set-drawer-wrap'}>
           {奇穴数据.map((重, index) => {
-            const checkDisabled = isDev
-              ? false
-              : // 额外判断大招流可以切换本奇穴
-              index + 1 === 6 && currentCycleName?.includes('朝仪万汇')
-              ? false
-              : 重?.是否不可编辑
+            const checkDisabled = isDev ? false : 重?.是否不可编辑
             return (
               <Form.Item className={'qixue-set-item'} name={index} key={QixueNameMap[index + 1]}>
                 <Select
