@@ -147,6 +147,7 @@ export const getDpsTime = (
   let time = 300
   // 根据是否选择CW选择对应循环
   const trueCurrentCycleName = getTrueCycleName(currentCycleName, characterFinalData)
+
   const currentCycleConfig = All_Cycle_Data.find((item) => item.name === trueCurrentCycleName)
   const 增益加速等级 = zengyiQiyong ? getZengyiJiasu(zengyixuanxiangData) : 0
   const 加速等级 = 获取加速等级(characterFinalData.加速值 + 增益加速等级)
@@ -209,14 +210,16 @@ export const getZengyiJiasu = (zengyixuanxiangData: ZengyixuanxiangDataDTO) => {
 
 export const getTrueCycleName = (
   currentCycleName: string,
-  __
-  // characterFinalData: CharacterFinalDTO
+  characterFinalData: CharacterFinalDTO
 ) => {
+  if (
+    characterFinalData?.装备增益?.大橙武特效 &&
+    currentCycleName?.includes('朝仪万汇_') &&
+    !currentCycleName?.includes('_cw')
+  ) {
+    return `${currentCycleName}_cw`
+  }
   return currentCycleName
-  // if (characterFinalData?.装备增益?.大橙武特效 && currentCycleName?.includes('骑射')) {
-  //   return `${currentCycleName}_cw`
-  // }
-  // return currentCycleName
 }
 
 export const getTrueCycleByName = (
@@ -226,13 +229,18 @@ export const getTrueCycleByName = (
   qixueData: string[],
   skillBasicData: SkillBasicDTO[]
 ) => {
-  const trueCycle = [...currentCycle]
+  let trueCycle = [...currentCycle]
   let newSkillBasicData = [...skillBasicData]
 
-  // if (characterFinalData?.装备增益?.大橙武特效 && currentCycleName?.includes('骑射')) {
-  //   const trueName = `${currentCycleName}_cw`
-  //   return All_Cycle_Data?.find((item) => item.name === trueName)?.cycle || currentCycle
-  // }
+  if (
+    characterFinalData?.装备增益?.大橙武特效 &&
+    currentCycleName?.includes('朝仪万汇_') &&
+    !currentCycleName?.includes('_cw')
+  ) {
+    const trueName = `${currentCycleName}_cw`
+
+    trueCycle = All_Cycle_Data?.find((item) => item.name === trueName)?.cycle || currentCycle
+  }
 
   // 根据奇穴类型处理各类循环
   const 全部奇穴信息: QixueDataDTO[] = getAllQixueData(qixueData)
