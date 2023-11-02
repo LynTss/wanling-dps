@@ -71,7 +71,7 @@ function BasicSet(props: CharacterSetProps) {
         return {
           ...item,
           技能增益列表:
-            item?.技能名称 === '饮雨簇'
+            item?.技能名称 === '饮羽簇'
               ? item.技能增益列表.map((a) => {
                   if (a.增益名称 === '套装10%_1' || a.增益名称 === '套装10%_2') {
                     if (a.增益名称 === '套装10%_1') {

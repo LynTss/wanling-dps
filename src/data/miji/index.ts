@@ -1,6 +1,6 @@
 import { SkillMijiBasicDataDTO } from '@/@types/miji'
 import 秘籍_劲风 from './秘籍_劲风'
-import 秘籍_饮雨 from './秘籍_饮雨'
+import 秘籍_饮羽 from './秘籍_饮羽'
 // import 秘籍_霖急 from './秘籍_霖急'
 
 const skillMijiBasicData: SkillMijiBasicDataDTO[] = [
@@ -10,9 +10,9 @@ const skillMijiBasicData: SkillMijiBasicDataDTO[] = [
     秘籍列表: 秘籍_劲风,
   },
   {
-    描述技能名称: '饮雨簇',
-    生效技能: ['饮雨簇'],
-    秘籍列表: 秘籍_饮雨,
+    描述技能名称: '饮羽簇',
+    生效技能: ['饮羽簇'],
+    秘籍列表: 秘籍_饮羽,
   },
   // {
   //   描述技能名称: '霖急簇',

@@ -18,8 +18,8 @@ function MijiSet({ getDpsFunction }) {
       if (item.技能名称 === skillData?.描述技能名称) {
         if (e) {
           console.log('item', item)
-          if (item.技能名称 === '饮雨簇' && item.技能已选秘籍?.length > 0) {
-            message.error('饮雨簇最多可以选择一个秘籍')
+          if (item.技能名称 === '饮羽簇' && item.技能已选秘籍?.length > 0) {
+            message.error('饮羽簇最多可以选择一个秘籍')
             return { ...item }
           } else if (item.技能已选秘籍?.length > 3) {
             message.error('最多可以选择四个秘籍')
