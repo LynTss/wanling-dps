@@ -147,6 +147,7 @@ export const getDpsTime = (
   let time = 300
   // 根据是否选择CW选择对应循环
   const trueCurrentCycleName = getTrueCycleName(currentCycleName, characterFinalData)
+
   const currentCycleConfig = All_Cycle_Data.find((item) => item.name === trueCurrentCycleName)
   const 增益加速等级 = zengyiQiyong ? getZengyiJiasu(zengyixuanxiangData) : 0
   const 加速等级 = 获取加速等级(characterFinalData.加速值 + 增益加速等级)
@@ -209,14 +210,16 @@ export const getZengyiJiasu = (zengyixuanxiangData: ZengyixuanxiangDataDTO) => {
 
 export const getTrueCycleName = (
   currentCycleName: string,
-  __
-  // characterFinalData: CharacterFinalDTO
+  characterFinalData: CharacterFinalDTO
 ) => {
+  if (
+    characterFinalData?.装备增益?.大橙武特效 &&
+    currentCycleName?.includes('朝仪万汇_') &&
+    !currentCycleName?.includes('_cw')
+  ) {
+    return `${currentCycleName}_cw`
+  }
   return currentCycleName
-  // if (characterFinalData?.装备增益?.大橙武特效 && currentCycleName?.includes('骑射')) {
-  //   return `${currentCycleName}_cw`
-  // }
-  // return currentCycleName
 }
 
 export const getTrueCycleByName = (
@@ -229,10 +232,15 @@ export const getTrueCycleByName = (
   let trueCycle = [...currentCycle]
   let newSkillBasicData = [...skillBasicData]
 
-  // if (characterFinalData?.装备增益?.大橙武特效 && currentCycleName?.includes('骑射')) {
-  //   const trueName = `${currentCycleName}_cw`
-  //   return All_Cycle_Data?.find((item) => item.name === trueName)?.cycle || currentCycle
-  // }
+  if (
+    characterFinalData?.装备增益?.大橙武特效 &&
+    currentCycleName?.includes('朝仪万汇_') &&
+    !currentCycleName?.includes('_cw')
+  ) {
+    const trueName = `${currentCycleName}_cw`
+
+    trueCycle = All_Cycle_Data?.find((item) => item.name === trueName)?.cycle || currentCycle
+  }
 
   // 根据奇穴类型处理各类循环
   const 全部奇穴信息: QixueDataDTO[] = getAllQixueData(qixueData)
@@ -303,50 +311,50 @@ export const getTrueCycleByName = (
   // }
 
   // 特殊处理桑柘
-  if (qixueData?.includes('桑柘')) {
-    let 减少低层贯穿数量 = 0 // 加到贯穿六上，桑柘的贯穿质量较高
-    trueCycle = trueCycle.map((item) => {
-      if (item.技能名称 === '贯穿(DOT)·六' && !item.已计算桑柘) {
-        return {
-          ...item,
-          技能数量: item.技能数量 + 26,
-          已计算桑柘: true,
-        }
-      } else if (item.技能名称 === '贯穿(DOT)·六·引爆' && !item.已计算桑柘) {
-        return {
-          ...item,
-          技能数量: item.技能数量 + 14,
-          已计算桑柘: true,
-        }
-      } else if (item.技能名称.includes('贯穿(DOT)·') && !item.已计算桑柘) {
-        const 新数量 = item.技能数量 - 4 >= 0 ? item.技能数量 - 4 : 0
-        const 减少数量 = item.技能数量 - 新数量
-        减少低层贯穿数量 = 减少低层贯穿数量 + 减少数量
-        return {
-          ...item,
-          技能数量: 新数量,
-          已计算桑柘: true,
-        }
-      } else {
-        return { ...item }
-      }
-    })
+  // if (qixueData?.includes('桑柘')) {
+  //   let 减少低层贯穿数量 = 0 // 加到贯穿六上，桑柘的贯穿质量较高
+  //   trueCycle = trueCycle.map((item) => {
+  //     if (item.技能名称 === '贯穿·六' && !item.已计算桑柘) {
+  //       return {
+  //         ...item,
+  //         技能数量: item.技能数量 + 26,
+  //         已计算桑柘: true,
+  //       }
+  //     } else if (item.技能名称 === '贯穿·六·引爆' && !item.已计算桑柘) {
+  //       return {
+  //         ...item,
+  //         技能数量: item.技能数量 + 14,
+  //         已计算桑柘: true,
+  //       }
+  //     } else if (item.技能名称.includes('贯穿·') && !item.已计算桑柘) {
+  //       const 新数量 = item.技能数量 - 4 >= 0 ? item.技能数量 - 4 : 0
+  //       const 减少数量 = item.技能数量 - 新数量
+  //       减少低层贯穿数量 = 减少低层贯穿数量 + 减少数量
+  //       return {
+  //         ...item,
+  //         技能数量: 新数量,
+  //         已计算桑柘: true,
+  //       }
+  //     } else {
+  //       return { ...item }
+  //     }
+  //   })
 
-    console.log('减少低层贯穿数量', 减少低层贯穿数量)
-    trueCycle = trueCycle.map((item) => {
-      if (item.技能名称 === '贯穿(DOT)·六' && !item.已计算差异增加) {
-        return {
-          ...item,
-          技能数量: item.技能数量 + 减少低层贯穿数量,
-          已计算差异增加: true,
-        }
-      } else {
-        return { ...item }
-      }
-    })
+  //   console.log('减少低层贯穿数量', 减少低层贯穿数量)
+  //   trueCycle = trueCycle.map((item) => {
+  //     if (item.技能名称 === '贯穿·六' && !item.已计算差异增加) {
+  //       return {
+  //         ...item,
+  //         技能数量: item.技能数量 + 减少低层贯穿数量,
+  //         已计算差异增加: true,
+  //       }
+  //     } else {
+  //       return { ...item }
+  //     }
+  //   })
 
-    console.log('trueCycle', trueCycle)
-  }
+  //   console.log('trueCycle', trueCycle)
+  // }
 
   return {
     trueCycle: trueCycle,

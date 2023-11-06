@@ -33,7 +33,7 @@ function DpsCountModal({ visible, onClose, dpsList, total }) {
         })
 
         resList.push({
-          name: '贯穿(DOT)',
+          name: '贯穿',
           number: number,
           dps: dps,
         })

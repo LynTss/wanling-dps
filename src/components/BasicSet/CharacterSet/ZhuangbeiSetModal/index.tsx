@@ -220,7 +220,7 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
       设置加速(final.加速值 + 增益加速)
       setZhuangbeizengyi({
         套装双会: data.套装会心会效,
-        套装饮雨: data.套装技能,
+        套装饮羽: data.套装技能,
         龙门武器: data.龙门武器,
         大CW: data.大橙武特效,
         小CW: data.小橙武特效,

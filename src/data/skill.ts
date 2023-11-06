@@ -4,7 +4,7 @@ import { GainDpsTypeEnum, GainTypeEnum } from '@/@types/enum'
 import 贯穿GainDTO from './skillGain/贯穿'
 import 劲风簇GainDTO from './skillGain/劲风簇'
 import 标鹄GainDTO from './skillGain/标鹄'
-import 饮雨簇GainDTO from './skillGain/饮雨簇'
+import 饮羽簇GainDTO from './skillGain/饮羽簇'
 
 // const 贯穿伤害系数 = 0.15495 // 0.2
 const 贯穿伤害系数 = 0.3359375 * 0.7 * 1.15
@@ -30,13 +30,13 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能增益列表: 劲风簇GainDTO,
   },
   {
-    技能名称: '饮雨簇',
-    技能伤害系数: 3.45,
+    技能名称: '饮羽簇',
+    技能伤害系数: 3.45 * 0.9,
     技能基础伤害_最小值: 70,
     技能基础伤害_最大值: 90,
     武器伤害系数: 1,
     伤害计算次数: 1,
-    技能增益列表: 饮雨簇GainDTO,
+    技能增益列表: 饮羽簇GainDTO,
   },
   {
     技能名称: '霖急簇',
@@ -111,7 +111,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能增益列表: commonGainDTO,
   },
   {
-    技能名称: '攻击-野猪',
+    技能名称: '重击',
     技能伤害系数: 1.725,
     技能基础伤害_最小值: 90,
     技能基础伤害_最大值: 110,
@@ -129,7 +129,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能增益列表: commonGainDTO,
   },
   {
-    技能名称: '贯穿(DOT)·一',
+    技能名称: '贯穿·一',
     技能伤害系数: 贯穿伤害系数,
     技能基础伤害_最小值: 贯穿基础伤害,
     技能基础伤害_最大值: 贯穿基础伤害,
@@ -138,7 +138,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能增益列表: 贯穿GainDTO,
   },
   {
-    技能名称: '贯穿(DOT)·二',
+    技能名称: '贯穿·二',
     技能伤害系数: 贯穿伤害系数,
     技能基础伤害_最小值: 贯穿基础伤害,
     技能基础伤害_最大值: 贯穿基础伤害,
@@ -147,7 +147,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能增益列表: 贯穿GainDTO,
   },
   {
-    技能名称: '贯穿(DOT)·三',
+    技能名称: '贯穿·三',
     技能伤害系数: 贯穿伤害系数,
     技能基础伤害_最小值: 贯穿基础伤害,
     技能基础伤害_最大值: 贯穿基础伤害,
@@ -156,7 +156,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能增益列表: 贯穿GainDTO,
   },
   {
-    技能名称: '贯穿(DOT)·四',
+    技能名称: '贯穿·四',
     技能伤害系数: 贯穿伤害系数,
     技能基础伤害_最小值: 贯穿基础伤害,
     技能基础伤害_最大值: 贯穿基础伤害,
@@ -165,7 +165,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能增益列表: 贯穿GainDTO,
   },
   {
-    技能名称: '贯穿(DOT)·五',
+    技能名称: '贯穿·五',
     技能伤害系数: 贯穿伤害系数,
     技能基础伤害_最小值: 贯穿基础伤害,
     技能基础伤害_最大值: 贯穿基础伤害,
@@ -174,7 +174,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能增益列表: 贯穿GainDTO,
   },
   {
-    技能名称: '贯穿(DOT)·六',
+    技能名称: '贯穿·六',
     技能伤害系数: 贯穿伤害系数,
     技能基础伤害_最小值: 贯穿基础伤害,
     技能基础伤害_最大值: 贯穿基础伤害,
@@ -183,12 +183,39 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能增益列表: 贯穿GainDTO,
   },
   {
-    技能名称: '贯穿(DOT)·六·引爆',
+    技能名称: '贯穿·九',
     技能伤害系数: 贯穿伤害系数,
     技能基础伤害_最小值: 贯穿基础伤害,
     技能基础伤害_最大值: 贯穿基础伤害,
     武器伤害系数: 0,
-    伤害计算次数: 6 * 2,
+    伤害计算次数: 3 * 3,
+    技能增益列表: 贯穿GainDTO,
+  },
+  {
+    技能名称: '贯穿·十二',
+    技能伤害系数: 贯穿伤害系数,
+    技能基础伤害_最小值: 贯穿基础伤害,
+    技能基础伤害_最大值: 贯穿基础伤害,
+    武器伤害系数: 0,
+    伤害计算次数: 4 * 3,
+    技能增益列表: 贯穿GainDTO,
+  },
+  {
+    技能名称: '贯穿·十五',
+    技能伤害系数: 贯穿伤害系数,
+    技能基础伤害_最小值: 贯穿基础伤害,
+    技能基础伤害_最大值: 贯穿基础伤害,
+    武器伤害系数: 0,
+    伤害计算次数: 5 * 3,
+    技能增益列表: 贯穿GainDTO,
+  },
+  {
+    技能名称: '贯穿·十八',
+    技能伤害系数: 贯穿伤害系数,
+    技能基础伤害_最小值: 贯穿基础伤害,
+    技能基础伤害_最大值: 贯穿基础伤害,
+    武器伤害系数: 0,
+    伤害计算次数: 6 * 3,
     技能增益列表: 贯穿GainDTO,
   },
   {
@@ -281,7 +308,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     伤害计算次数: 1,
     技能增益列表: commonGainDTO,
   },
-  // CW期间饮雨命中后施加的额外伤害
+  // CW期间饮羽命中后施加的额外伤害
   {
     技能名称: '月弦激星',
     技能伤害系数: 2.4375,

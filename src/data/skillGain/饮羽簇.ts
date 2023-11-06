@@ -3,7 +3,7 @@ import { GainDpsTypeEnum, GainTypeEnum } from '@/@types/enum'
 import { SkillGainDTO } from '../../@types/skill'
 import commonGainDTO from './common'
 
-const 饮雨簇GainDTO: SkillGainDTO[] = [
+const 饮羽簇GainDTO: SkillGainDTO[] = [
   ...commonGainDTO,
   // 4件套
   {
@@ -45,4 +45,4 @@ const 饮雨簇GainDTO: SkillGainDTO[] = [
   },
 ]
 
-export default 饮雨簇GainDTO
+export default 饮羽簇GainDTO

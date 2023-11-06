@@ -118,7 +118,7 @@ export const getCloseBackgroundImg = () => {
 }
 
 export const getDefaultMijiSelectedData = () => {
-  const localEquipment = localStorage.getItem('wl_miji_selected_data_1')
+  const localEquipment = localStorage.getItem('wl_miji_selected_data_2')
   if (localEquipment) {
     try {
       const obj = JSON.parse(localEquipment)
