@@ -178,7 +178,7 @@ export const DEFAULT_MIJI_SELECTED_DATA: MijiSelectedData[] = [
   },
   {
     技能名称: '饮羽簇',
-    技能已选秘籍: ['4%会心'],
+    技能已选秘籍: ['15非侠'],
   },
 ]
 

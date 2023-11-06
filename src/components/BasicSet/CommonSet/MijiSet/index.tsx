@@ -14,34 +14,44 @@ function MijiSet({ getDpsFunction }) {
   const skillBasicData = useAppSelector((state) => state?.zengyi?.skillBasicData)
 
   const selectMiji = (e, mijiData: MijiBasicDataDTO, skillData: SkillMijiBasicDataDTO) => {
-    const newData = mijiSelectedData.map((item) => {
-      if (item.技能名称 === skillData?.描述技能名称) {
-        if (e) {
-          console.log('item', item)
-          if (item.技能名称 === '饮羽簇' && item.技能已选秘籍?.length > 0) {
-            message.error('饮羽簇最多可以选择一个秘籍')
-            return { ...item }
-          } else if (item.技能已选秘籍?.length > 3) {
-            message.error('最多可以选择四个秘籍')
-            return { ...item }
+    const newData = mijiSelectedData
+      .map((item) => {
+        return item?.技能名称 === '饮雨簇'
+          ? {
+              ...item,
+              技能名称: '饮羽簇',
+            }
+          : {
+              ...item,
+            }
+      })
+      .map((item) => {
+        if (item.技能名称 === skillData?.描述技能名称) {
+          if (e) {
+            if (item.技能名称 === '饮羽簇' && item.技能已选秘籍?.length > 0) {
+              message.error('饮羽簇最多可以选择一个秘籍')
+              return { ...item }
+            } else if (item.技能已选秘籍?.length > 3) {
+              message.error('最多可以选择四个秘籍')
+              return { ...item }
+            } else {
+              const newSelected = item.技能已选秘籍.concat([mijiData?.秘籍名称])
+              return {
+                ...item,
+                技能已选秘籍: newSelected,
+              }
+            }
           } else {
-            const newSelected = item.技能已选秘籍.concat([mijiData?.秘籍名称])
+            const newSelected = item.技能已选秘籍.filter((a) => a !== mijiData?.秘籍名称)
             return {
               ...item,
               技能已选秘籍: newSelected,
             }
           }
         } else {
-          const newSelected = item.技能已选秘籍.filter((a) => a !== mijiData?.秘籍名称)
-          return {
-            ...item,
-            技能已选秘籍: newSelected,
-          }
+          return { ...item }
         }
-      } else {
-        return { ...item }
-      }
-    })
+      })
     localStorage.setItem('wl_miji_selected_data_2', JSON.stringify(newData))
     dispatch(setMijiSelectedData(newData))
 

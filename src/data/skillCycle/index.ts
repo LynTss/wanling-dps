@@ -21,7 +21,10 @@ const All_Cycle_Data = [
     title: '朱厌',
     cycle: 朱厌,
     hide: false,
-    cycleList: [{ 计算技能数: 15, 循环完整帧数: 288, 循环次数: 9 }],
+    cycleList: [
+      { 计算技能数: 15, 循环完整帧数: 289, 循环次数: 8 },
+      { 计算技能数: 15, 循环完整帧数: 297, 循环次数: 1 },
+    ],
     type: '朱厌',
     qixue: 朱厌奇穴,
   },
