@@ -3,6 +3,28 @@ import { EquipmentDTO } from './../../../@types/equipment'
 
 const ZHUANGBEI_JINSHENWUQI: EquipmentDTO[] = [
   {
+    id: 36804,
+    uid: '214214',
+    装备名称: '雀引昭明',
+    装备品级: 5690,
+    武器伤害_最小值: 1837,
+    武器伤害_最大值: 3062,
+    装备类型: EquipmentTypeEnum.大CW,
+    装备增益: [
+      { 增益数值: 3415, 增益类型: GainTypeEnum.体质 },
+      { 增益数值: 662, 增益类型: GainTypeEnum.身法 },
+      { 增益数值: 2564, 增益类型: GainTypeEnum.基础攻击 },
+      { 增益数值: 2677, 增益类型: GainTypeEnum.外攻会心等级 },
+      { 增益数值: 2677, 增益类型: GainTypeEnum.外攻破防等级 },
+      { 增益数值: 923, 增益类型: GainTypeEnum.加速 },
+    ],
+    镶嵌孔数组: [
+      { 镶嵌类型: EquipmentInlayEnum.攻击 },
+      { 镶嵌类型: EquipmentInlayEnum.身法 },
+      { 镶嵌类型: EquipmentInlayEnum.破防 },
+    ],
+  },
+  {
     id: 36805,
     uid: '20590511',
     装备名称: '落梨雪',
