@@ -61,8 +61,6 @@ export const getDpsTotal = (props: GetDpsTotalParams) => {
   // 判断是不是单技能统计循环。如果是则不计入
   const isSingeSkillCycle = currentCycle?.find((item) => item?.技能名称 === '风矢')?.技能数量 === 1
 
-  console.log('currentCycle', currentCycle)
-
   // 根据增益信息修改最终循环内容
   const 最终循环: CycleDTO[] = getFinalCycleData(
     characterFinalData,

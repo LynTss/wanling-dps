@@ -219,6 +219,7 @@ export const getTrueCycleName = (
   ) {
     return `${currentCycleName}_cw`
   }
+
   return currentCycleName
 }
 
@@ -232,12 +233,24 @@ export const getTrueCycleByName = (
   let trueCycle = [...currentCycle]
   let newSkillBasicData = [...skillBasicData]
 
+  // 大CW特效循环变动
   if (
     characterFinalData?.装备增益?.大橙武特效 &&
     currentCycleName?.includes('朝仪万汇_') &&
     !currentCycleName?.includes('_cw')
   ) {
     const trueName = `${currentCycleName}_cw`
+
+    trueCycle = All_Cycle_Data?.find((item) => item.name === trueName)?.cycle || currentCycle
+  }
+
+  // 朱厌循环九乌奇穴变动
+  if (
+    currentCycleName?.includes('朱厌') &&
+    !currentCycleName?.includes('_九乌') &&
+    qixueData?.includes('九乌')
+  ) {
+    const trueName = `${currentCycleName}_九乌`
 
     trueCycle = All_Cycle_Data?.find((item) => item.name === trueName)?.cycle || currentCycle
   }

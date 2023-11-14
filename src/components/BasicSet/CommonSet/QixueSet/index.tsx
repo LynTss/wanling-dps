@@ -42,10 +42,6 @@ function QixueSet({ getDpsFunction }) {
     })
   }, [qixueData])
 
-  console.log('process.env.NODE_ENV', process.env.NODE_ENV)
-
-  console.log('currentCycleName', currentCycleName)
-
   return (
     <>
       <Button className="qixue-set-button" onClick={() => setDrawerOpen(true)}>
@@ -61,7 +57,12 @@ function QixueSet({ getDpsFunction }) {
       >
         <Form form={form} className={'qixue-set-drawer-wrap'}>
           {奇穴数据.map((重, index) => {
-            const checkDisabled = isDev ? false : 重?.是否不可编辑
+            const checkDisabled = isDev
+              ? false
+              : // 额外判断朱厌流可以切换本奇穴
+              index + 1 === 8 && currentCycleName?.includes('朱厌')
+              ? false
+              : 重?.是否不可编辑
             return (
               <Form.Item className={'qixue-set-item'} name={index} key={QixueNameMap[index + 1]}>
                 <Select
@@ -75,11 +76,19 @@ function QixueSet({ getDpsFunction }) {
                   defaultValue={DEFAULT_QIXUE_VALUE[index]}
                 >
                   {重?.奇穴列表.map((奇穴) => {
+                    const qixueDisabled = isDev
+                      ? false
+                      : // 额外判断朱厌流可以切换本奇穴
+                      index + 1 === 8 &&
+                        currentCycleName?.includes('朱厌') &&
+                        奇穴?.奇穴名称 === '九乌'
+                      ? false
+                      : 奇穴?.是否不可编辑
                     return (
                       <Select.Option
                         value={奇穴?.奇穴名称}
                         key={奇穴?.奇穴名称}
-                        disabled={isDev ? false : 奇穴?.是否不可编辑}
+                        disabled={qixueDisabled}
                         className={'qixue-set-item-select-option'}
                         label={
                           <div className={'qixue-label'}>
