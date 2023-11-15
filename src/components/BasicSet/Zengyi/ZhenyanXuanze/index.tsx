@@ -6,6 +6,7 @@ import { useAppSelector } from '@/hooks'
 import { getDpsTime, getTrueCycleByName } from '@/utils/skill-dps'
 import { Select, SelectProps } from 'antd'
 import { ZhenyanGainDTO } from '@/@types/zhenyan'
+
 import './index.css'
 
 function ZhenyanXuanze(props: SelectProps) {
@@ -38,14 +39,23 @@ function ZhenyanXuanze(props: SelectProps) {
       })
 
       list.sort((a, b) => (b?.伤害提升百分比 || 0) - (a?.伤害提升百分比 || 0))
+      list = list.map((item, index) => {
+        // 只展示前三名
+        return index < 3
+          ? {
+              ...item,
+              伤害排名: index + 1,
+            }
+          : item
+      })
 
-      const obj = list.find((item) => item?.阵眼名称 === zengyixuanxiangData?.阵眼)
+      // const obj = list.find((item) => item?.阵眼名称 === zengyixuanxiangData?.阵眼)
 
-      list = list.filter((item) => item?.阵眼名称 !== zengyixuanxiangData?.阵眼)
+      // list = list.filter((item) => item?.阵眼名称 !== zengyixuanxiangData?.阵眼)
 
-      if (obj) {
-        list.unshift(obj)
-      }
+      // if (obj) {
+      // list.unshift(obj)
+      // }
     }
 
     return list
@@ -89,6 +99,7 @@ function ZhenyanXuanze(props: SelectProps) {
   return (
     <Select allowClear placeholder="请选择阵眼" optionFilterProp="label" {...props}>
       {(展示的阵眼数组() || [])?.map((item) => {
+        console.log('item.伤害排名', item.伤害排名)
         return (
           <Select.Option
             className={'zhenyan-option'}
@@ -96,7 +107,15 @@ function ZhenyanXuanze(props: SelectProps) {
             value={item.阵眼名称}
             label={item.阵眼名称}
           >
-            {item.阵眼名称}
+            <div className={'zhenyan-option-text'}>
+              {item.伤害排名 ? (
+                <img
+                  className={`zhenyan-paiming`}
+                  src={require(`../../../../assets/paiming/paiming-${item.伤害排名}.png`)}
+                />
+              ) : null}
+              {item.阵眼名称}
+            </div>
             {item.伤害提升百分比 ? (
               <span
                 className={`zhenyan-baifenbi ${
