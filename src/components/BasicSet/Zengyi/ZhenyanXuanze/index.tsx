@@ -99,7 +99,6 @@ function ZhenyanXuanze(props: SelectProps) {
   return (
     <Select allowClear placeholder="请选择阵眼" optionFilterProp="label" {...props}>
       {(展示的阵眼数组() || [])?.map((item) => {
-        console.log('item.伤害排名', item.伤害排名)
         return (
           <Select.Option
             className={'zhenyan-option'}
