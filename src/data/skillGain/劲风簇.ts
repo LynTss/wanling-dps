@@ -29,7 +29,7 @@ const 劲风簇GainDTO: SkillGainDTO[] = [
     增益集合: [
       {
         增益类型: GainTypeEnum.伤害百分比,
-        增益计算类型: GainDpsTypeEnum.A,
+        增益计算类型: GainDpsTypeEnum.A, // 没找对应的LUA，如果你可以确定和其他增伤是乘算，请放到B类增伤
         增益数值: 1.7,
       },
     ],

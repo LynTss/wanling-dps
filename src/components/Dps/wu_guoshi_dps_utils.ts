@@ -184,6 +184,8 @@ export const geSkillTotalDps = (
   let 计算目标 = 当前目标
   let 计算技能增伤 = 1
   let 计算技能增伤_B类 = 1
+  let 计算技能增伤_C类 = 1
+  let 计算技能增伤_D类 = 1
   let 计算郭氏额外会效果值 = 0
   let 计算额外会心率 = 0
   let 计算郭式无视防御 = 0
@@ -316,9 +318,21 @@ export const geSkillTotalDps = (
       const { 计算后技能增伤 } = switchGain_B(增益数值信息, 计算技能增伤_B类)
       计算技能增伤_B类 = 计算后技能增伤
     })
+  当前技能计算增益集合
+    .filter((item) => item.增益计算类型 === GainDpsTypeEnum.C)
+    .forEach((增益数值信息) => {
+      const { 计算后技能增伤 } = switchGain_C(增益数值信息, 计算技能增伤_C类)
+      计算技能增伤_C类 = 计算后技能增伤
+    })
+  当前技能计算增益集合
+    .filter((item) => item.增益计算类型 === GainDpsTypeEnum.D)
+    .forEach((增益数值信息) => {
+      const { 计算后技能增伤 } = switchGain_D(增益数值信息, 计算技能增伤_D类)
+      计算技能增伤_D类 = 计算后技能增伤
+    })
 
-  // 将AB类技能增伤相乘
-  计算技能增伤 = 计算技能增伤 * 计算技能增伤_B类
+  // 将ABCD类技能增伤相乘
+  计算技能增伤 = 计算技能增伤 * 计算技能增伤_B类 * 计算技能增伤_C类 * 计算技能增伤_D类
 
   最终人物属性 = {
     ...最终人物属性,

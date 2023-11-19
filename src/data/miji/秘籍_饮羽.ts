@@ -8,7 +8,7 @@ const Miji_Gufengpolang: MijiBasicDataDTO[] = [
     增益集合: [
       {
         增益类型: GainTypeEnum.伤害百分比,
-        增益计算类型: GainDpsTypeEnum.B,
+        增益计算类型: GainDpsTypeEnum.D, // 非侠是单独乘区
         增益数值: 0.15,
       },
     ],
