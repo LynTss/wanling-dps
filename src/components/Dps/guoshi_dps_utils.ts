@@ -10,7 +10,6 @@ import { SkillBasicDTO, SKillGainData } from '@/@types/skill'
 import { skillFinalDps } from '@/utils/skill-dps'
 import { ZengyixuanxiangDataDTO } from '@/@types/zengyi'
 import { Zhenyan_DATA } from '@/data/zhenyan'
-// import { 加成系数 } from '@/data/constant'
 import { 属性系数 } from '@/data/constant'
 import XIAOCHI_DATA from '@/data/xiaochi'
 import ZhuangbeiGainList from '@/data/zhuangbei/zhuangbeiGain'
@@ -380,9 +379,9 @@ export const geSkillTotalDps = (
   最终人物属性 = {
     ...最终人物属性,
     身法: 最终人物属性.身法 + 总身法提升值,
-    // 基础攻击: 最终人物属性.基础攻击 + Math.round(总身法提升值 * 加成系数.身法加成基础攻击),
     会心值: getShenfaJiachengHuixin(最终人物属性.会心值, 总身法提升值),
     面板攻击: getMianBanGongJI(最终人物属性.面板攻击, 总身法提升值),
+    // 基础攻击: 最终人物属性.基础攻击 + Math.round(总身法提升值 * 加成系数.身法加成基础攻击),
     // 破防值: getShenfaJiachengHuixin(最终人物属性.破防值, 总身法提升值),
   }
 
@@ -435,22 +434,17 @@ export const geSkillTotalDps = (
 
   // 再计算独立增益集合
   当前技能计算增益集合
-    .filter((item) => item.增益计算类型 === GainDpsTypeEnum.B)
+    .filter((item) =>
+      [GainDpsTypeEnum.B, GainDpsTypeEnum.C, GainDpsTypeEnum.D]?.includes(item.增益计算类型)
+    )
     .forEach((增益数值信息) => {
-      const { 计算后技能增伤 } = switchGain_B(增益数值信息, 计算技能增伤_B类)
-      计算技能增伤_B类 = 计算后技能增伤
-    })
-  当前技能计算增益集合
-    .filter((item) => item.增益计算类型 === GainDpsTypeEnum.C)
-    .forEach((增益数值信息) => {
-      const { 计算后技能增伤 } = switchGain_C(增益数值信息, 计算技能增伤_C类)
-      计算技能增伤_C类 = 计算后技能增伤
-    })
-  当前技能计算增益集合
-    .filter((item) => item.增益计算类型 === GainDpsTypeEnum.D)
-    .forEach((增益数值信息) => {
-      const { 计算后技能增伤 } = switchGain_D(增益数值信息, 计算技能增伤_D类)
-      计算技能增伤_D类 = 计算后技能增伤
+      if (增益数值信息.增益计算类型 === GainDpsTypeEnum.B) {
+        计算技能增伤_B类 = switchGain_独立增伤(增益数值信息, 计算技能增伤_B类)?.计算后技能增伤
+      } else if (增益数值信息.增益计算类型 === GainDpsTypeEnum.C) {
+        计算技能增伤_C类 = switchGain_独立增伤(增益数值信息, 计算技能增伤_C类)?.计算后技能增伤
+      } else if (增益数值信息.增益计算类型 === GainDpsTypeEnum.D) {
+        计算技能增伤_D类 = switchGain_独立增伤(增益数值信息, 计算技能增伤_D类)?.计算后技能增伤
+      }
     })
 
   // 将ABCD类技能增伤相乘
@@ -654,41 +648,9 @@ export const switchGain_A = (
  * 返回最终参与技能伤害计算的人物属性、技能增伤等数据
  * 分别计算BCD类增益，同类增益相加，结果和A类相乘
  */
-export const switchGain_B = (增益: SKillGainData, B类增伤: number) => {
+export const switchGain_独立增伤 = (增益: SKillGainData, B类增伤: number) => {
   const { 增益数值, 增益类型 } = 增益
   let 计算后技能增伤 = B类增伤
-  switch (增益类型) {
-    case GainTypeEnum.伤害百分比:
-      计算后技能增伤 = 计算后技能增伤 + 增益数值
-      break
-    default:
-      console.warn(`存在未计算增益${增益?.增益类型}`, 增益)
-      break
-  }
-
-  return {
-    计算后技能增伤,
-  }
-}
-export const switchGain_C = (增益: SKillGainData, C类增伤: number) => {
-  const { 增益数值, 增益类型 } = 增益
-  let 计算后技能增伤 = C类增伤
-  switch (增益类型) {
-    case GainTypeEnum.伤害百分比:
-      计算后技能增伤 = 计算后技能增伤 + 增益数值
-      break
-    default:
-      console.warn(`存在未计算增益${增益?.增益类型}`, 增益)
-      break
-  }
-
-  return {
-    计算后技能增伤,
-  }
-}
-export const switchGain_D = (增益: SKillGainData, D类增伤: number) => {
-  const { 增益数值, 增益类型 } = 增益
-  let 计算后技能增伤 = D类增伤
   switch (增益类型) {
     case GainTypeEnum.伤害百分比:
       计算后技能增伤 = 计算后技能增伤 + 增益数值

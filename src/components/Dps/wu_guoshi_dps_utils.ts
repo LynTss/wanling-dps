@@ -14,7 +14,7 @@ import {
   getSortZengyiList,
   getZengyi,
   switchGain_A,
-  switchGain_B,
+  switchGain_独立增伤,
 } from './guoshi_dps_utils'
 import { 获取身法奇穴加成后面板 } from '@/data/qixue'
 
@@ -313,22 +313,17 @@ export const geSkillTotalDps = (
 
   // 再计算独立增益集合
   当前技能计算增益集合
-    .filter((item) => item.增益计算类型 === GainDpsTypeEnum.B)
+    .filter((item) =>
+      [GainDpsTypeEnum.B, GainDpsTypeEnum.C, GainDpsTypeEnum.D]?.includes(item.增益计算类型)
+    )
     .forEach((增益数值信息) => {
-      const { 计算后技能增伤 } = switchGain_B(增益数值信息, 计算技能增伤_B类)
-      计算技能增伤_B类 = 计算后技能增伤
-    })
-  当前技能计算增益集合
-    .filter((item) => item.增益计算类型 === GainDpsTypeEnum.C)
-    .forEach((增益数值信息) => {
-      const { 计算后技能增伤 } = switchGain_C(增益数值信息, 计算技能增伤_C类)
-      计算技能增伤_C类 = 计算后技能增伤
-    })
-  当前技能计算增益集合
-    .filter((item) => item.增益计算类型 === GainDpsTypeEnum.D)
-    .forEach((增益数值信息) => {
-      const { 计算后技能增伤 } = switchGain_D(增益数值信息, 计算技能增伤_D类)
-      计算技能增伤_D类 = 计算后技能增伤
+      if (增益数值信息.增益计算类型 === GainDpsTypeEnum.B) {
+        计算技能增伤_B类 = switchGain_独立增伤(增益数值信息, 计算技能增伤_B类)?.计算后技能增伤
+      } else if (增益数值信息.增益计算类型 === GainDpsTypeEnum.C) {
+        计算技能增伤_C类 = switchGain_独立增伤(增益数值信息, 计算技能增伤_C类)?.计算后技能增伤
+      } else if (增益数值信息.增益计算类型 === GainDpsTypeEnum.D) {
+        计算技能增伤_D类 = switchGain_独立增伤(增益数值信息, 计算技能增伤_D类)?.计算后技能增伤
+      }
     })
 
   // 将ABCD类技能增伤相乘
@@ -336,7 +331,7 @@ export const geSkillTotalDps = (
 
   最终人物属性 = {
     ...最终人物属性,
-    无双值: 最终人物属性.无双值 + 属性系数.无双 * 计算郭氏无双等级 / 1024,
+    无双值: 最终人物属性.无双值 + (属性系数.无双 * 计算郭氏无双等级) / 1024,
     破防值: 最终人物属性.破防值 + (最终人物属性.破防值 * 计算郭氏破防等级) / 1024,
     基础攻击: 最终人物属性.基础攻击 + (最终人物属性.基础攻击 * 计算郭氏基础攻击) / 1024,
     面板攻击: 最终人物属性.面板攻击 + (最终人物属性.基础攻击 * 计算郭氏基础攻击) / 1024,
