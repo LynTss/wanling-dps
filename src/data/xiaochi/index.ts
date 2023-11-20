@@ -123,28 +123,29 @@ const XIAOCHI_DATA: XiaochiDataDTO[] = [
       },
     ],
   },
-  {
-    小吃名称: '细花糕（节日会心）',
-    小吃部位: XiaochiTypeEnum.食品增强,
-    增益集合: [
-      {
-        增益计算类型: GainDpsTypeEnum.A,
-        增益类型: GainTypeEnum.外攻会心等级,
-        增益数值: 1887,
-      },
-    ],
-  },
-  {
-    小吃名称: '金钱花糕（节日攻击）',
-    小吃部位: XiaochiTypeEnum.食品增强,
-    增益集合: [
-      {
-        增益计算类型: GainDpsTypeEnum.A,
-        增益类型: GainTypeEnum.基础攻击,
-        增益数值: 661,
-      },
-    ],
-  },
+  // 重阳节小吃
+  // {
+  //   小吃名称: '细花糕（节日会心）',
+  //   小吃部位: XiaochiTypeEnum.食品增强,
+  //   增益集合: [
+  //     {
+  //       增益计算类型: GainDpsTypeEnum.A,
+  //       增益类型: GainTypeEnum.外攻会心等级,
+  //       增益数值: 1887,
+  //     },
+  //   ],
+  // },
+  // {
+  //   小吃名称: '金钱花糕（节日攻击）',
+  //   小吃部位: XiaochiTypeEnum.食品增强,
+  //   增益集合: [
+  //     {
+  //       增益计算类型: GainDpsTypeEnum.A,
+  //       增益类型: GainTypeEnum.基础攻击,
+  //       增益数值: 661,
+  //     },
+  //   ],
+  // },
   {
     小吃名称: '断浪·杂锦鱼球粥（身法）',
     小吃部位: XiaochiTypeEnum.食品辅助,

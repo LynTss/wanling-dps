@@ -64,7 +64,7 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
           className={'common-title-zengyi'}
           onClick={() => setZengyiVisible()}
         >
-          增益选项
+          增益详情
         </Button>
       </h1>
       <div className="common-item">

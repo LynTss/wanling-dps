@@ -82,7 +82,12 @@ function CharacterShow() {
   return (
     <div className={'character-show'}>
       <div className={'character-title-wrapper'}>
-        <h1 className={'character-title'}>角色属性</h1>
+        <h1 className={'character-title'}>
+          角色属性
+          <Tooltip title="增益、切糕、大附魔的数值加成暂未体现在面板显示，不影响计算">
+            <QuestionCircleOutlined className={'character-max-title-tip'} />
+          </Tooltip>
+        </h1>
         <Checkbox checked={openBFGS} onChange={(e) => setOpenBFGS(e?.target?.checked)}>
           优化算法
           <Tooltip title="采用拟牛顿法对属性做优化演算，仅能代表在当前已穿装备总属性容量不变的情况下的，各属性近似最优收益方向。仅作参考，开启后会消耗额外性能。">
