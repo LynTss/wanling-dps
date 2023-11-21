@@ -1,7 +1,7 @@
 import { GainDpsTypeEnum, GainTypeEnum } from '../../@types/enum'
 import { SkillGainDTO } from '../../@types/skill'
 
-const 承契基础系数 = 0.06056
+const 承契基础系数 = 62 / 1024
 
 const commonGainDTO: SkillGainDTO[] = [
   {

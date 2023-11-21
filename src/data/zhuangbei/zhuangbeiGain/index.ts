@@ -9,12 +9,12 @@ const ZhuangbeiGainList = {
     {
       增益计算类型: GainDpsTypeEnum.A,
       增益类型: GainTypeEnum.郭氏外攻会心效果等级,
-      增益数值: 41 * 0.8,
+      增益数值: 41 * 0.7, // 覆盖率按70%算
     },
     {
       增益计算类型: GainDpsTypeEnum.A,
       增益类型: GainTypeEnum.外攻会心百分比,
-      增益数值: 0.04 * 0.8,
+      增益数值: 0.04 * 0.7, // 覆盖率按70%算
     },
   ],
   切糕会心: [
