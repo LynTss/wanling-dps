@@ -1,3 +1,7 @@
+.common-set {
+  margin-bottom: 12px;
+}
+
 .common-title {
   font-size: 16px;
   font-weight: 700;
@@ -26,12 +30,24 @@
   justify-content: space-between;
 }
 
+.common-item-sub {
+  width: 100%;
+  display: flex;
+  margin-bottom: 8px;
+  height: 32px;
+  justify-content: space-between;
+}
+
+/* .common-item .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+  height: 30px;
+} */
+
 .common-item>.ant-btn{
   width:calc(50% - 4px);
 }
 
 .common-label {
-  width: 70px;
+  width: 36px;
   text-align: left;
   line-height: 32px;;
   font-size: 14px;

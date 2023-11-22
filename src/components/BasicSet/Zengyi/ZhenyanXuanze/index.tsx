@@ -19,6 +19,7 @@ function ZhenyanXuanze(props: SelectProps) {
   const zengyiQiyong = useAppSelector((state) => state?.zengyi?.zengyiQiyong)
   const skillBasicData = useAppSelector((state) => state?.zengyi?.skillBasicData)
   const currentDps = useAppSelector((state) => state?.basic?.currentDps)
+  const startType = useAppSelector((state) => state?.basic?.startType)
 
   const qixueData = useAppSelector((state) => state.basic.qixueData)
   const isOpenLuLing = 判断是否开启身法加成奇穴(qixueData)
@@ -78,7 +79,8 @@ function ZhenyanXuanze(props: SelectProps) {
       currentCycle,
       characterFinalData,
       qixueData,
-      skillBasicData
+      skillBasicData,
+      startType
     )
 
     const { totalDps } = getDpsTotal({

@@ -12,6 +12,7 @@ import {
   getDefaultNetwork,
   getCloseBackgroundImg,
   getDefaultQixue,
+  getDefaultStartType,
 } from '@/utils/default'
 import { EquipmentBasicDTO } from '@/@types/equipment'
 
@@ -40,6 +41,8 @@ interface BasicState {
   closeBackgroundImg: boolean
   // 奇穴信息
   qixueData: string[]
+  // 起手类型
+  startType: 'normal' | 'max' // normal 正常 max 5承契起手
 }
 
 const initialState: BasicState = {
@@ -70,6 +73,7 @@ const initialState: BasicState = {
   dpsTime: getDefaultTime(),
   closeBackgroundImg: getCloseBackgroundImg(),
   qixueData: getDefaultQixue(),
+  startType: getDefaultStartType(),
 }
 
 export const counterSlice = createSlice({
@@ -108,6 +112,9 @@ export const counterSlice = createSlice({
     setQixueData: (state, action: PayloadAction<string[]>) => {
       state.qixueData = action.payload
     },
+    setStartType: (state, action: PayloadAction<'normal' | 'max'>) => {
+      state.startType = action.payload
+    },
   },
 })
 
@@ -122,6 +129,7 @@ export const {
   setCurrentDps,
   setCloseBackgroundImg,
   setQixueData,
+  setStartType,
 } = counterSlice.actions // 导出操作state的喊出
 export const selectCount = (state: RootState) => state
 export default counterSlice.reducer // 导出当前reducer在store/index.ts中记性全局挂

@@ -34,6 +34,7 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
   const skillBasicData = useAppSelector((state) => state?.zengyi?.skillBasicData)
   const currentCycle = useAppSelector((state) => state?.basic?.currentCycle)
   const currentCycleName = useAppSelector((state) => state?.basic?.currentCycleName)
+  const startType = useAppSelector((state) => state?.basic?.startType)
   const currentTarget = useAppSelector((state) => state?.basic?.currentTarget)
   const zengyixuanxiangData = useAppSelector((state) => state?.zengyi?.zengyixuanxiangData)
   const zengyiQiyong = useAppSelector((state) => state?.zengyi?.zengyiQiyong)
@@ -249,7 +250,8 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
         currentCycle,
         final,
         qixueData,
-        newSkillBasicData
+        newSkillBasicData,
+        startType
       )
 
       const { totalDps } = getDpsTotal({
@@ -263,7 +265,7 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
         开启卢令: isOpenLuLing,
         开启无视防御,
       })
-      console.log('战斗时间', dpsTime)
+      // console.log('战斗时间', dpsTime)
       setAfterDps(Math.floor(totalDps / dpsTime))
     } catch (_) {
       设置加速(null)

@@ -25,13 +25,14 @@ function CharacterShow() {
   const skillBasicData = useAppSelector((state) => state?.zengyi?.skillBasicData)
   const zengyixuanxiangData = useAppSelector((state) => state?.zengyi?.zengyixuanxiangData)
   const zengyiQiyong = useAppSelector((state) => state?.zengyi?.zengyiQiyong)
+  const startType = useAppSelector((state) => state?.basic?.startType)
 
   const isOpenLuLing = 判断是否开启身法加成奇穴(qixueData)
   const 开启无视防御 = 判断是否开启无视防御奇穴(qixueData)
 
   const [openBFGS, setOpenBFGS] = useState<boolean>(false)
 
-  const mapKeyList = ['身法', '攻击力', '会心', '会心效果', '破防', '无双', '破招', '加速']
+  const mapKeyList = ['身法', '攻击', '会心', '会效', '破防', '无双', '破招', '加速']
 
   const showData = isOpenLuLing
     ? 获取身法奇穴加成后面板(characterFinalData, isOpenLuLing)
@@ -47,7 +48,8 @@ function CharacterShow() {
       currentCycle,
       characterFinalData,
       qixueData,
-      skillBasicData
+      skillBasicData,
+      startType
     )
 
     if (characterFinalData?.身法) {
@@ -130,11 +132,11 @@ const getCharacterData = (key: string, characterFinalData: CharacterFinalDTO) =>
   switch (key) {
     case '身法':
       return characterFinalData.身法 || 0
-    case '攻击力':
+    case '攻击':
       return characterFinalData.面板攻击 || 0
     case '会心':
       return ((characterFinalData.会心值 / 属性系数.会心) * 100).toFixed(2) + `%`
-    case '会心效果':
+    case '会效':
       return ((characterFinalData.会心效果值 / 属性系数.会效) * 100 + 175).toFixed(2) + `%`
     case '破防':
       return ((characterFinalData.破防值 / 属性系数.破防) * 100).toFixed(2) + `%`

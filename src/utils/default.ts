@@ -5,6 +5,7 @@ import {
   DEFAULT_EQUIPMENT,
   DEFAULT_MIJI_SELECTED_DATA,
   DEFAULT_QIXUE_VALUE,
+  DEFAULT_START_TYPE,
   ZENGYI_DATA_DEFAULT,
 } from '@/pages/constant'
 
@@ -74,6 +75,20 @@ export const getDefaultQixue = () => {
     }
   } else {
     return [...DEFAULT_QIXUE_VALUE]
+  }
+}
+
+// 获取奇穴
+export const getDefaultStartType = (): 'normal' | 'max' => {
+  const storageStartType = localStorage.getItem('wl_start_type')
+  if (storageStartType) {
+    try {
+      return (storageStartType as any) || DEFAULT_START_TYPE
+    } catch {
+      return DEFAULT_START_TYPE
+    }
+  } else {
+    return DEFAULT_START_TYPE
   }
 }
 

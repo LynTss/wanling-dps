@@ -14,6 +14,7 @@ import XIAOCHI_DATA from '@/data/xiaochi'
 import { GainTypeEnum } from '@/@types/enum'
 import 奇穴数据 from '@/data/qixue'
 import { QixueDataDTO } from '@/@types/qixue'
+import { CycleDTO } from '@/@types/cycle'
 
 /**
  * @name 破招原始伤害计算
@@ -142,7 +143,7 @@ export const getDpsTime = (
   network: number,
   zengyiQiyong: boolean,
   zengyixuanxiangData: ZengyixuanxiangDataDTO,
-  cons = true
+  cons = false
 ): number => {
   let time = 300
   // 根据是否选择CW选择对应循环
@@ -225,13 +226,14 @@ export const getTrueCycleName = (
 
 export const getTrueCycleByName = (
   currentCycleName: string,
-  currentCycle: any,
+  currentCycle: CycleDTO[],
   characterFinalData: CharacterFinalDTO,
   qixueData: string[],
-  skillBasicData: SkillBasicDTO[]
+  skillBasicData: SkillBasicDTO[],
+  startType: 'normal' | 'max' // 起手方式
 ) => {
-  let trueCycle = [...currentCycle]
-  let newSkillBasicData = [...skillBasicData]
+  let trueCycle: CycleDTO[] = [...currentCycle]
+  let newSkillBasicData: SkillBasicDTO[] = [...skillBasicData]
 
   // 大CW特效循环变动
   if (
@@ -255,11 +257,33 @@ export const getTrueCycleByName = (
     trueCycle = All_Cycle_Data?.find((item) => item.name === trueName)?.cycle || currentCycle
   }
 
+  // 特殊处理5层承契起手
+  if (startType === 'max') {
+    trueCycle = trueCycle.map((item) => {
+      return {
+        ...item,
+        技能增益列表: item?.技能增益列表?.map((增益) => {
+          return {
+            ...增益,
+            增益名称: 增益?.增益名称?.includes('承契_')
+              ? 增益?.增益名称
+                  ?.replace('承契_1', '承契_5')
+                  .replace('承契_2', '承契_5')
+                  .replace('承契_3', '承契_5')
+                  .replace('承契_4', '承契_5')
+              : 增益?.增益名称,
+          }
+        }),
+      }
+    })
+  }
+
   // 根据奇穴类型处理各类循环
   const 全部奇穴信息: QixueDataDTO[] = getAllQixueData(qixueData)
 
   newSkillBasicData = newSkillBasicData.map((item) => {
     let res = { ...item }
+
     const 所有加成该技能的奇穴 = 全部奇穴信息?.filter(
       (奇穴) =>
         奇穴?.奇穴加成对应关系?.[item.技能名称] ||
@@ -307,67 +331,6 @@ export const getTrueCycleByName = (
 
     return res
   })
-
-  // // 特殊处理贯侯
-  // if (qixueData?.includes('贯侯')) {
-  //   trueCycle = trueCycle.map((item) => {
-  //     if (item.技能名称 === '标鹄' && !item.已计算贯侯) {
-  //       return {
-  //         ...item,
-  //         技能数量: item.技能数量 + (item.技能数量 > 5 ? item.技能数量 - 5 : 0),
-  //         已计算贯侯: true,
-  //       }
-  //     } else {
-  //       return { ...item }
-  //     }
-  //   })
-  // }
-
-  // 特殊处理桑柘
-  // if (qixueData?.includes('桑柘')) {
-  //   let 减少低层贯穿数量 = 0 // 加到贯穿六上，桑柘的贯穿质量较高
-  //   trueCycle = trueCycle.map((item) => {
-  //     if (item.技能名称 === '贯穿·六' && !item.已计算桑柘) {
-  //       return {
-  //         ...item,
-  //         技能数量: item.技能数量 + 26,
-  //         已计算桑柘: true,
-  //       }
-  //     } else if (item.技能名称 === '贯穿·六·引爆' && !item.已计算桑柘) {
-  //       return {
-  //         ...item,
-  //         技能数量: item.技能数量 + 14,
-  //         已计算桑柘: true,
-  //       }
-  //     } else if (item.技能名称.includes('贯穿·') && !item.已计算桑柘) {
-  //       const 新数量 = item.技能数量 - 4 >= 0 ? item.技能数量 - 4 : 0
-  //       const 减少数量 = item.技能数量 - 新数量
-  //       减少低层贯穿数量 = 减少低层贯穿数量 + 减少数量
-  //       return {
-  //         ...item,
-  //         技能数量: 新数量,
-  //         已计算桑柘: true,
-  //       }
-  //     } else {
-  //       return { ...item }
-  //     }
-  //   })
-
-  //   console.log('减少低层贯穿数量', 减少低层贯穿数量)
-  //   trueCycle = trueCycle.map((item) => {
-  //     if (item.技能名称 === '贯穿·六' && !item.已计算差异增加) {
-  //       return {
-  //         ...item,
-  //         技能数量: item.技能数量 + 减少低层贯穿数量,
-  //         已计算差异增加: true,
-  //       }
-  //     } else {
-  //       return { ...item }
-  //     }
-  //   })
-
-  //   console.log('trueCycle', trueCycle)
-  // }
 
   return {
     trueCycle: trueCycle,

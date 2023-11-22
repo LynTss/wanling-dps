@@ -1,10 +1,16 @@
 import React from 'react'
 import { Button, Select } from 'antd'
-import { 延迟设定, 目标集合 } from '@/data/constant'
+import { 延迟设定, 目标集合, 起手设定 } from '@/data/constant'
 import skillCycle from '@/data/skillCycle'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 
-import { setCurrentTarget, setCurrentCycle, setNetwork, setQixueData } from '@/store/basicReducer'
+import {
+  setCurrentTarget,
+  setCurrentCycle,
+  setNetwork,
+  setQixueData,
+  setStartType,
+} from '@/store/basicReducer'
 import MijiSet from './MijiSet'
 import QixueSet from './QixueSet'
 import './index.css'
@@ -13,6 +19,7 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
   const dispatch = useAppDispatch()
   const currentCycleName = useAppSelector((state) => state?.basic?.currentCycleName)
   const currentTargetName = useAppSelector((state) => state?.basic?.currentTargetName)
+  const startType = useAppSelector((state) => state?.basic?.startType)
   const network = useAppSelector((state) => state?.basic?.network)
 
   const setCurrentTargetVal = (val) => {
@@ -54,6 +61,14 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
     }
   }
 
+  const setCurrentStartType = (val) => {
+    if (val) {
+      localStorage?.setItem('wl_start_type', val)
+      dispatch(setStartType(val))
+      getDpsFunction()
+    }
+  }
+
   return (
     <div className={'common-set'}>
       <h1 className={'common-title'}>
@@ -68,7 +83,7 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
         </Button>
       </h1>
       <div className="common-item">
-        <h1 className="common-label">当前目标</h1>
+        <h1 className="common-label">目标</h1>
         <div className="common-content">
           <Select
             className="current-boss"
@@ -88,11 +103,11 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
         </div>
       </div>
       <div className="common-item">
-        <h1 className="common-label">当前循环</h1>
+        <h1 className="common-label">循环</h1>
         <div className="common-content">
           <Select
             value={currentCycleName}
-            className="current-boss"
+            className="cycle-select"
             onChange={(v) => {
               setCurrentCycleVal(v)
             }}
@@ -110,7 +125,7 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
         </div>
       </div>
       <div className="common-item">
-        <h1 className="common-label">网络延迟</h1>
+        <h1 className="common-label">延迟</h1>
         <div className="common-content">
           <Select value={network} onChange={handleChangeNetwork}>
             {延迟设定.map((item) => {
@@ -121,6 +136,28 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
               )
             })}
           </Select>
+        </div>
+      </div>
+      <div className="common-item">
+        <div className={'common-item-sub'}>
+          <h1 className="common-label">起手</h1>
+          <div className="common-content">
+            <Select
+              value={startType}
+              className="cycle-select"
+              onChange={(v) => {
+                setCurrentStartType(v)
+              }}
+            >
+              {起手设定.map((item) => {
+                return (
+                  <Select.Option value={item?.value} key={item?.value}>
+                    {item?.label}
+                  </Select.Option>
+                )
+              })}
+            </Select>
+          </div>
         </div>
       </div>
       <div className="common-item">

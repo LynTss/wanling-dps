@@ -34,6 +34,7 @@ function Income({ zengyiVisible }, ref) {
   const zengyiQiyong = useAppSelector((state) => state.zengyi.zengyiQiyong)
   const zengyixuanxiangData = useAppSelector((state) => state.zengyi.zengyixuanxiangData)
   const skillBasicData = useAppSelector((state) => state?.zengyi?.skillBasicData)
+  const startType = useAppSelector((state) => state?.basic?.startType)
 
   const currentCycleName = useAppSelector((state) => state?.basic?.currentCycleName)
   const network = useAppSelector((state) => state?.basic?.network)
@@ -68,7 +69,8 @@ function Income({ zengyiVisible }, ref) {
       currentCycle,
       characterFinalData,
       qixueData,
-      skillBasicData
+      skillBasicData,
+      startType
     )
 
     const { totalDps: oldDps } = getNotGuoDpsTotal({

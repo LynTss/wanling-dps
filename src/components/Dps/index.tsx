@@ -23,6 +23,8 @@ function Dps(props, ref) {
   const zengyixuanxiangData = useAppSelector((state) => state?.zengyi?.zengyixuanxiangData)
   const zengyiQiyong = useAppSelector((state) => state?.zengyi?.zengyiQiyong)
   const qixueData = useAppSelector((state) => state.basic.qixueData)
+  const startType = useAppSelector((state) => state?.basic?.startType)
+
   const isOpenLuLing = 判断是否开启身法加成奇穴(qixueData)
   const 开启无视防御 = 判断是否开启无视防御奇穴(qixueData)
 
@@ -45,19 +47,18 @@ function Dps(props, ref) {
       message.error('请先设置个人属性和目标')
       return
     }
-    getDps()
+    getDps('showTime')
   }
 
-  const getDps = () => {
+  const getDps = (showTime?) => {
     const dpsTime = getDpsTime(
       currentCycleName,
       characterFinalData,
       network,
       zengyiQiyong,
-      zengyixuanxiangData
+      zengyixuanxiangData,
+      showTime
     )
-
-    console.log('dpsTime', dpsTime)
 
     // 获取实际循环
     const { trueCycle, trueSkillBasicData } = getTrueCycleByName(
@@ -65,7 +66,8 @@ function Dps(props, ref) {
       参与计算循环,
       characterFinalData,
       qixueData,
-      skillBasicData
+      skillBasicData,
+      startType
     )
 
     const { totalDps, dpsList } = getDpsTotal({

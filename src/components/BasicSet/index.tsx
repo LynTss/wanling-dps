@@ -3,7 +3,7 @@ import CharacterShow from './CharacterShow'
 
 import CommonSet from './CommonSet'
 import CharacterSet from './CharacterSet'
-import { Divider } from 'antd'
+// import { Divider } from 'antd'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { getFinalCharacterBasicData } from './CharacterSet/util'
 import { setCharacterFinalData } from '@/store/basicReducer'
@@ -125,7 +125,7 @@ function BasicSet(props: CharacterSetProps) {
           getDpsFunction={getDpsFunction}
           setZengyiVisible={() => setZengyiVisible(zengyiVisible ? false : true)}
         />
-        <Divider />
+        {/* <Divider /> */}
         {/* 属性展示 */}
         <CharacterShow />
         {/* 属性录入 */}

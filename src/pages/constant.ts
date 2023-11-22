@@ -197,3 +197,6 @@ export const DEFAULT_QIXUE_VALUE = [
   '审固',
   '朱厌',
 ]
+
+// 默认起手
+export const DEFAULT_START_TYPE = 'normal'
