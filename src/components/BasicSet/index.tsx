@@ -3,7 +3,6 @@ import CharacterShow from './CharacterShow'
 
 import CommonSet from './CommonSet'
 import CharacterSet from './CharacterSet'
-// import { Divider } from 'antd'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { getFinalCharacterBasicData } from './CharacterSet/util'
 import { setCharacterFinalData } from '@/store/basicReducer'

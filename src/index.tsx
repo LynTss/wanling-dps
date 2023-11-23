@@ -20,6 +20,7 @@ import App from './pages/index'
 import { DOMAIN_COLOR } from './utils/system_constant'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as any)
+
 root.render(
   <Provider store={store}>
     <ConfigProvider locale={antdZhCN}>

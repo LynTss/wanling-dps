@@ -40,6 +40,19 @@
 
 .zhuangbei-form-left-1 {
   width: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.zhuangbei-diff-btn {
+  margin-left:8px;
+}
+
+.zhuangbei-diff-tip {
+  font-size: 14px;
+  color: #666;
+  margin-left: 8px;
 }
 
 .zhuangbei-form-left-2 {

@@ -4,11 +4,9 @@
 
 import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
 import * as G2 from '@antv/g2'
-import { useAppSelector } from '@/hooks'
+import { useAppDispatch } from '@/hooks'
 import { QuestionCircleOutlined } from '@ant-design/icons'
-import { getNotGuoDpsTotal } from '../wu_guoshi_dps_utils' // 使用不郭计算方式
 import { message, Radio, Tooltip } from 'antd'
-import { getDpsTime, getTrueCycleByName } from '@/utils/skill-dps'
 import {
   IncomeFumo,
   IncomeDataDTO,
@@ -18,7 +16,7 @@ import {
 } from '@/data/income'
 import './index.css'
 import { DOMAIN_COLOR } from '@/utils/system_constant'
-import { 判断是否开启身法加成奇穴, 判断是否开启无视防御奇穴 } from '@/data/qixue'
+import { currentDpsFunction } from '@/store/basicReducer/current-dps-function'
 
 const checkTypeList = [
   { label: '附魔', list: IncomeFumo },
@@ -28,21 +26,6 @@ const checkTypeList = [
 ]
 
 function Income({ zengyiVisible }, ref) {
-  const currentCycle = useAppSelector((state) => state.basic.currentCycle)
-  const characterFinalData = useAppSelector((state) => state.basic.characterFinalData)
-  const currentTarget = useAppSelector((state) => state.basic.currentTarget)
-  const zengyiQiyong = useAppSelector((state) => state.zengyi.zengyiQiyong)
-  const zengyixuanxiangData = useAppSelector((state) => state.zengyi.zengyixuanxiangData)
-  const skillBasicData = useAppSelector((state) => state?.zengyi?.skillBasicData)
-  const startType = useAppSelector((state) => state?.basic?.startType)
-
-  const currentCycleName = useAppSelector((state) => state?.basic?.currentCycleName)
-  const network = useAppSelector((state) => state?.basic?.network)
-
-  const qixueData = useAppSelector((state) => state.basic.qixueData)
-  const isOpenLuLing = 判断是否开启身法加成奇穴(qixueData)
-  const 开启无视防御 = 判断是否开启无视防御奇穴(qixueData)
-
   const [chartData, setChartData] = useState<any>()
   const [currentIncomeType, setCunrrentIncomeType] = useState<string>('附魔')
   // const [currentIncomeList, setCunrrentIncomeList] = useState<IncomeDataDTO[]>(IncomeFumo)
@@ -51,71 +34,41 @@ function Income({ zengyiVisible }, ref) {
 
   const limitRef: any = useRef<any>()
 
+  const dispatch = useAppDispatch()
+
   // 计算单点增益
   const getAfterIncomeDpsPercent = (data) => {
-    const 计算后目标 = currentTarget
-
-    const dpsTime = getDpsTime(
-      currentCycleName,
-      characterFinalData,
-      network,
-      zengyiQiyong,
-      zengyixuanxiangData
+    const { totalDps: oldDps } = dispatch(
+      currentDpsFunction({
+        是否郭氏计算: false,
+      })
     )
 
-    // 获取实际循环
-    const { trueCycle, trueSkillBasicData } = getTrueCycleByName(
-      currentCycleName,
-      currentCycle,
-      characterFinalData,
-      qixueData,
-      skillBasicData,
-      startType
+    const { totalDps: newDps } = dispatch(
+      currentDpsFunction({
+        是否郭氏计算: false,
+        更新默认增益集合: data.增益集合.map((item) => {
+          return {
+            ...item,
+            增益数值: 1,
+          }
+        }),
+      })
     )
 
-    const { totalDps: oldDps } = getNotGuoDpsTotal({
-      currentCycle: trueCycle,
-      characterFinalData,
-      当前目标: 计算后目标,
-      skillBasicData: trueSkillBasicData,
-      zengyiQiyong,
-      zengyixuanxiangData,
-      dpsTime,
-      开启卢令: isOpenLuLing,
-      开启无视防御,
-    })
-
-    const 增益集合 = [
-      ...data.增益集合.map((item) => {
-        return {
-          ...item,
-          增益数值: 1,
-        }
-      }),
-    ]
-
-    const { totalDps: newTotalDps } = getNotGuoDpsTotal({
-      currentCycle: trueCycle,
-      characterFinalData,
-      当前目标: 计算后目标,
-      skillBasicData: trueSkillBasicData,
-      zengyiQiyong,
-      zengyixuanxiangData,
-      dpsTime,
-      默认增益集合: 增益集合,
-      开启卢令: isOpenLuLing,
-      开启无视防御,
-    })
-
-    return Number((newTotalDps / oldDps - 1) * 100)
+    return Number(newDps - oldDps)
   }
 
   const getDataSource = () => {
     const list = currentIncomeList?.current || IncomeFumo
-    return list.map((item) => {
+    let 基础计算增益 = 1
+    return list.map((item, index) => {
       const 单点增益 = getAfterIncomeDpsPercent(item)
       const 增益数值: number = item?.增益集合?.[0]?.增益数值 || 1
-      const 收益 = Number((单点增益 * 增益数值).toFixed(4))
+      if (index === 0) {
+        基础计算增益 = Number(单点增益 * 增益数值)
+      }
+      const 收益 = Number(((单点增益 * 增益数值) / 基础计算增益).toFixed(4))
 
       return {
         key: item.收益计算名称.replace('+', ''),

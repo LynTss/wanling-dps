@@ -76,7 +76,7 @@ const initialState: BasicState = {
   startType: getDefaultStartType(),
 }
 
-export const counterSlice = createSlice({
+export const basicStore = createSlice({
   name: 'basic',
   initialState,
   reducers: {
@@ -130,6 +130,8 @@ export const {
   setCloseBackgroundImg,
   setQixueData,
   setStartType,
-} = counterSlice.actions // 导出操作state的喊出
-export const selectCount = (state: RootState) => state
-export default counterSlice.reducer // 导出当前reducer在store/index.ts中记性全局挂
+} = basicStore.actions // 导出操作state的喊出
+
+export const basicState = (state: RootState) => state
+
+export default basicStore.reducer // 导出当前reducer在store/index.ts中记性全局挂

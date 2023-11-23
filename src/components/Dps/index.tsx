@@ -1,32 +1,17 @@
-import React, { forwardRef, useImperativeHandle, useMemo, useRef, useState } from 'react'
-import { Divider, message } from 'antd'
+import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react'
+import { Divider } from 'antd'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 
-import { DpsListData, getDpsTotal } from './guoshi_dps_utils'
+import { DpsListData } from './guoshi_dps_utils'
 import DpsCountModal from './DpsCountModal/index'
 import Income from './Income'
-import { setCurrentDps } from '@/store/basicReducer'
-import { getDpsTime, getTrueCycleByName } from '@/utils/skill-dps'
-import { 判断是否开启身法加成奇穴, 判断是否开启无视防御奇穴 } from '@/data/qixue'
 import './index.css'
+import { currentDpsFunction } from '@/store/basicReducer/current-dps-function'
 
 function Dps(props, ref) {
   const { zengyiVisible } = props
   const dispatch = useAppDispatch()
-  const network = useAppSelector((state) => state?.basic?.network)
-  const characterFinalData = useAppSelector((state) => state?.basic?.characterFinalData)
-  const currentCycle = useAppSelector((state) => state?.basic?.currentCycle)
-  const currentCycleName = useAppSelector((state) => state?.basic?.currentCycleName)
-  const currentTarget = useAppSelector((state) => state?.basic?.currentTarget)
   const currentDps = useAppSelector((state) => state?.basic?.currentDps)
-  const skillBasicData = useAppSelector((state) => state?.zengyi?.skillBasicData)
-  const zengyixuanxiangData = useAppSelector((state) => state?.zengyi?.zengyixuanxiangData)
-  const zengyiQiyong = useAppSelector((state) => state?.zengyi?.zengyiQiyong)
-  const qixueData = useAppSelector((state) => state.basic.qixueData)
-  const startType = useAppSelector((state) => state?.basic?.startType)
-
-  const isOpenLuLing = 判断是否开启身法加成奇穴(qixueData)
-  const 开启无视防御 = 判断是否开启无视防御奇穴(qixueData)
 
   const [total, setTotal] = useState<number>(0)
   const [dpsList, setDpsList] = useState<DpsListData[]>([])
@@ -38,55 +23,22 @@ function Dps(props, ref) {
     getDps: startDps,
   }))
 
-  const 参与计算循环 = useMemo(() => {
-    return currentCycle
-  }, [currentCycle])
-
   const startDps = () => {
-    if (!currentCycle?.length || !characterFinalData) {
-      message.error('请先设置个人属性和目标')
-      return
-    }
     getDps('showTime')
   }
 
   const getDps = (showTime?) => {
-    const dpsTime = getDpsTime(
-      currentCycleName,
-      characterFinalData,
-      network,
-      zengyiQiyong,
-      zengyixuanxiangData,
-      showTime
+    const { totalDps, dpsList } = dispatch(
+      currentDpsFunction({
+        showTime,
+        updateCurrentDps: true,
+      })
     )
-
-    // 获取实际循环
-    const { trueCycle, trueSkillBasicData } = getTrueCycleByName(
-      currentCycleName,
-      参与计算循环,
-      characterFinalData,
-      qixueData,
-      skillBasicData,
-      startType
-    )
-
-    const { totalDps, dpsList } = getDpsTotal({
-      currentCycle: trueCycle,
-      characterFinalData,
-      当前目标: currentTarget,
-      skillBasicData: trueSkillBasicData,
-      zengyiQiyong,
-      zengyixuanxiangData,
-      dpsTime,
-      开启卢令: isOpenLuLing,
-      开启无视防御,
-    })
     setTotal(totalDps)
     setDpsList(dpsList)
     setTimeout(() => {
       incomeRef?.current?.initChart()
     })
-    dispatch(setCurrentDps(Math.floor(totalDps / dpsTime)))
   }
 
   return currentDps ? (
