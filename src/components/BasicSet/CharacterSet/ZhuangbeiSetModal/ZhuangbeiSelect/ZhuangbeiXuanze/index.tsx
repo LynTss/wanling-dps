@@ -56,6 +56,7 @@ function ZhuangbeiXuanze(props: ZhuangbeiXuanzeProps, ref) {
             EquipmentTypeEnum.大CW,
             EquipmentTypeEnum.特效武器,
             EquipmentTypeEnum.副本精简,
+            EquipmentTypeEnum.试炼精简,
           ]?.includes(item?.装备类型)
         )
       })
