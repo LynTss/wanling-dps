@@ -43,7 +43,7 @@
 } */
 
 .common-item>.ant-btn{
-  width:calc(50% - 4px);
+  width:calc(33% - 4px);
 }
 
 .common-label {

@@ -13,6 +13,7 @@ import {
 } from '@/store/basicReducer'
 import MijiSet from './MijiSet'
 import QixueSet from './QixueSet'
+import CycleSimulator from './CycleSimulator'
 import './index.css'
 
 function CommonSet({ getDpsFunction, setZengyiVisible }) {
@@ -163,6 +164,7 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
       <div className="common-item">
         <MijiSet getDpsFunction={getDpsFunction} />
         <QixueSet getDpsFunction={getDpsFunction} />
+        <CycleSimulator />
       </div>
     </div>
   )

@@ -1,5 +1,9 @@
 export default [
   {
+    version: '1.1.3',
+    content: ['新增循环模拟(beta)功能，目前循环写死，下周会开放自定义循环功能'],
+  },
+  {
     version: '1.1.2',
     content: [
       '优化Dps核心算法类，dps计算效率提升约20%',
