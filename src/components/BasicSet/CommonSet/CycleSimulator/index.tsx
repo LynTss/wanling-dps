@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { Button, Modal, Select, Table } from 'antd'
 import { CycleSimulatorLog } from '@/@types/cycleSimulator'
 import 循环模拟技能基础数据, { 日志类型数组 } from '@/data/cycleSimulator/skill'
-import { 测试循环, 测试宠物顺序 } from './constant'
+import { 测试循环_397 as 测试循环, 测试宠物顺序 } from './constant'
 import './index.css'
 
 function CycleSimulator() {
@@ -217,7 +217,13 @@ function CycleSimulator() {
             for (let k = 0; k < 当前技能?.造成伤害次数; k++) {
               const 频率计算 = 当前技能?.是否为读条技能 ? -加速等级 : 0
               const 当前事件时间 =
-                当前时间 + (当前技能.初次伤害频率 || 0) + k * (当前技能?.伤害频率 + 频率计算)
+                当前时间 +
+                (当前技能.初次伤害频率 || 0) +
+                (!网络按键延迟 ? 频率计算 : 0) +
+                k * (当前技能?.伤害频率 + 频率计算)
+
+              // 触发标鹄
+              标鹄触发(当前事件时间)
 
               if (当前技能?.是否上贯穿) {
                 // 能上贯穿的技能才能引爆贯穿
@@ -227,8 +233,6 @@ function CycleSimulator() {
                 上一层贯穿(当前技能?.技能名称, 当前事件时间)
               }
 
-              // 触发标鹄
-              标鹄触发(当前事件时间)
               添加战斗日志([
                 {
                   日志: `${当前技能?.技能名称} - ${k + 1}`,
@@ -244,6 +248,8 @@ function CycleSimulator() {
             }
             // 单段伤害计数
           } else {
+            // 触发标鹄
+            标鹄触发(当前时间)
             if (当前技能?.是否上贯穿) {
               // 0
               // if (校验当前时间是否箭为1()) {
@@ -251,8 +257,6 @@ function CycleSimulator() {
               // }
               上一层贯穿(当前技能?.技能名称)
             }
-            // 触发标鹄
-            标鹄触发(当前时间)
             添加战斗日志([
               {
                 日志: `${当前技能?.技能名称}`,
@@ -427,9 +431,9 @@ function CycleSimulator() {
               value={网络按键延迟}
               onChange={(e) => 设置延迟(e)}
             >
-              <Select.Option value={0}>完美</Select.Option>
+              <Select.Option value={0}>很低</Select.Option>
               <Select.Option value={1}>正常</Select.Option>
-              <Select.Option value={2}>海外</Select.Option>
+              <Select.Option value={2}>很高</Select.Option>
             </Select>
             <Button size="small" onClick={simulator}>
               计算
@@ -540,7 +544,6 @@ const 贯穿分析 = (战斗日志: CycleSimulatorLog[]) => {
       if (当前事件?.日志类型 === '上贯穿') {
         let 续贯穿第一次时间 =
           (待生效贯穿[待生效贯穿?.length - 1]?.生效时间 || 当前事件?.日志时间) + 8
-
         // 当前没有贯穿buff
         if (!待生效贯穿?.length) {
           // 以下为测试推导的续dot原理
@@ -558,7 +561,7 @@ const 贯穿分析 = (战斗日志: CycleSimulatorLog[]) => {
             续贯穿第一次时间 = 最后一次贯穿buff消失时间 + 16
           }
         }
-        for (let k = 0; k < 单次上贯穿次数; k++) {
+        for (let k = 0; k < 5; k++) {
           if (待生效贯穿?.length < 单次上贯穿次数) {
             // 目前测试不吃加速。8帧一次
             const DOT单跳间隔 = 8
