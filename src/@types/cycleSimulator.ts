@@ -55,6 +55,10 @@ export interface CycleSimulatorSkillDTO {
    * 召唤宠物数量
    */
   召唤宠物数量?: number
+  /**
+   * 创建循环不可选
+   */
+  创建循环不可选?: boolean
 }
 
 export interface CycleSimulatorLog {

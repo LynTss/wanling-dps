@@ -1,5 +1,9 @@
 export default [
   {
+    version: '1.1.4',
+    content: ['循环模拟(beta)功能更新，开放自定义循环功能。更多功能敬请期待'],
+  },
+  {
     version: '1.1.3',
     content: ['新增循环模拟(beta)功能，目前循环写死，下周会开放自定义循环功能'],
   },
