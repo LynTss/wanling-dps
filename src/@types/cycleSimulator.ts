@@ -48,13 +48,17 @@ export interface CycleSimulatorSkillDTO {
    */
   是否上贯穿?: boolean
   /**
+   * 是否上破招
+   */
+  是否上破招?: boolean
+  /**
    * 是否引爆贯穿
    */
   是否引爆贯穿?: boolean
   /**
-   * 召唤宠物数量
+   * 召唤宠物
    */
-  召唤宠物数量?: number
+  召唤宠物?: boolean
   /**
    * 创建循环不可选
    */
@@ -82,17 +86,23 @@ export interface CycleSimulatorLog {
    * 日志时间
    */
   日志时间: number
+  /**
+   * buff携带
+   */
+  buff列表?: string[]
 }
 
 export type 日志类型 =
   | '释放技能'
-  | '添加自身buff'
+  | '自身buff变动'
   | '目标buff变动'
   | '造成伤害'
   | '技能释放结果'
   | '消耗箭'
   | '上贯穿'
   | '引爆贯穿'
+  | '宠物进入场地'
+  | '宠物离开场地'
 
 export interface 贯穿日志 {
   /**
@@ -103,4 +113,27 @@ export interface 贯穿日志 {
    * 事件时间
    */
   事件时间: number
+}
+
+export interface 宠物数据模型 {
+  /**
+   * 释放后进入场景时间（帧
+   */
+  释放后进入场景时间: number
+  /**
+   * 释放后攻击时间（帧
+   */
+  释放后攻击时间: number
+  /**
+   * 释放后退场时间（帧
+   */
+  释放后退场时间: number
+  /**
+   * 宠物攻击次数 默认为1
+   */
+  宠物攻击次数?: number
+  /**
+   * 宠物攻击频率（帧）不准确
+   */
+  宠物攻击频率?: number
 }

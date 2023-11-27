@@ -37,6 +37,13 @@ const BattleLogModal: React.FC<BattleLogModalProps> = (props) => {
       onFilter: (value: any, record) => record.日志类型.indexOf(value) === 0,
     },
     {
+      title: 'buff列表',
+      dataIndex: 'buff列表',
+      render: (_, record) => {
+        return record.日志类型 === '造成伤害' ? (_ || [])?.join(',') || '-' : '-'
+      },
+    },
+    {
       title: '日志帧',
       dataIndex: '日志时间',
       render: (_) => {

@@ -1,13 +1,19 @@
 // 循环模拟器
 import React, { useEffect, useMemo, useState } from 'react'
 import { Alert, Button, Modal, Select, Space, Tag, Tooltip } from 'antd'
+import { ReactSortable } from 'react-sortablejs'
 import { CycleSimulatorLog, CycleSimulatorSkillDTO } from '@/@types/cycleSimulator'
-import { useAppSelector } from '@/hooks'
+import { useAppDispatch, useAppSelector } from '@/hooks'
 import 循环模拟技能基础数据 from '@/data/cycleSimulator/skill'
 import { 测试宠物顺序, 测试循环_397 } from './constant'
 import { SimulatorCycle } from './simulator'
 import BattleLogModal from './BattleLogModal'
 import './index.css'
+import { getDpsCycle } from './utils'
+import {
+  CurrentDpsFunctionRes,
+  currentDpsFunction,
+} from '@/store/basicReducer/current-dps-function'
 
 function CycleSimulator() {
   const [logData, setLogData] = useState<CycleSimulatorLog[]>([])
@@ -24,9 +30,16 @@ function CycleSimulator() {
     循环模拟技能基础数据?.[循环模拟技能基础数据?.length - 1],
   ])
   // TODO循环
-  const 宠物顺序 = [...测试宠物顺序]
+  const [宠物顺序, 设置宠物顺序] = useState<string[]>([...测试宠物顺序])
+
+  const [dpsRes, setDpsRes] = useState<CurrentDpsFunctionRes>({
+    totalDps: 0,
+    dpsList: [],
+    dpsPerSecond: 0,
+  })
   // 奇穴
   const qixuedata = useAppSelector((state) => state?.basic?.qixueData)
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     if (!basicModalOpen) {
@@ -36,7 +49,13 @@ function CycleSimulator() {
       setBasicModalOpen(false)
       setLogModalOpen(false)
       setCountModal(false)
+      设置宠物顺序([...测试宠物顺序])
       setCycle([循环模拟技能基础数据?.[循环模拟技能基础数据?.length - 1]])
+      setDpsRes({
+        totalDps: 0,
+        dpsList: [],
+        dpsPerSecond: 0,
+      })
     }
   }, [basicModalOpen])
 
@@ -77,6 +96,23 @@ function CycleSimulator() {
       奇穴: qixuedata,
     })
     setLogData(data)
+    计算DPS(data)
+  }
+
+  // 计算DPS
+  const 计算DPS = async (data) => {
+    // 将日志信息转换为计算DPS所需要的循环数据
+    const 用于计算循环 = getDpsCycle(data)
+    // 最后一秒
+    const 最后一秒 = data[data.length - 1]?.日志时间 / 16
+    const res = await dispatch(
+      currentDpsFunction({
+        更新计算时间: 最后一秒,
+        更新循环技能列表: 用于计算循环,
+      })
+    )
+
+    setDpsRes(res)
   }
 
   // 向循环内新增技能
@@ -109,6 +145,28 @@ function CycleSimulator() {
     return res
   }, [cycle])
 
+  // 拖拽更新循环
+  const 拖拽更新循环 = (newList) => {
+    // 首先获取被替换轮次的第一个元素的index索引
+    const minIndex = newList.reduce(function (min, obj) {
+      return Math.min(min, obj.index)
+    }, Infinity)
+    // 获取最大的索引，判断拖拽生效范围
+    const maxIndex = newList.reduce(function (min, obj) {
+      return Math.max(min, obj.index)
+    }, Number.NEGATIVE_INFINITY)
+    // 将数组哪索引范围内跌元素替换为新的数组元素
+    const newCycle = cycle.map((item, index) => {
+      if (index < minIndex || index > maxIndex) {
+        return { ...item }
+      } else {
+        return newList[index - minIndex]
+      }
+    })
+    // 更新循环
+    setCycle(newCycle)
+  }
+
   return (
     <>
       <Button onClick={() => setBasicModalOpen(true)}>循环模拟</Button>
@@ -127,12 +185,13 @@ function CycleSimulator() {
           message="根据当前状态模拟循环，目前默认每轮箭都有金乌，由于贯穿的计算还有很多问题，可能存在贯穿数量的偏差，仅供参考。本功能持续迭代，后续会开放更多模拟循环相关能力。"
         />
         <div className={'cycle-simulator-setting'}>
-          <p className={'cycle-simulator-setting-header'}>
+          <div className={'cycle-simulator-setting-header'}>
             <h1>配置你的循环</h1>
             <span>
-              目前未支持功能：宠物顺序编辑、朱厌奇穴宠物支持、承契buff添加、dps显示、验证循环合理性、日志分析buff覆盖、重复循环复制等等。后续会逐步按计划实现。
+              {/* 目前未支持功能：宠物顺序编辑、朱厌奇穴宠物支持、承契buff添加、dps显示、验证循环合理性、日志分析buff覆盖、重复循环复制等等。后续会逐步按计划实现。 */}
+              目前未支持功能：验证循环合理性、日志分析buff覆盖、重复循环复制等等。后续会逐步按计划实现。
             </span>
-          </p>
+          </div>
           <div className={'cycle-simulator-setting-btns'}>
             <Space size={[8, 16]} wrap>
               {循环模拟技能基础数据
@@ -199,19 +258,29 @@ function CycleSimulator() {
             {(显示循环 || []).map((轮次, index) => {
               return (
                 <div className="cycle-simulator-setting-turn" key={index}>
-                  {(轮次 || []).map((item, tIndex) => {
-                    return (
-                      <Tag
-                        closable={item?.index !== 0}
-                        color={SkillColorMap[item?.技能名称] || undefined}
-                        className={'cycle-simulator-setting-skill'}
-                        key={`${item?.技能名称}${item?.tIndex}${tIndex}`}
-                        onClose={() => removeSkill(item?.index)}
-                      >
-                        {item?.技能名称}
-                      </Tag>
-                    )
-                  })}
+                  <ReactSortable
+                    list={轮次.map((i) =>
+                      Object.assign(i, { id: `${i?.技能名称}_${index}_${i?.index}` })
+                    )}
+                    setList={(e) => {
+                      拖拽更新循环(e)
+                    }}
+                    animation={150}
+                  >
+                    {(轮次 || []).map((item) => {
+                      return (
+                        <Tag
+                          closable={item?.index !== 0}
+                          color={SkillColorMap[item?.技能名称] || undefined}
+                          className={'cycle-simulator-setting-skill'}
+                          key={`${item?.技能名称}_${index}_${item?.index}`}
+                          onClose={() => removeSkill(item?.index)}
+                        >
+                          {item?.技能名称}
+                        </Tag>
+                      )
+                    })}
+                  </ReactSortable>
                 </div>
               )
             })}
@@ -219,19 +288,32 @@ function CycleSimulator() {
         </div>
         <div className={'cycle-simulator-modal-footer'}>
           <div className={'cycle-simulator-pet'}>
-            {(宠物顺序 || []).map((item, index) => {
-              return (
-                <Tag
-                  color={PetColorMap[item] || undefined}
-                  className={'cycle-simulator-setting-skill'}
-                  key={`${item}${index}`}
-                >
-                  {item}
-                </Tag>
-              )
-            })}
+            <ReactSortable
+              list={宠物顺序.map((i) => Object.assign(i, { id: i }))}
+              setList={(e) => {
+                设置宠物顺序(e.map((item) => item.id))
+              }}
+              animation={150}
+            >
+              {(宠物顺序 || []).map((item, index) => {
+                return (
+                  <Tag
+                    color={PetColorMap[item] || undefined}
+                    className={'cycle-simulator-setting-skill'}
+                    key={`${item}${index}`}
+                  >
+                    {item}
+                  </Tag>
+                )
+              })}
+            </ReactSortable>
           </div>
           <div>
+            {dpsRes?.totalDps ? (
+              <span>
+                模拟DPS: <span className={'cycle-simulator-dps-res'}>{dpsRes?.dpsPerSecond}</span>
+              </span>
+            ) : null}
             <Tooltip title="影响技能读条时间，技能间GCD">
               <Select
                 className="cycle-simulator-modal-header-select"

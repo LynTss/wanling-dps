@@ -1,4 +1,4 @@
-import { CycleSimulatorSkillDTO, 日志类型 } from '@/@types/cycleSimulator'
+import { CycleSimulatorSkillDTO, 宠物数据模型, 日志类型 } from '@/@types/cycleSimulator'
 
 const 循环模拟技能基础数据: CycleSimulatorSkillDTO[] = [
   {
@@ -7,7 +7,7 @@ const 循环模拟技能基础数据: CycleSimulatorSkillDTO[] = [
     消耗箭数: 0,
     伤害频率: 0,
     造成伤害次数: 0,
-    召唤宠物数量: 1,
+    召唤宠物: true,
   },
   {
     技能名称: '弛律召野',
@@ -15,7 +15,7 @@ const 循环模拟技能基础数据: CycleSimulatorSkillDTO[] = [
     消耗箭数: 0,
     伤害频率: 0,
     造成伤害次数: 0,
-    召唤宠物数量: 1,
+    召唤宠物: true,
   },
   {
     技能名称: '劲风簇',
@@ -25,6 +25,7 @@ const 循环模拟技能基础数据: CycleSimulatorSkillDTO[] = [
     造成伤害次数: 1,
     是否上贯穿: true,
     是否引爆贯穿: true,
+    是否上破招: true,
   },
   {
     技能名称: '标鹄',
@@ -45,6 +46,7 @@ const 循环模拟技能基础数据: CycleSimulatorSkillDTO[] = [
     是否为读条技能: true,
     是否上贯穿: true,
     是否引爆贯穿: true,
+    是否上破招: true,
   },
   {
     技能名称: '饮羽簇',
@@ -56,6 +58,7 @@ const 循环模拟技能基础数据: CycleSimulatorSkillDTO[] = [
     技能CD: 16 * 8,
     是否上贯穿: true,
     是否引爆贯穿: true,
+    是否上破招: true,
   },
   {
     技能名称: '没石饮羽',
@@ -67,6 +70,7 @@ const 循环模拟技能基础数据: CycleSimulatorSkillDTO[] = [
     是否为读条技能: true,
     是否上贯穿: true,
     是否引爆贯穿: true,
+    是否上破招: true,
   },
   {
     技能名称: '朝仪万汇',
@@ -88,6 +92,7 @@ const 循环模拟技能基础数据: CycleSimulatorSkillDTO[] = [
     技能CD: 16 * 8,
     是否上贯穿: true,
     是否引爆贯穿: true,
+    是否上破招: true,
   },
 ]
 
@@ -95,11 +100,48 @@ export default 循环模拟技能基础数据
 
 export const 日志类型数组: 日志类型[] = [
   '释放技能',
-  '添加自身buff',
+  '自身buff变动',
   '目标buff变动',
   '造成伤害',
   '技能释放结果',
   '消耗箭',
   '上贯穿',
   '引爆贯穿',
+  '宠物进入场地',
+  '宠物离开场地',
 ]
+
+export const 宠物数据: { [key: string]: 宠物数据模型 } = {
+  虎: {
+    释放后进入场景时间: 1,
+    释放后攻击时间: 16,
+    释放后退场时间: 61,
+  },
+  鹰: {
+    释放后进入场景时间: 1,
+    释放后攻击时间: 16,
+    释放后退场时间: 49,
+  },
+  猪: {
+    释放后进入场景时间: 1,
+    释放后攻击时间: 16,
+    释放后退场时间: 61,
+  },
+  象: {
+    释放后进入场景时间: 1,
+    释放后攻击时间: 16,
+    释放后退场时间: 80,
+  },
+  狼: {
+    释放后进入场景时间: 1,
+    释放后攻击时间: 16,
+    释放后退场时间: 57,
+    宠物攻击次数: 3,
+    宠物攻击频率: 5, // 不准确，不影响buff计算
+  },
+  熊: {
+    释放后进入场景时间: 1,
+    释放后攻击时间: 16,
+    释放后退场时间: 91,
+  },
+}
