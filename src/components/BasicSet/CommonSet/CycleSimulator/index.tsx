@@ -160,6 +160,20 @@ function CycleSimulator() {
                 })}
             </Space>
             <Space>
+              {/* <Button
+                onClick={() =>
+                  setCycle(
+                    测试循环_诸怀.map((item) => {
+                      return (
+                        循环模拟技能基础数据?.find((a) => a?.技能名称 === item) ||
+                        循环模拟技能基础数据[0]
+                      )
+                    })
+                  )
+                }
+              >
+                大招诸怀循环
+              </Button> */}
               <Button
                 onClick={() =>
                   setCycle(
@@ -172,7 +186,7 @@ function CycleSimulator() {
                   )
                 }
               >
-                当前大招桑柘循环
+                大招桑柘循环
               </Button>
               <Button
                 onClick={() => setCycle([循环模拟技能基础数据?.[循环模拟技能基础数据?.length - 1]])}
@@ -266,7 +280,19 @@ function CycleSimulator() {
           footer={false}
           centered
           width={'50%'}
-          title={'技能统计'}
+          title={
+            <div className={'cycle-simulator-modal-header'}>
+              <h1 className={'cycle-simulator-modal-title'}>技能统计</h1>
+              <span style={{ margin: '0 12px' }}>
+                贯穿数量{' '}
+                {
+                  (logData || [])?.filter((item) => {
+                    return item?.日志?.includes('- DOT') || item?.日志?.includes('- 引爆')
+                  })?.length
+                }
+              </span>
+            </div>
+          }
           open={countModal}
           onCancel={() => setCountModal(false)}
         >

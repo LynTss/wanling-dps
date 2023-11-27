@@ -60,15 +60,6 @@ const BattleLogModal: React.FC<BattleLogModalProps> = (props) => {
       title={
         <div className={'cycle-simulator-modal-header'}>
           <h1 className={'cycle-simulator-modal-title'}>战斗日志</h1>
-          {/* <span style={{ margin: '0 12px' }}>
-            贯穿数量{' '}
-            {
-              (logData || [])?.filter((item) => {
-                return item?.日志?.includes('- DOT') || item?.日志?.includes('- 引爆')
-              })?.length
-            }
-          </span> */}
-          {/* <Button onClick={() => setCountModal(true)}>技能统计</Button> */}
         </div>
       }
       width={'80%'}
