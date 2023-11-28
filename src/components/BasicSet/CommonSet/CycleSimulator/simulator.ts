@@ -328,7 +328,6 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
 
   // 把引爆贯穿根据造成伤害时箭的位置判断，塞入对应引爆触发
   const 添加引爆贯穿日志: CycleSimulatorLog[] = 引爆贯穿日志加入(战斗日志, 棘矢)
-  console.log('添加引爆贯穿日志', 添加引爆贯穿日志)
   // 开始分析贯穿
   const 添加贯穿后日志: CycleSimulatorLog[] = 贯穿分析(添加引爆贯穿日志, 加速等级, 桑柘)
   // 添加普通攻击
@@ -505,7 +504,6 @@ const 贯穿分析 = (战斗日志: CycleSimulatorLog[], 加速等级, 桑柘) =
           }
         }
 
-        console.log('待生效贯穿', 待生效贯穿)
         当前贯穿层数 = 当前贯穿层数 + 1 > 6 ? 6 : 当前贯穿层数 + 1
       } else if (当前事件?.日志类型 === '引爆贯穿') {
         if (当前贯穿层数 && 待生效贯穿?.length) {

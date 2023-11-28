@@ -9,7 +9,7 @@ import {
   判断是否开启无视防御奇穴,
   获取身法奇穴加成后面板,
 } from '@/data/qixue'
-import { getTrueCycleByName } from '@/utils/skill-dps'
+import { 获取实际循环, 根据奇穴处理技能的基础增益信息 } from '@/utils/skill-dps'
 import DpsKernelOptimizer from '@/utils/dps-kernel-optimizer'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 
@@ -42,15 +42,18 @@ function CharacterShow() {
     if (!openBFGS) {
       return {}
     }
+
     // 获取实际循环
-    const { trueCycle, trueSkillBasicData } = getTrueCycleByName(
+    const trueCycle = 获取实际循环(
       currentCycleName,
       currentCycle,
       characterFinalData,
       qixueData,
-      skillBasicData,
       startType
     )
+
+    // 获取基础技能信息加成
+    const trueSkillBasicData = 根据奇穴处理技能的基础增益信息(skillBasicData, qixueData)
 
     if (characterFinalData?.身法) {
       const res = DpsKernelOptimizer({

@@ -211,7 +211,7 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
       const { dpsPerSecond } = dispatch(
         currentDpsFunction({
           更新角色面板: final,
-          更新技能技术数据: getSkillCycleGainData(
+          更新技能基础数据: getSkillCycleGainData(
             skillBasicData,
             data.套装技能,
             data.大橙武特效,

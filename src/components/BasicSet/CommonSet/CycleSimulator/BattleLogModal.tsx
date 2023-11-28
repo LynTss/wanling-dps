@@ -57,6 +57,18 @@ const BattleLogModal: React.FC<BattleLogModalProps> = (props) => {
         return row?.日志时间 / 16
       },
     },
+    {
+      title: '造成伤害',
+      dataIndex: '造成伤害',
+    },
+    {
+      title: '造成总伤害',
+      dataIndex: '造成总伤害',
+    },
+    {
+      title: '秒伤',
+      dataIndex: '秒伤',
+    },
   ]
 
   return (

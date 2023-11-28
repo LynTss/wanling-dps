@@ -74,10 +74,18 @@ export interface CycleSimulatorLog {
    * 战斗日志描述
    */
   战斗日志描述?: string
-  // /**
-  //  * 造成伤害
-  //  */
-  // 造成伤害?: number
+  /**
+   * 造成伤害
+   */
+  造成伤害?: number
+  /**
+   * 造成总伤害
+   */
+  造成总伤害?: number
+  /**
+   * 秒伤
+   */
+  秒伤?: number
   /**
    * 日志类型
    */
@@ -90,6 +98,9 @@ export interface CycleSimulatorLog {
    * buff携带
    */
   buff列表?: string[]
+  /**
+   * buff携带
+   */
 }
 
 export type 日志类型 =

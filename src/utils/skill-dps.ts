@@ -210,16 +210,14 @@ export const getTrueCycleName = (
   return currentCycleName
 }
 
-export const getTrueCycleByName = (
+export const 获取实际循环 = (
   currentCycleName: string,
   currentCycle: CycleDTO[],
   characterFinalData: CharacterFinalDTO,
   qixueData: string[],
-  skillBasicData: SkillBasicDTO[],
   startType: 'normal' | 'max' // 起手方式
 ) => {
   let trueCycle: CycleDTO[] = [...currentCycle]
-  let newSkillBasicData: SkillBasicDTO[] = [...skillBasicData]
 
   // 大CW特效循环变动
   if (
@@ -263,6 +261,12 @@ export const getTrueCycleByName = (
       }
     })
   }
+
+  return trueCycle
+}
+
+export const 根据奇穴处理技能的基础增益信息 = (skillBasicData, qixueData) => {
+  let newSkillBasicData: SkillBasicDTO[] = [...skillBasicData]
 
   // 根据奇穴类型处理各类循环
   const 全部奇穴信息: QixueDataDTO[] = getAllQixueData(qixueData)
@@ -318,10 +322,7 @@ export const getTrueCycleByName = (
     return res
   })
 
-  return {
-    trueCycle: trueCycle,
-    trueSkillBasicData: newSkillBasicData,
-  }
+  return newSkillBasicData
 }
 
 const getAllQixueData = (qixueData: string[]): QixueDataDTO[] => {
@@ -333,4 +334,33 @@ const getAllQixueData = (qixueData: string[]): QixueDataDTO[] => {
     }
   })
   return res
+}
+
+// 没表明枚举就直接取原值
+export const Skill_Cycle_Map = {
+  '贯穿【1】- DOT': '贯穿·一',
+  '贯穿【2】- DOT': '贯穿·二',
+  '贯穿【3】- DOT': '贯穿·三',
+  '贯穿【4】- DOT': '贯穿·四',
+  '贯穿【5】- DOT': '贯穿·五',
+  '贯穿【6】- DOT': '贯穿·六',
+  '贯穿【1】- 引爆': '贯穿·三',
+  '贯穿【2】- 引爆': '贯穿·六',
+  '贯穿【3】- 引爆': '贯穿·九',
+  '贯穿【4】- 引爆': '贯穿·十二',
+  '贯穿【5】- 引爆': '贯穿·十五',
+  '贯穿【6】- 引爆': '贯穿·十八',
+  '狼-宠物': '攻击-狼',
+  '虎-宠物': '攻击-虎',
+  '鹰-宠物': '攻击-鹰',
+  '熊-宠物': '攻击-熊',
+  '猪-宠物': '重击',
+  '象-宠物': '践踏',
+  '饮羽簇-读条 - 1': '饮羽簇',
+  '没石饮羽 - 1': '饮羽簇',
+  '没石饮羽 - 2': '饮羽簇',
+  '没石饮羽 - 3': '饮羽簇',
+  '弛风鸣角 - 1': '劲风簇',
+  '弛风鸣角 - 2': '劲风簇',
+  '弛风鸣角 - 3': '劲风簇',
 }

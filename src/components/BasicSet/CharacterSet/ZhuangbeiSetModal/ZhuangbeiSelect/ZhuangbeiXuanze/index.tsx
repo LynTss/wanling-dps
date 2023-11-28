@@ -115,7 +115,7 @@ function ZhuangbeiXuanze(props: ZhuangbeiXuanzeProps, ref) {
           ...finalData,
           装备增益: { ...equipmentData },
         },
-        更新技能技术数据: getSkillCycleGainData(
+        更新技能基础数据: getSkillCycleGainData(
           skillBasicData,
           equipmentData.套装技能,
           equipmentData.大橙武特效,

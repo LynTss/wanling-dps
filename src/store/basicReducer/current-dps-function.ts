@@ -1,8 +1,8 @@
-// 根据当前增益装备，计算实时dps
+// 根据当前增益装备，计算实时循环总dps
 import { 判断是否开启无视防御奇穴, 判断是否开启身法加成奇穴 } from '@/data/qixue'
 import { RootState } from '../index'
 import { getDpsTotal } from '@/components/Dps/guoshi_dps_utils'
-import { getDpsTime, getTrueCycleByName } from '@/utils/skill-dps'
+import { getDpsTime, 获取实际循环, 根据奇穴处理技能的基础增益信息 } from '@/utils/skill-dps'
 import { setCurrentDps } from './index'
 import { CharacterFinalDTO } from '@/@types/character'
 import { SKillGainData, SkillBasicDTO } from '@/@types/skill'
@@ -15,7 +15,7 @@ interface CurrentDpsFunctionProps {
   showTime?: boolean // 是否展示计算时间
   updateCurrentDps?: boolean // 是否更新当前dps结果
   更新角色面板?: CharacterFinalDTO // 传入的需要更新的角色面板
-  更新技能技术数据?: SkillBasicDTO[] // 传入的需要更新的技能基础数据
+  更新技能基础数据?: SkillBasicDTO[] // 传入的需要更新的技能基础数据
   更新团队增益数据?: ZengyixuanxiangDataDTO // 传入的需要更新团队增益数据
   更新默认增益集合?: SKillGainData[] // 用于增益计算
   是否郭氏计算?: boolean // 是否郭式计算
@@ -37,7 +37,7 @@ export const currentDpsFunction =
       updateCurrentDps = false,
       更新角色面板 = {},
       更新团队增益数据 = {},
-      更新技能技术数据,
+      更新技能基础数据,
       更新默认增益集合 = [],
       是否郭氏计算 = true,
       更新计算时间,
@@ -53,7 +53,7 @@ export const currentDpsFunction =
     const 当前目标 = currentState?.basic?.currentTarget
     const 团队增益数据 = { ...currentState?.zengyi?.zengyixuanxiangData, ...更新团队增益数据 }
     const 团队增益是否启用 = currentState?.zengyi?.zengyiQiyong
-    const 技能技术数据 = 更新技能技术数据 || currentState?.zengyi?.skillBasicData
+    const 技能基础数据 = 更新技能基础数据 || currentState?.zengyi?.skillBasicData
     const 起手类型 = currentState?.basic?.startType
     const 奇穴数据 = currentState.basic.qixueData
 
@@ -70,14 +70,10 @@ export const currentDpsFunction =
       getDpsTime(当前循环名称, 当前角色面板, 延迟, 团队增益是否启用, 团队增益数据, showTime)
 
     // 获取实际循环
-    const { trueCycle, trueSkillBasicData } = getTrueCycleByName(
-      当前循环名称,
-      当前循环技能列表,
-      当前角色面板,
-      奇穴数据,
-      技能技术数据,
-      起手类型
-    )
+    const trueCycle = 获取实际循环(当前循环名称, 当前循环技能列表, 当前角色面板, 奇穴数据, 起手类型)
+
+    // 获取基础技能信息加成
+    const trueSkillBasicData = 根据奇穴处理技能的基础增益信息(技能基础数据, 奇穴数据)
 
     const dpsFunction = 是否郭氏计算 ? getDpsTotal : getNotGuoDpsTotal
 

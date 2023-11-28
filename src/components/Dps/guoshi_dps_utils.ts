@@ -231,7 +231,7 @@ export const getSingleSkillTotalDps = (
   skillBasicData: SkillBasicDTO[],
   总增益集合: SKillGainData[],
   开启卢令: boolean,
-  单技能数据测试
+  单技能数据测试?
   // 是否郭氏计算?: boolean
 ) => {
   // 在技能数据模型中找到当前执行循环内技能的数据，获取各种系数
@@ -256,12 +256,13 @@ export const getSingleSkillTotalDps = (
         无增益技能数 = 无增益技能数 - 增益.增益技能数
         const 技能独立增益集合列表: SKillGainData[] = getGainList(增益, 当前技能属性)
         if (增益.增益技能数) {
+          const 用于计算的增益集合 = [...技能增益集合, ...技能独立增益集合列表]
           const { 期望技能总伤 } = geSkillTotalDps(
             当前技能属性,
             最终人物属性,
             增益.增益技能数,
             计算目标,
-            [...技能增益集合, ...技能独立增益集合列表],
+            用于计算的增益集合,
             开启卢令,
             单技能数据测试
           )

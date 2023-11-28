@@ -8,12 +8,11 @@ import 循环模拟技能基础数据 from '@/data/cycleSimulator/skill'
 import { 测试宠物顺序, 测试循环_397 } from './constant'
 import { SimulatorCycle } from './simulator'
 import BattleLogModal from './BattleLogModal'
+import { getSingleSkillDpsCycle } from './utils'
+// import { CurrentDpsFunctionRes } from '@/store/basicReducer/current-dps-function'
+import { currentSingleSkillDpsFunction } from '@/store/basicReducer/current-single-skill-dps-function'
 import './index.css'
-import { getDpsCycle } from './utils'
-import {
-  CurrentDpsFunctionRes,
-  currentDpsFunction,
-} from '@/store/basicReducer/current-dps-function'
+import DpsResModal from './DpsResModal'
 
 function CycleSimulator() {
   const [logData, setLogData] = useState<CycleSimulatorLog[]>([])
@@ -23,6 +22,8 @@ function CycleSimulator() {
   const [logModalOpen, setLogModalOpen] = useState<boolean>(false)
   // 技能统计
   const [countModal, setCountModal] = useState<boolean>(false)
+  // dps曲线
+  const [dpsModal, setDpsModal] = useState<boolean>(false)
   // 循环
   const [cycle, setCycle] = useState<CycleSimulatorSkillDTO[]>([
     循环模拟技能基础数据?.[循环模拟技能基础数据?.length - 1],
@@ -35,11 +36,11 @@ function CycleSimulator() {
   const 网络按键延迟 = useAppSelector((state) => state?.basic?.network) - 1
 
   // dps结果
-  const [dpsRes, setDpsRes] = useState<CurrentDpsFunctionRes>({
-    totalDps: 0,
-    dpsList: [],
-    dpsPerSecond: 0,
-  })
+  // const [dpsRes, setDpsRes] = useState<CurrentDpsFunctionRes>({
+  //   totalDps: 0,
+  //   dpsList: [],
+  //   dpsPerSecond: 0,
+  // })
   // 奇穴
   const qixuedata = useAppSelector((state) => state?.basic?.qixueData)
   const dispatch = useAppDispatch()
@@ -50,13 +51,14 @@ function CycleSimulator() {
       setBasicModalOpen(false)
       setLogModalOpen(false)
       setCountModal(false)
+      setDpsModal(false)
       设置宠物顺序([...测试宠物顺序])
       setCycle([循环模拟技能基础数据?.[循环模拟技能基础数据?.length - 1]])
-      setDpsRes({
-        totalDps: 0,
-        dpsList: [],
-        dpsPerSecond: 0,
-      })
+      // setDpsRes({
+      //   totalDps: 0,
+      //   dpsList: [],
+      //   dpsPerSecond: 0,
+      // })
     }
   }, [basicModalOpen])
 
@@ -100,25 +102,60 @@ function CycleSimulator() {
       测试宠物顺序: 宠物顺序,
       奇穴: qixuedata,
     })
-    setLogData(data)
-    计算DPS(data)
+    计算dps日志(data)
+    // 计算DPS(data)
+  }
+
+  // 计算DPS日志
+  const 计算dps日志 = async (data: CycleSimulatorLog[]) => {
+    let totalDps = 0
+    const 获取的秒伤 = (造成总伤害, 日志时间) => {
+      const 时间差 = 日志时间 - data[0]?.日志时间 || 0
+      if (时间差) {
+        return Math.floor(造成总伤害 / (时间差 / 16))
+      } else {
+        return 0
+      }
+    }
+    const newLog = data.map((item) => {
+      if (item?.日志类型 === '造成伤害') {
+        const dps = dispatch(
+          currentSingleSkillDpsFunction({ 计算技能: getSingleSkillDpsCycle(item) })
+        )
+        totalDps = totalDps + dps
+        return {
+          ...item,
+          造成总伤害: totalDps,
+          造成伤害: dps,
+          秒伤: 获取的秒伤(totalDps, item?.日志时间),
+        }
+      } else {
+        return {
+          ...item,
+          造成总伤害: totalDps,
+          秒伤: 获取的秒伤(totalDps, item?.日志时间),
+        }
+      }
+    })
+    setLogData(newLog)
+    return newLog
   }
 
   // 计算DPS
-  const 计算DPS = async (data) => {
-    // 将日志信息转换为计算DPS所需要的循环数据
-    const 用于计算循环 = getDpsCycle(data)
-    // 最后一秒
-    const 最后一秒 = data[data.length - 1]?.日志时间 / 16
-    const res = await dispatch(
-      currentDpsFunction({
-        更新计算时间: 最后一秒,
-        更新循环技能列表: 用于计算循环,
-      })
-    )
+  // const 计算DPS = async (data) => {
+  //   // 将日志信息转换为计算DPS所需要的循环数据
+  //   const 用于计算循环 = getDpsCycle(data)
+  //   // 最后一秒
+  //   const 时间差 = data[data.length - 1]?.日志时间 / 16 - data[0]?.日志时间 / 16
+  //   const res = await dispatch(
+  //     currentDpsFunction({
+  //       更新计算时间: 时间差,
+  //       更新循环技能列表: 用于计算循环,
+  //     })
+  //   )
 
-    setDpsRes(res)
-  }
+  //   setDpsRes(res)
+  // }
 
   // 向循环内新增技能
   const addCycle = (item: CycleSimulatorSkillDTO) => {
@@ -327,9 +364,12 @@ function CycleSimulator() {
             </ReactSortable>
           </div>
           <div>
-            {dpsRes?.totalDps ? (
+            {logData?.[logData.length - 1]?.秒伤 ? (
               <span>
-                模拟DPS: <span className={'cycle-simulator-dps-res'}>{dpsRes?.dpsPerSecond}</span>
+                模拟DPS:{' '}
+                <span className={'cycle-simulator-dps-res'}>
+                  {logData?.[logData.length - 1]?.秒伤}
+                </span>
               </span>
             ) : null}
             <Tooltip title="实际模拟计算较为复杂，随着延迟、加速不同。可能存在部分技能数量误差。仅供参考">
@@ -339,12 +379,14 @@ function CycleSimulator() {
             </Tooltip>
             {logData?.length ? (
               <>
+                <Button onClick={() => setDpsModal(true)}>Dps曲线</Button>
                 <Button onClick={() => setLogModalOpen(true)}>战斗日志</Button>
                 <Button onClick={() => setCountModal(true)}>技能统计</Button>
               </>
             ) : null}
           </div>
         </div>
+        <DpsResModal open={dpsModal} onCancel={() => setDpsModal(false)} logData={logData} />
         <BattleLogModal
           open={logModalOpen}
           onCancel={() => setLogModalOpen(false)}
