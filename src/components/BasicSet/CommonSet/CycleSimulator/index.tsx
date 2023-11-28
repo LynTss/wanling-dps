@@ -60,6 +60,10 @@ function CycleSimulator() {
     }
   }, [basicModalOpen])
 
+  useEffect(() => {
+    simulator()
+  }, [cycle, 宠物顺序])
+
   const 技能统计数据 = useMemo(() => {
     const newLog = logData
       ?.filter((item) => item?.日志类型 === '造成伤害')
@@ -170,7 +174,9 @@ function CycleSimulator() {
 
   return (
     <>
-      <Button onClick={() => setBasicModalOpen(true)}>循环模拟</Button>
+      <Button danger onClick={() => setBasicModalOpen(true)}>
+        循环模拟
+      </Button>
       <Modal
         className="cycle-simulator-modal"
         width={'90%'}

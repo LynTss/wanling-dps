@@ -6,9 +6,11 @@ import log_data from './log_data'
 function Log() {
   const [visible, setVisible] = useState(false)
   const [newVersionModalVisible, setNewVersionModalVisible] = useState(false)
+  const [noticeVisible, setNoticeVisible] = useState(false)
 
   useEffect(() => {
     checkLogVersion()
+    checkNotice()
   }, [])
 
   const checkLogVersion = () => {
@@ -18,14 +20,27 @@ function Log() {
     }
   }
 
+  const checkNotice = () => {
+    const storageNotice = localStorage.getItem('wl_notice_modal')
+    if (!storageNotice) {
+      setNoticeVisible(true)
+    }
+  }
+
   const handleCloseNew = () => {
     localStorage?.setItem('wl_new_log_version', log_data?.[0]?.version)
     setNewVersionModalVisible(false)
   }
 
+  const handleCloseNotice = () => {
+    localStorage?.setItem('wl_notice_modal', '1')
+    setNoticeVisible(false)
+  }
+
   return (
     <div className="log-wrap">
       <span>当前版本: {log_data?.[0]?.version}</span>
+      {/* <span onClick={() => setNoticeVisible(true)}>使用前声明</span> */}
       <span className="log" onClick={() => setVisible(true)}>
         更新日志
       </span>
@@ -86,6 +101,23 @@ function Log() {
             )
           })}
         </Timeline>
+      </Modal>
+      <Modal
+        width={800}
+        open={noticeVisible}
+        onCancel={handleCloseNotice}
+        maskClosable={false}
+        title="声明"
+        closable={false}
+        footer={
+          <Button onClick={handleCloseNotice} type="primary">
+            使用本计算器则视作你已经知晓并同意此声明。
+          </Button>
+        }
+      >
+        <p>计算器只是木桩/理想环境下伤害模拟，仅能用于辅助配装和收益参考。不支持出警dps。</p>
+        <p>严禁使用本计算器进行跨心法/门派比较。</p>
+        <p>一切数据仅供参考，最终解释权归作者所有。</p>
       </Modal>
     </div>
   )
