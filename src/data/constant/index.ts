@@ -83,15 +83,15 @@ export const 精炼加成系数 = {
 
 export const 延迟设定: NetworkDTO[] = [
   {
-    label: '珠海万灵（30以下）',
+    label: '很低',
     value: 1,
   },
   {
-    label: '普通人（30-90）',
+    label: '普通',
     value: 2,
   },
   {
-    label: '我命由我不由天（90以上）',
+    label: '很高',
     value: 3,
   },
 ]
