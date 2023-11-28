@@ -1,10 +1,12 @@
 import { CycleSimulatorLog } from '@/@types/cycleSimulator'
+import { 属性系数 } from '@/data/constant'
 
 import 循环模拟技能基础数据, { 宠物数据 } from '@/data/cycleSimulator/skill'
+import { 获取加速等级 } from '@/utils/help'
 
 interface SimulatorCycleProps {
   测试循环: string[]
-  加速等级: number
+  加速值: number
   网络按键延迟: number
   测试宠物顺序: string[]
   奇穴: string[]
@@ -12,8 +14,12 @@ interface SimulatorCycleProps {
 
 // 开始模拟
 export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] => {
-  const { 测试循环, 加速等级, 网络按键延迟, 测试宠物顺序, 奇穴 } = props
+  const { 测试循环, 加速值, 网络按键延迟, 测试宠物顺序, 奇穴 } = props
   const 初始时间 = -32 - 网络按键延迟
+
+  // 正读条技能，无读条技能，GCD加速值
+  // 逆读条引导技能的加速要额外计算
+  const 加速等级 = 获取加速等级(加速值)
 
   let 当前箭带内箭数 = 8
   let 开始释放上一个技能的时间 = 初始时间
@@ -67,15 +73,6 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
     })
   }
 
-  // 引爆贯穿
-  const 引爆贯穿 = (技能名称, 当前事件时间?) => {
-    添加战斗日志({
-      日志: `${技能名称}`,
-      日志类型: '引爆贯穿',
-      日志时间: 当前事件时间 !== undefined ? 当前事件时间 : 当前时间,
-    })
-  }
-
   // 消耗箭
   const 消耗箭 = (当前技能, 消耗, 当前事件时间?) => {
     const 新箭数 = 当前箭带内箭数 - 消耗
@@ -89,13 +86,12 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
 
   // 判断是否需要等待GCD，发还需要等待的时间
   const 判断是否需要等待GCD = (当前技能, 上一个技能) => {
-    const 释放下一个技能实际所需时间 =
-      开始释放上一个技能的时间 +
-      (上一个技能 === '寒更晓箭' ? 16 : 上一个技能?.技能释放后添加GCD - 1 || 0)
+    const 释放下一个技能实际所需GCD =
+      开始释放上一个技能的时间 + (上一个技能?.技能释放后添加GCD - 加速等级 || 0)
 
     // 判断连续技能GCD
-    if (释放下一个技能实际所需时间 > 0 && 释放下一个技能实际所需时间 > 当前时间) {
-      增加时间(释放下一个技能实际所需时间 - 当前时间)
+    if (释放下一个技能实际所需GCD > 当前时间) {
+      增加时间(释放下一个技能实际所需GCD - 当前时间)
     }
 
     // 判断相同技能CD
@@ -103,14 +99,19 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
       // 在日志里找到上一次释放此技能的时间
       const newLog = [...战斗日志]
       newLog.reverse()
-      const 上一次释放本技能技能 = newLog?.find(
-        (item) => item?.日志 === `${当前技能?.技能名称}` && item?.日志类型 === '释放技能'
+      const 上一次释放本技能时间 = newLog?.find(
+        (item) =>
+          (item?.日志 === `${当前技能?.技能名称}` || item?.日志?.includes(当前技能?.技能名称)) &&
+          item?.日志类型 === '释放技能'
       )?.日志时间
+
       // 判断CD是否够用
-      const newTime = 上一次释放本技能技能 + 当前技能?.技能CD
-      // GCD还没好，等待转好
-      if (newTime > 当前时间) {
-        增加时间(newTime - 当前时间)
+      if (上一次释放本技能时间) {
+        const newTime = 上一次释放本技能时间 + 当前技能?.技能CD
+        // GCD还没好，等待转好
+        if (newTime > 当前时间) {
+          增加时间(newTime - 当前时间)
+        }
       }
     }
   }
@@ -208,7 +209,6 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
 
   // 第一次循环，不包含引爆贯穿
   for (let i = 0; i < 测试循环?.length; i++) {
-    增加时间(网络按键延迟)
     const 当前技能 = 循环模拟技能基础数据?.find((item) => item?.技能名称 === 测试循环[i])
     // 判断是否为当前箭袋第一个技能
     const 上一个技能 =
@@ -217,14 +217,17 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
         : 循环模拟技能基础数据?.find((item) => item?.技能名称 === 测试循环[i - 1])
 
     // 判断是否需要等待GCD
-    判断是否需要等待GCD(当前技能, 上一个技能)
+    if (i > 0) {
+      判断是否需要等待GCD(当前技能, 上一个技能)
+    }
+    增加时间(网络按键延迟)
     // 开始释放技能
-    开始释放上一个技能的时间 = 当前时间
     添加战斗日志({
       日志: `${当前技能?.技能名称}`,
       日志类型: '释放技能',
       日志时间: 当前时间,
     })
+    开始释放上一个技能的时间 = 当前时间
     if (于狩 && 当前技能?.技能名称 === '没石饮羽') {
       上承契()
     }
@@ -237,12 +240,13 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
 
         // 造成伤害
         for (let k = 0; k < 当前技能?.造成伤害次数; k++) {
-          const 频率计算 = 当前技能?.是否为读条技能 ? -加速等级 : 0
-          const 当前事件时间 =
-            当前时间 +
-            (当前技能.初次伤害频率 || 0) +
-            (!网络按键延迟 ? 频率计算 : 0) +
-            k * (当前技能?.伤害频率 + 频率计算)
+          // const 频率计算 = 当前技能?.是否为读条技能 ? -加速等级 : 0
+          // 实际初次频率 - 目前看 初次伤害频率 不吃加速
+          const 实际初次频率 = 当前技能.初次伤害频率 || 0
+          // 实际伤害频率
+          const 实际伤害频率 = 获取实际帧数(当前技能?.伤害频率, 加速值)
+          // 没有初次伤害频率的第一次直接用伤害频率计算
+          const 当前事件时间 = 当前时间 + 实际初次频率 + 实际伤害频率 * (实际初次频率 ? k : k + 1)
 
           // 触发标鹄
           标鹄触发(当前事件时间)
@@ -306,9 +310,11 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
     }
     // 读条时间受加速影响
     if (当前技能?.是否为读条技能) {
-      const 读条时间 = (当前技能.伤害频率 - 加速等级) * 当前技能.造成伤害次数
+      const 读条时间 = 获取实际帧数(当前技能.伤害频率, 加速值) * 当前技能.造成伤害次数
       增加时间(
-        读条时间 > 当前技能?.技能释放后添加GCD ? 读条时间 : 当前技能?.技能释放后添加GCD - 加速等级
+        读条时间 > 当前技能?.技能释放后添加GCD - 加速等级
+          ? 读条时间
+          : 当前技能?.技能释放后添加GCD - 加速等级
       )
     } else {
       增加时间((当前技能?.技能释放后添加GCD || 0) - 加速等级)
@@ -320,24 +326,66 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
     }
   }
 
-  const 消耗箭0和1的时间区间 = 战斗日志
-    ?.filter(
-      (item) =>
-        item?.日志类型 === '消耗箭' && (item?.日志?.includes('0') || item?.日志?.includes('1'))
-    )
-    .map((item) => {
-      return {
-        ...item,
-        箭: item?.日志?.includes('0') ? 0 : 1,
-      }
-    })
+  // 把引爆贯穿根据造成伤害时箭的位置判断，塞入对应引爆触发
+  const 添加引爆贯穿日志: CycleSimulatorLog[] = 引爆贯穿日志加入(战斗日志, 棘矢)
+  console.log('添加引爆贯穿日志', 添加引爆贯穿日志)
+  // 开始分析贯穿
+  const 添加贯穿后日志: CycleSimulatorLog[] = 贯穿分析(添加引爆贯穿日志, 加速等级, 桑柘)
+  // 添加普通攻击
+  const 添加普通攻击后日志: CycleSimulatorLog[] = 普通攻击日志(添加贯穿后日志)
 
+  const 添加承契后日志: CycleSimulatorLog[] = 承契分析(添加普通攻击后日志)
+
+  const 最终日志 = [...添加承契后日志]
+
+  最终日志.sort((a, b) => {
+    return a?.日志时间 - b?.日志时间
+  })
+
+  return 最终日志
+}
+
+/**
+ * 引爆贯穿日志加入
+ */
+const 引爆贯穿日志加入 = (战斗日志: CycleSimulatorLog[], 棘矢) => {
   // 点了棘矢才有引爆贯穿
   if (棘矢) {
+    let 战斗日志副本 = [...战斗日志]
+    // const 引爆贯穿时间点日志数组: CycleSimulatorLog[] = []
+
+    const 消耗箭0和1的时间区间 = 战斗日志副本
+      ?.filter(
+        (item) =>
+          item?.日志类型 === '消耗箭' && (item?.日志?.includes('0') || item?.日志?.includes('1'))
+      )
+      .map((item) => {
+        return {
+          ...item,
+          箭: item?.日志?.includes('0') ? 0 : 1,
+        }
+      })
+
+    // 添加战斗日志
+    const 添加前置战斗日志 = (log) => {
+      // 将日志塞到前列
+      // 找到日志中和新log相同时间的第一个索引
+      const index = 战斗日志副本?.findIndex((item) => item?.日志时间 === log?.日志时间)
+      // 存在相同时间
+      if (index) {
+        const newLog = [...战斗日志副本]
+        newLog.splice(index, 0, log)
+        // 战斗日志 = [...newLog]
+        战斗日志副本 = newLog.map((item) => item)
+      } else {
+        战斗日志副本 = [...(战斗日志副本 || []), log]
+      }
+    }
+
     // 第二次循环，判断引爆贯穿情况，添加引爆贯穿数据
+    // 注意这里要循环的是 战斗日志 而不是 战斗日志副本，因为战斗日志副本会不断被增加导致死循环
     for (let i = 0; i < 战斗日志?.length; i++) {
       const 当前日志 = 战斗日志[i]
-
       // 当前技能
       const 当前技能 = 循环模拟技能基础数据?.find((item) =>
         当前日志?.日志?.includes(item?.技能名称)
@@ -352,27 +400,19 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
             消耗箭0和1的时间区间[j]?.箭 === 1 &&
             消耗箭0和1的时间区间[j + 1]?.箭 === 0
           ) {
-            引爆贯穿(当前技能?.技能名称, 当前日志?.日志时间)
+            添加前置战斗日志({
+              日志: `${当前技能?.技能名称}`,
+              日志类型: '引爆贯穿',
+              日志时间: 当前日志?.日志时间,
+            })
           }
         }
       }
     }
+    return [...战斗日志副本]
+  } else {
+    return 战斗日志
   }
-
-  // 开始分析贯穿
-  const 添加贯穿后日志: CycleSimulatorLog[] = 贯穿分析(战斗日志, 加速等级, 桑柘)
-  // 添加普通攻击
-  const 添加普通攻击后日志: CycleSimulatorLog[] = 普通攻击日志(添加贯穿后日志)
-
-  const 添加承契后日志: CycleSimulatorLog[] = 承契分析(添加普通攻击后日志)
-
-  const 最终日志 = [...添加承契后日志]
-
-  最终日志.sort((a, b) => {
-    return a?.日志时间 - b?.日志时间
-  })
-
-  return 最终日志
 }
 
 /**
@@ -433,7 +473,7 @@ const 贯穿分析 = (战斗日志: CycleSimulatorLog[], 加速等级, 桑柘) =
 
         // 当前没有贯穿buff
         if (!待生效贯穿?.length) {
-          // 以下为测试推导的续dot原理
+          // 以下为测试推导的续dot原理，应该还有很多问题，需要优化
           // 第一次上贯穿
           if (i === 0) {
             // 这里不知道为什么第一次生效的时间不一样。可能只是样本数据差异
@@ -442,7 +482,7 @@ const 贯穿分析 = (战斗日志: CycleSimulatorLog[], 加速等级, 桑柘) =
           } else if (当前事件?.日志时间 - 最后一次贯穿buff消失时间 <= 4) {
             续贯穿第一次时间 = 最后一次贯穿buff消失时间 + 32 - 24 + 4
             // 当上buff时间 - 最后一次的时间已经超过8帧（0.5秒）
-          } else if (当前事件?.日志时间 - 最后一次贯穿buff消失时间 > 8) {
+          } else if (当前事件?.日志时间 - 最后一次贯穿buff消失时间 >= 7) {
             续贯穿第一次时间 =
               当前事件?.日志时间 + 32 + 当前事件?.日志时间 - 最后一次贯穿buff消失时间 - 24 - 4
           } else {
@@ -587,3 +627,8 @@ interface 待生效贯穿 {
 //     return b + 1
 //   }
 // }
+
+// 读条技能的实际帧数
+const 获取实际帧数 = (原始帧数, 加速值) => {
+  return Math.floor((1024 * 原始帧数) / (Math.floor((1024 * 加速值) / 属性系数?.急速) + 1024))
+}

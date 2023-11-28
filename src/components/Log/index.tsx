@@ -30,7 +30,7 @@ function Log() {
         更新日志
       </span>
       <Modal
-        width={600}
+        width={800}
         title="新版本公告"
         centered
         open={newVersionModalVisible}
@@ -50,12 +50,15 @@ function Log() {
                   })
                 : log_data?.[0].content}
             </div>
-            <span className="log-version">{log_data?.[0].version}</span>
+            <div className="log-right">
+              <p className="log-version">{log_data?.[0].version}</p>
+              <p className="log-date">{log_data?.[0].date || '-'}</p>
+            </div>
           </Timeline.Item>
         </Timeline>
       </Modal>
       <Modal
-        width={600}
+        width={800}
         title="更新日志"
         centered
         className="log-modal"
@@ -74,7 +77,11 @@ function Log() {
                       })
                     : item.content}
                 </div>
-                <span className="log-version">{item.version}</span>
+
+                <div className="log-right">
+                  <p className="log-version">{item.version}</p>
+                  <p className="log-date">{item.date || '-'}</p>
+                </div>
               </Timeline.Item>
             )
           })}

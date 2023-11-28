@@ -1,4 +1,4 @@
-import { guoshiXishuBasic, guoshiResult, guoshiBasic } from './help'
+import { guoshiXishuBasic, guoshiResult, guoshiBasic, 获取加速等级 } from './help'
 /**
  * @name 技能伤害dps
  * @description 技能伤害计算遵循郭氏理论
@@ -178,20 +178,6 @@ export const getDpsTime = (
   }
   // console.log('战斗时间', time)
   return time
-}
-
-const 获取加速等级 = (number) => {
-  return (number || 0) < 95
-    ? 0
-    : number < 4241
-    ? 1
-    : number < 8857
-    ? 2
-    : number < 13851
-    ? 3
-    : number < 19316
-    ? 4
-    : 5
 }
 
 export const getZengyiJiasu = (zengyixuanxiangData: ZengyixuanxiangDataDTO) => {

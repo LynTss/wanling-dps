@@ -381,7 +381,6 @@ export const skillStandardDps = (
 
   const 破防百分比 = 破防值 / 属性系数.破防
 
-  // 流岚暴力临时解法
   const 防御减伤 = 防御点数 / (防御点数 + 防御系数)
 
   return damage * (1 + 破防百分比) * (1 - 防御减伤)

@@ -41,9 +41,15 @@
   justify-content: flex-start;
   padding: 12px 0;
 }
+
 .cycle-simulator-setting-header h1 {
   font-size: 16px;
   margin: 0 12px 0 0;
+}
+
+.cycle-simulator-setting-header .cycle-simulator-help {
+  color: #f90;
+  margin-right: 12px;
 }
 
 .cycle-simulator-setting-header span {

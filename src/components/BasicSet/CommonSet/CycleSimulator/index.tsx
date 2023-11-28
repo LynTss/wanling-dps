@@ -1,6 +1,6 @@
 // 循环模拟器
 import React, { useEffect, useMemo, useState } from 'react'
-import { Alert, Button, Modal, Select, Space, Tag, Tooltip } from 'antd'
+import { Alert, Button, Modal, Popover, Space, Tag, Tooltip } from 'antd'
 import { ReactSortable } from 'react-sortablejs'
 import { CycleSimulatorLog, CycleSimulatorSkillDTO } from '@/@types/cycleSimulator'
 import { useAppDispatch, useAppSelector } from '@/hooks'
@@ -17,8 +17,6 @@ import {
 
 function CycleSimulator() {
   const [logData, setLogData] = useState<CycleSimulatorLog[]>([])
-  const [加速等级, 设置加速等级] = useState<number>(1)
-  const [网络按键延迟, 设置延迟] = useState<number>(1)
   // 基础弹窗
   const [basicModalOpen, setBasicModalOpen] = useState<boolean>(false)
   // 日志log
@@ -29,9 +27,14 @@ function CycleSimulator() {
   const [cycle, setCycle] = useState<CycleSimulatorSkillDTO[]>([
     循环模拟技能基础数据?.[循环模拟技能基础数据?.length - 1],
   ])
-  // TODO循环
+  // 宠物顺序
   const [宠物顺序, 设置宠物顺序] = useState<string[]>([...测试宠物顺序])
+  // 当前面板加速值
+  const 加速值 = useAppSelector((state) => state?.basic?.characterFinalData)?.加速值
+  // 当前网络延迟
+  const 网络按键延迟 = useAppSelector((state) => state?.basic?.network) - 1
 
+  // dps结果
   const [dpsRes, setDpsRes] = useState<CurrentDpsFunctionRes>({
     totalDps: 0,
     dpsList: [],
@@ -44,8 +47,6 @@ function CycleSimulator() {
   useEffect(() => {
     if (!basicModalOpen) {
       setLogData([])
-      设置加速等级(1)
-      设置延迟(1)
       setBasicModalOpen(false)
       setLogModalOpen(false)
       setCountModal(false)
@@ -90,7 +91,7 @@ function CycleSimulator() {
   const simulator = async () => {
     const data = await SimulatorCycle({
       测试循环: cycle.map((item) => item?.技能名称) || [],
-      加速等级,
+      加速值,
       网络按键延迟,
       测试宠物顺序: 宠物顺序,
       奇穴: qixuedata,
@@ -182,14 +183,25 @@ function CycleSimulator() {
       >
         <Alert
           type="warning"
-          message="根据当前状态模拟循环，目前默认每轮箭都有金乌，由于贯穿的计算还有很多问题，可能存在贯穿数量的偏差，仅供参考。本功能持续迭代，后续会开放更多模拟循环相关能力。"
+          message="目前默认每轮箭都有金乌，由于贯穿的计算还有很多问题，可能存在贯穿数量的偏差，仅供参考。请勿以本功能作为直接结论。功能持续迭代，后续会开放更多模拟循环相关能力。"
         />
         <div className={'cycle-simulator-setting'}>
           <div className={'cycle-simulator-setting-header'}>
             <h1>配置你的循环</h1>
+            <Popover
+              content={
+                <div>
+                  <p>1、点击下方技能按钮添加至循环内</p>
+                  <p>2、在单行内可以使用拖动改变技能顺序</p>
+                  <p>3、宠物可以通过拖动改变宠物顺序</p>
+                </div>
+              }
+            >
+              <span className={'cycle-simulator-help'}>如何使用?</span>
+            </Popover>
             <span>
               {/* 目前未支持功能：宠物顺序编辑、朱厌奇穴宠物支持、承契buff添加、dps显示、验证循环合理性、日志分析buff覆盖、重复循环复制等等。后续会逐步按计划实现。 */}
-              目前未支持功能：验证循环合理性、日志分析buff覆盖、重复循环复制等等。后续会逐步按计划实现。
+              目前未支持功能：验证循环合理性、日志分析buff覆盖、重复循环复制、宏命令生成循环等等。后续会逐步按计划实现。
             </span>
           </div>
           <div className={'cycle-simulator-setting-btns'}>
@@ -222,7 +234,7 @@ function CycleSimulator() {
               {/* <Button
                 onClick={() =>
                   setCycle(
-                    测试循环_诸怀.map((item) => {
+                    测试循环_买糖.map((item) => {
                       return (
                         循环模拟技能基础数据?.find((a) => a?.技能名称 === item) ||
                         循环模拟技能基础数据[0]
@@ -231,7 +243,7 @@ function CycleSimulator() {
                   )
                 }
               >
-                大招诸怀循环
+                大招买糖循环
               </Button> */}
               <Button
                 onClick={() =>
@@ -314,31 +326,6 @@ function CycleSimulator() {
                 模拟DPS: <span className={'cycle-simulator-dps-res'}>{dpsRes?.dpsPerSecond}</span>
               </span>
             ) : null}
-            <Tooltip title="影响技能读条时间，技能间GCD">
-              <Select
-                className="cycle-simulator-modal-header-select"
-                size="small"
-                value={加速等级}
-                onChange={(e) => 设置加速等级(e)}
-              >
-                <Select.Option value={0}>0段加速</Select.Option>
-                <Select.Option value={1}>1段加速</Select.Option>
-                <Select.Option value={2}>2段加速</Select.Option>
-                <Select.Option value={3}>3段加速</Select.Option>
-              </Select>
-            </Tooltip>
-            <Tooltip title="影响每个技能释放前的时间差，很低为0帧，正常为1帧，较高为2帧">
-              <Select
-                className="cycle-simulator-modal-header-select"
-                size="small"
-                value={网络按键延迟}
-                onChange={(e) => 设置延迟(e)}
-              >
-                <Select.Option value={0}>很低</Select.Option>
-                <Select.Option value={1}>正常</Select.Option>
-                <Select.Option value={2}>很高</Select.Option>
-              </Select>
-            </Tooltip>
             <Tooltip title="实际模拟计算较为复杂，随着延迟、加速不同。可能存在部分技能数量误差。仅供参考">
               <Button type="primary" onClick={simulator}>
                 {logData?.length ? '重新模拟' : '开始模拟'}
