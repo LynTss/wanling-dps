@@ -1,8 +1,9 @@
 // 循环模拟器
 import React, { useEffect, useMemo, useState } from 'react'
-import { Alert, Button, Modal, Popover, Space, Tag, Tooltip } from 'antd'
+import { Alert, Button, Checkbox, Modal, Popover, Space, Tag, Tooltip } from 'antd'
 import { ReactSortable } from 'react-sortablejs'
 import { CycleSimulatorLog, CycleSimulatorSkillDTO } from '@/@types/cycleSimulator'
+import { CopyOutlined, DeleteOutlined } from '@ant-design/icons'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import 循环模拟技能基础数据 from '@/data/cycleSimulator/skill'
 import { 测试宠物顺序, 测试循环_397 } from './constant'
@@ -35,6 +36,10 @@ function CycleSimulator() {
   // 当前网络延迟
   const 网络按键延迟 = useAppSelector((state) => state?.basic?.network) - 1
 
+  // 是否实时计算
+  const [是否实时计算, 设置是否实时计算] = useState<boolean>(false)
+
+  const [满承契起手, 设置满承契起手] = useState<boolean>(false)
   // dps结果
   // const [dpsRes, setDpsRes] = useState<CurrentDpsFunctionRes>({
   //   totalDps: 0,
@@ -63,8 +68,10 @@ function CycleSimulator() {
   }, [basicModalOpen])
 
   useEffect(() => {
-    simulator()
-  }, [cycle, 宠物顺序])
+    if (是否实时计算) {
+      simulator()
+    }
+  }, [cycle, 宠物顺序, 是否实时计算, 满承契起手])
 
   const 技能统计数据 = useMemo(() => {
     const newLog = logData
@@ -101,6 +108,7 @@ function CycleSimulator() {
       网络按键延迟,
       测试宠物顺序: 宠物顺序,
       奇穴: qixuedata,
+      满承契起手,
     })
     计算dps日志(data)
     // 计算DPS(data)
@@ -188,22 +196,65 @@ function CycleSimulator() {
   }, [cycle])
 
   // 拖拽更新循环
-  const 拖拽更新循环 = (newList) => {
-    // 首先获取被替换轮次的第一个元素的index索引
-    const minIndex = newList.reduce(function (min, obj) {
+  const 拖拽更新循环 = (newList, type) => {
+    if (type == '轮次内') {
+      // 首先获取被替换轮次的第一个元素的index索引
+      const minIndex = newList.reduce(function (min, obj) {
+        return Math.min(min, obj.index)
+      }, Infinity)
+      // 获取最大的索引，判断拖拽生效范围
+      const maxIndex = newList.reduce(function (min, obj) {
+        return Math.max(min, obj.index)
+      }, Number.NEGATIVE_INFINITY)
+      // 将数组哪索引范围内跌元素替换为新的数组元素
+      const newCycle = cycle.map((item, index) => {
+        if (index < minIndex || index > maxIndex) {
+          return { ...item }
+        } else {
+          return newList[index - minIndex]
+        }
+      })
+      // 更新循环
+      setCycle(newCycle)
+    } else if (type === '整个轮次拖拽') {
+      const res: CycleSimulatorSkillDTO[] = []
+      // 做判断第0轮不能被拖过来
+      const sortList = [newList?.find((item) => item.id === 0)].concat(
+        newList?.filter((item) => item.id !== 0)
+      )
+      sortList.forEach((item) => {
+        console.log('item', item)
+        ;(item || []).forEach((a) => {
+          if (a.技能名称) {
+            const 当前技能数据 = 循环模拟技能基础数据?.find((b) => b?.技能名称 === a.技能名称)
+            if (当前技能数据) {
+              res.push(当前技能数据)
+            }
+          }
+        })
+      })
+      setCycle(res)
+    }
+  }
+
+  // 复制本轮到最后
+  const 复制本轮至最后 = (轮次) => {
+    const newCycle = cycle.concat(轮次)
+    setCycle(newCycle)
+  }
+
+  // 删除本轮次
+  const 删除本轮次 = (轮次) => {
+    const minIndex = 轮次.reduce(function (min, obj) {
       return Math.min(min, obj.index)
     }, Infinity)
     // 获取最大的索引，判断拖拽生效范围
-    const maxIndex = newList.reduce(function (min, obj) {
+    const maxIndex = 轮次.reduce(function (min, obj) {
       return Math.max(min, obj.index)
     }, Number.NEGATIVE_INFINITY)
     // 将数组哪索引范围内跌元素替换为新的数组元素
-    const newCycle = cycle.map((item, index) => {
-      if (index < minIndex || index > maxIndex) {
-        return { ...item }
-      } else {
-        return newList[index - minIndex]
-      }
+    const newCycle = cycle.filter((item, index) => {
+      return index < minIndex || index > maxIndex
     })
     // 更新循环
     setCycle(newCycle)
@@ -230,22 +281,36 @@ function CycleSimulator() {
         />
         <div className={'cycle-simulator-setting'}>
           <div className={'cycle-simulator-setting-header'}>
-            <h1>配置你的循环</h1>
-            <Popover
-              content={
-                <div>
-                  <p>1、点击下方技能按钮添加至循环内</p>
-                  <p>2、在单行内可以使用拖动改变技能顺序</p>
-                  <p>3、宠物可以通过拖动改变宠物顺序</p>
-                </div>
-              }
-            >
-              <span className={'cycle-simulator-help'}>如何使用?</span>
-            </Popover>
-            <span>
-              {/* 目前未支持功能：宠物顺序编辑、朱厌奇穴宠物支持、承契buff添加、dps显示、验证循环合理性、日志分析buff覆盖、重复循环复制等等。后续会逐步按计划实现。 */}
-              目前未支持功能：验证循环合理性、日志分析buff覆盖、重复循环复制、宏命令生成循环等等。后续会逐步按计划实现。
-            </span>
+            <div className="cycle-simulator-setting-header-left">
+              <h1>配置你的循环</h1>
+              <Popover
+                content={
+                  <div>
+                    <p>1、点击下方技能按钮添加至循环内</p>
+                    <p>2、在单行内可以使用拖动改变技能顺序</p>
+                    <p>3、宠物可以通过拖动改变宠物顺序</p>
+                  </div>
+                }
+              >
+                <span className={'cycle-simulator-help'}>如何使用?</span>
+              </Popover>
+              <Popover
+                content={
+                  <div>
+                    <p>验证循环合理性</p>
+                    <p>日志分析buff覆盖</p>
+                    <p>重复循环复制</p>
+                    <p>宏命令生成循环等等</p>
+                    <p>后续会逐步按计划实现。</p>
+                  </div>
+                }
+              >
+                <span className={'cycle-not-support'}>目前未支持功能</span>
+              </Popover>
+            </div>
+            <Checkbox checked={满承契起手} onChange={(e) => 设置满承契起手(e?.target?.checked)}>
+              5层承契起手
+            </Checkbox>
           </div>
           <div className={'cycle-simulator-setting-btns'}>
             <Space size={[8, 16]} wrap>
@@ -253,7 +318,10 @@ function CycleSimulator() {
                 .filter((item) => !item?.创建循环不可选)
                 .map((item) => {
                   return item?.技能名称 === '弛风鸣角' ? (
-                    <Tooltip title="弛风鸣角没有做释放间换箭的功能">
+                    <Tooltip
+                      title="弛风鸣角没有做释放间换箭的功能"
+                      key={`${item?.技能名称}tooltip`}
+                    >
                       <Button
                         key={item?.技能名称}
                         className={'cycle-simulator-setting-btn'}
@@ -310,35 +378,62 @@ function CycleSimulator() {
             </Space>
           </div>
           <div className={'cycle-simulator-setting-res'}>
-            {(显示循环 || []).map((轮次, index) => {
-              return (
-                <div className="cycle-simulator-setting-turn" key={index}>
-                  <ReactSortable
-                    list={轮次.map((i) =>
-                      Object.assign(i, { id: `${i?.技能名称}_${index}_${i?.index}` })
-                    )}
-                    setList={(e) => {
-                      拖拽更新循环(e)
-                    }}
-                    animation={150}
-                  >
-                    {(轮次 || []).map((item) => {
-                      return (
-                        <Tag
-                          closable={item?.index !== 0}
-                          color={SkillColorMap[item?.技能名称] || undefined}
-                          className={'cycle-simulator-setting-skill'}
-                          key={`${item?.技能名称}_${index}_${item?.index}`}
-                          onClose={() => removeSkill(item?.index)}
-                        >
-                          {item?.技能名称}
-                        </Tag>
-                      )
-                    })}
-                  </ReactSortable>
-                </div>
-              )
-            })}
+            <ReactSortable
+              list={显示循环.map((i, index) => Object.assign(i, { id: index }))}
+              setList={(e) => {
+                拖拽更新循环(e, '整个轮次拖拽')
+              }}
+              animation={150}
+            >
+              {(显示循环 || []).map((轮次, index) => {
+                return (
+                  <div className="cycle-simulator-setting-turn" key={`${index}`}>
+                    <ReactSortable
+                      list={轮次.map((i) =>
+                        Object.assign(i, { id: `${i?.技能名称}_${index}_${i?.index}` })
+                      )}
+                      setList={(e) => {
+                        拖拽更新循环(e, '轮次内')
+                      }}
+                      className="cycle-simulator-setting-turn-drop"
+                      animation={150}
+                    >
+                      {(轮次 || []).map((item) => {
+                        return (
+                          <Tag
+                            closable={item?.index !== 0}
+                            color={SkillColorMap[item?.技能名称] || undefined}
+                            className={'cycle-simulator-setting-skill'}
+                            key={`${item?.技能名称}_${index}_${item?.index}`}
+                            onClose={() => removeSkill(item?.index)}
+                          >
+                            {item?.技能名称}
+                          </Tag>
+                        )
+                      })}
+                      {index !== 0 ? (
+                        <div className={'cycle-turn-operate'}>
+                          <Tooltip title="复制并添加到最后">
+                            <CopyOutlined
+                              className={'cycle-turn-operate-btn'}
+                              onClick={() => 复制本轮至最后(轮次)}
+                            />
+                          </Tooltip>
+                          <Tooltip title="删除此轮">
+                            <DeleteOutlined
+                              className={'cycle-turn-operate-btn'}
+                              onClick={() => 删除本轮次(轮次)}
+                            />
+                          </Tooltip>
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+                    </ReactSortable>
+                  </div>
+                )
+              })}
+            </ReactSortable>
           </div>
         </div>
         <div className={'cycle-simulator-modal-footer'}>
@@ -363,20 +458,34 @@ function CycleSimulator() {
               })}
             </ReactSortable>
           </div>
-          <div>
+          <div className={'cycle-simulator-operate'}>
+            {是否实时计算 ? null : (
+              <Tooltip title="实际模拟计算较为复杂，随着延迟、加速不同。可能存在部分技能数量误差。仅供参考">
+                <Button
+                  className={'cycle-simulator-operate-btn'}
+                  type="primary"
+                  onClick={simulator}
+                >
+                  {logData?.length ? '重新模拟' : '开始模拟'}
+                </Button>
+              </Tooltip>
+            )}
+            <Tooltip title="开启实时计算会影响性能，编辑循环可能出现卡顿。">
+              <Checkbox
+                checked={是否实时计算}
+                onChange={(e) => 设置是否实时计算(e?.target?.checked)}
+              >
+                是否实时计算
+              </Checkbox>
+            </Tooltip>
             {logData?.[logData.length - 1]?.秒伤 ? (
-              <span>
-                模拟DPS:{' '}
+              <span className="cycle-simulator-dps-res-text">
+                模拟DPS：
                 <span className={'cycle-simulator-dps-res'}>
                   {logData?.[logData.length - 1]?.秒伤}
                 </span>
               </span>
             ) : null}
-            <Tooltip title="实际模拟计算较为复杂，随着延迟、加速不同。可能存在部分技能数量误差。仅供参考">
-              <Button type="primary" onClick={simulator}>
-                {logData?.length ? '重新模拟' : '开始模拟'}
-              </Button>
-            </Tooltip>
             {logData?.length ? (
               <>
                 <Button onClick={() => setDpsModal(true)}>Dps曲线</Button>
