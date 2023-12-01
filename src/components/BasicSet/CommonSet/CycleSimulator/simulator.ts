@@ -86,7 +86,7 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
   }
 
   // 判断是否需要等待GCD，发还需要等待的时间
-  const 判断是否需要等待GCD = (当前技能, 上一个技能) => {
+  const 判断是否需要等待GCD和技能CD = (当前技能, 上一个技能, 技能索引) => {
     const 释放下一个技能实际所需GCD =
       开始释放上一个技能的时间 + (上一个技能?.技能释放后添加GCD - 加速等级 || 0)
 
@@ -106,11 +106,19 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
           item?.日志类型 === '释放技能'
       )?.日志时间
 
+      const 实际CD =
+        朱厌 && 当前技能.技能名称 === '弛律召野' ? 当前技能?.技能CD + 20 * 16 : 当前技能?.技能CD
+
       // 判断CD是否够用
       if (上一次释放本技能时间) {
-        const newTime = 上一次释放本技能时间 + 当前技能?.技能CD
+        const newTime = 上一次释放本技能时间 + 实际CD
         // GCD还没好，等待转好
         if (newTime > 当前时间) {
+          添加战斗日志({
+            日志: `${当前技能?.技能名称}_${技能索引}_等技能CD${newTime - 当前时间}帧`,
+            日志类型: '等CD',
+            日志时间: newTime,
+          })
           增加时间(newTime - 当前时间)
         }
       }
@@ -219,7 +227,7 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
 
     // 判断是否需要等待GCD
     if (i > 0) {
-      判断是否需要等待GCD(当前技能, 上一个技能)
+      判断是否需要等待GCD和技能CD(当前技能, 上一个技能, i)
     }
     增加时间(网络按键延迟)
     // 开始释放技能
@@ -632,6 +640,6 @@ interface 待生效贯穿 {
 // }
 
 // 读条技能的实际帧数
-const 获取实际帧数 = (原始帧数, 加速值) => {
+export const 获取实际帧数 = (原始帧数, 加速值) => {
   return Math.floor((1024 * 原始帧数) / (Math.floor((1024 * 加速值) / 属性系数?.急速) + 1024))
 }

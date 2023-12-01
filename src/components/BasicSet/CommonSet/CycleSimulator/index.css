@@ -97,6 +97,17 @@
   background-color: var(--ant-warning-color-deprecated-bg);
 }
 
+.cycle-turn-time {
+  opacity: 1;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  margin-top: -16px;
+  height: 32px;
+  pointer-events: none;
+  text-align: right;
+}
+
 .cycle-turn-operate {
   opacity: 0;
   pointer-events: none;
@@ -126,17 +137,25 @@
   pointer-events: unset;
 }
 
+.cycle-simulator-setting-turn:hover  .cycle-turn-time {
+  opacity: 0;
+}
+
 .cycle-simulator-setting-turn-drop {
   width: 100%;
 }
 
-.cycle-simulator-setting-skill {
+.cycle-simulator-setting-skill,.cycle-simulator-setting-change {
   font-size: 14px;
   padding: 3px 12px;
   display: inline-flex;
   align-items: center;
   margin: 8px;
   cursor: pointer;
+}
+
+.cycle-simulator-setting-change {
+  cursor: unset;
 }
 
 .ant-tag-close-icon {
@@ -174,6 +193,7 @@
 .cycle-simulator-dps-res {
   color: #F34242;
   font-size: 20px;
+  margin-right: 12px;
 }
 
 .dps-res-chart {

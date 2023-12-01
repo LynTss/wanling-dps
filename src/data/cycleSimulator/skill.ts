@@ -7,6 +7,7 @@ const 循环模拟技能基础数据: CycleSimulatorSkillDTO[] = [
     消耗箭数: 0,
     伤害频率: 0,
     造成伤害次数: 0,
+    技能CD: 16 * 17,
     召唤宠物: true,
   },
   {
@@ -14,6 +15,7 @@ const 循环模拟技能基础数据: CycleSimulatorSkillDTO[] = [
     技能释放后添加GCD: 24,
     消耗箭数: 0,
     伤害频率: 0,
+    技能CD: 16 * 50, // 点领胡-10秒，点朱厌+20秒
     造成伤害次数: 0,
     召唤宠物: true,
   },
@@ -59,6 +61,7 @@ const 循环模拟技能基础数据: CycleSimulatorSkillDTO[] = [
     是否上贯穿: true,
     是否引爆贯穿: true,
     是否上破招: true,
+    实际技能: '饮羽簇',
   },
   {
     技能名称: '没石饮羽',
@@ -78,6 +81,7 @@ const 循环模拟技能基础数据: CycleSimulatorSkillDTO[] = [
     消耗箭数: 0,
     伤害频率: 8,
     造成伤害次数: 20,
+    技能CD: 16 * 40,
     是否为读条技能: true,
   },
   {
@@ -91,6 +95,7 @@ const 循环模拟技能基础数据: CycleSimulatorSkillDTO[] = [
     是否上贯穿: true,
     是否引爆贯穿: true,
     是否上破招: true,
+    实际技能: '饮羽簇',
   },
 ]
 
@@ -107,6 +112,7 @@ export const 日志类型数组: 日志类型[] = [
   '引爆贯穿',
   '宠物进入场地',
   '宠物离开场地',
+  '等CD',
 ]
 
 export const 宠物数据: { [key: string]: 宠物数据模型 } = {

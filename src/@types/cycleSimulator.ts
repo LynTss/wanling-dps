@@ -1,6 +1,6 @@
 // 循环模拟器type文件
 /**
- * @name 循环模拟器type文件
+ * @name 循环基础技能
  */
 export interface CycleSimulatorSkillDTO {
   /**
@@ -11,10 +11,6 @@ export interface CycleSimulatorSkillDTO {
    * 充能层数
    */
   充能层数?: number
-  // /**
-  //  * @name 技能释放所需时间(帧)
-  //  */
-  // 技能释放所需时间: number
   /**
    * @name 技能释放后添加GCD(帧)
    */
@@ -30,7 +26,7 @@ export interface CycleSimulatorSkillDTO {
   /**
    * 伤害频率(帧)
    */
-  伤害频率: number
+  伤害频率?: number
   /**
    * 造成伤害次数
    */
@@ -63,6 +59,38 @@ export interface CycleSimulatorSkillDTO {
    * 创建循环不可选
    */
   创建循环不可选?: boolean
+  /**
+   * 实际技能 - 用于显示不同名字时判断为相同技能
+   */
+  实际技能?: string
+}
+
+// 用来显示的循环技能类型类型
+export interface ShowCycleSingleSkill extends CycleSimulatorSkillDTO {
+  /**
+   * 本技能实际释放时间
+   */
+  本技能实际释放时间?: number
+  /**
+   * 下一个技能可以释放时间
+   */
+  下一个技能可以释放时间?: number
+  /**
+   * index
+   */
+  index?: number // 总技能序列索引
+}
+
+// 用来显示的循环类型
+export interface ShowCycle {
+  /**
+   * 循环具体技能
+   */
+  循环: ShowCycleSingleSkill[]
+  /**
+   * 本轮箭总用时
+   */
+  本轮箭总用时: number
 }
 
 export interface CycleSimulatorLog {
@@ -114,6 +142,7 @@ export type 日志类型 =
   | '引爆贯穿'
   | '宠物进入场地'
   | '宠物离开场地'
+  | '等CD'
 
 export interface 贯穿日志 {
   /**

@@ -1,15 +1,25 @@
 // 循环模拟器
 import React, { useEffect, useMemo, useState } from 'react'
-import { Alert, Button, Checkbox, Modal, Popover, Space, Tag, Tooltip } from 'antd'
+import { Alert, Badge, Button, Checkbox, Modal, Popover, Space, Tag, Tooltip } from 'antd'
 import { ReactSortable } from 'react-sortablejs'
-import { CycleSimulatorLog, CycleSimulatorSkillDTO } from '@/@types/cycleSimulator'
+import {
+  CycleSimulatorLog,
+  CycleSimulatorSkillDTO,
+  ShowCycleSingleSkill,
+} from '@/@types/cycleSimulator'
 import { CopyOutlined, DeleteOutlined } from '@ant-design/icons'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import 循环模拟技能基础数据 from '@/data/cycleSimulator/skill'
 import { 测试宠物顺序, 测试循环_397 } from './constant'
 import { SimulatorCycle } from './simulator'
 import BattleLogModal from './BattleLogModal'
-import { getSingleSkillDpsCycle } from './utils'
+import {
+  getSingleSkillDpsCycle,
+  判断上一个同名技能,
+  判断每个技能的循环时间,
+  获取总用时,
+  // 获取该轮箭用时,
+} from './utils'
 // import { CurrentDpsFunctionRes } from '@/store/basicReducer/current-dps-function'
 import { currentSingleSkillDpsFunction } from '@/store/basicReducer/current-single-skill-dps-function'
 import './index.css'
@@ -59,11 +69,6 @@ function CycleSimulator() {
       setDpsModal(false)
       设置宠物顺序([...测试宠物顺序])
       setCycle([循环模拟技能基础数据?.[循环模拟技能基础数据?.length - 1]])
-      // setDpsRes({
-      //   totalDps: 0,
-      //   dpsList: [],
-      //   dpsPerSecond: 0,
-      // })
     }
   }, [basicModalOpen])
 
@@ -180,10 +185,39 @@ function CycleSimulator() {
 
   // 根据循环计算更适合展示的多层数组，用于显示
   const 显示循环 = useMemo(() => {
-    // 根据箭数拆分
-    const res: any[] = []
+    // 添加所有技能的CD显示
+    // let 当前时间 = 0
+    const 添加技能CD循环: ShowCycleSingleSkill[] = []
     let 当前消耗箭 = 0
-    cycle.forEach((item, index) => {
+    cycle.forEach((item) => {
+      const { 本技能实际释放时间, 下一个技能可以释放时间 } = 判断每个技能的循环时间(
+        item,
+        添加技能CD循环,
+        网络按键延迟,
+        加速值,
+        qixuedata?.includes('朱厌')
+      )
+      let 释放完本技能换箭 = false
+      if (当前消耗箭 + item?.消耗箭数 > 8 || 当前消耗箭 === 0) {
+        // 添加换箭时间
+        当前消耗箭 = item?.消耗箭数 || 0
+        释放完本技能换箭 = true
+      } else {
+        当前消耗箭 = 当前消耗箭 + item?.消耗箭数
+      }
+      添加技能CD循环.push({
+        ...item,
+        本技能实际释放时间,
+        下一个技能可以释放时间: 释放完本技能换箭
+          ? 下一个技能可以释放时间 + 16
+          : 下一个技能可以释放时间,
+      })
+    })
+
+    // 根据箭数拆分
+    当前消耗箭 = 0
+    const res: ShowCycleSingleSkill[][] = []
+    添加技能CD循环.forEach((item, index) => {
       if (当前消耗箭 + item?.消耗箭数 > 8 || 当前消耗箭 === 0) {
         res[res?.length] = [{ ...item, index: index || 0 }]
         当前消耗箭 = item?.消耗箭数 || 0
@@ -192,7 +226,8 @@ function CycleSimulator() {
         当前消耗箭 = 当前消耗箭 + item?.消耗箭数
       }
     })
-    return res
+
+    return { 显示循环: res, 完整循环: 添加技能CD循环 }
   }, [cycle])
 
   // 拖拽更新循环
@@ -287,8 +322,10 @@ function CycleSimulator() {
                 content={
                   <div>
                     <p>1、点击下方技能按钮添加至循环内</p>
-                    <p>2、在单行内可以使用拖动改变技能顺序</p>
-                    <p>3、宠物可以通过拖动改变宠物顺序</p>
+                    <p>2、可以整行删除、复制本行到最后一行</p>
+                    <p>3、可以整行拖动技能、在单行内拖动改变技能顺序</p>
+                    <p>4、宠物可以通过拖动改变宠物顺序</p>
+                    <p>5、按钮上红色标识为技能剩余CD</p>
                   </div>
                 }
               >
@@ -322,22 +359,24 @@ function CycleSimulator() {
                       title="弛风鸣角没有做释放间换箭的功能"
                       key={`${item?.技能名称}tooltip`}
                     >
-                      <Button
+                      <AddCycleBtn
+                        onClick={() => addCycle(item)}
                         key={item?.技能名称}
                         className={'cycle-simulator-setting-btn'}
-                        onClick={() => addCycle(item)}
-                      >
-                        {item?.技能名称}
-                      </Button>
+                        完整循环={显示循环?.完整循环 || []}
+                        技能={item}
+                        朱厌={qixuedata?.includes('朱厌')}
+                      />
                     </Tooltip>
                   ) : (
-                    <Button
+                    <AddCycleBtn
+                      onClick={() => addCycle(item)}
                       key={item?.技能名称}
                       className={'cycle-simulator-setting-btn'}
-                      onClick={() => addCycle(item)}
-                    >
-                      {item?.技能名称}
-                    </Button>
+                      完整循环={显示循环?.完整循环 || []}
+                      技能={item}
+                      朱厌={qixuedata?.includes('朱厌')}
+                    />
                   )
                 })}
             </Space>
@@ -379,15 +418,21 @@ function CycleSimulator() {
           </div>
           <div className={'cycle-simulator-setting-res'}>
             <ReactSortable
-              list={显示循环.map((i, index) => Object.assign(i, { id: index }))}
+              list={(显示循环?.显示循环 || []).map((i, index) => Object.assign(i, { id: index }))}
               setList={(e) => {
                 拖拽更新循环(e, '整个轮次拖拽')
               }}
               animation={150}
+              draggable={'.cycle-turn-drag'}
             >
-              {(显示循环 || []).map((轮次, index) => {
+              {(显示循环?.显示循环 || []).map((轮次, index) => {
                 return (
-                  <div className="cycle-simulator-setting-turn" key={`${index}`}>
+                  <div
+                    className={`cycle-simulator-setting-turn ${
+                      index !== 0 ? 'cycle-turn-drag' : ''
+                    }`}
+                    key={`${index}`}
+                  >
                     <ReactSortable
                       list={轮次.map((i) =>
                         Object.assign(i, { id: `${i?.技能名称}_${index}_${i?.index}` })
@@ -397,6 +442,7 @@ function CycleSimulator() {
                       }}
                       className="cycle-simulator-setting-turn-drop"
                       animation={150}
+                      draggable={'.cycle-simulator-setting-skill'}
                     >
                       {(轮次 || []).map((item) => {
                         return (
@@ -411,6 +457,9 @@ function CycleSimulator() {
                           </Tag>
                         )
                       })}
+                      {/* <Tag closable={false} className={'cycle-simulator-setting-change'}>
+                        {'寒更晓箭'}
+                      </Tag> */}
                       {index !== 0 ? (
                         <div className={'cycle-turn-operate'}>
                           <Tooltip title="复制并添加到最后">
@@ -429,6 +478,10 @@ function CycleSimulator() {
                       ) : (
                         <></>
                       )}
+                      {/* <div className="cycle-turn-time">
+                        该轮用时：
+                        {获取该轮箭用时(轮次)}
+                      </div> */}
                     </ReactSortable>
                   </div>
                 )
@@ -483,6 +536,10 @@ function CycleSimulator() {
                 模拟DPS：
                 <span className={'cycle-simulator-dps-res'}>
                   {logData?.[logData.length - 1]?.秒伤}
+                </span>
+                <span>
+                  用时：
+                  {获取总用时(logData?.[logData.length - 1]?.日志时间)}秒
                 </span>
               </span>
             ) : null}
@@ -556,4 +613,20 @@ const PetColorMap = {
   象: 'lime',
   熊: 'orange',
   狼: 'purple',
+}
+
+// 添加循环技能按钮组件
+const AddCycleBtn = ({ 技能, 完整循环, 朱厌, ...rest }) => {
+  const { 剩余CD } = 判断上一个同名技能(技能, 完整循环, 朱厌)
+  // 把帧转成秒，保留两位小数
+  const 剩余秒 = Math.round((剩余CD / 16) * 100) / 100
+  return 剩余秒 > 0 ? (
+    <Badge count={剩余秒} offset={[-20, 0]}>
+      <Tooltip title={`当前技能处于冷却中，剩余${剩余秒}秒`}>
+        <Button {...rest}>{技能?.技能名称}</Button>
+      </Tooltip>
+    </Badge>
+  ) : (
+    <Button {...rest}>{技能?.技能名称}</Button>
+  )
 }
