@@ -401,6 +401,7 @@ function CycleSimulator() {
       qixue: qixuedata,
       skillList: cycle,
     }
+
     localStorage?.setItem('wl_custom_cycle', JSON.stringify([用于保存的自定义循环]))
     setTimeout(() => {
       setCurrentCycleVal(自定义循环名称输入)
@@ -441,9 +442,11 @@ function CycleSimulator() {
           <div className={'cycle-simulator-modal-header space-between'}>
             <h1 className={'cycle-simulator-modal-title'}>循环模拟</h1>
             {cycle?.length ? (
-              <Button size="small" type="primary" onClick={() => 设置自定义循环保存弹窗(true)}>
-                保存为自定义循环
-              </Button>
+              <Tooltip title="自定义循环和原计算器其他循环的dps会心期望计算方式不同。会导致最终数值偏差。请勿进行跨循环比较。">
+                <Button size="small" type="primary" onClick={() => 设置自定义循环保存弹窗(true)}>
+                  保存为自定义循环
+                </Button>
+              </Tooltip>
             ) : null}
           </div>
         }
