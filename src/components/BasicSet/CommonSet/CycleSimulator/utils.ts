@@ -216,6 +216,10 @@ export const 获取总用时 = (时间) => {
   return 用时秒
 }
 
+export const 获取显示秒伤 = (最后一条伤害数据) => {
+  return Math.round((最后一条伤害数据?.造成总伤害 || 0) / (最后一条伤害数据?.日志时间 / 16))
+}
+
 export const 获取添加技能CD循环 = ({ cycle, 网络按键延迟, 加速值, qixuedata }) => {
   const 添加技能CD循环: ShowCycleSingleSkill[] = []
   let 当前消耗箭 = 0

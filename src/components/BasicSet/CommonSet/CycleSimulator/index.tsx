@@ -33,6 +33,7 @@ import {
   getSingleSkillDpsCycle,
   判断上一个同名技能,
   获取总用时,
+  获取显示秒伤,
   获取本循环阵眼覆盖率,
   获取添加技能CD循环,
   // 获取该轮箭用时,
@@ -161,9 +162,10 @@ function CycleSimulator() {
   const 计算dps日志 = (data: CycleSimulatorLog[]) => {
     let totalDps = 0
     const 获取的秒伤 = (造成总伤害, 日志时间) => {
-      const 时间差 = 日志时间 - data[0]?.日志时间 || 0
+      const 第一次造成伤害的时间 = data?.find((item) => item?.日志类型 === '造成伤害')?.日志时间
+      const 时间差 = 日志时间 - (第一次造成伤害的时间 || 0)
       if (时间差) {
-        return Math.floor(造成总伤害 / (时间差 / 16))
+        return Math.round(造成总伤害 / (时间差 / 16))
       } else {
         return 0
       }
@@ -443,7 +445,12 @@ function CycleSimulator() {
             <h1 className={'cycle-simulator-modal-title'}>循环模拟</h1>
             {cycle?.length ? (
               <Tooltip title="自定义循环和原计算器其他循环的dps会心期望计算方式不同。会导致最终数值偏差。请勿进行跨循环比较。">
-                <Button size="small" type="primary" onClick={() => 设置自定义循环保存弹窗(true)}>
+                <Button
+                  size="small"
+                  type="primary"
+                  onClick={() => 设置自定义循环保存弹窗(true)}
+                  disabled={cycle?.length <= 1}
+                >
                   保存为自定义循环
                 </Button>
               </Tooltip>
@@ -681,7 +688,7 @@ function CycleSimulator() {
               <span className="cycle-simulator-dps-res-text">
                 模拟DPS：
                 <span className={'cycle-simulator-dps-res'}>
-                  {logData?.[logData.length - 1]?.秒伤}
+                  {获取显示秒伤(logData?.[logData.length - 1])}
                 </span>
                 用时：
                 <span className={'cycle-simulator-dps-res'}>

@@ -466,7 +466,8 @@ const getSkillDamage = ({
 
   const 会心实际伤害 = guoshiHuixinshanghai(最终人物属性.会心效果值, 平均伤害, 郭氏额外会效果值)
 
-  const 技能期望伤害 = Math.floor(平均伤害 + 会心期望率 * (会心实际伤害 - 平均伤害))
+  const 技能期望伤害 = Math.round(平均伤害 + 会心期望率 * (会心实际伤害 - 平均伤害))
+  // const 技能期望伤害 = Math.round(平均伤害 + 会心期望率 * (会心实际伤害 - 平均伤害))
 
   const 期望技能总伤 = (技能期望伤害 ? 技能期望伤害 : 1) * 技能总数
 
