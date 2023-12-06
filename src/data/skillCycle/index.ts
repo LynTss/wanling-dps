@@ -102,5 +102,9 @@ export default Cycle_Data
 // 获取包含网页内存自定义循环在内的全部循环
 export const 获取全部循环 = () => {
   const 自定义循环 = localStorage.getItem('wl_custom_cycle') || '[]'
+  // console.log('[...Cycle_Data, ...JSON.parse(自定义循环)]', [
+  //   ...Cycle_Data,
+  //   ...JSON.parse(自定义循环),
+  // ])
   return [...Cycle_Data, ...JSON.parse(自定义循环)]
 }

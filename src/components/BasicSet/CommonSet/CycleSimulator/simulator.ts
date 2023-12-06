@@ -564,19 +564,48 @@ const 贯穿分析 = (战斗日志: CycleSimulatorLog[], 加速等级, 桑柘) =
 
 // 普通攻击日志
 const 普通攻击日志 = (战斗日志: CycleSimulatorLog[]) => {
+  const 所有释放技能数组: any = 战斗日志.filter((item) => {
+    return item?.日志类型 === '释放技能'
+  })
+  // 读条期间不释放普通攻击
+  const 找出所有读条技能的区间: Array<{ 开始时间: number; 结束时间: number; 是否读条: boolean }> =
+    所有释放技能数组
+      .map((item, index) => {
+        const 当前技能 = 循环模拟技能基础数据?.find((a) => a?.技能名称 === item?.日志)
+        return {
+          开始时间: item?.日志时间,
+          结束时间: 所有释放技能数组[index + 1]
+            ? 所有释放技能数组[index + 1]?.日志时间
+            : item?.日志时间,
+          是否读条: 当前技能?.是否为读条技能,
+        }
+      })
+      .filter((item: any) => {
+        return item?.是否读条
+      })
   const 战斗最大时间 = 战斗日志[战斗日志?.length - 1]?.日志时间
 
   const 战斗日志副本 = [...战斗日志]
 
-  // 普通攻击数量 24帧一次
-  const 普通攻击数量 = Math.floor(战斗最大时间 / 24)
-  for (let i = 0; i < 普通攻击数量; i++) {
+  const 普通攻击时间列表: number[] = []
+
+  for (let i = 0; i < 战斗最大时间; i++) {
+    // 判断攻击间隔，最小24帧一次
+    if (普通攻击时间列表[普通攻击时间列表.length - 1] + 24 <= i || !普通攻击时间列表?.length) {
+      // 判断本帧是否在读条技能时间内
+      if (!找出所有读条技能的区间?.some((item) => item?.开始时间 < i && item?.结束时间 > i)) {
+        普通攻击时间列表.push(i)
+      }
+    }
+  }
+
+  普通攻击时间列表.forEach((item) => {
     战斗日志副本.push({
       日志: `风矢`,
       日志类型: '造成伤害',
-      日志时间: i * 24,
+      日志时间: item,
     })
-  }
+  })
 
   战斗日志副本.sort((a, b) => {
     return a?.日志时间 - b?.日志时间

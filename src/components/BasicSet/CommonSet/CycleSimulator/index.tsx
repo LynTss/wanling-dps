@@ -108,9 +108,9 @@ function CycleSimulator() {
 
   useEffect(() => {
     if (是否实时计算) {
-      simulator()
+      simulator({})
     }
-  }, [cycle, 宠物顺序, 是否实时计算, 满承契起手])
+  }, [cycle, 宠物顺序, 是否实时计算, 满承契起手, 网络按键延迟, 加速值])
 
   const 技能统计数据 = useMemo(() => {
     const newLog = logData
@@ -141,7 +141,7 @@ function CycleSimulator() {
   }, [logData])
 
   const simulator = (props?) => {
-    const { 传入延迟, 传入加速, 更新日志 = true } = props
+    const { 传入延迟 = 网络按键延迟, 传入加速 = 加速值, 更新日志 = true } = props
     const data = SimulatorCycle({
       测试循环: cycle.map((item) => item?.技能名称) || [],
       加速值: 传入加速 !== undefined ? 传入加速 : 加速值,
@@ -378,7 +378,7 @@ function CycleSimulator() {
       const 实际加速值 = 加速等级枚举[加速]
       Object.keys(dpsTime[加速]).forEach((延迟) => {
         const 本次日志 = simulator({
-          传入延迟: Number(延迟) - 1,
+          传入延迟: Math.max(Number(延迟) - 1, 0),
           传入加速: Number(实际加速值),
           更新日志: false,
         })
@@ -388,6 +388,8 @@ function CycleSimulator() {
         dpsTime[加速][延迟] = 战斗秒
       })
     })
+
+    // console.log('用于计算循环', 用于计算循环)
 
     const 用于保存的自定义循环 = {
       name: 自定义循环名称输入,
