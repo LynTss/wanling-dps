@@ -8,7 +8,7 @@ import { CharacterFinalDTO, TargetDTO } from '@/@types/character'
 import { SkillBasicDTO } from '@/@types/skill'
 import { 属性系数, 每等级减伤, 非侠系数 } from '@/data/constant'
 import { guoshiFangyu, guoshiPofang } from './help'
-import All_Cycle_Data from '@/data/skillCycle'
+import { 获取全部循环 } from '@/data/skillCycle'
 import { ZengyixuanxiangDataDTO } from '@/@types/zengyi'
 import XIAOCHI_DATA from '@/data/xiaochi'
 import { GainTypeEnum } from '@/@types/enum'
@@ -149,7 +149,11 @@ export const getDpsTime = (
   // 根据是否选择CW选择对应循环
   const trueCurrentCycleName = getTrueCycleName(currentCycleName, characterFinalData)
 
-  const currentCycleConfig = All_Cycle_Data.find((item) => item.name === trueCurrentCycleName)
+  const All_Cycle_Data = 获取全部循环()
+
+  const currentCycleConfig = All_Cycle_Data.find((item) =>
+    trueCurrentCycleName ? item.name === trueCurrentCycleName : item.name === currentCycleName
+  )
   const 增益加速等级 = zengyiQiyong ? getZengyiJiasu(zengyixuanxiangData) : 0
   const 加速等级 = 获取加速等级(characterFinalData.加速值 + 增益加速等级)
 
@@ -166,12 +170,17 @@ export const getDpsTime = (
   // return time
 
   if (currentCycleConfig) {
-    let 总帧数 = 0
-    currentCycleConfig.cycleList.forEach((item) => {
-      const 循环帧 = (item.循环完整帧数 - item.计算技能数 * (1 - network * 0.5)) * item.循环次数
-      总帧数 = 总帧数 + 循环帧
-    })
-    time = (总帧数 + (加速等级 < 1 ? 300 : 加速等级 === 2 ? -60 : 0)) / 16 + 18
+    if (currentCycleConfig.dpsTime) {
+      time =
+        currentCycleConfig.dpsTime[加速等级][network] || currentCycleConfig.dpsTime[0][1] || 180
+    } else if (currentCycleConfig.cycleList) {
+      let 总帧数 = 0
+      currentCycleConfig.cycleList.forEach((item) => {
+        const 循环帧 = (item.循环完整帧数 - item.计算技能数 * (1 - network * 0.5)) * item.循环次数
+        总帧数 = 总帧数 + 循环帧
+      })
+      time = (总帧数 + (加速等级 < 1 ? 300 : 加速等级 === 2 ? -60 : 0)) / 16 + 18
+    }
   }
   if (cons) {
     console.log('战斗时间', time)
@@ -218,6 +227,8 @@ export const 获取实际循环 = (
   startType: 'normal' | 'max' // 起手方式
 ) => {
   let trueCycle: CycleDTO[] = [...currentCycle]
+
+  const All_Cycle_Data = 获取全部循环()
 
   // 大CW特效循环变动
   if (

@@ -68,6 +68,10 @@ export interface CycleSimulatorSkillDTO {
 // 用来显示的循环技能类型类型
 export interface ShowCycleSingleSkill extends CycleSimulatorSkillDTO {
   /**
+   * 本技能计划释放时间
+   */
+  本技能计划释放时间?: number
+  /**
    * 本技能实际释放时间
    */
   本技能实际释放时间?: number

@@ -7,7 +7,7 @@ const 循环模拟技能基础数据: CycleSimulatorSkillDTO[] = [
     消耗箭数: 0,
     伤害频率: 0,
     造成伤害次数: 0,
-    技能CD: 16 * 17,
+    技能CD: 16 * 18,
     召唤宠物: true,
   },
   {

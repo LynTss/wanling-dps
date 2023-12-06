@@ -37,6 +37,7 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
   const 九乌 = 奇穴?.includes('九乌')
   const 于狩 = 奇穴?.includes('于狩')
   const 诸怀 = 奇穴?.includes('诸怀')
+  const 孰湖 = 奇穴?.includes('孰湖')
 
   // 增加时间
   const 增加时间 = (time) => {
@@ -207,6 +208,10 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
     }
     // 宠物离开场地前上承契
     上承契(当前时间 + 本次召唤宠物数据?.释放后退场时间 - 4) // 每个宠物离场地前上承契的buff时间都不一样，暂时写死
+    // 孰湖可以让宠物自带2层承契，可以上两次承契
+    if (孰湖) {
+      上承契(当前时间 + 本次召唤宠物数据?.释放后退场时间 - 4) // 每个宠物离场地前上承契的buff时间都不一样，暂时写死
+    }
     // 添加宠物进入场地日志
     添加战斗日志({
       日志: `${测试宠物顺序[本次事件召唤索引]}-宠物`,
@@ -330,7 +335,8 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
     }
     // 释放技能结束
     // 判断箭数量
-    if (当前箭带内箭数 === 0) {
+    // 最后一轮箭就不换箭了
+    if (当前箭带内箭数 === 0 && i !== 测试循环.length - 1) {
       释放寒更晓箭()
     }
   }
@@ -538,14 +544,14 @@ const 贯穿分析 = (战斗日志: CycleSimulatorLog[], 加速等级, 桑柘) =
   }
 
   // 触发贯穿日志循环结束，把剩余贯穿跳完
-  for (let j = 0; j < 待生效贯穿?.length; j++) {
-    const 当前贯穿 = 待生效贯穿[j]
-    添加战斗日志({
-      日志: `贯穿【${当前贯穿层数}】- DOT`,
-      日志类型: '造成伤害',
-      日志时间: 当前贯穿?.生效时间,
-    })
-  }
+  // for (let j = 0; j < 待生效贯穿?.length; j++) {
+  //   const 当前贯穿 = 待生效贯穿[j]
+  //   添加战斗日志({
+  //     日志: `贯穿【${当前贯穿层数}】- DOT`,
+  //     日志类型: '造成伤害',
+  //     日志时间: 当前贯穿?.生效时间,
+  //   })
+  // }
 
   const 结果日志 = [...战斗日志副本]
 

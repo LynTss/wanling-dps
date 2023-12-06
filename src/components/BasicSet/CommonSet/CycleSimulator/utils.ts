@@ -7,6 +7,7 @@ import {
 import { Skill_Cycle_Map } from '@/utils/skill-dps'
 import { 获取实际帧数 } from './simulator'
 import { 获取加速等级 } from '@/utils/help'
+import { 可以触发万灵阵眼的技能 } from './constant'
 
 export const getDpsCycle = (data: CycleSimulatorLog[]): CycleDTO[] => {
   const res: { [key: string]: CycleDTO } = {}
@@ -123,7 +124,7 @@ export const 判断每个技能的循环时间 = (
   网络按键延迟: number,
   加速值,
   朱厌
-): { 本技能实际释放时间: number; 下一个技能可以释放时间: number } => {
+): { 本技能计划释放时间: number; 本技能实际释放时间: number; 下一个技能可以释放时间: number } => {
   // 上一个技能释放结束以后的时间
   const 上一个技能 = 添加技能CD循环[添加技能CD循环.length - 1]
   const 本技能可以释放时间 = 上一个技能?.下一个技能可以释放时间 || 0
@@ -132,6 +133,7 @@ export const 判断每个技能的循环时间 = (
 
   // 本技能等待GCD和网络延迟后实际释放时间
   let 本技能实际释放时间 = 本技能可以释放时间 ? 本技能可以释放时间 + 网络按键延迟 : 0
+  const 本技能计划释放时间 = 本技能实际释放时间
 
   // 技能有CD，找上一个技能判断能否释放
   if (当前技能?.技能CD) {
@@ -163,6 +165,7 @@ export const 判断每个技能的循环时间 = (
     本技能实际释放时间 + (当前技能释放所需时间 > 实际GCD ? 当前技能释放所需时间 : 实际GCD)
 
   return {
+    本技能计划释放时间,
     本技能实际释放时间,
     下一个技能可以释放时间,
   }
@@ -190,6 +193,7 @@ export const 判断上一个同名技能 = (当前技能, 循环, 朱厌) => {
 
     const 上一个同名技能释放CD = (上一个同名技能?.本技能实际释放时间 || 0) + (实际CD || 0)
     const 下一个技能可以释放CD = 循环[循环.length - 1]?.下一个技能可以释放时间
+
     剩余CD =
       上一个同名技能释放CD - 下一个技能可以释放CD > 0
         ? 上一个同名技能释放CD - 下一个技能可以释放CD
@@ -210,4 +214,69 @@ export const 获取该轮箭用时 = (轮次: ShowCycleSingleSkill[]) => {
 export const 获取总用时 = (时间) => {
   const 用时秒 = Math.round((时间 / 16) * 100) / 100
   return 用时秒
+}
+
+export const 获取添加技能CD循环 = ({ cycle, 网络按键延迟, 加速值, qixuedata }) => {
+  const 添加技能CD循环: ShowCycleSingleSkill[] = []
+  let 当前消耗箭 = 0
+  cycle.forEach((item) => {
+    const { 本技能计划释放时间, 本技能实际释放时间, 下一个技能可以释放时间 } =
+      判断每个技能的循环时间(
+        item,
+        添加技能CD循环,
+        网络按键延迟,
+        加速值,
+        qixuedata?.includes('朱厌')
+      )
+    let 释放完本技能换箭 = false
+    if (当前消耗箭 + item?.消耗箭数 > 8 || 当前消耗箭 === 0) {
+      // 添加换箭时间
+      当前消耗箭 = item?.消耗箭数 || 0
+      释放完本技能换箭 = true
+    } else {
+      当前消耗箭 = 当前消耗箭 + item?.消耗箭数
+    }
+    添加技能CD循环.push({
+      ...item,
+      本技能计划释放时间,
+      本技能实际释放时间,
+      下一个技能可以释放时间: 释放完本技能换箭
+        ? 下一个技能可以释放时间 + 16
+        : 下一个技能可以释放时间,
+    })
+  })
+  return 添加技能CD循环
+}
+
+export const 获取本循环阵眼覆盖率 = (循环: ShowCycleSingleSkill[]) => {
+  const 阵眼持续时间 = 16 * 6
+  const 触发技能释放时间数组: number[] = []
+  循环.forEach((技能) => {
+    if (可以触发万灵阵眼的技能?.includes(技能?.技能名称)) {
+      if (技能?.本技能实际释放时间) {
+        触发技能释放时间数组.push(技能?.本技能实际释放时间)
+      }
+    }
+  })
+
+  const 总战斗时间 = Math.max((循环[循环.length - 1].下一个技能可以释放时间 || 0) - 16, 0)
+
+  // key 开始时间，value结束时间
+  const 实际阵眼覆盖时间映射: { [key: number]: number } = {}
+
+  for (let i = 0; i < 触发技能释放时间数组.length; i++) {
+    // 判断是放下一个技能时，依然处于阵眼覆盖时间内
+    if (触发技能释放时间数组[i - 1] + 阵眼持续时间 >= 触发技能释放时间数组[i]) {
+      实际阵眼覆盖时间映射[触发技能释放时间数组[i - 1]] = 触发技能释放时间数组[i] + 阵眼持续时间
+    } else {
+      实际阵眼覆盖时间映射[触发技能释放时间数组[i]] = 触发技能释放时间数组[i] + 阵眼持续时间
+    }
+  }
+  let 总持续时间 = 0
+
+  Object.keys(实际阵眼覆盖时间映射).map((本轮阵眼开始时间) => {
+    总持续时间 = 总持续时间 + 实际阵眼覆盖时间映射[本轮阵眼开始时间] - Number(本轮阵眼开始时间)
+  })
+
+  return { 本循环阵眼覆盖率: ((总持续时间 / 总战斗时间) * 100).toFixed(3), 总战斗时间 }
 }

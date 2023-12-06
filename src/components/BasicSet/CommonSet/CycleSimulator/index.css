@@ -17,6 +17,11 @@
   /* justify-content: space-between; */
 }
 
+.cycle-simulator-modal-header,.space-between {
+  justify-content: space-between;
+  padding-right: 20px;
+}
+
 .cycle-simulator-modal-title {
   font-size: 16px;
   margin:0;
@@ -177,7 +182,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 12px;
+  /* margin: 0 0 0 12px; */
+}
+
+.cycle-simulator-dps-res-text > span {
+  margin-right: 8px;
 }
 
 .cycle-simulator-operate {
@@ -192,8 +201,7 @@
 
 .cycle-simulator-dps-res {
   color: #F34242;
-  font-size: 20px;
-  margin-right: 12px;
+  font-size: 16px;
 }
 
 .dps-res-chart {

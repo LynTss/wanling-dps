@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Select } from 'antd'
 import { 延迟设定, 目标集合, 起手设定 } from '@/data/constant'
-import skillCycle from '@/data/skillCycle'
+import { 获取全部循环 } from '@/data/skillCycle'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 
 import {
@@ -69,6 +69,8 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
       getDpsFunction()
     }
   }
+
+  const skillCycle = 获取全部循环()
 
   return (
     <div className={'common-set'}>
