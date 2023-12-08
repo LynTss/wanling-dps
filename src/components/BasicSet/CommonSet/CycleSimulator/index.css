@@ -74,6 +74,10 @@
   justify-content: space-between;
 }
 
+.cycle-qixue-set-button {
+  width: unset
+}
+
 .cycle-simulator-setting-res {
   max-height: calc(100vh - 314px);
   min-height: calc(100vh - 610px);

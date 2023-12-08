@@ -40,9 +40,10 @@ import {
 } from './utils'
 // import { CurrentDpsFunctionRes } from '@/store/basicReducer/current-dps-function'
 import { currentSingleSkillDpsFunction } from '@/store/basicReducer/current-single-skill-dps-function'
-import './index.css'
+import QixueSet from '../QixueSet'
 import DpsResModal from './DpsResModal'
 import { currentDpsFunction } from '@/store/basicReducer/current-dps-function'
+import './index.css'
 
 function CycleSimulator() {
   const [logData, setLogData] = useState<CycleSimulatorLog[]>([])
@@ -439,10 +440,11 @@ function CycleSimulator() {
       </Button>
       <Modal
         className="cycle-simulator-modal"
+        maskClosable={false}
         width={'90%'}
         title={
           <div className={'cycle-simulator-modal-header space-between'}>
-            <h1 className={'cycle-simulator-modal-title'}>循环模拟</h1>
+            <h1 className={'cycle-simulator-modal-title'}>循环模拟（beta）</h1>
             {cycle?.length ? (
               <Tooltip title="自定义循环和原计算器其他循环的dps会心期望计算方式不同。会导致最终数值偏差。请勿进行跨循环比较。">
                 <Button
@@ -555,6 +557,7 @@ function CycleSimulator() {
               >
                 清空循环
               </Button>
+              <QixueSet className="cycle-qixue-set-button" />
             </Space>
           </div>
           <div className={'cycle-simulator-setting-res'}>

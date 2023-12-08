@@ -1,8 +1,9 @@
-import { CycleSimulatorLog } from '@/@types/cycleSimulator'
+import { CycleSimulatorLog, 全部唤灵印数据模型 } from '@/@types/cycleSimulator'
 import { 属性系数 } from '@/data/constant'
 
 import 循环模拟技能基础数据, { 宠物数据 } from '@/data/cycleSimulator/skill'
 import { 获取加速等级 } from '@/utils/help'
+import { BUFF持续最大时间 } from './constant'
 
 interface SimulatorCycleProps {
   测试循环: string[]
@@ -29,6 +30,7 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
   let 召唤宠物索引 = -1 // 上次召唤完的索引
   let 当前标鹄层数 = 0
   let 战斗日志: CycleSimulatorLog[] = []
+  const 唤灵印状态时间集: 全部唤灵印数据模型 = { 虎: [], 鹰: [], 猪: [], 象: [], 熊: [], 狼: [] }
 
   const 桑柘 = 奇穴?.includes('桑柘')
   const 贯侯 = 奇穴?.includes('贯侯')
@@ -164,11 +166,19 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
   }
 
   // 召唤宠物
-  const 召唤宠物 = () => {
+  const 召唤宠物 = (唤灵印是否会消失 = false) => {
     // 释放召唤后延迟1秒（16帧）宠物才造成伤害
     const 本次事件召唤索引 = 召唤宠物索引 + 1 > 5 ? 召唤宠物索引 + 1 - 5 - 1 : 召唤宠物索引 + 1
     const 本次召唤宠物 = 测试宠物顺序[本次事件召唤索引]
     const 本次召唤宠物数据 = 宠物数据[本次召唤宠物]
+
+    // 添加唤灵印buff时间
+    // 驰律召唤的幻灵印10秒后会消失，引风召唤的则不会消失
+    唤灵印状态时间集[本次召唤宠物].push([
+      当前时间,
+      唤灵印是否会消失 ? 当前时间 + 16 * 10 : BUFF持续最大时间,
+    ])
+
     // 添加宠物进入场地日志
     添加战斗日志({
       日志: `${测试宠物顺序[本次事件召唤索引]}-宠物`,
@@ -178,10 +188,9 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
     // 添加宠物造成伤害日志
     // 鹰上贯穿
     const 初次造成伤害时间 = 当前时间 + 本次召唤宠物数据?.释放后攻击时间
+    // 鹰默认上4次
     if (测试宠物顺序[本次事件召唤索引] === '鹰') {
-      const 上贯穿次数 = 九乌 ? 6 : 4
-      // 鹰默认上4次，点了九乌上6次
-      for (let m = 0; m < 上贯穿次数; m++) {
+      for (let m = 0; m < 4; m++) {
         添加战斗日志({
           日志: `${测试宠物顺序[本次事件召唤索引]}-宠物`,
           日志类型: '上贯穿',
@@ -313,10 +322,11 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
       }
     }
     if (当前技能?.召唤宠物) {
-      召唤宠物()
+      const 唤灵印是否会消失 = 当前技能?.技能名称 === '弛律召野'
+      召唤宠物(唤灵印是否会消失)
       if (朱厌 && 当前技能?.技能名称 === '弛律召野') {
-        召唤宠物()
-        召唤宠物()
+        召唤宠物(唤灵印是否会消失)
+        召唤宠物(唤灵印是否会消失)
       }
       if (诸怀 && 当前技能?.技能名称 === '引风唤灵') {
         上承契()
@@ -341,8 +351,15 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
     }
   }
 
+  // 添加唤灵印象馆技能处理后日志
+  const 处理唤灵印相关后日志: CycleSimulatorLog[] = 唤灵印处理日志加入(
+    战斗日志,
+    唤灵印状态时间集,
+    九乌
+  )
+
   // 把引爆贯穿根据造成伤害时箭的位置判断，塞入对应引爆触发
-  const 添加引爆贯穿日志: CycleSimulatorLog[] = 引爆贯穿日志加入(战斗日志, 棘矢)
+  const 添加引爆贯穿日志: CycleSimulatorLog[] = 引爆贯穿日志加入(处理唤灵印相关后日志, 棘矢)
   // 开始分析贯穿
   const 添加贯穿后日志: CycleSimulatorLog[] = 贯穿分析(添加引爆贯穿日志, 加速等级, 桑柘)
   // 添加普通攻击
@@ -357,6 +374,98 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
   })
 
   return 最终日志
+}
+
+// 添加唤灵印象馆技能处理后日志
+const 唤灵印处理日志加入 = (
+  战斗日志: CycleSimulatorLog[],
+  唤灵印状态时间集: 全部唤灵印数据模型,
+  九乌
+) => {
+  let 战斗日志副本 = [...战斗日志]
+  const 实际穿灵印持续时间: 全部唤灵印数据模型 = { 虎: [], 鹰: [], 猪: [], 象: [], 熊: [], 狼: [] }
+
+  // 添加战斗日志
+  const 添加战斗日志 = (log) => {
+    战斗日志副本 = [...(战斗日志副本 || []), log]
+  }
+
+  // 先处理唤灵印的时间集，整理出真正buff的持续时间
+  Object.keys(唤灵印状态时间集).forEach((宠物) => {
+    const 当前时间集 = 唤灵印状态时间集[宠物]
+    let 处理印记时间副本: number[] = []
+    for (let i = 0; i < 当前时间集.length; i++) {
+      // 当本次循环发现 处理印记时间副本 的时间已经过去，则说明时间段不会更新，把它加入实际穿灵印持续时间
+      if (当前时间集[i][0] > 处理印记时间副本[1]) {
+        实际穿灵印持续时间[宠物].push(处理印记时间副本)
+        处理印记时间副本 = []
+      }
+      if (!处理印记时间副本[0]) {
+        处理印记时间副本[0] = 当前时间集[i][0]
+      }
+      if (当前时间集[i][1] !== BUFF持续最大时间 || 当前时间集[i][0] <= 处理印记时间副本[1]) {
+        处理印记时间副本[1] = 当前时间集[i][1]
+      }
+      // 处理最后一个数据
+      if (i === 当前时间集.length - 1) {
+        // 如果没有传入结束时间则认为buff持续到永久
+        const 结束时间 = 处理印记时间副本[1] || BUFF持续最大时间
+        实际穿灵印持续时间[宠物].push([处理印记时间副本[0], 结束时间])
+      }
+    }
+  })
+
+  // 把唤灵印的实际持续时间塞入
+  Object.keys(实际穿灵印持续时间).forEach((宠物) => {
+    实际穿灵印持续时间[宠物].forEach((时间段) => {
+      添加战斗日志({
+        日志: `获得唤灵印【${宠物}】`,
+        日志类型: '自身buff变动',
+        日志时间: 时间段[0],
+      })
+      if (时间段[1] !== BUFF持续最大时间) {
+        添加战斗日志({
+          日志: `唤灵印消失【${宠物}】`,
+          日志类型: '自身buff变动',
+          日志时间: 时间段[1],
+        })
+      }
+    })
+  })
+
+  // 九乌
+  if (九乌) {
+    // 获取所有宠物造成伤害的日志时间
+    const 宠物造成伤害的日志 = 战斗日志.filter(
+      (item) => item.日志?.includes('-宠物') && item.日志类型 === '造成伤害'
+    )
+
+    宠物造成伤害的日志.forEach((日志) => {
+      // 判断本次造成伤害的时间是否存在飞行唤灵印印记（鹰）
+      const 鹰唤灵印持续时间 = 实际穿灵印持续时间['鹰']
+      if (
+        鹰唤灵印持续时间?.some((时间段) => 日志.日志时间 > 时间段[0] && 日志.日志时间 <= 时间段[1])
+      ) {
+        // 九乌上两次贯穿
+        添加战斗日志({
+          日志: 日志?.日志,
+          日志类型: '上贯穿',
+          日志时间: 日志.日志时间,
+        })
+        添加战斗日志({
+          日志: 日志?.日志,
+          日志类型: '上贯穿',
+          日志时间: 日志.日志时间,
+        })
+      }
+    })
+  }
+
+  战斗日志副本.sort((a, b) => {
+    return a?.日志时间 - b?.日志时间
+  })
+
+  return 战斗日志副本
 }
 
 /**
@@ -591,7 +700,10 @@ const 普通攻击日志 = (战斗日志: CycleSimulatorLog[]) => {
 
   for (let i = 0; i < 战斗最大时间; i++) {
     // 判断攻击间隔，最小24帧一次
-    if (普通攻击时间列表[普通攻击时间列表.length - 1] + 24 <= i || !普通攻击时间列表?.length) {
+    if (
+      (普通攻击时间列表[普通攻击时间列表.length - 1] || 0) + 24 <= i ||
+      !普通攻击时间列表?.length
+    ) {
       // 判断本帧是否在读条技能时间内
       if (!找出所有读条技能的区间?.some((item) => item?.开始时间 < i && item?.结束时间 > i)) {
         普通攻击时间列表.push(i)

@@ -752,3 +752,6 @@ export const 测试循环_朱厌 = [
 ]
 
 export const 可以触发万灵阵眼的技能 = ['弛风鸣角', '没石饮羽']
+
+// BUFF持续最大时间,视为永久
+export const BUFF持续最大时间 = 99999999999

@@ -181,3 +181,10 @@ export interface 宠物数据模型 {
    */
   宠物攻击频率?: number
 }
+
+export interface 全部唤灵印数据模型 {
+  [key: string]: 唤灵印持续时间范围[][]
+}
+
+// 永久则传入 99999999999
+export type 唤灵印持续时间范围 = number
