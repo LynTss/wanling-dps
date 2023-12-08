@@ -92,7 +92,6 @@ function Log() {
                       })
                     : item.content}
                 </div>
-
                 <div className="log-right">
                   <p className="log-version">{item.version}</p>
                   <p className="log-date">{item.date || '-'}</p>
