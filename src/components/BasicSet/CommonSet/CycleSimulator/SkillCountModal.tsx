@@ -1,6 +1,7 @@
 import { CycleSimulatorLog } from '@/@types/cycleSimulator'
 import { Modal } from 'antd'
 import React, { useMemo } from 'react'
+import { 获取贯穿对应实际倍率 } from './utils'
 import './index.css'
 
 interface SkillCountModalProps {
@@ -85,11 +86,8 @@ const 获取贯穿总倍率 = (logData: CycleSimulatorLog[]) => {
     .map((item) => item?.日志)
 
   贯穿数组.forEach((item) => {
-    const 当前层数 = Number(item?.split('【')?.[1]?.[0])
-    if (当前层数) {
-      const 当前倍率 = item?.includes('- 引爆') ? 3 : 1
-      倍率 = 倍率 + 当前层数 * 当前倍率
-    }
+    const 当前倍率 = 获取贯穿对应实际倍率(item)
+    倍率 = 倍率 + 当前倍率
   })
   return 倍率
 }

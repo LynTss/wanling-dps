@@ -4,7 +4,6 @@ import {
   CycleSimulatorSkillDTO,
   ShowCycleSingleSkill,
 } from '@/@types/cycleSimulator'
-import { Skill_Cycle_Map } from '@/utils/skill-dps'
 import { 获取实际帧数 } from './simulator'
 import { 获取加速等级 } from '@/utils/help'
 import { 可以触发万灵阵眼的技能 } from './constant'
@@ -16,6 +15,8 @@ export const getDpsCycle = (data: CycleSimulatorLog[]): CycleDTO[] => {
     if (当前数据?.日志类型 === '造成伤害') {
       const 获取当前日志对应技能枚举 = 当前数据?.日志?.includes('朝仪万汇 - ')
         ? '朝仪万汇'
+        : 当前数据?.日志?.includes('贯穿')
+        ? `贯穿·${获取贯穿对应实际倍率(当前数据?.日志)}`
         : Skill_Cycle_Map[当前数据?.日志] || 当前数据?.日志
       let 增益列表 = res[获取当前日志对应技能枚举]?.技能增益列表 || []
       if (!增益列表?.length) {
@@ -73,6 +74,8 @@ export const getDpsCycle = (data: CycleSimulatorLog[]): CycleDTO[] => {
 export const getSingleSkillDpsCycle = (当前数据: CycleSimulatorLog): CycleDTO => {
   const 获取当前日志对应技能枚举 = 当前数据?.日志?.includes('朝仪万汇 - ')
     ? '朝仪万汇'
+    : 当前数据?.日志?.includes('贯穿')
+    ? `贯穿·${获取贯穿对应实际倍率(当前数据?.日志)}`
     : Skill_Cycle_Map[当前数据?.日志] || 当前数据?.日志
   let 增益列表: CycleGain[] = []
   if (!增益列表?.length) {
@@ -324,4 +327,32 @@ export const 获取本循环阵眼覆盖率 = (循环: ShowCycleSingleSkill[], �
 
   // return { 本循环阵眼覆盖率: ((总持续时间 / 总战斗时间) * 100).toFixed(3), 总战斗时间 }
   return ((总持续时间 / 总战斗时间) * 100).toFixed(3)
+}
+
+export const 获取贯穿对应实际倍率 = (日志) => {
+  const 当前层数 = Number(日志?.split('【')?.[1]?.[0])
+  if (当前层数) {
+    const 当前引爆跳数 = Number(日志?.split('【')?.[2]?.[0]) || 3
+    const 当前引爆倍率 = 日志?.includes('- 引爆') ? 当前引爆跳数 : 1
+    return 当前层数 * 当前引爆倍率
+  } else {
+    return 1
+  }
+}
+
+// 没表明枚举就直接取原值
+export const Skill_Cycle_Map = {
+  '狼-宠物': '攻击-狼',
+  '虎-宠物': '攻击-虎',
+  '鹰-宠物': '攻击-鹰',
+  '熊-宠物': '攻击-熊',
+  '猪-宠物': '重击',
+  '象-宠物': '践踏',
+  '饮羽簇-读条 - 1': '饮羽簇',
+  '没石饮羽 - 1': '饮羽簇',
+  '没石饮羽 - 2': '饮羽簇',
+  '没石饮羽 - 3': '饮羽簇',
+  '弛风鸣角 - 1': '劲风簇',
+  '弛风鸣角 - 2': '劲风簇',
+  '弛风鸣角 - 3': '劲风簇',
 }

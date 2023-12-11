@@ -25,7 +25,13 @@ import { setCurrentCycle, setQixueData } from '@/store/basicReducer'
 import { CopyOutlined, DeleteOutlined } from '@ant-design/icons'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import 循环模拟技能基础数据 from '@/data/cycleSimulator/skill'
-import { 测试宠物顺序, 测试循环新桑柘, 测试循环_朱厌, 测试循环新桑柘奇穴 } from './constant'
+import {
+  测试宠物顺序,
+  测试循环新桑柘,
+  测试循环_朱厌,
+  测试循环新桑柘奇穴,
+  测试循环_397,
+} from './constant'
 import { SimulatorCycle } from './simulator'
 import BattleLogModal from './BattleLogModal'
 import {
@@ -360,6 +366,9 @@ function CycleSimulator() {
       skillList: cycle,
     }
 
+    console.log('cycle', 用于计算循环)
+    console.log('dpsTime', dpsTime)
+
     localStorage?.setItem('wl_custom_cycle', JSON.stringify([用于保存的自定义循环]))
     setTimeout(() => {
       setCurrentCycleVal(自定义循环名称输入)
@@ -375,7 +384,7 @@ function CycleSimulator() {
           return 循环模拟技能基础数据?.find((a) => a?.技能名称 === item) || 循环模拟技能基础数据[0]
         })
       )
-      设置宠物顺序(宠物顺序)
+      设置宠物顺序(测试宠物顺序)
     } else if (名称 === '大招桑柘') {
       setCurrentCycleVal('朝仪万汇_桑拓')
       setCycle(
@@ -384,6 +393,14 @@ function CycleSimulator() {
         })
       )
       设置宠物顺序(测试循环新桑柘奇穴)
+    } else if (名称 === '大招桑柘_原') {
+      setCurrentCycleVal('朝仪万汇_桑拓')
+      setCycle(
+        测试循环_397.map((item) => {
+          return 循环模拟技能基础数据?.find((a) => a?.技能名称 === item) || 循环模拟技能基础数据[0]
+        })
+      )
+      设置宠物顺序(测试宠物顺序)
     } else if (自定义循环) {
       setCurrentCycleVal(自定义循环?.名称)
       setCycle(自定义循环?.技能数组)
@@ -502,6 +519,7 @@ function CycleSimulator() {
                   <Menu>
                     <Menu.Item onClick={() => 快捷添加循环('朱厌')}>朱厌</Menu.Item>
                     <Menu.Item onClick={() => 快捷添加循环('大招桑柘')}>大招桑柘</Menu.Item>
+                    <Menu.Item onClick={() => 快捷添加循环('大招桑柘_原')}>大招桑柘_原</Menu.Item>
                     {自定义循环 ? (
                       <Menu.Item onClick={() => 快捷添加循环('自定义循环')}>
                         {自定义循环?.名称}
