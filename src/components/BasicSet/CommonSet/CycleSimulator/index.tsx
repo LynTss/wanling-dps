@@ -225,6 +225,11 @@ function CycleSimulator() {
     setCycle(newCycle)
   }
 
+  console.log(
+    'cycle',
+    cycle.map((item) => item.技能名称)
+  )
+
   // 根据循环计算更适合展示的多层数组，用于显示
   const 处理循环结果对象 = useMemo(() => {
     // 添加所有技能的CD显示
