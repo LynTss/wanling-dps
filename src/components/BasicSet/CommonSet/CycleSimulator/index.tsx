@@ -44,6 +44,7 @@ import QixueSet from '../QixueSet'
 import DpsResModal from './DpsResModal'
 import { currentDpsFunction } from '@/store/basicReducer/current-dps-function'
 import './index.css'
+import SkillCountModal from './SkillCountModal'
 
 function CycleSimulator() {
   const [logData, setLogData] = useState<CycleSimulatorLog[]>([])
@@ -115,34 +116,6 @@ function CycleSimulator() {
     }
   }, [cycle, 宠物顺序, 是否实时计算, 满承契起手, 网络按键延迟, 加速值, qixuedata])
 
-  const 技能统计数据 = useMemo(() => {
-    const newLog = logData
-      ?.filter((item) => item?.日志类型 === '造成伤害')
-      .map((item) => {
-        return item?.日志
-      })
-
-    const res: any[] = Array.from(new Set(newLog)).map((item) => {
-      return {
-        技能名称: item,
-        技能数量: 0,
-      }
-    })
-    newLog.forEach((item) => {
-      for (let i = 0; i <= res?.length; i++) {
-        if (res[i]?.技能名称 === item) {
-          res[i].技能数量 = res[i].技能数量 + 1
-        }
-      }
-    })
-
-    res.sort((a, b) => {
-      return b.技能数量 - a.技能数量
-    })
-
-    return res
-  }, [logData])
-
   const simulator = (props?) => {
     const { 传入延迟 = 网络按键延迟, 传入加速 = 加速值, 更新日志 = true } = props
     const data = SimulatorCycle({
@@ -157,7 +130,6 @@ function CycleSimulator() {
       计算dps日志(data)
     }
     return data
-    // 计算DPS(data)
   }
 
   // 计算DPS日志
@@ -196,22 +168,6 @@ function CycleSimulator() {
     return newLog
   }
 
-  // 计算DPS
-  // const 计算DPS = async (data) => {
-  //   // 将日志信息转换为计算DPS所需要的循环数据
-  //   const 用于计算循环 = getDpsCycle(data)
-  //   // 最后一秒
-  //   const 时间差 = data[data.length - 1]?.日志时间 / 16 - data[0]?.日志时间 / 16
-  //   const res = await dispatch(
-  //     currentDpsFunction({
-  //       更新计算时间: 时间差,
-  //       更新循环技能列表: 用于计算循环,
-  //     })
-  //   )
-
-  //   setDpsRes(res)
-  // }
-
   // 向循环内新增技能
   const addCycle = (item: CycleSimulatorSkillDTO) => {
     const newCycle = [...(cycle || []), item]
@@ -225,11 +181,6 @@ function CycleSimulator() {
     setCycle(newCycle)
   }
 
-  console.log(
-    'cycle',
-    cycle.map((item) => item.技能名称)
-  )
-
   // 根据循环计算更适合展示的多层数组，用于显示
   const 处理循环结果对象 = useMemo(() => {
     // 添加所有技能的CD显示
@@ -241,16 +192,15 @@ function CycleSimulator() {
       qixuedata,
     })
 
-    // 根据箭数拆分
-    let 当前消耗箭 = 0
     const res: ShowCycleSingleSkill[][] = []
     添加技能CD循环.forEach((item, index) => {
-      if (当前消耗箭 + item?.消耗箭数 > 8 || 当前消耗箭 === 0) {
+      if (index === 0) {
         res[res?.length] = [{ ...item, index: index || 0 }]
-        当前消耗箭 = item?.消耗箭数 || 0
       } else {
         res[res?.length - 1] = [...(res[res?.length - 1] || []), { ...item, index: index || 0 }]
-        当前消耗箭 = 当前消耗箭 + item?.消耗箭数
+        if (item.本技能打完换箭) {
+          res[res?.length] = []
+        }
       }
     })
 
@@ -259,8 +209,14 @@ function CycleSimulator() {
     return { 显示循环: res, 完整循环: 添加技能CD循环, 本循环阵眼覆盖率 }
   }, [cycle])
 
+  console.log('处理循环结果对象', 处理循环结果对象)
+
   // 拖拽更新循环
   const 拖拽更新循环 = (newList, type) => {
+    if (!newList?.length || !newList?.length[0]) {
+      setCycle(cycle)
+      return
+    }
     if (type == '轮次内') {
       // 首先获取被替换轮次的第一个元素的index索引
       const minIndex = newList.reduce(function (min, obj) {
@@ -286,6 +242,8 @@ function CycleSimulator() {
       const sortList = [newList?.find((item) => item.id === 0)].concat(
         newList?.filter((item) => item.id !== 0)
       )
+
+      console.log('sortList--', sortList)
       sortList.forEach((item) => {
         item.forEach((a) => {
           if (a.技能名称) {
@@ -720,10 +678,18 @@ function CycleSimulator() {
             ) : null}
           </div>
         </div>
+        {/* dps结果 */}
         <DpsResModal open={dpsModal} onCancel={() => setDpsModal(false)} logData={logData} />
+        {/* 战斗日志 */}
         <BattleLogModal
           open={logModalOpen}
           onCancel={() => setLogModalOpen(false)}
+          logData={logData}
+        />
+        {/* 技能统计 */}
+        <SkillCountModal
+          open={countModal}
+          onCancel={() => setCountModal(false)}
           logData={logData}
         />
         <Modal
@@ -741,36 +707,6 @@ function CycleSimulator() {
             placeholder="请输入自定义循环名称"
             onChange={(e) => 设置自定义循环名称输入(e?.target?.value)}
           />
-        </Modal>
-        <Modal
-          className="cycle-simulator-modal"
-          footer={false}
-          centered
-          width={'50%'}
-          title={
-            <div className={'cycle-simulator-modal-header'}>
-              <h1 className={'cycle-simulator-modal-title'}>技能统计</h1>
-              <span style={{ margin: '0 12px' }}>
-                贯穿数量{' '}
-                {
-                  (logData || [])?.filter((item) => {
-                    return item?.日志?.includes('- DOT') || item?.日志?.includes('- 引爆')
-                  })?.length
-                }
-              </span>
-            </div>
-          }
-          open={countModal}
-          onCancel={() => setCountModal(false)}
-        >
-          {技能统计数据.map((item) => {
-            return (
-              <p className={'cycle-simulator-skill-count'} key={item?.技能名称}>
-                <span>{item?.技能名称}</span>
-                <span>{item?.技能数量}</span>
-              </p>
-            )
-          })}
         </Modal>
       </Modal>
     </>

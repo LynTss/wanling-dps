@@ -79,6 +79,11 @@ export interface ShowCycleSingleSkill extends CycleSimulatorSkillDTO {
    * 下一个技能可以释放时间
    */
   下一个技能可以释放时间?: number
+
+  /**
+   * 本技能打完换箭
+   */
+  本技能打完换箭?: boolean
   /**
    * index
    */
