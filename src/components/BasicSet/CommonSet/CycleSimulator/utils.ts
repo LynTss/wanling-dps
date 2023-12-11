@@ -169,8 +169,7 @@ export const 判断每个技能的循环时间 = (
 
     for (let k = 0; k < 当前技能?.造成伤害次数; k++) {
       if (当前箭带内箭数 > 0) {
-        const 当次频率消耗时间 = 实际伤害频率 * (实际初次频率 ? k : k + 1)
-        当前技能释放所需时间 = 当前技能释放所需时间 + 当次频率消耗时间
+        当前技能释放所需时间 = 当前技能释放所需时间 + (!实际初次频率 ? 实际伤害频率 : 0)
 
         if (当前技能?.技能名称 === '弛风鸣角') {
           当前箭带内箭数 = 当前箭带内箭数 - 1
@@ -285,7 +284,7 @@ export const 获取添加技能CD循环 = ({ cycle, 网络按键延迟, 加速�
   return 添加技能CD循环
 }
 
-export const 获取本循环阵眼覆盖率 = (循环: ShowCycleSingleSkill[]) => {
+export const 获取本循环阵眼覆盖率 = (循环: ShowCycleSingleSkill[], 日志: CycleSimulatorLog[]) => {
   const 阵眼持续时间 = 16 * 6
   const 触发技能释放时间数组: number[] = []
   循环.forEach((技能) => {
@@ -296,7 +295,7 @@ export const 获取本循环阵眼覆盖率 = (循环: ShowCycleSingleSkill[]) =
     }
   })
 
-  const 总战斗时间 = Math.max((循环[循环.length - 1].下一个技能可以释放时间 || 0) - 16, 0)
+  const 总战斗时间 = Math.max(日志[日志.length - 1]?.日志时间 || 0, 1)
 
   // key 开始时间，value结束时间
   const 实际阵眼覆盖时间映射: { [key: number]: number } = {}
@@ -315,5 +314,6 @@ export const 获取本循环阵眼覆盖率 = (循环: ShowCycleSingleSkill[]) =
     总持续时间 = 总持续时间 + 实际阵眼覆盖时间映射[本轮阵眼开始时间] - Number(本轮阵眼开始时间)
   })
 
-  return { 本循环阵眼覆盖率: ((总持续时间 / 总战斗时间) * 100).toFixed(3), 总战斗时间 }
+  // return { 本循环阵眼覆盖率: ((总持续时间 / 总战斗时间) * 100).toFixed(3), 总战斗时间 }
+  return ((总持续时间 / 总战斗时间) * 100).toFixed(3)
 }

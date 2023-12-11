@@ -57,9 +57,7 @@ function CycleSimulator() {
   // dps曲线
   const [dpsModal, setDpsModal] = useState<boolean>(false)
   // 循环
-  const [cycle, setCycle] = useState<CycleSimulatorSkillDTO[]>([
-    循环模拟技能基础数据?.[循环模拟技能基础数据?.length - 1],
-  ])
+  const [cycle, setCycle] = useState<CycleSimulatorSkillDTO[]>([])
   const [自定义循环保存弹窗, 设置自定义循环保存弹窗] = useState<boolean>(false)
   // 自定义循环名称保存输入
   const [自定义循环名称输入, 设置自定义循环名称输入] = useState<string>()
@@ -106,7 +104,7 @@ function CycleSimulator() {
       setCountModal(false)
       setDpsModal(false)
       设置宠物顺序([...测试宠物顺序])
-      setCycle([循环模拟技能基础数据?.[循环模拟技能基础数据?.length - 1]])
+      setCycle([])
     }
   }, [basicModalOpen])
 
@@ -204,19 +202,16 @@ function CycleSimulator() {
       }
     })
 
-    const { 本循环阵眼覆盖率 } = 获取本循环阵眼覆盖率(添加技能CD循环)
-
-    return { 显示循环: res, 完整循环: 添加技能CD循环, 本循环阵眼覆盖率 }
+    return { 显示循环: res, 完整循环: 添加技能CD循环 }
   }, [cycle])
 
-  console.log('处理循环结果对象', 处理循环结果对象)
+  const 本循环阵眼覆盖率 = useMemo(() => {
+    const 覆盖率 = 获取本循环阵眼覆盖率(处理循环结果对象?.完整循环, logData)
+    return 覆盖率
+  }, [处理循环结果对象, logData])
 
   // 拖拽更新循环
   const 拖拽更新循环 = (newList, type) => {
-    if (!newList?.length || !newList?.length[0]) {
-      setCycle(cycle)
-      return
-    }
     if (type == '轮次内') {
       // 首先获取被替换轮次的第一个元素的index索引
       const minIndex = newList.reduce(function (min, obj) {
@@ -238,13 +233,7 @@ function CycleSimulator() {
       setCycle(newCycle)
     } else if (type === '整个轮次拖拽') {
       const res: CycleSimulatorSkillDTO[] = []
-      // 做判断第0轮不能被拖过来
-      const sortList = [newList?.find((item) => item.id === 0)].concat(
-        newList?.filter((item) => item.id !== 0)
-      )
-
-      console.log('sortList--', sortList)
-      sortList.forEach((item) => {
+      newList.forEach((item) => {
         item.forEach((a) => {
           if (a.技能名称) {
             const 当前技能数据 = 循环模拟技能基础数据?.find((b) => b?.技能名称 === a.技能名称)
@@ -518,11 +507,7 @@ function CycleSimulator() {
               >
                 <Button>循环快捷设置</Button>
               </Dropdown>
-              <Button
-                onClick={() => setCycle([循环模拟技能基础数据?.[循环模拟技能基础数据?.length - 1]])}
-              >
-                清空循环
-              </Button>
+              <Button onClick={() => setCycle([])}>清空循环</Button>
               <QixueSet className="cycle-qixue-set-button" />
             </Space>
           </div>
@@ -539,12 +524,7 @@ function CycleSimulator() {
             >
               {(处理循环结果对象?.显示循环 || []).map((轮次, index) => {
                 return (
-                  <div
-                    className={`cycle-simulator-setting-turn ${
-                      index !== 0 ? 'cycle-turn-drag' : ''
-                    }`}
-                    key={`${index}`}
-                  >
+                  <div className={`cycle-simulator-setting-turn cycle-turn-drag`} key={`${index}`}>
                     <ReactSortable
                       list={轮次.map((i) =>
                         Object.assign(i, { id: `${i?.技能名称}_${index}_${i?.index}` })
@@ -569,7 +549,7 @@ function CycleSimulator() {
                             className={'cycle-simulator-setting-skill-drag'}
                           >
                             <Tag
-                              closable={item?.index !== 0}
+                              closable
                               color={SkillColorMap[item?.技能名称] || undefined}
                               className={'cycle-simulator-setting-skill'}
                               onClose={() => removeSkill(item?.index)}
@@ -582,24 +562,20 @@ function CycleSimulator() {
                       {/* <Tag closable={false} className={'cycle-simulator-setting-change'}>
                         {'寒更晓箭'}
                       </Tag> */}
-                      {index !== 0 ? (
-                        <div className={'cycle-turn-operate'}>
-                          <Tooltip title="复制并添加到最后">
-                            <CopyOutlined
-                              className={'cycle-turn-operate-btn'}
-                              onClick={() => 复制本轮至最后(轮次)}
-                            />
-                          </Tooltip>
-                          <Tooltip title="删除此轮">
-                            <DeleteOutlined
-                              className={'cycle-turn-operate-btn'}
-                              onClick={() => 删除本轮次(轮次)}
-                            />
-                          </Tooltip>
-                        </div>
-                      ) : (
-                        <></>
-                      )}
+                      <div className={'cycle-turn-operate'}>
+                        <Tooltip title="复制并添加到最后">
+                          <CopyOutlined
+                            className={'cycle-turn-operate-btn'}
+                            onClick={() => 复制本轮至最后(轮次)}
+                          />
+                        </Tooltip>
+                        <Tooltip title="删除此轮">
+                          <DeleteOutlined
+                            className={'cycle-turn-operate-btn'}
+                            onClick={() => 删除本轮次(轮次)}
+                          />
+                        </Tooltip>
+                      </div>
                       {/* <div className="cycle-turn-time">
                         该轮用时：
                         {获取该轮箭用时(轮次)}
@@ -664,9 +640,7 @@ function CycleSimulator() {
                   {获取总用时(logData?.[logData.length - 1]?.日志时间)}秒
                 </span>
                 阵眼覆盖率：
-                <span className={'cycle-simulator-dps-res'}>
-                  {处理循环结果对象?.本循环阵眼覆盖率}%
-                </span>
+                <span className={'cycle-simulator-dps-res'}>{本循环阵眼覆盖率}%</span>
               </span>
             ) : null}
             {logData?.length ? (

@@ -17,7 +17,8 @@ interface SimulatorCycleProps {
 // 开始模拟
 export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] => {
   const { 测试循环, 加速值, 网络按键延迟, 测试宠物顺序, 奇穴, 满承契起手 } = props
-  const 初始时间 = -35 - 网络按键延迟
+  const 第一个技能是否为读条饮 = 测试循环?.[0] === '饮羽簇-读条'
+  const 初始时间 = 第一个技能是否为读条饮 ? -35 - 网络按键延迟 : 网络按键延迟
 
   // 正读条技能，无读条技能，GCD加速值
   // 逆读条引导技能的加速要额外计算
@@ -779,7 +780,7 @@ const 承契分析 = (战斗日志: CycleSimulatorLog[], 满承契起手: boolea
 
   for (let i = 0; i < 战斗日志副本.length; i++) {
     // 判断上一个buff是不是已经消失了
-    if (i !== 0 && 战斗日志副本[i]?.日志时间 > 上一次承契buff消失时间) {
+    if (i !== 0 && 战斗日志副本[i]?.日志时间 > 上一次承契buff消失时间 && 上一次承契buff消失时间) {
       添加战斗日志({
         日志: `承契buff消失`,
         日志类型: '自身buff变动',
