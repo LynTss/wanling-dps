@@ -369,6 +369,11 @@ function CycleSimulator() {
     console.log('cycle', 用于计算循环)
     console.log('dpsTime', dpsTime)
 
+    console.log(
+      'cycle',
+      cycle.map((item) => item.技能名称)
+    )
+
     localStorage?.setItem('wl_custom_cycle', JSON.stringify([用于保存的自定义循环]))
     setTimeout(() => {
       setCurrentCycleVal(自定义循环名称输入)
