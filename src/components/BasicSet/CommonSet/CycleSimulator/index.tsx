@@ -25,7 +25,7 @@ import { setCurrentCycle, setQixueData } from '@/store/basicReducer'
 import { CopyOutlined, DeleteOutlined } from '@ant-design/icons'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import 循环模拟技能基础数据 from '@/data/cycleSimulator/skill'
-import { 测试宠物顺序, 测试循环_397, 测试循环_朱厌 } from './constant'
+import { 测试宠物顺序, 测试循环新桑柘, 测试循环_朱厌, 测试循环新桑柘奇穴 } from './constant'
 import { SimulatorCycle } from './simulator'
 import BattleLogModal from './BattleLogModal'
 import {
@@ -90,6 +90,7 @@ function CycleSimulator() {
       return {
         名称: 循环[0]?.name,
         技能数组: 循环[0]?.skillList,
+        // 宠物顺序: 循环[0]?.宠物顺序 || [],
       }
     } else {
       return false
@@ -134,8 +135,9 @@ function CycleSimulator() {
   const 计算dps日志 = (data: CycleSimulatorLog[]) => {
     let totalDps = 0
     const 获取的秒伤 = (造成总伤害, 日志时间) => {
-      const 第一次造成伤害的时间 = data?.find((item) => item?.日志类型 === '造成伤害')?.日志时间
-      const 时间差 = 日志时间 - (第一次造成伤害的时间 || 0)
+      const 第一次造成伤害的时间 =
+        data?.find((item) => item?.日志类型 === '造成伤害')?.日志时间 || 0
+      const 时间差 = 日志时间 - 第一次造成伤害的时间
       if (时间差) {
         return Math.round(造成总伤害 / (时间差 / 16))
       } else {
@@ -152,13 +154,13 @@ function CycleSimulator() {
           ...item,
           造成总伤害: totalDps,
           造成伤害: dps,
-          秒伤: 获取的秒伤(totalDps, item?.日志时间),
+          秒伤: item?.日志时间 > 16 ? 获取的秒伤(totalDps, item?.日志时间) : 0,
         }
       } else {
         return {
           ...item,
           造成总伤害: totalDps,
-          秒伤: 获取的秒伤(totalDps, item?.日志时间),
+          秒伤: item?.日志时间 > 16 ? 获取的秒伤(totalDps, item?.日志时间) : 0,
         }
       }
     })
@@ -373,16 +375,19 @@ function CycleSimulator() {
           return 循环模拟技能基础数据?.find((a) => a?.技能名称 === item) || 循环模拟技能基础数据[0]
         })
       )
+      设置宠物顺序(宠物顺序)
     } else if (名称 === '大招桑柘') {
       setCurrentCycleVal('朝仪万汇_桑拓')
       setCycle(
-        测试循环_397.map((item) => {
+        测试循环新桑柘.map((item) => {
           return 循环模拟技能基础数据?.find((a) => a?.技能名称 === item) || 循环模拟技能基础数据[0]
         })
       )
+      设置宠物顺序(测试循环新桑柘奇穴)
     } else if (自定义循环) {
       setCurrentCycleVal(自定义循环?.名称)
       setCycle(自定义循环?.技能数组)
+      // 设置宠物顺序(自定义循环?.宠物顺序)
     }
   }
 
