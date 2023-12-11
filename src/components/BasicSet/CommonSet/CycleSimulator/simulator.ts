@@ -12,16 +12,19 @@ interface SimulatorCycleProps {
   测试宠物顺序: string[]
   奇穴: string[]
   满承契起手: boolean
+  于狩触发方式?: '落地触发' | '释放触发'
 }
 
 // 开始模拟
 export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] => {
-  const { 测试循环, 加速值, 网络按键延迟, 测试宠物顺序, 奇穴, 满承契起手 } = props
+  const { 测试循环, 加速值, 网络按键延迟, 测试宠物顺序, 奇穴, 满承契起手, 于狩触发方式 } = props
   const 初始时间 = -35 - 网络按键延迟
 
   // 正读条技能，无读条技能，GCD加速值
   // 逆读条引导技能的加速要额外计算
   const 加速等级 = 获取加速等级(加速值)
+
+  const 于狩触发 = 于狩触发方式 === '释放触发' ? 1 : 2
 
   let 当前箭带内箭数 = 8
   let 开始释放上一个技能的时间 = 初始时间
@@ -239,6 +242,8 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
         ? '寒更晓箭'
         : 循环模拟技能基础数据?.find((item) => item?.技能名称 === 测试循环[i - 1])
 
+    let 本轮没石是否可以触发于狩 = false
+
     // 判断是否需要等待GCD
     if (i > 0) {
       判断是否需要等待GCD和技能CD(当前技能, 上一个技能, i)
@@ -254,11 +259,15 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
     if (于狩 && 当前技能?.技能名称 === '没石饮羽') {
       上承契()
       if (当前箭带内箭数 === 4) {
-        添加战斗日志({
-          日志: `${当前技能?.技能名称}`,
-          日志类型: '于狩引爆贯穿',
-          日志时间: 当前时间,
-        })
+        if (于狩触发 === 1) {
+          添加战斗日志({
+            日志: `${当前技能?.技能名称}`,
+            日志类型: '于狩引爆贯穿',
+            日志时间: 当前时间,
+          })
+        } else {
+          本轮没石是否可以触发于狩 = true
+        }
       }
     }
     if (当前技能?.造成伤害次数) {
@@ -300,6 +309,13 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
             添加战斗日志({
               日志: `${当前技能?.技能名称}`,
               日志类型: '棘矢引爆贯穿',
+              日志时间: 当前事件时间,
+            })
+          }
+          if (本轮没石是否可以触发于狩) {
+            添加战斗日志({
+              日志: `${当前技能?.技能名称}`,
+              日志类型: '于狩引爆贯穿',
               日志时间: 当前事件时间,
             })
           }

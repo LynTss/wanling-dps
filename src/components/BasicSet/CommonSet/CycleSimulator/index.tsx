@@ -10,6 +10,7 @@ import {
   Menu,
   Modal,
   Popover,
+  Select,
   Space,
   Tag,
   Tooltip,
@@ -73,6 +74,8 @@ function CycleSimulator() {
   const [是否实时计算, 设置是否实时计算] = useState<boolean>(false)
 
   const [满承契起手, 设置满承契起手] = useState<boolean>(false)
+
+  const [于狩触发方式, 设置于狩触发方式] = useState<'落地触发' | '释放触发'>()
   // dps结果
   // const [dpsRes, setDpsRes] = useState<CurrentDpsFunctionRes>({
   //   totalDps: 0,
@@ -112,7 +115,7 @@ function CycleSimulator() {
     if (是否实时计算) {
       simulator({})
     }
-  }, [cycle, 宠物顺序, 是否实时计算, 满承契起手, 网络按键延迟, 加速值])
+  }, [cycle, 宠物顺序, 是否实时计算, 满承契起手, 网络按键延迟, 加速值, qixuedata, 于狩触发方式])
 
   const 技能统计数据 = useMemo(() => {
     const newLog = logData
@@ -151,6 +154,7 @@ function CycleSimulator() {
       测试宠物顺序: 宠物顺序,
       奇穴: qixuedata,
       满承契起手,
+      于狩触发方式,
     })
     if (更新日志) {
       计算dps日志(data)
@@ -501,9 +505,21 @@ function CycleSimulator() {
                 <span className={'cycle-not-support'}>目前未支持功能</span>
               </Popover>
             </div>
-            <Checkbox checked={满承契起手} onChange={(e) => 设置满承契起手(e?.target?.checked)}>
-              5层承契起手
-            </Checkbox>
+            <div>
+              <Select
+                style={{ width: 200, marginRight: 16 }}
+                placeholder={'请选择于狩触发方式'}
+                size="small"
+                value={于狩触发方式}
+                onChange={(e) => 设置于狩触发方式(e)}
+              >
+                <Select.Option value={'落地触发'}>于狩落地触发</Select.Option>
+                <Select.Option value={'释放触发'}>于狩释放触发</Select.Option>
+              </Select>
+              <Checkbox checked={满承契起手} onChange={(e) => 设置满承契起手(e?.target?.checked)}>
+                5层承契起手
+              </Checkbox>
+            </div>
           </div>
           <div className={'cycle-simulator-setting-btns'}>
             <Space size={[8, 16]} wrap>
