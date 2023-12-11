@@ -103,11 +103,17 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
       // 在日志里找到上一次释放此技能的时间
       const newLog = [...战斗日志]
       newLog.reverse()
-      const 上一次释放本技能时间 = newLog?.find(
-        (item) =>
-          (item?.日志 === `${当前技能?.技能名称}` || item?.日志?.includes(当前技能?.技能名称)) &&
-          item?.日志类型 === '释放技能'
-      )?.日志时间
+      const 上一次释放本技能时间 = newLog?.find((item) => {
+        if (item?.日志类型 === '释放技能') {
+          const 正常技能判定 =
+            item?.日志 === `${当前技能?.技能名称}` || item?.日志?.includes(当前技能?.技能名称)
+          // 暂时只考虑没石后释放弛风鸣角有CD
+          const 白羽流星判定 = 当前技能?.技能名称 === '弛风鸣角' && item?.日志?.includes('没石饮羽')
+          return 正常技能判定 || 白羽流星判定
+        } else {
+          return false
+        }
+      })?.日志时间
 
       const 实际CD =
         朱厌 && 当前技能.技能名称 === '弛律召野' ? 当前技能?.技能CD + 20 * 16 : 当前技能?.技能CD
