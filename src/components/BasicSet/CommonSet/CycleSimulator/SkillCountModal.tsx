@@ -1,7 +1,7 @@
 import { CycleSimulatorLog } from '@/@types/cycleSimulator'
 import { Modal } from 'antd'
 import React, { useMemo } from 'react'
-import { 获取贯穿对应实际倍率 } from './utils'
+import { Skill_Cycle_Map, 获取贯穿对应实际倍率 } from './utils'
 import './index.css'
 
 interface SkillCountModalProps {
@@ -16,7 +16,13 @@ const SkillCountModal: React.FC<SkillCountModalProps> = (props) => {
     const newLog = logData
       ?.filter((item) => item?.日志类型 === '造成伤害')
       .map((item) => {
-        return item?.日志
+        if (item?.日志?.includes('朝仪万汇')) {
+          return '朝仪万汇'
+        } else if (Skill_Cycle_Map[item?.日志]) {
+          return Skill_Cycle_Map[item?.日志]
+        } else {
+          return item?.日志
+        }
       })
 
     const res: any[] = Array.from(new Set(newLog)).map((item) => {
@@ -27,7 +33,7 @@ const SkillCountModal: React.FC<SkillCountModalProps> = (props) => {
     })
     newLog.forEach((item) => {
       for (let i = 0; i <= res?.length; i++) {
-        if (res[i]?.技能名称 === item) {
+        if (res[i]?.技能名称?.includes(item)) {
           res[i].技能数量 = res[i].技能数量 + 1
         }
       }

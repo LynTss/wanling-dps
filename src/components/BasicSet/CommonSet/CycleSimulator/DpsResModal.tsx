@@ -78,12 +78,54 @@ const DpsResModal: React.FC<DpsResModalProps> = (props) => {
   }
 
   const getDataSource = () => {
-    return logData.map((item) => {
-      return {
-        time: item?.日志时间 / 16,
-        dps: item?.秒伤,
+    if (logData?.length) {
+      const firstTime: any = logData?.find((item) => item?.日志类型 === '造成伤害')?.日志时间
+
+      // 先顾虑重复的数据
+      const dpsResObj = {}
+      logData.forEach((item) => {
+        if (item?.日志类型 === '造成伤害') {
+          dpsResObj[item.日志时间 - firstTime] = item.造成总伤害
+        }
+      })
+
+      const lastTime: any = Object.keys(dpsResObj)?.[Object.keys(dpsResObj).length - 1]
+
+      const dpsResLit: any[] = []
+      // 每1秒结算一次
+      for (let i = 0; i < lastTime; i = i + 16) {
+        let currentDps = 0
+        if (dpsResObj[i]) {
+          if (i) {
+            currentDps = Math.round(dpsResObj[i] / (Number(i) / 16))
+          } else {
+            currentDps = Math.round(dpsResObj[i])
+          }
+        } else {
+          // 当前时间没有数据，向前找到离本次时间节点最近的数据
+          for (let j = 1; j < i; j++) {
+            if (dpsResObj[i - j]) {
+              const currentTime = i - j
+              if (i - j >= 0) {
+                if (currentTime) {
+                  currentDps = Math.round(dpsResObj[currentTime] / (Number(currentTime) / 16))
+                } else {
+                  currentDps = Math.round(dpsResObj[currentTime])
+                }
+                break
+              }
+            }
+          }
+        }
+        dpsResLit.push({
+          time: Number(i) / 16,
+          dps: currentDps,
+        })
       }
-    })
+      return dpsResLit
+    } else {
+      return []
+    }
   }
 
   return (
