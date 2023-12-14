@@ -130,22 +130,22 @@ export const getFinalCycleData = (
         技能数量: Math.floor(dpsTime / 10),
       })
     }
-    if (characterFinalData?.装备增益?.大橙武特效) {
-      const 总数列表 = 最终循环
-        .filter((i) => i.技能名称.includes('劲风簇'))
-        .map((i) => {
-          return { 技能数量: i.技能数量 }
-        })
-      let 总数 = 0
-      const 触发率 = 0.5
-      总数列表.forEach((i) => {
-        总数 = 总数 + i.技能数量
-      })
-      最终循环.push({
-        技能名称: '劲风簇·神兵',
-        技能数量: Math.floor(总数 * 触发率),
-      })
-    }
+    // if (characterFinalData?.装备增益?.大橙武特效) {
+    //   const 总数列表 = 最终循环
+    //     .filter((i) => i.技能名称.includes('劲风簇'))
+    //     .map((i) => {
+    //       return { 技能数量: i.技能数量 }
+    //     })
+    //   let 总数 = 0
+    //   const 触发率 = 0.5
+    //   总数列表.forEach((i) => {
+    //     总数 = 总数 + i.技能数量
+    //   })
+    //   最终循环.push({
+    //     技能名称: '劲风簇·神兵',
+    //     技能数量: Math.floor(总数 * 触发率),
+    //   })
+    // }
     // if (characterFinalData?.装备增益?.龙门武器) {
     //   最终循环.push({
     //     技能名称: '剑风',

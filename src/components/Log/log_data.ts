@@ -1,5 +1,10 @@
 export default [
   {
+    version: '2.0.3',
+    date: '2023-12-14 09:30:00',
+    content: ['暂时隐藏诸怀循环', '更新CW桑柘循环的技能数据'],
+  },
+  {
     version: '2.0.2',
     date: '2023-12-13 15:30:00',
     content: [
