@@ -10,6 +10,7 @@ import {
   Menu,
   Modal,
   Popover,
+  Select,
   Space,
   Tag,
   Tooltip,
@@ -77,7 +78,7 @@ function CycleSimulator() {
   // 是否实时计算
   const [是否实时计算, 设置是否实时计算] = useState<boolean>(false)
 
-  const [满承契起手, 设置满承契起手] = useState<boolean>(false)
+  const [承契起手层数, 设置承契起手层数] = useState<number>(0)
 
   // dps结果
   // const [dpsRes, setDpsRes] = useState<CurrentDpsFunctionRes>({
@@ -119,7 +120,7 @@ function CycleSimulator() {
     if (是否实时计算) {
       simulator({})
     }
-  }, [cycle, 宠物顺序, 是否实时计算, 满承契起手, 网络按键延迟, 加速值, qixuedata])
+  }, [cycle, 宠物顺序, 是否实时计算, 承契起手层数, 网络按键延迟, 加速值, qixuedata])
 
   const simulator = (props?) => {
     const { 传入延迟 = 网络按键延迟, 传入加速 = 加速值, 更新日志 = true } = props
@@ -129,7 +130,7 @@ function CycleSimulator() {
       网络按键延迟: 传入延迟 !== undefined ? 传入延迟 : 网络按键延迟,
       测试宠物顺序: 宠物顺序,
       奇穴: qixuedata,
-      满承契起手,
+      承契起手层数,
     })
     if (更新日志) {
       计算dps日志(data)
@@ -469,10 +470,9 @@ function CycleSimulator() {
               <Popover
                 content={
                   <div>
-                    <p>保存循环为自定义循环</p>
-                    <p>验证循环合理性</p>
+                    <p>标鹄显示</p>
+                    <p>验证循环合理性，金乌判断</p>
                     <p>日志分析buff覆盖</p>
-                    <p>重复循环复制</p>
                     <p>宏命令生成循环等等</p>
                     <p>后续会逐步按计划实现。</p>
                   </div>
@@ -482,9 +482,21 @@ function CycleSimulator() {
               </Popover>
             </div>
             <div>
-              <Checkbox checked={满承契起手} onChange={(e) => 设置满承契起手(e?.target?.checked)}>
-                5层承契起手
-              </Checkbox>
+              承契起手层数：
+              <Select
+                size="small"
+                value={承契起手层数}
+                placeholder={'请选择承契起手层数'}
+                onChange={(e) => 设置承契起手层数(e)}
+                options={[
+                  { value: 0, label: '零层起手' },
+                  { value: 1, label: '一层起手' },
+                  { value: 2, label: '二层起手' },
+                  { value: 3, label: '三层起手' },
+                  { value: 4, label: '四层起手' },
+                  { value: 5, label: '五层起手' },
+                ]}
+              />
             </div>
           </div>
           <div className={'cycle-simulator-setting-btns'}>

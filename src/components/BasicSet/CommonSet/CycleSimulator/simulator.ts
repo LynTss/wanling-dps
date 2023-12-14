@@ -11,12 +11,12 @@ interface SimulatorCycleProps {
   网络按键延迟: number
   测试宠物顺序: string[]
   奇穴: string[]
-  满承契起手: boolean
+  承契起手层数: number
 }
 
 // 开始模拟
 export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] => {
-  const { 测试循环, 加速值, 网络按键延迟, 测试宠物顺序, 奇穴, 满承契起手 } = props
+  const { 测试循环, 加速值, 网络按键延迟, 测试宠物顺序, 奇穴, 承契起手层数 } = props
   const 第一个技能是否为读条饮 = 测试循环?.[0] === '饮羽簇-读条'
   const 初始时间 = 第一个技能是否为读条饮 ? -35 - 网络按键延迟 : 网络按键延迟
 
@@ -387,7 +387,7 @@ export const SimulatorCycle = (props: SimulatorCycleProps): CycleSimulatorLog[] 
   // 添加普通攻击
   const 添加普通攻击后日志: CycleSimulatorLog[] = 普通攻击日志(添加贯穿后日志)
 
-  const 添加承契后日志: CycleSimulatorLog[] = 承契分析(添加普通攻击后日志, 满承契起手)
+  const 添加承契后日志: CycleSimulatorLog[] = 承契分析(添加普通攻击后日志, 承契起手层数)
 
   const 最终日志 = [...添加承契后日志]
 
@@ -831,8 +831,8 @@ const 普通攻击日志 = (战斗日志: CycleSimulatorLog[]) => {
 }
 
 // 承契分析
-const 承契分析 = (战斗日志: CycleSimulatorLog[], 满承契起手: boolean) => {
-  let 当前承契层数 = 满承契起手 ? 5 : 0
+const 承契分析 = (战斗日志: CycleSimulatorLog[], 承契起手层数: number) => {
+  let 当前承契层数 = 承契起手层数 || 0
   let 上一次承契buff消失时间 = 0
 
   let 战斗日志副本 = [...战斗日志]
