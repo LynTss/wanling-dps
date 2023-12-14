@@ -140,7 +140,7 @@ function Log() {
         footer={false}
         open={questionVisible}
         onCancel={() => {
-          setNoticeVisible(false)
+          setQuestionVisible(false)
           localStorage?.setItem('wl_question', 当前问卷调查标识)
         }}
       >
