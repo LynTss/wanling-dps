@@ -1,22 +1,38 @@
-import { Button, Modal, Timeline } from 'antd'
+import { Alert, Button, Modal, Timeline } from 'antd'
 import React, { useEffect, useState } from 'react'
-import './index.css'
+import QuestionImg from '../../assets/question/2023-12.jpg'
 import log_data from './log_data'
+import './index.css'
+
+const 当前问卷调查标识 = '2023-12'
 
 function Log() {
+  // 更新日志
   const [visible, setVisible] = useState(false)
+  // 新版本公告
   const [newVersionModalVisible, setNewVersionModalVisible] = useState(false)
+  // 使用须知
   const [noticeVisible, setNoticeVisible] = useState(false)
+  // 问卷调查
+  const [questionVisible, setQuestionVisible] = useState(false)
 
   useEffect(() => {
     checkLogVersion()
     checkNotice()
+    checkQuestion()
   }, [])
 
   const checkLogVersion = () => {
     const storageVersion = localStorage.getItem('wl_new_log_version')
     if (!storageVersion || storageVersion !== log_data?.[0]?.version) {
       setNewVersionModalVisible(true)
+    }
+  }
+
+  const checkQuestion = () => {
+    const storageFlag = localStorage.getItem('wl_question')
+    if (!storageFlag && storageFlag !== 当前问卷调查标识) {
+      setQuestionVisible(true)
     }
   }
 
@@ -117,6 +133,27 @@ function Log() {
         <p>计算器只是木桩/理想环境下伤害模拟，仅能用于辅助配装和收益参考。不支持出警dps。</p>
         <p>严禁使用本计算器进行跨心法/门派比较。</p>
         <p>一切数据仅供参考，最终解释权归作者所有。</p>
+      </Modal>
+      {/* 问卷调查 */}
+      <Modal
+        title={'问卷调查'}
+        footer={false}
+        open={questionVisible}
+        onCancel={() => {
+          setNoticeVisible(false)
+          localStorage?.setItem('wl_question', 当前问卷调查标识)
+        }}
+      >
+        <Alert message={'本问卷由问卷星提供，您可以放心使用'} />
+        <p className={'question-link'}>
+          <a href="https://www.wjx.cn/vm/rNS26pu.aspx#" target="_blank" rel="noreferrer">
+            点击这里参与问卷调查（一共11题）
+          </a>
+        </p>
+        <div className={'question-link-img-wrap'}>
+          <img src={QuestionImg} className={'question-link-img'} />
+          <p className={'question-link-img-text'}>您也可以通过手机扫码参与调查</p>
+        </div>
       </Modal>
     </div>
   )

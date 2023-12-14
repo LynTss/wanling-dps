@@ -51,3 +51,25 @@
 .log-date {
   color: #666;
 }
+
+.question-link {
+  line-height: 32px;
+  font-size: 24px;
+  text-align: left;
+  padding: 24px 0 0;
+  margin-bottom: 0;
+}
+
+.question-link-img {
+  margin: 0 -16px;
+}
+
+.question-link-img-wrap {
+  display: flex;
+  align-items: flex-end;
+}
+
+.question-link-img-text {
+  margin-bottom: 16px;
+  margin-left: 16px;
+}
