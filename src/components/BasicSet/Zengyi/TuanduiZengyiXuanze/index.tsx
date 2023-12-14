@@ -61,12 +61,24 @@ function TuanduiZengyiXuanze({ saveDataAndGetDps }) {
           const 当前增益选项 = (zengyixuanxiangData?.团队增益 || []).find(
             (a) => item?.增益名称 === a?.增益名称
           )?.启用
+          // 判断戒火和秋肃、破风和劲风破风的冲突
+          const 当前增益是否禁用 =
+            (item?.增益名称 === '破风' &&
+              zengyixuanxiangData?.团队增益?.find((a) => a?.增益名称 === '劲风破风')?.启用) ||
+            (item?.增益名称 === '劲风破风' &&
+              zengyixuanxiangData?.团队增益?.find((a) => a?.增益名称 === '破风')?.启用) ||
+            (item?.增益名称 === '戒火斩' &&
+              zengyixuanxiangData?.团队增益?.find((a) => a?.增益名称 === '秋肃')?.启用) ||
+            (item?.增益名称 === '秋肃' &&
+              zengyixuanxiangData?.团队增益?.find((a) => a?.增益名称 === '戒火斩')?.启用)
+
           return (
             <Col span={6} key={item.增益名称}>
               <Checkbox
                 checked={当前增益选项}
                 className="tuandui-zengyi-checkbox"
                 onChange={(e) => onChangeZengyi(e?.target?.checked, item)}
+                disabled={当前增益是否禁用}
               >
                 {item.增益名称}
               </Checkbox>
