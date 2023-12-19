@@ -495,7 +495,7 @@ const XIAOCHI_DATA: XiaochiDataDTO[] = [
   {
     小吃名称: '创意料理（-无双+会心）',
     小吃部位: XiaochiTypeEnum.家园菜品,
-    小吃品级: '蓝',
+    小吃品级: '紫',
     增益集合: [
       {
         增益计算类型: GainDpsTypeEnum.A,
@@ -512,7 +512,7 @@ const XIAOCHI_DATA: XiaochiDataDTO[] = [
   {
     小吃名称: '创意料理（-无双+破招）',
     小吃部位: XiaochiTypeEnum.家园菜品,
-    小吃品级: '蓝',
+    小吃品级: '紫',
     增益集合: [
       {
         增益计算类型: GainDpsTypeEnum.A,
@@ -529,7 +529,7 @@ const XIAOCHI_DATA: XiaochiDataDTO[] = [
   {
     小吃名称: '创意料理（-无双+破防）',
     小吃部位: XiaochiTypeEnum.家园菜品,
-    小吃品级: '蓝',
+    小吃品级: '紫',
     增益集合: [
       {
         增益计算类型: GainDpsTypeEnum.A,
@@ -546,7 +546,7 @@ const XIAOCHI_DATA: XiaochiDataDTO[] = [
   {
     小吃名称: '创意料理（-无双+攻击）',
     小吃部位: XiaochiTypeEnum.家园菜品,
-    小吃品级: '蓝',
+    小吃品级: '紫',
     增益集合: [
       {
         增益计算类型: GainDpsTypeEnum.A,
@@ -561,69 +561,9 @@ const XIAOCHI_DATA: XiaochiDataDTO[] = [
     ],
   },
   {
-    小吃名称: '创意料理（-气血+会心）',
-    小吃部位: XiaochiTypeEnum.家园菜品,
-    小吃品级: '蓝',
-    增益集合: [
-      {
-        增益计算类型: GainDpsTypeEnum.A,
-        增益类型: GainTypeEnum.外攻会心等级,
-        增益数值: 1934,
-      },
-    ],
-  },
-  {
-    小吃名称: '创意料理（-气血+破招）',
-    小吃部位: XiaochiTypeEnum.家园菜品,
-    小吃品级: '蓝',
-    增益集合: [
-      {
-        增益计算类型: GainDpsTypeEnum.A,
-        增益类型: GainTypeEnum.破招,
-        增益数值: 1934,
-      },
-    ],
-  },
-  {
-    小吃名称: '创意料理（-气血+破防）',
-    小吃部位: XiaochiTypeEnum.家园菜品,
-    小吃品级: '蓝',
-    增益集合: [
-      {
-        增益计算类型: GainDpsTypeEnum.A,
-        增益类型: GainTypeEnum.外攻破防等级,
-        增益数值: 1934,
-      },
-    ],
-  },
-  {
-    小吃名称: '创意料理（-气血+无双）',
-    小吃部位: XiaochiTypeEnum.家园菜品,
-    小吃品级: '蓝',
-    增益集合: [
-      {
-        增益计算类型: GainDpsTypeEnum.A,
-        增益类型: GainTypeEnum.无双等级,
-        增益数值: 1934,
-      },
-    ],
-  },
-  {
-    小吃名称: '创意料理（-气血+攻击）',
-    小吃部位: XiaochiTypeEnum.家园菜品,
-    小吃品级: '蓝',
-    增益集合: [
-      {
-        增益计算类型: GainDpsTypeEnum.A,
-        增益类型: GainTypeEnum.基础攻击,
-        增益数值: 866,
-      },
-    ],
-  },
-  {
     小吃名称: '创意料理（-破招+会心）',
     小吃部位: XiaochiTypeEnum.家园菜品,
-    小吃品级: '蓝',
+    小吃品级: '紫',
     增益集合: [
       {
         增益计算类型: GainDpsTypeEnum.A,
@@ -640,7 +580,7 @@ const XIAOCHI_DATA: XiaochiDataDTO[] = [
   {
     小吃名称: '创意料理（-破招+破防）',
     小吃部位: XiaochiTypeEnum.家园菜品,
-    小吃品级: '蓝',
+    小吃品级: '紫',
     增益集合: [
       {
         增益计算类型: GainDpsTypeEnum.A,
@@ -657,7 +597,7 @@ const XIAOCHI_DATA: XiaochiDataDTO[] = [
   {
     小吃名称: '创意料理（-破招+无双）',
     小吃部位: XiaochiTypeEnum.家园菜品,
-    小吃品级: '蓝',
+    小吃品级: '紫',
     增益集合: [
       {
         增益计算类型: GainDpsTypeEnum.A,
@@ -674,13 +614,73 @@ const XIAOCHI_DATA: XiaochiDataDTO[] = [
   {
     小吃名称: '创意料理（-破招+攻击）',
     小吃部位: XiaochiTypeEnum.家园菜品,
-    小吃品级: '蓝',
+    小吃品级: '紫',
     增益集合: [
       {
         增益计算类型: GainDpsTypeEnum.A,
         增益类型: GainTypeEnum.破招,
         增益数值: -858,
       },
+      {
+        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: GainTypeEnum.基础攻击,
+        增益数值: 866,
+      },
+    ],
+  },
+  {
+    小吃名称: '创意料理（-气血+会心）',
+    小吃部位: XiaochiTypeEnum.家园菜品,
+    小吃品级: '紫',
+    增益集合: [
+      {
+        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: GainTypeEnum.外攻会心等级,
+        增益数值: 1934,
+      },
+    ],
+  },
+  {
+    小吃名称: '创意料理（-气血+破招）',
+    小吃部位: XiaochiTypeEnum.家园菜品,
+    小吃品级: '紫',
+    增益集合: [
+      {
+        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: GainTypeEnum.破招,
+        增益数值: 1934,
+      },
+    ],
+  },
+  {
+    小吃名称: '创意料理（-气血+破防）',
+    小吃部位: XiaochiTypeEnum.家园菜品,
+    小吃品级: '紫',
+    增益集合: [
+      {
+        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: GainTypeEnum.外攻破防等级,
+        增益数值: 1934,
+      },
+    ],
+  },
+  {
+    小吃名称: '创意料理（-气血+无双）',
+    小吃部位: XiaochiTypeEnum.家园菜品,
+    小吃品级: '紫',
+    增益集合: [
+      {
+        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: GainTypeEnum.无双等级,
+        增益数值: 1934,
+      },
+    ],
+  },
+  {
+    小吃名称: '创意料理（-气血+攻击）',
+    小吃部位: XiaochiTypeEnum.家园菜品,
+    小吃品级: '紫',
+    增益集合: [
       {
         增益计算类型: GainDpsTypeEnum.A,
         增益类型: GainTypeEnum.基础攻击,

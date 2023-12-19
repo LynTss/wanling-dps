@@ -19,7 +19,7 @@ const XiaochiSelect: React.FC<XiaochiSelectProps> = (props) => {
   const dispatch = useAppDispatch()
 
   const getDpsUpList = () => {
-    if (开启智能对比 && zengyiQiyong) {
+    if (开启智能对比 && zengyiQiyong && currentDps) {
       const newDpsUpList = data
         // 加速的暂不参与计算
         ?.filter((item) => !item.小吃名称?.includes('加速'))
