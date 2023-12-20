@@ -30,8 +30,9 @@ import {
   测试宠物顺序,
   测试循环新桑柘,
   测试循环_朱厌,
-  测试循环新桑柘奇穴,
-  测试循环_397,
+  朱厌一键宏,
+  朱厌一键宏宠物,
+  测试循环新桑柘宠物,
 } from './constant'
 import { SimulatorCycle } from './simulator'
 import BattleLogModal from './BattleLogModal'
@@ -383,8 +384,8 @@ function CycleSimulator() {
   }
 
   const 快捷添加循环 = (名称) => {
-    if (名称 === '朱厌') {
-      setCurrentCycleVal('朱厌')
+    if (名称 === '朱厌（压缩）') {
+      setCurrentCycleVal('朱厌（压缩）')
       setCycle(
         测试循环_朱厌.map((item) => {
           return 循环模拟技能基础数据?.find((a) => a?.技能名称 === item) || 循环模拟技能基础数据[0]
@@ -398,15 +399,15 @@ function CycleSimulator() {
           return 循环模拟技能基础数据?.find((a) => a?.技能名称 === item) || 循环模拟技能基础数据[0]
         })
       )
-      设置宠物顺序(测试循环新桑柘奇穴)
-    } else if (名称 === '大招桑柘_原') {
-      setCurrentCycleVal('朝仪万汇_桑拓')
+      设置宠物顺序(测试循环新桑柘宠物)
+    } else if (名称 === '朱厌一键宏') {
+      setCurrentCycleVal('朱厌（一键宏）')
       setCycle(
-        测试循环_397.map((item) => {
+        朱厌一键宏.map((item) => {
           return 循环模拟技能基础数据?.find((a) => a?.技能名称 === item) || 循环模拟技能基础数据[0]
         })
       )
-      设置宠物顺序(测试宠物顺序)
+      设置宠物顺序(朱厌一键宏宠物)
     } else if (自定义循环) {
       setCurrentCycleVal(自定义循环?.名称)
       setCycle(自定义循环?.技能数组)
@@ -534,9 +535,11 @@ function CycleSimulator() {
               <Dropdown
                 overlay={
                   <Menu>
-                    <Menu.Item onClick={() => 快捷添加循环('朱厌')}>朱厌</Menu.Item>
+                    <Menu.Item onClick={() => 快捷添加循环('朱厌（一键宏）')}>
+                      朱厌（一键宏）
+                    </Menu.Item>
+                    <Menu.Item onClick={() => 快捷添加循环('朱厌（压缩）')}>朱厌（压缩）</Menu.Item>
                     <Menu.Item onClick={() => 快捷添加循环('大招桑柘')}>大招桑柘</Menu.Item>
-                    <Menu.Item onClick={() => 快捷添加循环('大招桑柘_原')}>大招桑柘_原</Menu.Item>
                     {自定义循环 ? (
                       <Menu.Item onClick={() => 快捷添加循环('自定义循环')}>
                         {自定义循环?.名称}

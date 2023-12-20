@@ -242,15 +242,15 @@ export const 获取实际循环 = (
   }
 
   // 朱厌循环九乌奇穴变动
-  if (
-    currentCycleName?.includes('朱厌') &&
-    !currentCycleName?.includes('_九乌') &&
-    qixueData?.includes('九乌')
-  ) {
-    const trueName = `${currentCycleName}_九乌`
+  // if (
+  //   currentCycleName?.includes('朱厌') &&
+  //   !currentCycleName?.includes('_九乌') &&
+  //   qixueData?.includes('九乌')
+  // ) {
+  //   const trueName = `${currentCycleName}_九乌`
 
-    trueCycle = All_Cycle_Data?.find((item) => item.name === trueName)?.cycle || currentCycle
-  }
+  //   trueCycle = All_Cycle_Data?.find((item) => item.name === trueName)?.cycle || currentCycle
+  // }
 
   // 特殊处理5层承契起手
   if (startType === 'max') {
