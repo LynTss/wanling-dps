@@ -63,7 +63,7 @@ export interface EquipmentBasicDTO {
    */
   切糕无双_2: number
   /**
-   * @name 冬至套装无双
+   * @name 冬至套装全属性加成
    */
   冬至套装: boolean
   /**

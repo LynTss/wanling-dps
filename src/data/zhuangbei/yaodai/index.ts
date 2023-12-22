@@ -358,6 +358,21 @@ const ZHUANGBEI_YAODAI: EquipmentDTO[] = [
     镶嵌孔数组: [{ 镶嵌类型: EquipmentInlayEnum.会心 }, { 镶嵌类型: EquipmentInlayEnum.攻击 }],
   },
   {
+    id: 98127,
+    uid: '214320',
+    装备名称: '梧风御厨腰带·刀功',
+    装备品级: 12300,
+    装备类型: EquipmentTypeEnum.普通,
+    装备增益: [
+      { 增益数值: 3100, 增益类型: GainTypeEnum.体质 },
+      { 增益数值: 601, 增益类型: GainTypeEnum.身法 },
+      { 增益数值: 975, 增益类型: GainTypeEnum.基础攻击 },
+      { 增益数值: 3017, 增益类型: GainTypeEnum.外攻会心等级 },
+      { 增益数值: 2681, 增益类型: GainTypeEnum.破招 },
+    ],
+    镶嵌孔数组: [{ 镶嵌类型: EquipmentInlayEnum.会效 }, { 镶嵌类型: EquipmentInlayEnum.会心 }],
+  },
+  {
     id: 94410,
     uid: '207950',
     装备名称: '染辞带',

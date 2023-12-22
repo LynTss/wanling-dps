@@ -258,6 +258,21 @@ const ZHUANGBEI_YIFU: EquipmentDTO[] = [
     镶嵌孔数组: [{ 镶嵌类型: EquipmentInlayEnum.会心 }, { 镶嵌类型: EquipmentInlayEnum.会效 }],
   },
   {
+    id: 98157,
+    uid: '214350',
+    装备名称: '梧风御厨上衣·刀功',
+    装备品级: 12300,
+    装备类型: EquipmentTypeEnum.普通,
+    装备增益: [
+      { 增益数值: 4429, 增益类型: GainTypeEnum.体质 },
+      { 增益数值: 859, 增益类型: GainTypeEnum.身法 },
+      { 增益数值: 1393, 增益类型: GainTypeEnum.基础攻击 },
+      { 增益数值: 4309, 增益类型: GainTypeEnum.外攻破防等级 },
+      { 增益数值: 3831, 增益类型: GainTypeEnum.无双等级 },
+    ],
+    镶嵌孔数组: [{ 镶嵌类型: EquipmentInlayEnum.身法 }, { 镶嵌类型: EquipmentInlayEnum.会心 }],
+  },
+  {
     id: 94398,
     uid: '207914',
     装备名称: '商野衫',
