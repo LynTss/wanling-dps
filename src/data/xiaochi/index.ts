@@ -423,7 +423,7 @@ const XIAOCHI_DATA: XiaochiDataDTO[] = [
     ],
   },
   {
-    小吃名称: '炖豆腐-打包（无双）',
+    小吃名称: '断浪·炖豆腐（无双）',
     小吃部位: XiaochiTypeEnum.家园菜品,
     小吃品级: '紫',
     增益集合: [
@@ -447,7 +447,7 @@ const XIAOCHI_DATA: XiaochiDataDTO[] = [
     ],
   },
   {
-    小吃名称: '煎豆腐-打包（破招）',
+    小吃名称: '断浪·煎豆腐（破招）',
     小吃部位: XiaochiTypeEnum.家园菜品,
     小吃品级: '紫',
     增益集合: [
@@ -471,7 +471,7 @@ const XIAOCHI_DATA: XiaochiDataDTO[] = [
     ],
   },
   {
-    小吃名称: '葫芦叫花鸡-打包（外攻）',
+    小吃名称: '断浪·葫芦叫花鸡（外攻）',
     小吃部位: XiaochiTypeEnum.家园菜品,
     小吃品级: '紫',
     增益集合: [
@@ -495,7 +495,7 @@ const XIAOCHI_DATA: XiaochiDataDTO[] = [
     ],
   },
   {
-    小吃名称: '清蒸鲈鱼-打包（外破）',
+    小吃名称: '断浪·清蒸鲈鱼（外破）',
     小吃部位: XiaochiTypeEnum.家园菜品,
     小吃品级: '紫',
     增益集合: [
@@ -519,7 +519,7 @@ const XIAOCHI_DATA: XiaochiDataDTO[] = [
     ],
   },
   {
-    小吃名称: '炸鱼干-打包（会心）',
+    小吃名称: '断浪·炸鱼干（会心）',
     小吃部位: XiaochiTypeEnum.家园菜品,
     小吃品级: '紫',
     增益集合: [
