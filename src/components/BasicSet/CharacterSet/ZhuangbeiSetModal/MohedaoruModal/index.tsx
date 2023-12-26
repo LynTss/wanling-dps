@@ -208,7 +208,7 @@ const getEquipData = (data) => {
     errorMsg: msg ? (
       <span>
         <p>{msg}</p>
-        <p>请联系计算器作者（QQ：372103645）并提供异常的配装ID</p>
+        {/* <p>请联系计算器作者（QQ：372103645）并提供异常的配装ID</p> */}
       </span>
     ) : null,
   }
