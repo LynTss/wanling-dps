@@ -469,6 +469,27 @@ const ZHUANGBEI_JINSHENWUQI: EquipmentDTO[] = [
     ],
   },
   {
+    id: 99191919_1919,
+    uid: '99191919_1919',
+    装备名称: '裂风破天弓-龙门',
+    装备品级: 13200,
+    武器伤害_最小值: 3070,
+    武器伤害_最大值: 5117,
+    装备类型: EquipmentTypeEnum.切糕,
+    装备增益: [
+      { 增益数值: 5704, 增益类型: GainTypeEnum.体质 },
+      { 增益数值: 1106, 增益类型: GainTypeEnum.身法 },
+      { 增益数值: 4283, 增益类型: GainTypeEnum.基础攻击 },
+      { 增益数值: 5550, 增益类型: GainTypeEnum.外攻破防等级 },
+      { 增益数值: 5920, 增益类型: GainTypeEnum.破招 },
+    ],
+    镶嵌孔数组: [
+      { 镶嵌类型: EquipmentInlayEnum.身法 },
+      { 镶嵌类型: EquipmentInlayEnum.攻击 },
+      { 镶嵌类型: EquipmentInlayEnum.破防 },
+    ],
+  },
+  {
     id: 35750,
     uid: '211947',
     装备名称: '金虹弓',

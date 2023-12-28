@@ -146,15 +146,13 @@ export const getFinalCycleData = (
     //     技能数量: Math.floor(总数 * 触发率),
     //   })
     // }
-    // if (characterFinalData?.装备增益?.龙门武器) {
-    //   最终循环.push({
-    //     技能名称: '剑风',
-    //     技能数量: Math.floor((dpsTime * 6) / 30),
-    //     技能增益列表: [
-    //       { 增益名称: '灭影随风', 增益技能数: Math.floor(((dpsTime * 6) / 30) * 0.4) },
-    //     ],
-    //   })
-    // }
+    if (characterFinalData?.装备增益?.龙门武器) {
+      最终循环.push({
+        技能名称: '剑风',
+        技能数量: Math.floor((dpsTime * 6) / 30),
+        技能增益列表: [{ 增益名称: '承契_5层', 增益技能数: Math.floor((dpsTime * 6) / 30) }],
+      })
+    }
   }
   return 最终循环
 }
