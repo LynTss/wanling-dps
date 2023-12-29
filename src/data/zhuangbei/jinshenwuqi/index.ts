@@ -471,11 +471,11 @@ const ZHUANGBEI_JINSHENWUQI: EquipmentDTO[] = [
   {
     id: 36911,
     uid: '214434',
-    装备名称: '裂风破天弓-龙门',
+    装备名称: '裂风破天弓',
     装备品级: 13200,
     武器伤害_最小值: 3070,
     武器伤害_最大值: 5117,
-    装备类型: EquipmentTypeEnum.切糕,
+    装备类型: EquipmentTypeEnum.特效武器,
     装备增益: [
       { 增益数值: 5704, 增益类型: GainTypeEnum.体质 },
       { 增益数值: 1106, 增益类型: GainTypeEnum.身法 },
