@@ -13,7 +13,7 @@ import ZHUANGBEI_JINSHENWUQI from './jinshenwuqi'
 // TODO 龙门武器id
 export const 龙门_武器Ids: EquipmentIds = [36911]
 // 特效武器
-export const 特效_武器Ids: EquipmentIds = [36660]
+export const 特效_武器Ids: EquipmentIds = [36660, 36657]
 export const 特效_武器_2Ids: EquipmentIds = [35781]
 // 特效腰坠
 export const 特效_腰椎Ids: EquipmentIds = [37720]
