@@ -9,7 +9,13 @@ function CharacterSet({ getDpsFunction }) {
 
   return (
     <div className={'character-set'}>
-      <Button onClick={() => setZhuangbeiSetModalVisible(true)}>配装器</Button>
+      <Button
+        onClick={() => {
+          setZhuangbeiSetModalVisible(true)
+        }}
+      >
+        配装器
+      </Button>
       <ZhuangbeiSetModal
         visible={zhuangbeiSetModalVisible}
         getDpsFunction={getDpsFunction}
