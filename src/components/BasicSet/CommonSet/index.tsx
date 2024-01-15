@@ -15,6 +15,11 @@ import MijiSet from './MijiSet'
 import QixueSet from './QixueSet'
 import CycleSimulator from './CycleSimulator'
 import './index.css'
+// import { getExportFunction } from '@/utils/wasm'
+// import { getExportFunction } from '@/utils/wasm'
+// import { useWasm } from '@/hooks/use-wasm'
+// import { getExportFunction } from '@/utils/wasm'
+// import JX3DPS_InParams_1_JSON from './JX3DPS_InParams_1.json'
 
 function CommonSet({ getDpsFunction, setZengyiVisible }) {
   const dispatch = useAppDispatch()
@@ -72,8 +77,21 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
 
   const skillCycle = 获取全部循环()
 
+  // const wasm = useWasm('/JX3DPS_Wasm/libJX3DPS.wasm')
+
+  // const wasmTest = async () => {
+  // const instance = await getExportFunction('/calc.wasm')
+  // const instance = await getExportFunction('/CppDemo.wasm')
+  // const instance = getExportFunction('/test/CppDemo.js')
+  // const a = require('./test/CppDemo.js')
+  // console.log('a', a)
+  // const a = instance.add(999, 111)
+  // console.log('instance', instance)
+  // }
+
   return (
     <div className={'common-set'}>
+      {/* <h1 className={'common-title'} onClick={() => wasmTest()}> */}
       <h1 className={'common-title'}>
         基础设置
         <Button
