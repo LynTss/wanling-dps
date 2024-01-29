@@ -16,6 +16,10 @@ export interface CycleSimulatorSkillDTO {
    */
   技能释放后添加GCD: number
   /**
+   * @name 技能释放后添加GCD是否吃加速
+   */
+  技能释放后添加GCD是否不吃加速?: boolean
+  /**
    * 消耗箭数
    */
   消耗箭数: number
@@ -79,11 +83,6 @@ export interface ShowCycleSingleSkill extends CycleSimulatorSkillDTO {
    * 下一个技能可以释放时间
    */
   下一个技能可以释放时间?: number
-
-  /**
-   * 本技能打完换箭
-   */
-  本技能打完换箭?: boolean
   /**
    * index
    */

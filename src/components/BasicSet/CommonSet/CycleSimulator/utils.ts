@@ -7,6 +7,7 @@ import {
 import { 获取实际帧数 } from './simulator'
 import { 获取加速等级 } from '@/utils/help'
 import { 可以触发万灵阵眼的技能 } from './constant'
+import 循环模拟技能基础数据 from '@/data/cycleSimulator/skill'
 
 export const getDpsCycle = (data: CycleSimulatorLog[]): CycleDTO[] => {
   const res: { [key: string]: CycleDTO } = {}
@@ -133,11 +134,14 @@ export const 判断每个技能的循环时间 = (
   const 上一个技能 = 添加技能CD循环[添加技能CD循环.length - 1]
   const 本技能可以释放时间 = 上一个技能?.下一个技能可以释放时间 || 0
   const 加速等级 = 获取加速等级(加速值)
-  const 计算加速后的GCD = 当前技能.技能释放后添加GCD - 加速等级
+  const 计算加速后的GCD =
+    当前技能.技能释放后添加GCD - (当前技能?.技能释放后添加GCD是否不吃加速 ? 0 : 加速等级)
   let 当前箭带内箭数 = 当前剩余箭数量
 
   // 本技能等待GCD和网络延迟后实际释放时间
-  let 本技能实际释放时间 = 本技能可以释放时间 ? 本技能可以释放时间 + 网络按键延迟 : 0
+  let 本技能实际释放时间 = 本技能可以释放时间
+    ? 本技能可以释放时间 + (当前技能?.技能名称 === '寒更晓箭' ? 0 : 网络按键延迟)
+    : 0
 
   // 如果不需要等CD，那计划时间和实际时间应该是相同的
   const 本技能计划释放时间 = 本技能实际释放时间
@@ -187,12 +191,8 @@ export const 判断每个技能的循环时间 = (
     当前箭带内箭数 = 当前箭带内箭数 - 当前技能.消耗箭数
   }
 
-  const 释放完本技能要换箭 = 当前箭带内箭数 <= 0
-
   const 下一个技能可以释放时间 =
-    本技能实际释放时间 +
-    Math.max(当前技能释放所需时间, 计算加速后的GCD) +
-    (释放完本技能要换箭 ? 16 : 0)
+    本技能实际释放时间 + Math.max(当前技能释放所需时间, 计算加速后的GCD)
 
   return {
     本技能计划释放时间,
@@ -253,10 +253,47 @@ export const 获取显示秒伤 = (最后一条伤害数据) => {
   return Math.round((最后一条伤害数据?.造成总伤害 || 0) / (最后一条伤害数据?.日志时间 / 16))
 }
 
+export const 获取添加换箭节点循环 = (cycle: CycleSimulatorSkillDTO[]): CycleSimulatorSkillDTO[] => {
+  let 当前剩余箭数量 = 8
+  const 添加换箭节点循环: CycleSimulatorSkillDTO[] = []
+  cycle.forEach((item, index) => {
+    if (item?.技能名称 === '寒更晓箭') {
+      当前剩余箭数量 = 8
+    }
+    if (当前剩余箭数量 > 0) {
+      添加换箭节点循环.push(item)
+      当前剩余箭数量 = 当前剩余箭数量 - item.消耗箭数
+      // 没箭了，强行触发换箭逻辑
+      if (当前剩余箭数量 <= 0) {
+        // 如果当前循环以换箭结束，则不添加这个换箭。
+        if (index !== cycle.length - 1) {
+          if (
+            !cycle[index + 1] ||
+            (cycle[index + 1] && cycle[index + 1]?.技能名称 !== '寒更晓箭')
+          ) {
+            // 判断是否有手动添加的换箭节点
+            const 寒更晓箭技能对象 = 循环模拟技能基础数据?.find((a) => a.技能名称 === '寒更晓箭')
+
+            if (寒更晓箭技能对象) {
+              添加换箭节点循环.push(寒更晓箭技能对象)
+            }
+          }
+        }
+        当前剩余箭数量 = 8
+      }
+    }
+  })
+
+  return 添加换箭节点循环
+}
+
 export const 获取添加技能CD循环 = ({ cycle, 网络按键延迟, 加速值, qixuedata }) => {
   const 添加技能CD循环: ShowCycleSingleSkill[] = []
   let 当前剩余箭数量 = 8
   cycle.forEach((item) => {
+    if (item === '寒更晓箭') {
+      当前剩余箭数量 = 8
+    }
     const { 本技能计划释放时间, 本技能实际释放时间, 下一个技能可以释放时间 } =
       判断每个技能的循环时间(
         item,
@@ -270,19 +307,12 @@ export const 获取添加技能CD循环 = ({ cycle, 网络按键延迟, 加速�
     if (item?.消耗箭数) {
       当前剩余箭数量 = 当前剩余箭数量 - item.消耗箭数
     }
-    const 本技能打完换箭 = 当前剩余箭数量 <= 0
-
     添加技能CD循环.push({
       ...item,
       本技能计划释放时间,
       本技能实际释放时间,
       下一个技能可以释放时间,
-      本技能打完换箭,
     })
-    if (本技能打完换箭) {
-      // 重置箭袋
-      当前剩余箭数量 = 8
-    }
   })
   return 添加技能CD循环
 }

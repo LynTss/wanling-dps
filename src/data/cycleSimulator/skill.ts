@@ -99,6 +99,15 @@ const 循环模拟技能基础数据: CycleSimulatorSkillDTO[] = [
     是否上破招: true,
     实际技能: '饮羽簇',
   },
+  {
+    技能名称: '寒更晓箭',
+    技能释放后添加GCD: 16,
+    技能释放后添加GCD是否不吃加速: true,
+    消耗箭数: 0,
+    造成伤害次数: 0,
+    是否为读条技能: false,
+    技能CD: 0,
+  },
 ]
 
 export default 循环模拟技能基础数据

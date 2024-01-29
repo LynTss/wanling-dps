@@ -44,6 +44,7 @@ import {
   获取显示秒伤,
   获取本循环阵眼覆盖率,
   获取添加技能CD循环,
+  获取添加换箭节点循环,
   // 获取该轮箭用时,
 } from './utils'
 // import { CurrentDpsFunctionRes } from '@/store/basicReducer/current-dps-function'
@@ -117,16 +118,23 @@ function CycleSimulator() {
     }
   }, [basicModalOpen])
 
+  // 对cycle进行处理，自动添加换箭节点
+  const formatCycle = useMemo(() => {
+    // 塞入自动换箭节点
+    const 添加换箭节点循环: CycleSimulatorSkillDTO[] = 获取添加换箭节点循环(cycle)
+    return 添加换箭节点循环
+  }, [cycle])
+
   useEffect(() => {
     if (是否实时计算) {
       simulator({})
     }
-  }, [cycle, 宠物顺序, 是否实时计算, 承契起手层数, 网络按键延迟, 加速值, qixuedata])
+  }, [formatCycle, 宠物顺序, 是否实时计算, 承契起手层数, 网络按键延迟, 加速值, qixuedata])
 
   const simulator = (props?) => {
     const { 传入延迟 = 网络按键延迟, 传入加速 = 加速值, 更新日志 = true } = props
     const data = SimulatorCycle({
-      测试循环: cycle.map((item) => item?.技能名称) || [],
+      测试循环: formatCycle.map((item) => item?.技能名称) || [],
       加速值: 传入加速 !== undefined ? 传入加速 : 加速值,
       网络按键延迟: 传入延迟 !== undefined ? 传入延迟 : 网络按键延迟,
       测试宠物顺序: 宠物顺序,
@@ -178,13 +186,13 @@ function CycleSimulator() {
 
   // 向循环内新增技能
   const addCycle = (item: CycleSimulatorSkillDTO) => {
-    const newCycle = [...(cycle || []), item]
+    const newCycle = [...(formatCycle || []), item]
     setCycle(newCycle)
   }
 
   // 从循环内删除技能
   const removeSkill = (index) => {
-    const newCycle = [...(cycle || [])]
+    const newCycle = [...(formatCycle || [])]
     newCycle.splice(index, 1)
     setCycle(newCycle)
   }
@@ -192,28 +200,38 @@ function CycleSimulator() {
   // 根据循环计算更适合展示的多层数组，用于显示
   const 处理循环结果对象 = useMemo(() => {
     // 添加所有技能的CD显示
-    // let 当前时间 = 0
     const 添加技能CD循环: ShowCycleSingleSkill[] = 获取添加技能CD循环({
-      cycle,
+      cycle: formatCycle,
       网络按键延迟,
       加速值,
       qixuedata,
     })
-
     const res: ShowCycleSingleSkill[][] = []
     添加技能CD循环.forEach((item, index) => {
       if (index === 0) {
         res[res?.length] = [{ ...item, index: index || 0 }]
       } else {
         res[res?.length - 1] = [...(res[res?.length - 1] || []), { ...item, index: index || 0 }]
-        if (item.本技能打完换箭) {
+        if (item.技能名称 === '寒更晓箭') {
           res[res?.length] = []
         }
       }
     })
 
+    console.log('添加技能CD循环', 添加技能CD循环)
+    console.log(
+      '添加技能CD循环11',
+      添加技能CD循环.map((item) => {
+        return {
+          技能名称: item.技能名称,
+          本技能实际释放时间: (item.本技能实际释放时间 || 0) + 2,
+          本技能计划释放时间: (item.本技能计划释放时间 || 0) + 2,
+        }
+      })
+    )
+
     return { 显示循环: res, 完整循环: 添加技能CD循环 }
-  }, [cycle])
+  }, [formatCycle])
 
   const 本循环阵眼覆盖率 = useMemo(() => {
     const 覆盖率 = 获取本循环阵眼覆盖率(处理循环结果对象?.完整循环, logData)
@@ -259,7 +277,7 @@ function CycleSimulator() {
 
   // 复制本轮到最后
   const 复制本轮至最后 = (轮次) => {
-    const newCycle = cycle.concat(轮次)
+    const newCycle = formatCycle.concat(轮次)
     setCycle(newCycle)
   }
 
@@ -273,7 +291,7 @@ function CycleSimulator() {
       return Math.max(min, obj.index)
     }, Number.NEGATIVE_INFINITY)
     // 将数组哪索引范围内跌元素替换为新的数组元素
-    const newCycle = cycle.filter((item, index) => {
+    const newCycle = formatCycle.filter((item, index) => {
       return index < minIndex || index > maxIndex
     })
     // 更新循环
@@ -365,16 +383,8 @@ function CycleSimulator() {
       dpsTime,
       type: '自定义',
       qixue: qixuedata,
-      skillList: cycle,
+      skillList: formatCycle,
     }
-
-    console.log('cycle', 用于计算循环)
-    console.log('dpsTime', dpsTime)
-
-    console.log(
-      'cycle',
-      cycle.map((item) => item.技能名称)
-    )
 
     localStorage?.setItem('wl_custom_cycle', JSON.stringify([用于保存的自定义循环]))
     setTimeout(() => {
@@ -400,7 +410,7 @@ function CycleSimulator() {
         })
       )
       设置宠物顺序(测试循环新桑柘宠物)
-    } else if (名称 === '朱厌一键宏') {
+    } else if (名称 === '朱厌（一键宏）') {
       setCurrentCycleVal('朱厌（一键宏）')
       setCycle(
         朱厌一键宏.map((item) => {
@@ -427,13 +437,13 @@ function CycleSimulator() {
         title={
           <div className={'cycle-simulator-modal-header space-between'}>
             <h1 className={'cycle-simulator-modal-title'}>循环模拟（beta）</h1>
-            {cycle?.length ? (
+            {formatCycle?.length ? (
               <Tooltip title="自定义循环和原计算器其他循环的dps会心期望计算方式不同。会导致最终数值偏差。请勿进行跨循环比较。">
                 <Button
                   size="small"
                   type="primary"
                   onClick={() => 设置自定义循环保存弹窗(true)}
-                  disabled={cycle?.length <= 1}
+                  disabled={formatCycle?.length <= 1}
                 >
                   保存为自定义循环
                 </Button>
@@ -584,7 +594,15 @@ function CycleSimulator() {
                           (item.本技能实际释放时间 || 0) - (item.本技能计划释放时间 || 0)
                         // 把帧转成秒，保留两位小数
                         const 剩余秒 = Math.round((间隔CD / 16) * 100) / 100
-                        return (
+                        return item?.技能名称 === '寒更晓箭' ? (
+                          <Tag
+                            color={SkillColorMap[item?.技能名称] || undefined}
+                            closable={false}
+                            className={'cycle-simulator-setting-change'}
+                          >
+                            {'寒更晓箭'}
+                          </Tag>
+                        ) : (
                           <Badge
                             count={剩余秒}
                             key={`${item?.技能名称}_${index}_${item?.index}`}
@@ -602,9 +620,6 @@ function CycleSimulator() {
                           </Badge>
                         )
                       })}
-                      {/* <Tag closable={false} className={'cycle-simulator-setting-change'}>
-                        {'寒更晓箭'}
-                      </Tag> */}
                       <div className={'cycle-turn-operate'}>
                         <Tooltip title="复制并添加到最后">
                           <CopyOutlined
@@ -741,6 +756,7 @@ const SkillColorMap = {
   '饮羽簇-读条': 'red',
   没石饮羽: 'orange',
   朝仪万汇: 'purple',
+  寒更晓箭: 'magenta',
 }
 
 const PetColorMap = {
