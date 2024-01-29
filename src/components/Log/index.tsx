@@ -19,7 +19,7 @@ function Log() {
   useEffect(() => {
     checkLogVersion()
     checkNotice()
-    checkQuestion()
+    // checkQuestion()
   }, [])
 
   const checkLogVersion = () => {
@@ -29,12 +29,12 @@ function Log() {
     }
   }
 
-  const checkQuestion = () => {
-    const storageFlag = localStorage.getItem('wl_question')
-    if (!storageFlag && storageFlag !== 当前问卷调查标识) {
-      setQuestionVisible(true)
-    }
-  }
+  // const checkQuestion = () => {
+  //   const storageFlag = localStorage.getItem('wl_question')
+  //   if (!storageFlag && storageFlag !== 当前问卷调查标识) {
+  //     setQuestionVisible(true)
+  //   }
+  // }
 
   const checkNotice = () => {
     const storageNotice = localStorage.getItem('wl_notice_modal')
