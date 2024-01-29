@@ -253,6 +253,20 @@ export const 获取显示秒伤 = (最后一条伤害数据) => {
   return Math.round((最后一条伤害数据?.造成总伤害 || 0) / (最后一条伤害数据?.日志时间 / 16))
 }
 
+export const 判断当前技能添加之前需要换箭 = (cycle: CycleSimulatorSkillDTO[]): boolean => {
+  let 当前剩余箭数量 = 8
+
+  cycle.forEach((item) => {
+    if (item?.技能名称 === '寒更晓箭') {
+      当前剩余箭数量 = 8
+    }
+    if (当前剩余箭数量 > 0) {
+      当前剩余箭数量 = 当前剩余箭数量 - item.消耗箭数
+    }
+  })
+  return 当前剩余箭数量 <= 0
+}
+
 export const 获取添加换箭节点循环 = (cycle: CycleSimulatorSkillDTO[]): CycleSimulatorSkillDTO[] => {
   let 当前剩余箭数量 = 8
   const 添加换箭节点循环: CycleSimulatorSkillDTO[] = []
