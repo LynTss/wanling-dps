@@ -100,3 +100,10 @@ export const currentDpsFunction =
 
     return { totalDps, dpsList, dpsPerSecond }
   }
+
+const 测试方法 = () => {
+  console.log('调用成功1')
+  return '调用成功2'
+}
+
+export { 测试方法 }

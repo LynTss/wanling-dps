@@ -8,6 +8,7 @@ import Tools from '@/components/Tools'
 import SkillDamageTable from '@/components/SkillDamageTable'
 import ClearCache from '@/components/ClearCache'
 import './index.css'
+import Layout from '@/components/Layout'
 
 function Pages() {
   const dpsRef = useRef<any>()
@@ -18,7 +19,7 @@ function Pages() {
   }
 
   return (
-    <>
+    <Layout>
       {/* 顶部说明 */}
       <TitleTip />
       {/* 角色设置 */}
@@ -33,7 +34,7 @@ function Pages() {
       <SkillDamageTable />
       {/* 清除缓存 */}
       <ClearCache />
-    </>
+    </Layout>
   )
 }
 
