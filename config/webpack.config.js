@@ -674,7 +674,7 @@ module.exports = function (webpackEnv) {
       // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
       // You can remove this if you don't use Moment.js:
       new webpack.IgnorePlugin({
-        resourceRegExp: /^\.\/locale$/,
+        resourceRegExp: /^\.\/demo\//,
         contextRegExp: /moment$/,
       }),
       // Generate a service worker script that will precache, and keep up to date,
