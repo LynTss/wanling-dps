@@ -1,12 +1,12 @@
 // import React from 'react'
-import { useLocation } from 'react-router-dom'
 
-function Dps() {
-  const location = useLocation()
-  const queryParams = new URLSearchParams(location.search)
+function GetDps() {
+  const href = location.href
+  const url = new URL(href)
+  const searchParams = url.searchParams
 
-  const playerName = queryParams.get('name')
-  const playerClass = queryParams.get('class')
+  const playerName = searchParams.get('name')
+  const playerClass = searchParams.get('class')
 
   return (
     <div id="dps_res">
@@ -20,4 +20,4 @@ function Dps() {
   )
 }
 
-export default Dps as any
+export default GetDps as any

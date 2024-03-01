@@ -10,11 +10,92 @@
       content="Web site created using create-react-app"
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/wanling_logo.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
     <title>万灵山庄DPS计算器</title>
+    <!-- 导入Wasm模块 -->
+    <!-- <script src="./test/CppDemo.js"></script> -->
+    <!-- <script src="./JX3DPS_Wasm//libJX3DPS.wasm"> -->
+      
+    </script>
+    <!-- 导入Wasm模块 -->
+    <!-- <script type="text/javascript">
+      function loadWebAssembly(path, imports = {}) {
+          return fetch(path) // 加载文件
+            .then(response => response.arrayBuffer()) // 转成 ArrayBuffer
+            .then(buffer => WebAssembly.compile(buffer))
+            .then(module => {
+              imports.env = imports.env || {}
+
+              // 开辟内存空间
+              imports.env.memoryBase = imports.env.memoryBase || 0
+              if (!imports.env.memory) {
+                imports.env.memory = new WebAssembly.Memory({ initial: 256 })
+              }
+
+              // 创建变量映射表
+              imports.env.tableBase = imports.env.tableBase || 0
+              if (!imports.env.table) {
+                // 在 MVP 版本中 element 只能是 "anyfunc"
+                imports.env.table = new WebAssembly.Table({ initial: 0, element: 'anyfunc' })
+              }
+
+              // 创建 WebAssembly 实例
+              return new WebAssembly.Instance(module, imports)
+            })
+        }
+        //调用
+        // loadWebAssembly('./wasm_2/index.wasm')
+          loadWebAssembly('./wasm/index.wasm')
+          .then(instance => {
+            console.log('instance', instance)
+            // const add = instance.exports._add//取出c里面的方法
+            // const square = instance.exports._square//取出c里面的方法
+
+            // console.log('10 + 20 =', add(10, 20))
+            // console.log('3*3 =', square(3))
+            // console.log('(2 + 5)*2 =', square(add(2 + 5)))
+          })
+
+      // async function fetchAndInstantiate() {
+      //   console.log('-------')
+      //   const importObject = { imports: { imported_func: (arg) => console.log(arg) } };
+      //   const response = await fetch("http://localhost:3000/wasm_2/index.wasm");
+      //   console.log('response', response)
+      //   const text = await WebAssembly.instantiateStreaming(response, importObject)
+      //   console.log('text', text)
+      //   // const buffer = await response.arrayBuffer();
+      //   console.log('buffer', buffer)
+      //   // const obj = await WebAssembly.instantiate(buffer);
+      //   // console.log(obj.instance.exports.add(1, 2));  // "3"
+      // }
+      // fetchAndInstantiate()
+    </script> -->
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
   </body>
 </html>
