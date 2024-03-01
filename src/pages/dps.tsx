@@ -8,18 +8,16 @@ function Dps() {
   const playerName = queryParams.get('name')
   const playerClass = queryParams.get('class')
 
-  console.log('dps')
-  // return (
-  //   <div>
-  //     <p>name：{playerName}</p>
-  //     <p>class：{playerClass}</p>
-  //   </div>
-  // )
-
-  return JSON.stringify({
-    name: playerName,
-    class: playerClass,
-  })
+  return (
+    <div id="dps_res">
+      {'dps_res_start'}
+      {JSON.stringify({
+        name: playerName,
+        class: playerClass,
+      })}
+      {'dps_res_end'}
+    </div>
+  )
 }
 
 export default Dps as any
