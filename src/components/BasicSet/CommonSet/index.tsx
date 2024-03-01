@@ -60,7 +60,7 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
         })
       )
       if (cycleData?.qixue) {
-        localStorage.setItem('wl_qixue_data', JSON.stringify(cycleData?.qixue))
+        localStorage?.setItem('wl_qixue_data', JSON.stringify(cycleData?.qixue))
         dispatch(setQixueData(cycleData?.qixue))
       }
       getDpsFunction()

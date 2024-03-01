@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import QuestionImg from '../../assets/question/2023-12.jpg'
 import log_data from './log_data'
 import './index.css'
+import 计算Dps from '@/utils/getDps'
+import json from './参数demo.json'
 
 const 当前问卷调查标识 = '2023-12'
 
@@ -30,7 +32,7 @@ function Log() {
   }
 
   // const checkQuestion = () => {
-  //   const storageFlag = localStorage.getItem('wl_question')
+  //   const storageFlag = localStorage?.getItem('wl_question')
   //   if (!storageFlag && storageFlag !== 当前问卷调查标识) {
   //     setQuestionVisible(true)
   //   }
@@ -53,8 +55,21 @@ function Log() {
     setNoticeVisible(false)
   }
 
+  const handleClick = () => {
+    const 面板 = json.面板
+    const 装备增益 = json.装备增益
+    const 奇穴 = json.奇穴
+    计算Dps({
+      面板: {
+        ...面板,
+        装备增益: { ...装备增益 },
+      },
+      奇穴,
+    })
+  }
+
   return (
-    <div className="log-wrap">
+    <div className="log-wrap" onClick={handleClick}>
       <span>当前版本: {log_data?.[0]?.version}</span>
       {/* <span onClick={() => setNoticeVisible(true)}>使用前声明</span> */}
       <span className="log" onClick={() => setVisible(true)}>

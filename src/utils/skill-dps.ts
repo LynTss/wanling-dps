@@ -149,9 +149,9 @@ export const getDpsTime = (
   // 根据是否选择CW选择对应循环
   const trueCurrentCycleName = getTrueCycleName(currentCycleName, characterFinalData)
 
-  const All_Cycle_Data = 获取全部循环()
+  const All_Cycle_Data = 获取全部循环() || []
 
-  const currentCycleConfig = All_Cycle_Data.find((item) =>
+  const currentCycleConfig = All_Cycle_Data?.find((item) =>
     trueCurrentCycleName ? item.name === trueCurrentCycleName : item.name === currentCycleName
   )
   const 增益加速等级 = zengyiQiyong ? getZengyiJiasu(zengyixuanxiangData) : 0
@@ -241,17 +241,6 @@ export const 获取实际循环 = (
     trueCycle = All_Cycle_Data?.find((item) => item.name === trueName)?.cycle || currentCycle
   }
 
-  // 朱厌循环九乌奇穴变动
-  // if (
-  //   currentCycleName?.includes('朱厌') &&
-  //   !currentCycleName?.includes('_九乌') &&
-  //   qixueData?.includes('九乌')
-  // ) {
-  //   const trueName = `${currentCycleName}_九乌`
-
-  //   trueCycle = All_Cycle_Data?.find((item) => item.name === trueName)?.cycle || currentCycle
-  // }
-
   // 特殊处理5层承契起手
   if (startType === 'max') {
     trueCycle = trueCycle.map((item) => {
@@ -277,7 +266,7 @@ export const 获取实际循环 = (
 }
 
 export const 根据奇穴处理技能的基础增益信息 = (skillBasicData, qixueData) => {
-  let newSkillBasicData: SkillBasicDTO[] = [...skillBasicData]
+  let newSkillBasicData: SkillBasicDTO[] = [...(skillBasicData || [])]
 
   // 根据奇穴类型处理各类循环
   const 全部奇穴信息: QixueDataDTO[] = getAllQixueData(qixueData)
@@ -338,7 +327,7 @@ export const 根据奇穴处理技能的基础增益信息 = (skillBasicData, qi
 
 const getAllQixueData = (qixueData: string[]): QixueDataDTO[] => {
   const res: QixueDataDTO[] = []
-  奇穴数据.forEach((item) => {
+  ;(奇穴数据 || []).forEach((item) => {
     const findData = item.奇穴列表?.find((a) => qixueData?.includes(a.奇穴名称))
     if (findData) {
       res.push(findData)

@@ -7,14 +7,9 @@ import Log from '@/components/Log'
 import Tools from '@/components/Tools'
 import SkillDamageTable from '@/components/SkillDamageTable'
 import ClearCache from '@/components/ClearCache'
-import GetDps from './dps'
 import './index.css'
 
 function Pages() {
-  const href = location.href
-  const url = new URL(href)
-  const searchParams = url.searchParams
-
   const dpsRef = useRef<any>()
   const [zengyiVisible, setZengyiVisible] = useState<boolean>(true)
 
@@ -22,9 +17,7 @@ function Pages() {
     dpsRef?.current?.getDps()
   }
 
-  return searchParams.get('getDps') ? (
-    <GetDps />
-  ) : (
+  return (
     <>
       {/* 顶部说明 */}
       <TitleTip />

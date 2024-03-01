@@ -222,18 +222,6 @@ function CycleSimulator() {
       qixuedata,
     })
 
-    console.log('添加技能CD循环', 添加技能CD循环)
-    console.log(
-      '添加技能CD循环11',
-      添加技能CD循环.map((item) => {
-        return {
-          技能名称: item.技能名称,
-          本技能实际释放时间: (item.本技能实际释放时间 || 0) + 2,
-          本技能计划释放时间: (item.本技能计划释放时间 || 0) + 2,
-        }
-      })
-    )
-
     const res: ShowCycleSingleSkill[][] = []
     添加技能CD循环.forEach((item, index) => {
       if (index === 0) {
