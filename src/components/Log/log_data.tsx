@@ -1,5 +1,51 @@
 export default [
   {
+    version: '2.1.0',
+    date: '2024-03-04 20:40:00',
+    content: [
+      <p key="2.1.0_1">
+        体肤更新一改：
+        <a
+          href="https://jx3.xoyo.com/index/#/article-details?catid=2458&id=6120"
+          target="_blank"
+          rel="noreferrer"
+        >
+          技改链接
+        </a>
+      </p>,
+      <p key="2.1.0_2" style={{ paddingLeft: 12 }}>
+        {`- 【劲风簇】伤害降低5%`}
+      </p>,
+      <p key="2.1.0_3" style={{ paddingLeft: 12 }}>
+        {`- 【饮羽簇】伤害降低5%`}
+      </p>,
+      <p key="2.1.0_4" style={{ paddingLeft: 12 }}>
+        {`- 【贯穿】伤害降低10%`}
+      </p>,
+      <p key="2.1.0_5" style={{ paddingLeft: 12 }}>
+        {`- 【霖集簇】伤害提高10%`}
+      </p>,
+      <p key="2.1.0_6" style={{ paddingLeft: 12 }}>
+        {`- 【偕行动物】伤害提高5%`}
+      </p>,
+      <p key="2.1.0_6" style={{ paddingLeft: 12 }}>
+        {`- 【九乌】=> 所有宠物攻击均可上两层贯穿`}
+      </p>,
+      <p key="2.1.0_6" style={{ paddingLeft: 12 }}>
+        {`- 【引风唤灵】调息时间【21】=>【24】`}
+      </p>,
+      <p key="2.1.0_4" style={{ paddingLeft: 12, color: 'red' }}>
+        {'技改总结：'}
+      </p>,
+      <p key="2.1.0_4" style={{ paddingLeft: 12, color: 'red' }}>
+        {`- dps削弱4%-5%`}
+      </p>,
+      <p key="2.1.0_4" style={{ paddingLeft: 12, color: 'red' }}>
+        {'体服版本只会在国外源计算器更新'}
+      </p>,
+    ],
+  },
+  {
     version: '2.0.11',
     date: '2024-02-26 09:00:00',
     content: [

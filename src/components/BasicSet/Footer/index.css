@@ -1,13 +1,9 @@
 .basic-footer {
-  position: fixed;
   display: flex;
-  bottom: 36px;
   justify-content: space-between;
-  left: 36px;
   border-radius: 4px 0 0 4px;
   background: #fff;
-  width: 324px;
-  padding: 0 0 16px 24px;
+  padding: 0 0 16px 0px;
 }
 
 .basic-footer-btn {
