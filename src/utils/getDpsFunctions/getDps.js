@@ -1,5 +1,8 @@
 import Cycle_Data from '../../data/skillCycle'
 import { currentDpsFunction } from './getDpsLocal'
+import {
+  IncomeFumo,
+} from '../../data/income'
 
 export const 计算Dps = (params = {}) => {
   // 获取面板
@@ -15,10 +18,68 @@ export const 计算Dps = (params = {}) => {
       更新循环名称: 计算循环?.name,
       更新奇穴数据: 计算循环?.奇穴,
     })
+
+
+      // 用非郭氏计算算收益
+      const { totalDps: oldDps } = currentDpsFunction({
+        更新角色面板: 面板,
+        更新循环技能列表: 计算循环?.cycle,
+        更新循环名称: 计算循环?.name,
+        更新奇穴数据: 计算循环?.奇穴,
+        是否郭氏计算: false,
+      })
+
+    // 计算单点增益
+    const getAfterIncomeDpsPercent = (data) => {
+      const { totalDps: newDps } = 
+        currentDpsFunction({
+          更新角色面板: 面板,
+          更新循环技能列表: 计算循环?.cycle,
+          更新循环名称: 计算循环?.name,
+          更新奇穴数据: 计算循环?.奇穴,
+          是否郭氏计算: false,
+          更新默认增益集合: data.增益集合.map((item) => {
+            return {
+              ...item,
+              增益数值: 1,
+            }
+          }),
+        })
+
+      return Number(newDps - oldDps)
+    }
+
+
+    // 计算增益数据
+    const getDataSource = () => {
+      // 获取附魔列表当计算增益列表
+      const list = IncomeFumo
+      let 基础计算增益 = 1
+      return list.map((item, index) => {
+        const 单点增益 = getAfterIncomeDpsPercent(item)
+        const 增益数值 = item?.增益集合?.[0]?.增益数值 || 1
+        if (index === 0) {
+          基础计算增益 = Number(单点增益 * 增益数值)
+        }
+        const 收益 = Number(((单点增益 * 增益数值) / 基础计算增益).toFixed(4))
+
+        // 去掉数字
+        const 收益属性名字 = item.收益计算名称.replace('+', '').replace(/\d/g, '')
+
+        return {
+          key: 收益属性名字,
+          收益: 收益,
+        }
+      })
+    }
+
+    const incomeList = getDataSource()
+
     return {
       ...res,
-      dpsList:获取排序后的Dps列表(res.dpsList),
-      currentCycleName: 计算循环?.name
+      dpsList: 获取排序后的Dps列表(res.dpsList),
+      currentCycleName: 计算循环?.name,
+      incomeList: incomeList
     }
   } else {
     return ""
@@ -80,6 +141,13 @@ const 获取排序后的Dps列表 = (dpsList = []) => {
 
     return resList.filter((item) => {
       return +item.dps > 0
+    }).map(item => {
+      return {
+        name: item.name, 
+        number: item.number,
+        totalDps: item.dps,
+        // dps: item.dps,
+      }
     })
 }
 

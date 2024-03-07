@@ -1,3 +1,4 @@
+// 写这个文件的原因是这样就不用获取redux的数据了，避免了本地js调用异常
 // 根据当前增益装备，计算实时循环总dps
 import { 目标集合 } from '@/data/constant'
 import { 判断是否开启无视防御奇穴, 判断是否开启身法加成奇穴 } from '@/data/qixue'
