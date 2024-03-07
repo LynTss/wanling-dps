@@ -4,17 +4,19 @@ import {
   IncomeFumo,
 } from '../../data/income'
 import 副本常用 from '../../components/BasicSet/Zengyi/增益快捷设置数据/副本常用.json'
+import {属性系数} from '../../data/constant/index'
 
 export const 计算Dps = (params = {}) => {
   // 获取面板
-  const { 面板, 奇穴 } = params
+  const { 面板, 奇穴, 百分比 = true } = params
 
   if (面板 && 奇穴) {
     // 根据奇穴判断应该调用那个循环
     const 计算循环 = 根据奇穴判断计算循环(奇穴)
+    const 转换后面板 =  百分比 ? 把面板的百分比转换为普通面板 (面板) : 面板
     // 调用Dps计算方法
     const res = currentDpsFunction({
-      更新角色面板: 面板,
+      更新角色面板: 转换后面板,
       更新循环技能列表: 计算循环?.cycle,
       更新循环名称: 计算循环?.name,
       更新奇穴数据: 计算循环?.奇穴,
@@ -24,7 +26,7 @@ export const 计算Dps = (params = {}) => {
     const getAfterIncomeDps = (data, zengyiOpen=false) => {
       const { totalDps: newDps } = 
         currentDpsFunction({
-          更新角色面板: 面板,
+          更新角色面板: 转换后面板,
           更新循环技能列表: 计算循环?.cycle,
           更新循环名称: 计算循环?.name,
           更新奇穴数据: 计算循环?.奇穴,
@@ -53,7 +55,7 @@ export const 计算Dps = (params = {}) => {
 
       // 用非郭氏计算算收益
       const res = currentDpsFunction({
-        更新角色面板: 面板,
+        更新角色面板: 转换后面板,
         更新循环技能列表: 计算循环?.cycle,
         更新循环名称: 计算循环?.name,
         更新奇穴数据: 计算循环?.奇穴,
@@ -170,6 +172,16 @@ const 根据奇穴判断计算循环 = (奇穴 = []) => {
     res = (Cycle_Data || []).find((item) => item.name === '朝仪万汇_桑拓')
   }
   return res || (Cycle_Data || []).find((item) => item.name === '朝仪万汇_桑拓')
+}
+
+const 把面板的百分比转换为普通面板 = (面板) => {
+  return {
+    ...面板,
+    会心值: (面板.会心 / 100) * 属性系数.会心,
+    破防值: (面板.会心 / 100) * 属性系数.破防,
+    无双值: (面板.会心 / 100) * 属性系数.无双,
+    会心效果值: ((面板.会心 - 175) / 100) * 属性系数.会效,
+  }
 }
 
 export default 计算Dps
