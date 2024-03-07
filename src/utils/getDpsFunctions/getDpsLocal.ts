@@ -24,6 +24,7 @@ interface CurrentDpsFunctionProps {
   更新循环技能列表?: CycleDTO[] // 更新循环技能列表
   更新循环名称?: string // 更新循环名称
   更新奇穴数据?: string[] // 更新奇穴数据
+  更新增益启用?: boolean
 }
 
 export interface CurrentDpsFunctionRes {
@@ -42,6 +43,8 @@ export const currentDpsFunction = (props?: CurrentDpsFunctionProps) => {
     更新循环技能列表,
     更新循环名称,
     更新奇穴数据,
+    更新增益启用,
+    更新团队增益数据,
   } = props || {}
 
   const 延迟 = 2
@@ -82,8 +85,8 @@ export const currentDpsFunction = (props?: CurrentDpsFunctionProps) => {
     characterFinalData: 当前角色面板,
     当前目标: 当前目标,
     skillBasicData: trueSkillBasicData,
-    zengyiQiyong: false,
-    zengyixuanxiangData: {} as any,
+    zengyiQiyong: 更新增益启用 || false,
+    zengyixuanxiangData: (更新团队增益数据 as any) || {},
     默认增益集合: 更新默认增益集合 || [],
     dpsTime,
     开启卢令: 开启身法加成奇穴,

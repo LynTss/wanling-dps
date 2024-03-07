@@ -3,6 +3,7 @@ import { currentDpsFunction } from './getDpsLocal'
 import {
   IncomeFumo,
 } from '../../data/income'
+import 副本常用 from '../../components/BasicSet/Zengyi/增益快捷设置数据/副本常用.json'
 
 export const 计算Dps = (params = {}) => {
   // 获取面板
@@ -19,18 +20,8 @@ export const 计算Dps = (params = {}) => {
       更新奇穴数据: 计算循环?.奇穴,
     })
 
-
-      // 用非郭氏计算算收益
-      const { totalDps: oldDps } = currentDpsFunction({
-        更新角色面板: 面板,
-        更新循环技能列表: 计算循环?.cycle,
-        更新循环名称: 计算循环?.name,
-        更新奇穴数据: 计算循环?.奇穴,
-        是否郭氏计算: false,
-      })
-
     // 计算单点增益
-    const getAfterIncomeDpsPercent = (data) => {
+    const getAfterIncomeDps = (data, zengyiOpen=false) => {
       const { totalDps: newDps } = 
         currentDpsFunction({
           更新角色面板: 面板,
@@ -44,19 +35,37 @@ export const 计算Dps = (params = {}) => {
               增益数值: 1,
             }
           }),
+          ...(zengyiOpen ? {
+            更新增益启用:true,
+            更新团队增益数据: 副本常用,
+          } : {}),
         })
 
-      return Number(newDps - oldDps)
+      return newDps
     }
 
 
     // 计算增益数据
-    const getDataSource = () => {
+    const getDataSource = (zengyiOpen=false) => {
       // 获取附魔列表当计算增益列表
       const list = IncomeFumo
       let 基础计算增益 = 1
+
+      // 用非郭氏计算算收益
+      const res = currentDpsFunction({
+        更新角色面板: 面板,
+        更新循环技能列表: 计算循环?.cycle,
+        更新循环名称: 计算循环?.name,
+        更新奇穴数据: 计算循环?.奇穴,
+        是否郭氏计算: false,
+        ...(zengyiOpen ? {
+          更新增益启用:true,
+          更新团队增益数据: 副本常用,
+        } : {}),
+      })
       return list.map((item, index) => {
-        const 单点增益 = getAfterIncomeDpsPercent(item)
+        const newDps = getAfterIncomeDps(item,zengyiOpen)
+        const 单点增益 = Number(newDps - res?.totalDps)
         const 增益数值 = item?.增益集合?.[0]?.增益数值 || 1
         if (index === 0) {
           基础计算增益 = Number(单点增益 * 增益数值)
@@ -74,12 +83,14 @@ export const 计算Dps = (params = {}) => {
     }
 
     const incomeList = getDataSource()
+    const actualCombatIncomeList = getDataSource(true)
 
     return {
       ...res,
       dpsList: 获取排序后的Dps列表(res.dpsList),
       currentCycleName: 计算循环?.name,
-      incomeList: incomeList
+      木桩收益: incomeList,
+      常见副本增益收益: actualCombatIncomeList,
     }
   } else {
     return ""
