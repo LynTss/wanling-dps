@@ -11,6 +11,8 @@ import { getNotGuoDpsTotal } from '@/components/Dps/wu_guoshi_dps_utils'
 import { CycleDTO } from '@/@types/cycle'
 import WanlingSkillDataDTO from '@/data/skill'
 import { getSkillCycleGainData } from '@/components/BasicSet/CharacterSet/ZhuangbeiSetModal/utils'
+import { DEFAULT_MIJI_SELECTED_DATA } from '@/pages/constant'
+import { getSkillBasicData } from '@/components/BasicSet/CommonSet/MijiSet/utils'
 
 interface CurrentDpsFunctionProps {
   showTime?: boolean // 是否展示计算时间
@@ -52,9 +54,10 @@ export const currentDpsFunction = (props?: CurrentDpsFunctionProps) => {
   const 当前循环技能列表 = 更新循环技能列表
   const 当前循环名称 = 更新循环名称 || ''
   const 当前目标 = 目标集合[0]
+  const 技能基础 = getSkillBasicData(WanlingSkillDataDTO, DEFAULT_MIJI_SELECTED_DATA)
   const 技能基础数据 =
     getSkillCycleGainData(
-      WanlingSkillDataDTO,
+      技能基础,
       当前角色面板?.装备增益?.套装技能 || 0,
       当前角色面板?.装备增益?.大橙武特效,
       当前角色面板?.装备增益?.小橙武特效

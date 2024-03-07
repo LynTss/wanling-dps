@@ -8,29 +8,32 @@ import {属性系数} from '../../data/constant/index'
 
 export const 计算Dps = (params = {}) => {
   // 获取面板
-  const { 面板, 奇穴, 百分比 = true } = params
+  const { 面板, 奇穴, 装备增益, 百分比 = true } = params
 
   if (面板 && 奇穴) {
     // 根据奇穴判断应该调用那个循环
     const 计算循环 = 根据奇穴判断计算循环(奇穴)
     const 转换后面板 =  百分比 ? 把面板的百分比转换为普通面板 (面板) : 面板
-    console.log('转换后面板',转换后面板)
+    const 计算面板 = {
+      ...转换后面板,
+      装备增益: { ...装备增益 },
+    }
     // 调用Dps计算方法
     const res = currentDpsFunction({
-      更新角色面板: 转换后面板,
+      更新角色面板: 计算面板,
       更新循环技能列表: 计算循环?.cycle,
       更新循环名称: 计算循环?.name,
-      更新奇穴数据: 计算循环?.奇穴,
+      更新奇穴数据: 计算循环?.qixue,
     })
 
     // 计算单点增益
     const getAfterIncomeDps = (data, zengyiOpen=false) => {
       const { totalDps: newDps } = 
         currentDpsFunction({
-          更新角色面板: 转换后面板,
+          更新角色面板: 计算面板,
           更新循环技能列表: 计算循环?.cycle,
           更新循环名称: 计算循环?.name,
-          更新奇穴数据: 计算循环?.奇穴,
+          更新奇穴数据: 计算循环?.qixue,
           是否郭氏计算: false,
           更新默认增益集合: data.增益集合.map((item) => {
             return {
@@ -56,10 +59,10 @@ export const 计算Dps = (params = {}) => {
 
       // 用非郭氏计算算收益
       const res = currentDpsFunction({
-        更新角色面板: 转换后面板,
+        更新角色面板: 计算面板,
         更新循环技能列表: 计算循环?.cycle,
         更新循环名称: 计算循环?.name,
-        更新奇穴数据: 计算循环?.奇穴,
+        更新奇穴数据: 计算循环?.qixue,
         是否郭氏计算: false,
         ...(zengyiOpen ? {
           更新增益启用:true,

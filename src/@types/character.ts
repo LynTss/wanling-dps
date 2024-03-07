@@ -84,6 +84,10 @@ export interface CharacterFinalDTO extends CharacterBasicDTO {
    */
   装备增益?: {
     /**
+     * @name 套装技能
+     */
+    套装技能?: number
+    /**
      * @name 套装会心会效
      */
     套装会心会效?: boolean

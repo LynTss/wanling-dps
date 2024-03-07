@@ -12,12 +12,13 @@ function getDps () {
   const json = require('./参数demo.json')
 
   const DPS = require('../build/static/js/getDps')
+  // const DPS = require('../src/utils/getDpsFunctions/getDps')
   const res = DPS?.计算Dps((
     {
       面板:{
         ...json.面板,
-        装备增益:{...json.装备增益},
       },
+      装备增益:{...json.装备增益},
       奇穴:json.奇穴
     }
   ))

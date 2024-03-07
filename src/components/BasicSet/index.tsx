@@ -40,6 +40,7 @@ function BasicSet(props: CharacterSetProps) {
         setCharacterFinalData({
           ...final,
           装备增益: {
+            套装技能: equipmentBasicData?.套装技能,
             套装会心会效: equipmentBasicData?.套装会心会效,
             水特效武器: equipmentBasicData?.水特效武器,
             水特效武器_2: equipmentBasicData?.水特效武器_2,
