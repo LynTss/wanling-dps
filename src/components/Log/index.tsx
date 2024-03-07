@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react'
 import QuestionImg from '../../assets/question/2023-12.jpg'
 import log_data from './log_data'
 import './index.css'
-import 计算Dps from '@/utils/getDps'
-import json from './参数demo.json'
 
 const 当前问卷调查标识 = '2023-12'
 
@@ -55,21 +53,8 @@ function Log() {
     setNoticeVisible(false)
   }
 
-  const handleClick = () => {
-    const 面板 = json.面板
-    const 装备增益 = json.装备增益
-    const 奇穴 = json.奇穴
-    计算Dps({
-      面板: {
-        ...面板,
-        装备增益: { ...装备增益 },
-      },
-      奇穴,
-    })
-  }
-
   return (
-    <div className="log-wrap" onClick={handleClick}>
+    <div className="log-wrap">
       <span>当前版本: {log_data?.[0]?.version}</span>
       {/* <span onClick={() => setNoticeVisible(true)}>使用前声明</span> */}
       <span className="log" onClick={() => setVisible(true)}>
@@ -91,14 +76,14 @@ function Log() {
           <Timeline.Item style={{ padding: 0 }}>
             <div className="log-content-text">
               {Array.isArray(log_data?.[0].content)
-                ? log_data?.[0].content.map((a) => {
-                    return <p key={a}>{a}</p>
+                ? log_data?.[0].content.map((a, index) => {
+                    return <div key={index}>{a}</div>
                   })
                 : log_data?.[0].content}
             </div>
             <div className="log-right">
-              <p className="log-version">{log_data?.[0].version}</p>
-              <p className="log-date">{log_data?.[0].date || '-'}</p>
+              <div className="log-version">{log_data?.[0].version}</div>
+              <div className="log-date">{log_data?.[0].date || '-'}</div>
             </div>
           </Timeline.Item>
         </Timeline>

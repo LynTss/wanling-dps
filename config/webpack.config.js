@@ -202,7 +202,9 @@ module.exports = function (webpackEnv) {
     // This means they will be the "root" imports that are included in JS bundle.
     entry: {
       main: paths.appIndexJs,
-      getDps: paths.getDps,
+      ...(isEnvDevelopment ? {}:{
+        getDps: paths.getDps
+      })
     },
     output: {
       // The build folder.
@@ -213,7 +215,7 @@ module.exports = function (webpackEnv) {
       // There will be one main bundle, and one file per asynchronous chunk.
       // In development, it does not produce real files.
       filename: (pathData) => {
-      if (pathData.chunk.name === 'getDps') {
+      if (pathData.chunk.name === 'getDps' && isEnvProduction) {
         return 'static/js/getDps.js';
       }
       return isEnvProduction
@@ -586,6 +588,7 @@ module.exports = function (webpackEnv) {
           {
             inject: true,
             template: paths.appHtml,
+            excludeChunks: ['getDps'],
           },
           isEnvProduction
             ? {

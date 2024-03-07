@@ -1,4 +1,4 @@
-import Cycle_Data from '../data/skillCycle'
+import Cycle_Data from '../../data/skillCycle'
 import { currentDpsFunction } from './getDpsLocal'
 
 export const 计算Dps = (params = {}) => {

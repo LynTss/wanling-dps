@@ -78,7 +78,8 @@
     "eslint-plugin-react": "^7.23.2",
     "gh-pages": "^4.0.0",
     "prettier": "^2.2.1",
-    "typescript": "^4.4.4"
+    "typescript": "^4.4.4",
+    "rimraf": "5.0.5"
   },
   "optionalDependencies": {
     "@types/react": "18.0.21",
@@ -86,8 +87,8 @@
     "@types/react-redux": "^7.1.24"
   },
   "scripts": {
-    "dev": "node scripts/start.js",
-    "start": "node scripts/start.js",
+    "dev": "rimraf build/static/js/getDps.js && node scripts/start.js --stack-size=10000",
+    "start": "node scripts/start.js --stack-size=10000",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "deploy": "gh-pages -d build",
