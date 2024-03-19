@@ -27,7 +27,6 @@ interface GetDpsTotalParams {
   dpsTime: number
   默认增益集合?: SKillGainData[]
   开启卢令: boolean
-  开启无视防御: boolean
 }
 
 export interface DpsListData {
@@ -48,7 +47,6 @@ export const getNotGuoDpsTotal = (props: GetDpsTotalParams) => {
     zengyixuanxiangData,
     默认增益集合,
     开启卢令,
-    开启无视防御,
   } = props
   // 总dps
   let total = 0
@@ -59,27 +57,16 @@ export const getNotGuoDpsTotal = (props: GetDpsTotalParams) => {
   const 最终人物属性 = 获取身法奇穴加成后面板(characterFinalData, 开启卢令)
 
   // 获取装备增益等带来的最终增益集合
-  let 总增益集合: SKillGainData[] = getAllGainData(characterFinalData, 默认增益集合, 开启无视防御)
-
-  // 判断是不是单技能统计循环。如果是则不计入
-  const isSingeSkillCycle = currentCycle?.find((item) => item?.技能名称 === '云刀')?.技能数量 === 1
+  let 总增益集合: SKillGainData[] = getAllGainData(characterFinalData, 默认增益集合)
 
   // 根据增益信息修改最终循环内容
-  const 最终循环: CycleDTO[] = getFinalCycleData(
-    characterFinalData,
-    [...currentCycle],
-    dpsTime,
-    isSingeSkillCycle
-  )
+  const 最终循环: CycleDTO[] = getFinalCycleData(characterFinalData, [...currentCycle], dpsTime)
 
   if (zengyiQiyong && zengyixuanxiangData) {
     const 团队增益增益集合 = getZengyi(zengyixuanxiangData)
     总增益集合 = 总增益集合.concat(团队增益增益集合)
 
-    if (
-      !isSingeSkillCycle &&
-      zengyixuanxiangData?.团队增益.find((item) => item.增益名称 === '飘黄' && !!item.启用)
-    ) {
+    if (zengyixuanxiangData?.团队增益.find((item) => item.增益名称 === '飘黄' && !!item.启用)) {
       最终循环.push({
         技能名称: '逐云寒蕊',
         技能数量: Math.floor(dpsTime * 0.13),

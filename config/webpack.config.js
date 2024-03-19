@@ -202,8 +202,8 @@ module.exports = function (webpackEnv) {
     // This means they will be the "root" imports that are included in JS bundle.
     entry: {
       main: paths.appIndexJs,
-      ...(isEnvDevelopment ? {}:{
-        getDps: paths.getDps
+      ...(isEnvDevelopment ? {} : {
+        getDps: paths.getDps,
       })
     },
     output: {
@@ -212,6 +212,7 @@ module.exports = function (webpackEnv) {
       // Add /* filename */ comments to generated require()s in the output.
       pathinfo: isEnvDevelopment,
       libraryTarget: 'commonjs', // 将指定文件打包为 CommonJS
+      // libraryTarget: isEnvDevelopment ? undefined : 'commonjs', // 将指定文件打包为 CommonJS
       // There will be one main bundle, and one file per asynchronous chunk.
       // In development, it does not produce real files.
       filename: (pathData) => {

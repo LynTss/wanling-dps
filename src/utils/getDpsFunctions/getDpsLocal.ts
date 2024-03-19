@@ -1,7 +1,7 @@
 // 写这个文件的原因是这样就不用获取redux的数据了，避免了本地js调用异常
 // 根据当前增益装备，计算实时循环总dps
 import { 目标集合 } from '@/data/constant'
-import { 判断是否开启无视防御奇穴, 判断是否开启身法加成奇穴 } from '@/data/qixue'
+import { 判断是否开启身法加成奇穴 } from '@/data/qixue'
 import { getDpsTotal } from '@/components/Dps/guoshi_dps_utils'
 import { getDpsTime, 获取实际循环, 根据奇穴处理技能的基础增益信息 } from '@/utils/skill-dps'
 import { CharacterFinalDTO } from '@/@types/character'
@@ -62,11 +62,9 @@ export const currentDpsFunction = (props?: CurrentDpsFunctionProps) => {
       当前角色面板?.装备增益?.大橙武特效,
       当前角色面板?.装备增益?.小橙武特效
     ) || []
-  const 起手类型 = 'normal'
   const 奇穴数据 = 更新奇穴数据 || []
 
   const 开启身法加成奇穴 = 判断是否开启身法加成奇穴(奇穴数据)
-  const 开启无视防御奇穴 = 判断是否开启无视防御奇穴(奇穴数据)
 
   if (!当前循环技能列表?.length || !当前角色面板) {
     return { totalDps: 0, dpsList: [], dpsPerSecond: 0 }
@@ -75,7 +73,7 @@ export const currentDpsFunction = (props?: CurrentDpsFunctionProps) => {
     更新计算时间 || getDpsTime(当前循环名称, 当前角色面板, 延迟, false, {} as any, showTime)
 
   // 获取实际循环
-  const trueCycle = 获取实际循环(当前循环名称, 当前循环技能列表, 当前角色面板, 奇穴数据, 起手类型)
+  const trueCycle = 获取实际循环(当前循环名称, 当前循环技能列表, 当前角色面板)
 
   // 获取基础技能信息加成
   const trueSkillBasicData = 根据奇穴处理技能的基础增益信息(技能基础数据, 奇穴数据)
@@ -93,7 +91,6 @@ export const currentDpsFunction = (props?: CurrentDpsFunctionProps) => {
     默认增益集合: 更新默认增益集合 || [],
     dpsTime,
     开启卢令: 开启身法加成奇穴,
-    开启无视防御: 开启无视防御奇穴,
   })
 
   // 每秒dps

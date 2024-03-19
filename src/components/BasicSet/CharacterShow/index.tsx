@@ -4,31 +4,28 @@ import { useAppSelector } from '@/hooks'
 import { CharacterFinalDTO } from '@/@types/character'
 
 import { Checkbox, Tooltip } from 'antd'
-import {
-  判断是否开启身法加成奇穴,
-  判断是否开启无视防御奇穴,
-  获取身法奇穴加成后面板,
-} from '@/data/qixue'
+import { 判断是否开启身法加成奇穴, 获取身法奇穴加成后面板 } from '@/data/qixue'
 import { 获取实际循环, 根据奇穴处理技能的基础增益信息 } from '@/utils/skill-dps'
 import DpsKernelOptimizer from '@/utils/dps-kernel-optimizer'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 
 import './index.css'
+import useCycle from '@/hooks/use-cycle'
 
 function CharacterShow() {
   const characterFinalData = useAppSelector((state) => state?.basic?.characterFinalData)
   const qixueData = useAppSelector((state) => state?.basic?.qixueData)
 
-  const currentCycle = useAppSelector((state) => state?.basic?.currentCycle)
   const currentCycleName = useAppSelector((state) => state?.basic?.currentCycleName)
   const currentTarget = useAppSelector((state) => state?.basic?.currentTarget)
   const skillBasicData = useAppSelector((state) => state?.zengyi?.skillBasicData)
   const zengyixuanxiangData = useAppSelector((state) => state?.zengyi?.zengyixuanxiangData)
   const zengyiQiyong = useAppSelector((state) => state?.zengyi?.zengyiQiyong)
-  const startType = useAppSelector((state) => state?.basic?.startType)
+  const 循环信息 = useCycle()
 
+  // 获取实际循环
+  const trueCycle = 获取实际循环(currentCycleName, 循环信息, characterFinalData)
   const isOpenLuLing = 判断是否开启身法加成奇穴(qixueData)
-  const 开启无视防御 = 判断是否开启无视防御奇穴(qixueData)
 
   const [openBFGS, setOpenBFGS] = useState<boolean>(false)
 
@@ -43,15 +40,6 @@ function CharacterShow() {
       return {}
     }
 
-    // 获取实际循环
-    const trueCycle = 获取实际循环(
-      currentCycleName,
-      currentCycle,
-      characterFinalData,
-      qixueData,
-      startType
-    )
-
     // 获取基础技能信息加成
     const trueSkillBasicData = 根据奇穴处理技能的基础增益信息(skillBasicData, qixueData)
 
@@ -64,7 +52,6 @@ function CharacterShow() {
         zengyiQiyong,
         zengyixuanxiangData,
         isOpenLuLing,
-        开启无视防御,
       })
       return res
     } else {
@@ -72,7 +59,7 @@ function CharacterShow() {
     }
   }, [
     currentCycleName,
-    currentCycle,
+    trueCycle,
     characterFinalData,
     qixueData,
     skillBasicData,
@@ -80,7 +67,6 @@ function CharacterShow() {
     zengyiQiyong,
     zengyixuanxiangData,
     isOpenLuLing,
-    开启无视防御,
     openBFGS,
   ])
 

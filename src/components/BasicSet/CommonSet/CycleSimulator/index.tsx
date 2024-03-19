@@ -21,10 +21,8 @@ import {
   CycleSimulatorSkillDTO,
   ShowCycleSingleSkill,
 } from '@/@types/cycleSimulator'
-import { 获取全部循环 } from '@/data/skillCycle'
-import { setCurrentCycle, setQixueData } from '@/store/basicReducer'
 import { CopyOutlined, DeleteOutlined } from '@ant-design/icons'
-import { useAppDispatch, useAppSelector } from '@/hooks'
+import { useAppSelector } from '@/hooks'
 import 循环模拟技能基础数据 from '@/data/cycleSimulator/skill'
 import {
   测试宠物顺序,
@@ -38,7 +36,6 @@ import { SimulatorCycle } from './simulator'
 import BattleLogModal from './BattleLogModal'
 import {
   getDpsCycle,
-  getSingleSkillDpsCycle,
   判断上一个同名技能,
   判断当前技能添加之前需要换箭,
   获取总用时,
@@ -49,12 +46,11 @@ import {
   // 获取该轮箭用时,
 } from './utils'
 // import { CurrentDpsFunctionRes } from '@/store/basicReducer/current-dps-function'
-import { currentSingleSkillDpsFunction } from '@/store/basicReducer/current-single-skill-dps-function'
+// import { currentSingleSkillDpsFunction } from '@/store/basicReducer/current-single-skill-dps-function'
 import QixueSet from '../QixueSet'
 import DpsResModal from './DpsResModal'
-import { currentDpsFunction } from '@/store/basicReducer/current-dps-function'
-import './index.css'
 import SkillCountModal from './SkillCountModal'
+import './index.css'
 
 function CycleSimulator() {
   const [logData, setLogData] = useState<CycleSimulatorLog[]>([])
@@ -76,7 +72,7 @@ function CycleSimulator() {
   // 当前面板加速值
   const 加速值 = useAppSelector((state) => state?.basic?.characterFinalData)?.加速值
   // 当前网络延迟
-  const 网络按键延迟 = useAppSelector((state) => state?.basic?.network) - 1
+  const 网络按键延迟 = 0
 
   // 是否实时计算
   const [是否实时计算, 设置是否实时计算] = useState<boolean>(false)
@@ -91,11 +87,10 @@ function CycleSimulator() {
   // })
   // 奇穴
   const qixuedata = useAppSelector((state) => state?.basic?.qixueData)
-  const dispatch = useAppDispatch()
 
   // 获取自定义循环
   const 自定义循环 = useMemo(() => {
-    const 循环 = JSON.parse(localStorage.getItem('wl_custom_cycle') || '[]') || []
+    const 循环 = JSON.parse(localStorage.getItem('wl_custom_cycle_2') || '[]') || []
     if (循环?.length) {
       return {
         名称: 循环[0]?.name,
@@ -105,7 +100,7 @@ function CycleSimulator() {
     } else {
       return false
     }
-  }, [localStorage.getItem('wl_custom_cycle')])
+  }, [localStorage.getItem('wl_custom_cycle_2')])
 
   useEffect(() => {
     if (!basicModalOpen) {
@@ -169,9 +164,7 @@ function CycleSimulator() {
     }
     const newLog = data.map((item) => {
       if (item?.日志类型 === '造成伤害') {
-        const dps = dispatch(
-          currentSingleSkillDpsFunction({ 计算技能: getSingleSkillDpsCycle(item) })
-        )
+        const dps = 0
         totalDps = totalDps + dps
         return {
           ...item,
@@ -302,32 +295,6 @@ function CycleSimulator() {
     setCycle(newCycle)
   }
 
-  // 设置外面的循环
-  const setCurrentCycleVal = (val) => {
-    const skillCycle = 获取全部循环()
-    const cycleData = skillCycle?.find((item) => item.name === val)
-    const cycle = cycleData?.cycle || []
-    if (cycle) {
-      localStorage?.setItem('wl_当前循环_1', val)
-      dispatch(
-        setCurrentCycle({
-          name: val,
-          cycle,
-        })
-      )
-      if (cycleData?.qixue) {
-        localStorage.setItem('wl_qixue_data', JSON.stringify(cycleData?.qixue))
-        dispatch(setQixueData(cycleData?.qixue))
-      }
-      dispatch(
-        currentDpsFunction({
-          showTime: true,
-          updateCurrentDps: true,
-        })
-      )
-    }
-  }
-
   // 保存为自定义循环
   const 保存自定义循环 = () => {
     if (自定义循环 && 自定义循环?.名称) {
@@ -388,16 +355,12 @@ function CycleSimulator() {
       skillList: cycle,
     }
 
-    localStorage?.setItem('wl_custom_cycle', JSON.stringify([用于保存的自定义循环]))
-    setTimeout(() => {
-      setCurrentCycleVal(自定义循环名称输入)
-    }, 0)
+    localStorage?.setItem('wl_custom_cycle_2', JSON.stringify([用于保存的自定义循环]))
     设置自定义循环保存弹窗(false)
   }
 
   const 快捷添加循环 = (名称) => {
     if (名称 === '朱厌（压缩）') {
-      setCurrentCycleVal('朱厌（压缩）')
       setCycleAndAddChange(
         测试循环_朱厌.map((item) => {
           return 循环模拟技能基础数据?.find((a) => a?.技能名称 === item) || 循环模拟技能基础数据[0]
@@ -405,7 +368,6 @@ function CycleSimulator() {
       )
       设置宠物顺序(测试宠物顺序)
     } else if (名称 === '大招桑柘') {
-      setCurrentCycleVal('朝仪万汇_桑拓')
       setCycleAndAddChange(
         测试循环新桑柘.map((item) => {
           return 循环模拟技能基础数据?.find((a) => a?.技能名称 === item) || 循环模拟技能基础数据[0]
@@ -413,7 +375,6 @@ function CycleSimulator() {
       )
       设置宠物顺序(测试循环新桑柘宠物)
     } else if (名称 === '朱厌（一键宏）') {
-      setCurrentCycleVal('朱厌（一键宏）')
       setCycleAndAddChange(
         朱厌一键宏.map((item) => {
           return 循环模拟技能基础数据?.find((a) => a?.技能名称 === item) || 循环模拟技能基础数据[0]
@@ -421,7 +382,6 @@ function CycleSimulator() {
       )
       设置宠物顺序(朱厌一键宏宠物)
     } else if (自定义循环) {
-      setCurrentCycleVal(自定义循环?.名称)
       setCycleAndAddChange(自定义循环?.技能数组)
       // 设置宠物顺序(自定义循环?.宠物顺序)
     }

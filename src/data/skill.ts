@@ -5,6 +5,7 @@ import 贯穿GainDTO from './skillGain/贯穿'
 import 劲风簇GainDTO from './skillGain/劲风簇'
 import 标鹄GainDTO from './skillGain/标鹄'
 import 饮羽簇GainDTO from './skillGain/饮羽簇'
+import 宠物GainDTO from './skillGain/宠物通用'
 
 const 外攻基础系数 = 16 * 10
 
@@ -82,7 +83,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能基础伤害_最大值: 110,
     武器伤害系数: 0,
     伤害计算次数: 1,
-    技能增益列表: commonGainDTO,
+    技能增益列表: 宠物GainDTO,
   },
   {
     技能名称: '攻击-虎',
@@ -91,7 +92,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能基础伤害_最大值: 330,
     武器伤害系数: 0,
     伤害计算次数: 1,
-    技能增益列表: commonGainDTO,
+    技能增益列表: 宠物GainDTO,
   },
   {
     技能名称: '攻击-鹰',
@@ -100,7 +101,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能基础伤害_最大值: 240,
     武器伤害系数: 0,
     伤害计算次数: 1,
-    技能增益列表: commonGainDTO,
+    技能增益列表: 宠物GainDTO,
   },
   {
     技能名称: '攻击-熊',
@@ -109,7 +110,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能基础伤害_最大值: 70,
     武器伤害系数: 0,
     伤害计算次数: 1,
-    技能增益列表: commonGainDTO,
+    技能增益列表: 宠物GainDTO,
   },
   {
     技能名称: '重击', // 野猪
@@ -118,7 +119,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能基础伤害_最大值: 110,
     武器伤害系数: 0,
     伤害计算次数: 1,
-    技能增益列表: commonGainDTO,
+    技能增益列表: 宠物GainDTO,
   },
   {
     技能名称: '践踏', // 大象
@@ -127,7 +128,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能基础伤害_最大值: 240,
     武器伤害系数: 0,
     伤害计算次数: 1,
-    技能增益列表: commonGainDTO,
+    技能增益列表: 宠物GainDTO,
   },
   {
     技能名称: '贯穿·1',

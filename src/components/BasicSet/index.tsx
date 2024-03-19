@@ -10,7 +10,6 @@ import { setSkillBasicData } from '@/store/zengyiReducer'
 import { getSkillBasicData } from './CommonSet/MijiSet/utils'
 import Footer from './Footer'
 import Zengyi from './Zengyi'
-import ShineBox from '../Shine'
 import './index.css'
 
 interface CharacterSetProps {
@@ -119,7 +118,7 @@ function BasicSet(props: CharacterSetProps) {
   }, [])
 
   return (
-    <ShineBox className={'basic-set'}>
+    <div className={'basic-set'}>
       <div className={'basic-set-info'}>
         {/* 公用设置/目标/循环/输出时间 */}
         <CommonSet
@@ -137,7 +136,7 @@ function BasicSet(props: CharacterSetProps) {
       <div className={`basic-set-zengyi ${zengyiVisible ? 'basic-set-zengyi-visible' : null}`}>
         <Zengyi getDpsFunction={getDpsFunction} />
       </div>
-    </ShineBox>
+    </div>
   )
 }
 

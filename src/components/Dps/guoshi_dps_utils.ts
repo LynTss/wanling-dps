@@ -24,7 +24,6 @@ interface GetDpsTotalParams {
   zengyixuanxiangData: ZengyixuanxiangDataDTO
   dpsTime: number
   开启卢令: boolean
-  开启无视防御: boolean
 }
 
 export interface DpsListData {
@@ -45,7 +44,6 @@ export const getDpsTotal = (props: GetDpsTotalParams) => {
     zengyixuanxiangData,
     dpsTime,
     开启卢令,
-    开启无视防御,
   } = props
   // 总dps
   let total = 0
@@ -56,27 +54,16 @@ export const getDpsTotal = (props: GetDpsTotalParams) => {
   const 最终人物属性 = 获取身法奇穴加成后面板(characterFinalData, 开启卢令)
 
   // 获取装备增益等带来的最终增益集合
-  let 总增益集合: SKillGainData[] = getAllGainData(characterFinalData, [], 开启无视防御)
-
-  // 判断是不是单技能统计循环。如果是则不计入
-  const isSingeSkillCycle = currentCycle?.find((item) => item?.技能名称 === '风矢')?.技能数量 === 1
+  let 总增益集合: SKillGainData[] = getAllGainData(characterFinalData, [])
 
   // 根据增益信息修改最终循环内容
-  const 最终循环: CycleDTO[] = getFinalCycleData(
-    characterFinalData,
-    [...currentCycle],
-    dpsTime,
-    isSingeSkillCycle
-  )
+  const 最终循环: CycleDTO[] = getFinalCycleData(characterFinalData, [...currentCycle], dpsTime)
 
   if (zengyiQiyong && zengyixuanxiangData) {
     const 团队增益增益集合 = getZengyi(zengyixuanxiangData)
     总增益集合 = 总增益集合.concat(团队增益增益集合)
 
-    if (
-      !isSingeSkillCycle &&
-      zengyixuanxiangData?.团队增益.find((item) => item.增益名称 === '飘黄' && !!item.启用)
-    ) {
+    if (zengyixuanxiangData?.团队增益.find((item) => item.增益名称 === '飘黄' && !!item.启用)) {
       最终循环.push({
         技能名称: '逐云寒蕊',
         技能数量: Math.floor(dpsTime * 0.13),
@@ -94,8 +81,7 @@ export const getDpsTotal = (props: GetDpsTotalParams) => {
       计算目标,
       skillBasicData,
       总增益集合,
-      开启卢令,
-      isSingeSkillCycle
+      开启卢令
     )
     dpsList.push({
       countName: item.统计用技能名称,
@@ -110,70 +96,49 @@ export const getDpsTotal = (props: GetDpsTotalParams) => {
 }
 
 // 根据增益信息修改最终循环内容
-export const getFinalCycleData = (
-  characterFinalData,
-  currentCycle,
-  dpsTime,
-  isSingeSkillCycle
-): CycleDTO[] => {
+export const getFinalCycleData = (characterFinalData, currentCycle, dpsTime): CycleDTO[] => {
   const 最终循环: CycleDTO[] = [...currentCycle]
-  if (!isSingeSkillCycle) {
-    if (characterFinalData?.装备增益?.大附魔_伤腕) {
-      最终循环.push({
-        技能名称: '昆吾·弦刃',
-        技能数量: Math.floor(dpsTime / 10),
-      })
-    }
-    if (characterFinalData?.装备增益?.大附魔_伤鞋) {
-      最终循环.push({
-        技能名称: '刃凌',
-        技能数量: Math.floor(dpsTime / 10),
-      })
-    }
-    // if (characterFinalData?.装备增益?.大橙武特效) {
-    //   const 总数列表 = 最终循环
-    //     .filter((i) => i.技能名称.includes('劲风簇'))
-    //     .map((i) => {
-    //       return { 技能数量: i.技能数量 }
-    //     })
-    //   let 总数 = 0
-    //   const 触发率 = 0.5
-    //   总数列表.forEach((i) => {
-    //     总数 = 总数 + i.技能数量
-    //   })
-    //   最终循环.push({
-    //     技能名称: '劲风簇·神兵',
-    //     技能数量: Math.floor(总数 * 触发率),
-    //   })
-    // }
-    if (characterFinalData?.装备增益?.龙门武器) {
-      最终循环.push({
-        技能名称: '剑风',
-        技能数量: Math.floor((dpsTime * 6) / 30),
-        技能增益列表: [{ 增益名称: '承契_5层', 增益技能数: Math.floor((dpsTime * 6) / 30) }],
-      })
-    }
+  if (characterFinalData?.装备增益?.大附魔_伤腕) {
+    最终循环.push({
+      技能名称: '昆吾·弦刃',
+      技能数量: Math.floor(dpsTime / 10),
+    })
+  }
+  if (characterFinalData?.装备增益?.大附魔_伤鞋) {
+    最终循环.push({
+      技能名称: '刃凌',
+      技能数量: Math.floor(dpsTime / 10),
+    })
+  }
+  // if (characterFinalData?.装备增益?.大橙武特效) {
+  //   const 总数列表 = 最终循环
+  //     .filter((i) => i.技能名称.includes('劲风簇'))
+  //     .map((i) => {
+  //       return { 技能数量: i.技能数量 }
+  //     })
+  //   let 总数 = 0
+  //   const 触发率 = 0.5
+  //   总数列表.forEach((i) => {
+  //     总数 = 总数 + i.技能数量
+  //   })
+  //   最终循环.push({
+  //     技能名称: '劲风簇·神兵',
+  //     技能数量: Math.floor(总数 * 触发率),
+  //   })
+  // }
+  if (characterFinalData?.装备增益?.龙门武器) {
+    最终循环.push({
+      技能名称: '剑风',
+      技能数量: Math.floor((dpsTime * 6) / 30),
+      技能增益列表: [{ 增益名称: '承契_5层', 增益技能数: Math.floor((dpsTime * 6) / 30) }],
+    })
   }
   return 最终循环
 }
 
 // 统计增益，获取增益的集合
-export const getAllGainData = (
-  characterFinalData,
-  defaultGainData?,
-  开启无视防御?
-): SKillGainData[] => {
+export const getAllGainData = (characterFinalData, defaultGainData?): SKillGainData[] => {
   let 总增益集合: SKillGainData[] = [...(defaultGainData || [])]
-
-  if (开启无视防御) {
-    总增益集合 = 总增益集合.concat([
-      {
-        增益计算类型: GainDpsTypeEnum.A,
-        增益类型: GainTypeEnum.郭氏无视防御,
-        增益数值: 512,
-      },
-    ])
-  }
   if (characterFinalData?.装备增益?.套装会心会效) {
     // 偷懒覆盖率测试80%左右
     总增益集合 = 总增益集合.concat(ZhuangbeiGainList.套装会心会效)
@@ -228,9 +193,7 @@ export const getSingleSkillTotalDps = (
   计算目标: TargetDTO,
   skillBasicData: SkillBasicDTO[],
   总增益集合: SKillGainData[],
-  开启卢令: boolean,
-  单技能数据测试?
-  // 是否郭氏计算?: boolean
+  开启卢令: boolean
 ) => {
   // 在技能数据模型中找到当前执行循环内技能的数据，获取各种系数
   const 当前技能属性 = skillBasicData.find((item) => item.技能名称 === 循环?.技能名称)
@@ -261,8 +224,7 @@ export const getSingleSkillTotalDps = (
             增益.增益技能数,
             计算目标,
             用于计算的增益集合,
-            开启卢令,
-            单技能数据测试
+            开启卢令
           )
           totalDps = totalDps + 期望技能总伤
         }
@@ -271,15 +233,8 @@ export const getSingleSkillTotalDps = (
 
     // 判断常规未增益技能的总伤
     const 期望技能总伤 = 无增益技能数
-      ? geSkillTotalDps(
-          当前技能属性,
-          最终人物属性,
-          无增益技能数,
-          计算目标,
-          技能增益集合,
-          开启卢令,
-          单技能数据测试
-        )?.期望技能总伤 || 0
+      ? geSkillTotalDps(当前技能属性, 最终人物属性, 无增益技能数, 计算目标, 技能增益集合, 开启卢令)
+          ?.期望技能总伤 || 0
       : 0
 
     totalDps = totalDps + 期望技能总伤
@@ -297,8 +252,7 @@ export const geSkillTotalDps = (
   技能总数: number,
   当前目标: TargetDTO,
   总增益集合: SKillGainData[],
-  开启卢令: boolean,
-  单技能数据测试: boolean
+  开启卢令: boolean
 ) => {
   let 增益计算基础: DpsGainBasicDTO = {
     计算目标: 当前目标,
@@ -416,7 +370,6 @@ export const geSkillTotalDps = (
     郭氏额外会效果值: 增益计算基础?.郭氏额外会效果值,
     额外会心率: 增益计算基础?.额外会心率,
     郭式无视防御: 增益计算基础?.郭式无视防御,
-    单技能数据测试,
   })
 
   return { 期望技能总伤, 会心数量 }
@@ -431,7 +384,6 @@ const getSkillDamage = ({
   郭氏额外会效果值,
   额外会心率,
   郭式无视防御,
-  单技能数据测试,
 }: {
   当前技能属性: SkillBasicDTO
   最终人物属性: CharacterFinalDTO
@@ -441,7 +393,6 @@ const getSkillDamage = ({
   郭氏额外会效果值: number
   额外会心率: number
   郭式无视防御: number
-  单技能数据测试: boolean
 }) => {
   const 目标 = {
     ...当前目标,
@@ -458,7 +409,7 @@ const getSkillDamage = ({
 
   const 平均伤害 = Math.floor((最小技能总伤 + 最大技能总伤) / 2)
 
-  const 会心期望率 = 单技能数据测试 ? 0 : guoshiHuixinLv(最终人物属性.会心值) + 额外会心率
+  const 会心期望率 = guoshiHuixinLv(最终人物属性.会心值) + 额外会心率
 
   const 会心数量 = guoshiHuixin(最终人物属性.会心值, 技能总数)
 

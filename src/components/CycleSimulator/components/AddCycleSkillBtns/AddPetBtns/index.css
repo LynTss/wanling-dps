@@ -1,0 +1,10 @@
+.cycle-simulator-pet-btns {
+  padding-left: 24px;
+}
+.cycle-simulator-pets-btn {
+  width: 40px; 
+}
+
+.cycle-simulator-pets-btn + .cycle-simulator-pets-btn {
+  margin-left: 8px;
+}

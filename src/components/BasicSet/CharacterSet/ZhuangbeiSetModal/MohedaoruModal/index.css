@@ -1,8 +1,33 @@
+.pz-daoru-modal .ant-modal-header {
+  padding: 0;
+}
+
+.pz-daoru-modal .ant-modal-body {
+  min-height: 300px;
+}
+
+.pz-daoru-tabs .ant-tabs-nav {
+  margin-bottom: 0;
+}
+
+.pz-daoru-tabs .ant-tabs-nav-wrap {
+  padding-left: 24px;
+  padding-top:8px;
+}
+
 .pz-daoru-input-wrap {
   padding: 16px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.pz-daoru-input-wrap.no-padding {
+  padding: 0;
+}
+
+.pz-daoru-input-wrap-input {
+  width: 35%;
 }
 
 .pz-daoru-success-content {

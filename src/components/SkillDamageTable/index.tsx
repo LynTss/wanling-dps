@@ -1,11 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal, Table } from 'antd'
-import {
-  skillBasicDps,
-  skillDengjijianshangDps,
-  skillFinalDps,
-  skillStandardDps,
-} from '../../utils/skill-dps'
+import { skillBasicDps, skillFinalDps } from '../../utils/skill-dps'
 import { useAppSelector } from '@/hooks'
 import './index.css'
 
@@ -16,28 +11,32 @@ function SkillDamageTable() {
 
   const [visible, setVisible] = useState(false)
 
+  const hrefSkill = location.href?.includes('?skill=1')
+  useEffect(() => {
+    if (hrefSkill) {
+      setVisible(true)
+    }
+  }, [hrefSkill])
+
   const columns = [
     {
       title: '技能名称',
       dataIndex: '技能名称',
-      fix: 'left',
+      fixed: 'left',
+      // width: 200,
     },
     {
       title: '伤害系数',
       dataIndex: '技能伤害系数',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.技能伤害系数 - b.技能伤害系数,
     },
-    // {
-    //   title: '实测系数',
-    //   dataIndex: 'category',
-    // },
     {
       title: '武伤系数',
       dataIndex: '武器伤害系数',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.武器伤害系数 - b.武器伤害系数,
     },
-    // {
-    //   title: '系数实测',
-    //   dataIndex: 'action',
-    // },
     {
       title: '基础-min',
       dataIndex: '技能基础伤害_最小值',
@@ -64,48 +63,24 @@ function SkillDamageTable() {
         return skillBasicDps(row, characterFinalData)?.max
       },
     },
+    // {
+    //   title: '基准伤害-min',
+    //   dataIndex: 'jizhun_min',
+    //   render: (_, row) => {
+    //     const damage = skillBasicDps(row, characterFinalData)?.min
+    //     return skillStandardDps(damage, characterFinalData, currentTarget)
+    //   },
+    // },
+    // {
+    //   title: '基准伤害-min',
+    //   dataIndex: 'jizhun_max',
+    //   render: (_, row) => {
+    //     const damage = skillBasicDps(row, characterFinalData)?.max
+    //     return skillStandardDps(damage, characterFinalData, currentTarget)
+    //   },
+    // },
     {
-      title: '基准伤害-min',
-      dataIndex: 'jizhun_min',
-      render: (_, row) => {
-        const damage = skillBasicDps(row, characterFinalData)?.min
-        return skillStandardDps(damage, characterFinalData, currentTarget)
-      },
-    },
-    {
-      title: '基准伤害-min',
-      dataIndex: 'jizhun_max',
-      render: (_, row) => {
-        const damage = skillBasicDps(row, characterFinalData)?.max
-        return skillStandardDps(damage, characterFinalData, currentTarget)
-      },
-    },
-    {
-      title: '等级减伤害后伤害-min',
-      dataIndex: 'min',
-      className: 'keyTable-1',
-      fix: 'right',
-      width: 120,
-      render: (_, row) => {
-        const damage = skillBasicDps(row, characterFinalData)?.min
-        const standard_min = skillStandardDps(damage, characterFinalData, currentTarget)
-        return skillDengjijianshangDps(standard_min, characterFinalData, currentTarget)
-      },
-    },
-    {
-      title: '等级减伤害后伤害-max',
-      dataIndex: 'max',
-      className: 'keyTable-1',
-      fix: 'right',
-      width: 120,
-      render: (_, row) => {
-        const damage = skillBasicDps(row, characterFinalData)?.max
-        const standard_min = skillStandardDps(damage, characterFinalData, currentTarget)
-        return skillDengjijianshangDps(standard_min, characterFinalData, currentTarget)
-      },
-    },
-    {
-      title: '无双计算后伤害-min',
+      title: '实际伤害-min',
       dataIndex: 'min',
       className: 'keyTable',
       fix: 'right',
@@ -115,9 +90,16 @@ function SkillDamageTable() {
       },
     },
     {
-      title: '无双计算后伤害-max',
+      title: '实际伤害-max',
       dataIndex: 'max',
       className: 'keyTable',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => {
+        return (
+          skillFinalDps(a, characterFinalData, currentTarget)?.max -
+          skillFinalDps(b, characterFinalData, currentTarget)?.max
+        )
+      },
       fix: 'right',
       width: 120,
       render: (_, row) => {
@@ -142,8 +124,8 @@ function SkillDamageTable() {
           className={'skillDamageTable'}
           dataSource={skillBasicData}
           pagination={false}
-          columns={columns}
-          scroll={{ x: 1300 }}
+          columns={columns as any}
+          scroll={{ x: 'max-content' }}
         />
       </Modal>
       <span className="skillDamageBtn" onClick={() => setVisible(true)}>

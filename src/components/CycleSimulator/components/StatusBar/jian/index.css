@@ -1,0 +1,36 @@
+.cycle-status-bar-titai-img {
+  width: 36px;
+}
+
+.cycle-status-bar-arrow-wrap {
+  display: flex;
+  height: 36px;
+  align-items: center;
+}
+
+.cycle-status-bar-arrow {
+  font-size: 18px;
+  font-weight: 900;
+  color: #ddd;
+  transform: rotate(45deg);
+}
+
+.cycle-status-bar-arrow.cycle-status-bar-arrow-yellow {
+  color: rgb(184, 159, 0);
+}
+
+.cycle-status-bar-arrow.cycle-status-bar-arrow-red {
+  color: #ff0000;
+}
+
+.cycle-status-bar-arrow.cycle-status-bar-arrow-blue {
+  color: #108ee9;
+}
+
+.cycle-status-bar-arrow.cycle-status-bar-arrow-purple {
+  color: #531dab;
+}
+
+.cycle-status-bar-arrow + .cycle-status-bar-arrow {
+  margin-left: 4px;
+}

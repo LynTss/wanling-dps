@@ -1,19 +1,13 @@
 import React from 'react'
 import { Button, Select } from 'antd'
-import { 延迟设定, 目标集合, 起手设定 } from '@/data/constant'
+import { 延迟设定, 目标集合 } from '@/data/constant'
 import { 获取全部循环 } from '@/data/skillCycle'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 
-import {
-  setCurrentTarget,
-  setCurrentCycle,
-  setNetwork,
-  setQixueData,
-  setStartType,
-} from '@/store/basicReducer'
+import { setCurrentTarget, setCurrentCycle, setNetwork, setQixueData } from '@/store/basicReducer'
 import MijiSet from './MijiSet'
 import QixueSet from './QixueSet'
-import CycleSimulator from './CycleSimulator'
+import CycleSimulator from '@/components/CycleSimulator'
 import './index.css'
 // import { getExportFunction } from '@/utils/wasm'
 // import { getExportFunction } from '@/utils/wasm'
@@ -24,9 +18,8 @@ import './index.css'
 function CommonSet({ getDpsFunction, setZengyiVisible }) {
   const dispatch = useAppDispatch()
   const currentCycleName = useAppSelector((state) => state?.basic?.currentCycleName)
-  const currentTargetName = useAppSelector((state) => state?.basic?.currentTargetName)
-  const startType = useAppSelector((state) => state?.basic?.startType)
   const network = useAppSelector((state) => state?.basic?.network)
+  const currentTargetName = useAppSelector((state) => state?.basic?.currentTargetName)
 
   const setCurrentTargetVal = (val) => {
     const target = 目标集合?.find((item) => item.名称 === val)
@@ -43,7 +36,7 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
   }
 
   const handleChangeNetwork = (val) => {
-    localStorage?.setItem('wl_network_data', val)
+    localStorage?.setItem('wl_network_data_2', val)
     dispatch(setNetwork(val))
     getDpsFunction()
   }
@@ -52,11 +45,11 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
     const cycleData = skillCycle?.find((item) => item.name === val)
     const cycle = cycleData?.cycle || []
     if (cycle) {
-      localStorage?.setItem('wl_当前循环_1', val)
+      localStorage?.setItem('wl_当前循环_2', val)
       dispatch(
         setCurrentCycle({
           name: val,
-          cycle,
+          各加速枚举: cycleData?.各加速枚举,
         })
       )
       if (cycleData?.qixue) {
@@ -67,27 +60,7 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
     }
   }
 
-  const setCurrentStartType = (val) => {
-    if (val) {
-      localStorage?.setItem('wl_start_type', val)
-      dispatch(setStartType(val))
-      getDpsFunction()
-    }
-  }
-
   const skillCycle = 获取全部循环()
-
-  // const wasm = useWasm('/JX3DPS_Wasm/libJX3DPS.wasm')
-
-  // const wasmTest = async () => {
-  // const instance = await getExportFunction('/calc.wasm')
-  // const instance = await getExportFunction('/CppDemo.wasm')
-  // const instance = getExportFunction('/test/CppDemo.js')
-  // const a = require('./test/CppDemo.js')
-  // console.log('a', a)
-  // const a = instance.add(999, 111)
-  // console.log('instance', instance)
-  // }
 
   return (
     <div className={'common-set'}>
@@ -157,28 +130,6 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
               )
             })}
           </Select>
-        </div>
-      </div>
-      <div className="common-item">
-        <div className={'common-item-sub'}>
-          <h1 className="common-label">起手</h1>
-          <div className="common-content">
-            <Select
-              value={startType}
-              className="cycle-select"
-              onChange={(v) => {
-                setCurrentStartType(v)
-              }}
-            >
-              {起手设定.map((item) => {
-                return (
-                  <Select.Option value={item?.value} key={item?.value}>
-                    {item?.label}
-                  </Select.Option>
-                )
-              })}
-            </Select>
-          </div>
         </div>
       </div>
       <div className="common-item">

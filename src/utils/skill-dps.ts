@@ -151,28 +151,16 @@ export const getDpsTime = (
 
   const All_Cycle_Data = 获取全部循环() || []
 
-  const currentCycleConfig = All_Cycle_Data?.find((item) =>
-    trueCurrentCycleName ? item.name === trueCurrentCycleName : item.name === currentCycleName
-  )
+  const currentCycleConfig =
+    All_Cycle_Data?.find((item) =>
+      trueCurrentCycleName ? item.name === trueCurrentCycleName : item.name === currentCycleName
+    ) || All_Cycle_Data?.[0]
   const 增益加速等级 = zengyiQiyong ? getZengyiJiasu(zengyixuanxiangData) : 0
   const 加速等级 = 获取加速等级(characterFinalData.加速值 + 增益加速等级)
 
-  // 暂时去除加速对延迟的计算，加速等级不够1断直接加帧
-  // if (currentCycleConfig) {
-  //   let 总帧数 = 0
-  //   currentCycleConfig.cycleList.forEach((item) => {
-  //     const 循环帧 =
-  //       (item.循环完整帧数 - item.计算技能数 * (加速等级 - network * 0.5)) * item.循环次数
-  //     总帧数 = 总帧数 + 循环帧
-  //   })
-  //   time = 总帧数 / 16 + 18
-  // }
-  // return time
-
   if (currentCycleConfig) {
-    if (currentCycleConfig.dpsTime) {
-      time =
-        currentCycleConfig.dpsTime[加速等级][network] || currentCycleConfig.dpsTime[0][1] || 180
+    if (currentCycleConfig.各加速枚举) {
+      time = currentCycleConfig.各加速枚举?.[加速等级]?.[network]?.dpsTime || 180
     } else if (currentCycleConfig.cycleList) {
       let 总帧数 = 0
       currentCycleConfig.cycleList.forEach((item) => {
@@ -222,11 +210,9 @@ export const getTrueCycleName = (
 export const 获取实际循环 = (
   currentCycleName: string,
   currentCycle: CycleDTO[],
-  characterFinalData: CharacterFinalDTO,
-  qixueData: string[],
-  startType: 'normal' | 'max' // 起手方式
+  characterFinalData: CharacterFinalDTO
 ) => {
-  let trueCycle: CycleDTO[] = [...currentCycle]
+  let trueCycle: CycleDTO[] = [...(currentCycle || [])]
 
   const All_Cycle_Data = 获取全部循环()
 
@@ -241,27 +227,7 @@ export const 获取实际循环 = (
     trueCycle = All_Cycle_Data?.find((item) => item.name === trueName)?.cycle || currentCycle
   }
 
-  // 特殊处理5层承契起手
-  if (startType === 'max') {
-    trueCycle = trueCycle.map((item) => {
-      return {
-        ...item,
-        技能增益列表: item?.技能增益列表?.map((增益) => {
-          return {
-            ...增益,
-            增益名称: 增益?.增益名称?.includes('承契_')
-              ? 增益?.增益名称
-                  ?.replace('承契_1', '承契_5')
-                  .replace('承契_2', '承契_5')
-                  .replace('承契_3', '承契_5')
-                  .replace('承契_4', '承契_5')
-              : 增益?.增益名称,
-          }
-        }),
-      }
-    })
-  }
-
+  // console.log('trueCycle', trueCycle)
   return trueCycle
 }
 

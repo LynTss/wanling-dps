@@ -55,11 +55,11 @@ export const getDefaultZengyiQiyong = () => {
 }
 
 export const getDefaultNetwork = () => {
-  const localNetwork = localStorage.getItem('wl_network_data')
+  const localNetwork = localStorage.getItem('wl_network_data_2')
   if (localNetwork) {
     return +localNetwork
   } else {
-    return 2
+    return 1
   }
 }
 
@@ -110,10 +110,12 @@ export const getDefaultEquipment = () => {
 
 export const getDefaultCycle = () => {
   const skillCycle = 获取全部循环()
-  const currentCycleName = localStorage.getItem('wl_当前循环_1') || skillCycle[0]?.name
+  const currentCycleName = localStorage.getItem('wl_当前循环_2') || skillCycle[0]?.name
   return {
     name: currentCycleName,
-    cycle: skillCycle.find((item) => item.name === currentCycleName)?.cycle || skillCycle[0]?.cycle,
+    各加速枚举:
+      skillCycle.find((item) => item.name === currentCycleName)?.各加速枚举 ||
+      skillCycle[0]?.各加速枚举,
   }
 }
 
@@ -147,5 +149,23 @@ export const getDefaultMijiSelectedData = () => {
     }
   } else {
     return [...DEFAULT_MIJI_SELECTED_DATA]
+  }
+}
+
+// 获取奇穴
+export const getDefaultCustomCycleList = () => {
+  const 循环枚举 = JSON.parse(localStorage.getItem('wl_custom_cycle_2') || '{}') || {}
+  if (Object.keys(循环枚举)?.length) {
+    return Object.keys(循环枚举).map((key) => {
+      return {
+        名称: 循环枚举[key]?.name,
+        技能序列: 循环枚举[key]?.skillList || [],
+        奇穴信息: 循环枚举[key]?.qixue || [],
+        宠物顺序: 循环枚举[key]?.pets || [],
+        各加速枚举: 循环枚举[key]?.各加速枚举 || {},
+      }
+    })
+  } else {
+    return []
   }
 }

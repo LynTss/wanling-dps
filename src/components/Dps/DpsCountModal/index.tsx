@@ -3,7 +3,7 @@ import React, { useMemo } from 'react'
 import { DpsListData } from '../guoshi_dps_utils'
 import './index.css'
 
-function DpsCountModal({ visible, onClose, dpsList, total }) {
+function DpsCountModal({ visible, onClose, dpsList, total, title = '技能统计' as any }) {
   const sortDpsList = useMemo(() => {
     const list: DpsListData[] = [...dpsList]
     const resList: DpsListData[] = []
@@ -70,7 +70,7 @@ function DpsCountModal({ visible, onClose, dpsList, total }) {
       className="dps-count-modal"
       width={700}
       centered
-      title={'技能统计'}
+      title={title || '技能统计'}
       open={visible}
       onCancel={() => onClose()}
       footer={false}

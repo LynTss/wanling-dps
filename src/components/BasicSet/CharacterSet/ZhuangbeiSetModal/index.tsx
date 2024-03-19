@@ -227,8 +227,8 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
     }
   }
 
-  // 导入魔盒配装数据
-  const mohedaoru = (e) => {
+  // 导入配装数据
+  const daoru = (e) => {
     console.log('导入数据', e)
     formValueChange(undefined, e)
     form.setFieldsValue({ ...e })
@@ -252,7 +252,7 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
       destroyOnClose
       footer={
         <div>
-          <Button onClick={() => setMoHeDaoRuVisible(true)}>魔盒配装导入</Button>
+          <Button onClick={() => setMoHeDaoRuVisible(true)}>外部配装导入</Button>
           <Button type="primary" onClick={() => onOk()}>
             保存并计算
           </Button>
@@ -440,7 +440,7 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
       <MohedaoruModal
         visible={moHeDaoRuVisible}
         onClose={() => setMoHeDaoRuVisible(false)}
-        onOk={(e) => mohedaoru(e)}
+        onOk={(e) => daoru(e)}
       />
     </Modal>
   )

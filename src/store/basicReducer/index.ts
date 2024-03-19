@@ -2,17 +2,18 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '@/store/index'
 
 import { CharacterBasicDTO, CharacterFinalDTO, TargetDTO } from '@/@types/character'
-import { CycleDTO } from '@/@types/cycle'
+import { CustomCycle, 各加速枚举 } from '@/@types/cycle'
 import {
   getDefaultCharacter,
   getDefaultEquipment,
   getDefaultCycle,
   getDefaultTarget,
   getDefaultTime,
-  getDefaultNetwork,
+  // getDefaultNetwork,
   getCloseBackgroundImg,
   getDefaultQixue,
-  getDefaultStartType,
+  getDefaultCustomCycleList,
+  getDefaultNetwork,
 } from '@/utils/default'
 import { EquipmentBasicDTO } from '@/@types/equipment'
 
@@ -24,7 +25,7 @@ interface BasicState {
   // 常驻增益计算后的属性，如（奇穴卢令、阵眼常驻增益、秀气、雷等buff）
   characterFinalData: CharacterFinalDTO
   // 当前输出计算循环
-  currentCycle: CycleDTO[]
+  当前循环各加速枚举: 各加速枚举
   // 当前输出计算循环名
   currentCycleName: string
   // 当前输出计算目标
@@ -41,8 +42,8 @@ interface BasicState {
   closeBackgroundImg: boolean
   // 奇穴信息
   qixueData: string[]
-  // 起手类型
-  startType: 'normal' | 'max' // normal 正常 max 5承契起手
+  // 自定义循环列表
+  customCycleList: CustomCycle[]
 }
 
 const initialState: BasicState = {
@@ -66,14 +67,14 @@ const initialState: BasicState = {
     会心效果值: 0,
   },
   currentDps: 0,
-  currentCycle: getDefaultCycle()?.cycle,
+  当前循环各加速枚举: getDefaultCycle()?.各加速枚举,
   currentCycleName: getDefaultCycle()?.name,
   currentTarget: getDefaultTarget()?.target,
   currentTargetName: getDefaultTarget()?.name,
   dpsTime: getDefaultTime(),
   closeBackgroundImg: getCloseBackgroundImg(),
   qixueData: getDefaultQixue(),
-  startType: getDefaultStartType(),
+  customCycleList: getDefaultCustomCycleList(),
 }
 
 export const basicStore = createSlice({
@@ -89,8 +90,9 @@ export const basicStore = createSlice({
     setCharacterFinalData: (state, action: PayloadAction<CharacterFinalDTO>) => {
       state.characterFinalData = { ...action.payload }
     },
-    setCurrentCycle: (state, action: PayloadAction<{ cycle: CycleDTO[]; name: string }>) => {
-      state.currentCycle = [...action.payload.cycle]
+    setCurrentCycle: (state, action: PayloadAction<{ 各加速枚举: 各加速枚举; name: string }>) => {
+      // state.currentCycle = [...action.payload.cycle]
+      state.当前循环各加速枚举 = { ...action.payload.各加速枚举 }
       state.currentCycleName = action.payload.name
     },
     setCurrentTarget: (state, action: PayloadAction<{ target: TargetDTO; name: string }>) => {
@@ -112,8 +114,8 @@ export const basicStore = createSlice({
     setQixueData: (state, action: PayloadAction<string[]>) => {
       state.qixueData = action.payload
     },
-    setStartType: (state, action: PayloadAction<'normal' | 'max'>) => {
-      state.startType = action.payload
+    setCustomCycleList: (state, action: PayloadAction<CustomCycle[]>) => {
+      state.customCycleList = action.payload
     },
   },
 })
@@ -129,7 +131,8 @@ export const {
   setCurrentDps,
   setCloseBackgroundImg,
   setQixueData,
-  setStartType,
+  // setStartType,
+  setCustomCycleList,
 } = basicStore.actions // 导出操作state的喊出
 
 export const basicState = (state: RootState) => state
