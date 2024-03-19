@@ -3,6 +3,10 @@ export default [
     version: '2.2.0',
     date: '2024-03-19 13:00:00',
     content: [
+      '体服二改',
+      <p key="2.2.0_体服" style={{ paddingLeft: 12 }}>
+        - 于狩触发条件修改为3-5箭
+      </p>,
       '重点更新事项',
       <p key="2.2.0_模拟器" style={{ paddingLeft: 12 }}>
         - 使用新的结构重新编写了计算器
