@@ -33,6 +33,10 @@ class 金乌见坠 extends 有CD技能通用类 {
     // console.log('金乌见坠?.技能数据?.技能CD', 金乌见坠?.技能数据?.技能CD)
     // console.log('当前层数 < 最大充能层数', 当前层数 < 最大充能层数)
     // console.log('新充能时间点 < this.模拟循环.当前时间', 新充能时间点 < this.模拟循环.当前时间)
+    console.log('新充能时间点', 新充能时间点)
+    console.log('this.模拟循环.当前时间', this.模拟循环.当前时间)
+    console.log('当前层数', 当前层数)
+    console.log('最大充能层数', 最大充能层数)
     if (当前层数 < 最大充能层数) {
       if (新充能时间点 < this.模拟循环.当前时间) {
         // 最多只会充能一层

@@ -2,8 +2,16 @@
 import 朝仪万汇_棘矢 from './现启用循环/朝仪万汇_棘矢.json'
 import 朝仪万汇_孰湖 from './现启用循环/朝仪万汇_孰湖.json'
 import 朝仪万汇_孰湖_cw from './现启用循环/朝仪万汇_孰湖_cw.json'
+import 朱厌_一键宏 from './现启用循环/朱厌_一键宏.json'
+import 朱厌_压缩 from './现启用循环/朱厌_压缩.json'
 
-const Cycle_Data = [{ ...朝仪万汇_棘矢 }, { ...朝仪万汇_孰湖 }, { ...朝仪万汇_孰湖_cw }]
+const Cycle_Data = [
+  { ...朱厌_一键宏 },
+  { ...朱厌_压缩 },
+  { ...朝仪万汇_棘矢 },
+  { ...朝仪万汇_孰湖 },
+  { ...朝仪万汇_孰湖_cw },
+]
 
 export default Cycle_Data
 

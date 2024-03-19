@@ -2,19 +2,14 @@
 import { 判断是否开启身法加成奇穴 } from '@/data/qixue'
 import { RootState } from '../index'
 import { getDpsTotal } from '@/components/Dps/guoshi_dps_utils'
-import {
-  getDpsTime,
-  获取实际循环,
-  根据奇穴处理技能的基础增益信息,
-  getZengyiJiasu,
-} from '@/utils/skill-dps'
+import { getDpsTime, 根据奇穴处理技能的基础增益信息 } from '@/utils/skill-dps'
 import { setCurrentDps } from './index'
 import { CharacterFinalDTO } from '@/@types/character'
 import { SKillGainData, SkillBasicDTO } from '@/@types/skill'
 import { ZengyixuanxiangDataDTO } from '@/@types/zengyi'
 import { getNotGuoDpsTotal } from '@/components/Dps/wu_guoshi_dps_utils'
 import { CycleDTO } from '@/@types/cycle'
-import { 获取加速等级 } from '@/utils/help'
+import useCycle from '@/hooks/use-cycle'
 
 interface CurrentDpsFunctionProps {
   showTime?: boolean // 是否展示计算时间
@@ -62,14 +57,20 @@ export const currentDpsFunction =
     const 奇穴数据 = 更新奇穴数据?.length ? 更新奇穴数据 : currentState.basic.qixueData
     const 团队增益数据 = { ...currentState?.zengyi?.zengyixuanxiangData, ...更新团队增益数据 }
     const 团队增益是否启用 = currentState?.zengyi?.zengyiQiyong
-    const 增益加速值 = 团队增益是否启用 ? getZengyiJiasu(团队增益数据) : 0
-    const 加速等级 = 获取加速等级(当前角色面板?.加速值 + 增益加速值)
     const 技能基础数据 = 更新技能基础数据 || currentState?.zengyi?.skillBasicData
 
-    const 当前内存循环信息 = currentState?.basic?.当前循环各加速枚举?.[加速等级 || 0]?.[延迟 || 0]
-    const 当前内存技能列表 = 当前内存循环信息?.cycle || []
-    const 当前循环技能列表 = 更新循环技能列表?.length ? 更新循环技能列表 : 当前内存技能列表
+    const 当前内存技能列表 = useCycle({
+      characterFinalData: 当前角色面板,
+      zengyixuanxiangData: 团队增益数据,
+      zengyiQiyong: 团队增益是否启用,
+      network: 延迟,
+      当前循环各加速枚举: currentState?.basic?.当前循环各加速枚举,
+      currentCycleName: currentState?.basic?.currentCycleName,
+    })
 
+    console.log('当前内存技能列表', 当前内存技能列表)
+
+    const 当前循环技能列表 = 更新循环技能列表?.length ? 更新循环技能列表 : 当前内存技能列表
     const 开启身法加成奇穴 = 判断是否开启身法加成奇穴(奇穴数据)
 
     if (!当前循环技能列表?.length || !当前角色面板) {
@@ -81,7 +82,9 @@ export const currentDpsFunction =
       getDpsTime(当前循环名称, 当前角色面板, 延迟, 团队增益是否启用, 团队增益数据, showTime)
 
     // 获取实际循环
-    const trueCycle = 获取实际循环(当前循环名称, 当前循环技能列表, 当前角色面板)
+    // const trueCycle = 获取实际循环(当前循环名称, 当前循环技能列表, 当前角色面板)
+
+    console.log('trueCycle', 当前循环技能列表)
 
     // 获取基础技能信息加成
     const trueSkillBasicData = 根据奇穴处理技能的基础增益信息(技能基础数据, 奇穴数据)
@@ -90,7 +93,7 @@ export const currentDpsFunction =
 
     // dps结果计算
     const { totalDps, dpsList } = dpsFunction({
-      currentCycle: trueCycle,
+      currentCycle: 当前循环技能列表,
       characterFinalData: 当前角色面板,
       当前目标: 当前目标,
       skillBasicData: trueSkillBasicData,

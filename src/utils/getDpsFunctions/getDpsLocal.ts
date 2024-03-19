@@ -3,7 +3,7 @@
 import { 目标集合 } from '@/data/constant'
 import { 判断是否开启身法加成奇穴 } from '@/data/qixue'
 import { getDpsTotal } from '@/components/Dps/guoshi_dps_utils'
-import { getDpsTime, 获取实际循环, 根据奇穴处理技能的基础增益信息 } from '@/utils/skill-dps'
+import { getDpsTime, 根据奇穴处理技能的基础增益信息 } from '@/utils/skill-dps'
 import { CharacterFinalDTO } from '@/@types/character'
 import { SKillGainData, SkillBasicDTO } from '@/@types/skill'
 import { ZengyixuanxiangDataDTO } from '@/@types/zengyi'
@@ -73,7 +73,7 @@ export const currentDpsFunction = (props?: CurrentDpsFunctionProps) => {
     更新计算时间 || getDpsTime(当前循环名称, 当前角色面板, 延迟, false, {} as any, showTime)
 
   // 获取实际循环
-  const trueCycle = 获取实际循环(当前循环名称, 当前循环技能列表, 当前角色面板)
+  // const trueCycle = 获取实际循环(当前循环名称, 当前循环技能列表, 当前角色面板)
 
   // 获取基础技能信息加成
   const trueSkillBasicData = 根据奇穴处理技能的基础增益信息(技能基础数据, 奇穴数据)
@@ -82,7 +82,7 @@ export const currentDpsFunction = (props?: CurrentDpsFunctionProps) => {
 
   // dps结果计算
   const { totalDps, dpsList } = dpsFunction({
-    currentCycle: trueCycle,
+    currentCycle: 当前循环技能列表,
     characterFinalData: 当前角色面板,
     当前目标: 当前目标,
     skillBasicData: trueSkillBasicData,

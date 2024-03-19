@@ -5,7 +5,7 @@ import { CharacterFinalDTO } from '@/@types/character'
 
 import { Checkbox, Tooltip } from 'antd'
 import { 判断是否开启身法加成奇穴, 获取身法奇穴加成后面板 } from '@/data/qixue'
-import { 获取实际循环, 根据奇穴处理技能的基础增益信息 } from '@/utils/skill-dps'
+import { 根据奇穴处理技能的基础增益信息 } from '@/utils/skill-dps'
 import DpsKernelOptimizer from '@/utils/dps-kernel-optimizer'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 
@@ -24,7 +24,7 @@ function CharacterShow() {
   const 循环信息 = useCycle()
 
   // 获取实际循环
-  const trueCycle = 获取实际循环(currentCycleName, 循环信息, characterFinalData)
+  // const trueCycle = 获取实际循环(currentCycleName, 循环信息, characterFinalData)
   const isOpenLuLing = 判断是否开启身法加成奇穴(qixueData)
 
   const [openBFGS, setOpenBFGS] = useState<boolean>(false)
@@ -45,7 +45,7 @@ function CharacterShow() {
 
     if (characterFinalData?.身法) {
       const res = DpsKernelOptimizer({
-        trueCycle,
+        trueCycle: 循环信息,
         characterFinalData,
         currentTarget,
         trueSkillBasicData,
@@ -59,7 +59,7 @@ function CharacterShow() {
     }
   }, [
     currentCycleName,
-    trueCycle,
+    循环信息,
     characterFinalData,
     qixueData,
     skillBasicData,

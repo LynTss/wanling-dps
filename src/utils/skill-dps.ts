@@ -14,7 +14,7 @@ import XIAOCHI_DATA from '@/data/xiaochi'
 import { GainTypeEnum } from '@/@types/enum'
 import 奇穴数据 from '@/data/qixue'
 import { QixueDataDTO } from '@/@types/qixue'
-import { CycleDTO } from '@/@types/cycle'
+// import { CycleDTO } from '@/@types/cycle'
 
 /**
  * @name 破招原始伤害计算
@@ -207,29 +207,38 @@ export const getTrueCycleName = (
   return currentCycleName
 }
 
-export const 获取实际循环 = (
-  currentCycleName: string,
-  currentCycle: CycleDTO[],
-  characterFinalData: CharacterFinalDTO
-) => {
-  let trueCycle: CycleDTO[] = [...(currentCycle || [])]
+// export const 获取实际循环 = (
+//   currentCycleName: string,
+//   currentCycle: CycleDTO[],
+//   characterFinalData: CharacterFinalDTO
+// ) => {
+//   let trueCycle: CycleDTO[] = [...(currentCycle || [])]
 
-  const All_Cycle_Data = 获取全部循环()
+//   const All_Cycle_Data = 获取全部循环()
 
-  // 大CW特效循环变动
-  if (
-    characterFinalData?.装备增益?.大橙武特效 &&
-    currentCycleName?.includes('朝仪万汇_') &&
-    !currentCycleName?.includes('_cw')
-  ) {
-    const trueName = `${currentCycleName}_cw`
+//   // 大CW特效循环变动
+//   if (
+//     characterFinalData?.装备增益?.大橙武特效 &&
+//     currentCycleName?.includes('朝仪万汇_') &&
+//     !currentCycleName?.includes('_cw')
+//   ) {
+//     const trueName = `${currentCycleName}_cw`
 
-    trueCycle = All_Cycle_Data?.find((item) => item.name === trueName)?.cycle || currentCycle
-  }
+//     console.log('trueName', trueName)
 
-  // console.log('trueCycle', trueCycle)
-  return trueCycle
-}
+//     trueCycle = All_Cycle_Data?.find((item) => item.name === trueName)?.cycle || currentCycle
+
+//     console.log(
+//       'All_Cycle_Data?.find((item) => item.name === trueName)?.cycle',
+//       All_Cycle_Data?.find((item) => item.name === trueName)
+//     )
+//     console.log('All_Cycle_Data', All_Cycle_Data)
+//     // console.log('trueCycle', trueCycle)
+//   }
+
+//   // console.log('trueCycle', trueCycle)
+//   return trueCycle
+// }
 
 export const 根据奇穴处理技能的基础增益信息 = (skillBasicData, qixueData) => {
   let newSkillBasicData: SkillBasicDTO[] = [...(skillBasicData || [])]

@@ -1,5 +1,21 @@
 export default [
   {
+    version: '2.2.0',
+    date: '2024-03-19 13:00:00',
+    content: [
+      '重点更新事项',
+      <p key="2.2.0_模拟器" style={{ paddingLeft: 12 }}>
+        - 使用新的结构重新编写了计算器
+        <a href="https://www.jx3box.com/tool/75292" target="_blank" rel="noreferrer">
+          使用手册参考刀宗
+        </a>
+      </p>,
+      <p key="2.2.0_移除延迟" style={{ paddingLeft: 12 }}>
+        - 模拟器还处于调试阶段，有使用问题欢迎反馈
+      </p>,
+    ],
+  },
+  {
     version: '2.1.0',
     date: '2024-03-04 20:40:00',
     content: [
