@@ -68,8 +68,6 @@ export const currentDpsFunction =
       currentCycleName: currentState?.basic?.currentCycleName,
     })
 
-    console.log('当前内存技能列表', 当前内存技能列表)
-
     const 当前循环技能列表 = 更新循环技能列表?.length ? 更新循环技能列表 : 当前内存技能列表
     const 开启身法加成奇穴 = 判断是否开启身法加成奇穴(奇穴数据)
 
@@ -83,8 +81,6 @@ export const currentDpsFunction =
 
     // 获取实际循环
     // const trueCycle = 获取实际循环(当前循环名称, 当前循环技能列表, 当前角色面板)
-
-    console.log('trueCycle', 当前循环技能列表)
 
     // 获取基础技能信息加成
     const trueSkillBasicData = 根据奇穴处理技能的基础增益信息(技能基础数据, 奇穴数据)
