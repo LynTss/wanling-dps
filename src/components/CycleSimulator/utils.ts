@@ -1,6 +1,7 @@
 import { CycleDTO, CycleGain } from '@/@types/cycle'
 import { CycleSimulatorLog } from './simulator/type'
 import { 每秒郭氏帧 } from './constant'
+import { 属性系数 } from '@/data/constant'
 
 export const getDpsCycle = (data: CycleSimulatorLog[]): CycleDTO[] => {
   const res: { [key: string]: CycleDTO } = {}
@@ -194,4 +195,9 @@ export const 获取贯穿对应实际倍率 = (日志) => {
       引爆: false,
     }
   }
+}
+
+// 读条技能的实际帧数
+export const 获取实际帧数 = (原始帧数, 加速值) => {
+  return Math.floor((1024 * 原始帧数) / (Math.floor((1024 * 加速值) / 属性系数?.急速) + 1024))
 }

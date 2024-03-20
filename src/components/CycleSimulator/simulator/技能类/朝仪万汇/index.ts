@@ -1,8 +1,8 @@
-import { 获取实际帧数 } from '@/components/BasicSet/CommonSet/CycleSimulator/simulator'
 import 循环模拟技能基础数据 from '../../../constant/skill'
 import { 根据加速等级获取虚拟加速值 } from '../../utils'
 import 有CD技能通用类 from '../../通用类/有CD技能通用类'
 import { 待生效事件 } from '../../type'
+import { 获取实际帧数 } from '@/components/CycleSimulator/utils'
 
 class 朝仪万汇 extends 有CD技能通用类 {
   static 技能数据 = 循环模拟技能基础数据?.find((item) => item.技能名称 === '朝仪万汇')

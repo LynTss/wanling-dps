@@ -8,9 +8,9 @@ import { 判断是否开启身法加成奇穴, 获取身法奇穴加成后面板
 import { 根据奇穴处理技能的基础增益信息 } from '@/utils/skill-dps'
 import DpsKernelOptimizer from '@/utils/dps-kernel-optimizer'
 import { QuestionCircleOutlined } from '@ant-design/icons'
+import useCycle from '@/hooks/use-cycle'
 
 import './index.css'
-import useCycle from '@/hooks/use-cycle'
 
 function CharacterShow() {
   const characterFinalData = useAppSelector((state) => state?.basic?.characterFinalData)
@@ -21,7 +21,7 @@ function CharacterShow() {
   const skillBasicData = useAppSelector((state) => state?.zengyi?.skillBasicData)
   const zengyixuanxiangData = useAppSelector((state) => state?.zengyi?.zengyixuanxiangData)
   const zengyiQiyong = useAppSelector((state) => state?.zengyi?.zengyiQiyong)
-  const 循环信息 = useCycle()
+  const 循环信息 = useCycle()?.cycle
 
   // 获取实际循环
   // const trueCycle = 获取实际循环(currentCycleName, 循环信息, characterFinalData)

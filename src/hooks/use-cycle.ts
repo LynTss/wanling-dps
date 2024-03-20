@@ -35,8 +35,11 @@ function useCycle(state?) {
   if (是否为大CW && 该循环是否存在大CW循环) {
     当前循环各加速枚举 = 该循环是否存在大CW循环?.各加速枚举
   }
-  const 循环信息 = 当前循环各加速枚举?.[加速等级]?.[network]?.cycle
-  return 循环信息
+  const 循环信息 = 当前循环各加速枚举?.[加速等级]?.[network]
+  return {
+    cycle: 循环信息?.cycle || [],
+    dpsTime: 循环信息?.dpsTime || 0,
+  }
 }
 
 export default useCycle

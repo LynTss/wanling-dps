@@ -47,7 +47,7 @@ import {
 } from './utils'
 // import { CurrentDpsFunctionRes } from '@/store/basicReducer/current-dps-function'
 // import { currentSingleSkillDpsFunction } from '@/store/basicReducer/current-single-skill-dps-function'
-import QixueSet from '../QixueSet'
+// import QixueSet from '../QixueSet'
 import DpsResModal from './DpsResModal'
 import SkillCountModal from './SkillCountModal'
 import './index.css'
@@ -523,7 +523,7 @@ function CycleSimulator() {
                 <Button>循环快捷设置</Button>
               </Dropdown>
               <Button onClick={() => setCycle([])}>清空循环</Button>
-              <QixueSet className="cycle-qixue-set-button" />
+              {/* <QixueSet className="cycle-qixue-set-button" /> */}
             </Space>
           </div>
           <div className={'cycle-simulator-setting-res'}>

@@ -1,8 +1,8 @@
-import { 获取实际帧数 } from '@/components/BasicSet/CommonSet/CycleSimulator/simulator'
 import 循环模拟技能基础数据 from '../../../constant/skill'
 import { 根据加速等级获取虚拟加速值 } from '../../utils'
 import 技能统一类 from '../../通用类/技能统一类'
 import { 待生效事件 } from '../../type'
+import { 获取实际帧数 } from '@/components/CycleSimulator/utils'
 
 class 没石饮羽 extends 技能统一类 {
   static 技能数据 = 循环模拟技能基础数据?.find((item) => item.技能名称 === '没石饮羽')
@@ -68,6 +68,13 @@ class 没石饮羽 extends 技能统一类 {
   }
 
   释放后() {
+    // this.模拟循环.添加待生效事件队列([
+    //   {
+    //     事件名称: `卸除buff-饮羽簇追`,
+    //     事件时间: this.模拟循环.当前时间 + 32,
+    //     事件备注: { buff名称: '饮羽簇追', buff对象: '自身', 卸除层数: 9999 },
+    //   },
+    // ])
     this.模拟循环.卸除buff({ 名称: '饮羽簇追', 对象: '自身' })
     this.模拟循环.消耗箭('没石饮羽', 3)
   }

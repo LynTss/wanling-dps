@@ -1,8 +1,8 @@
-import { 获取实际帧数 } from '@/components/BasicSet/CommonSet/CycleSimulator/simulator'
 import 循环模拟技能基础数据 from '../../../constant/skill'
 import { 根据加速等级获取虚拟加速值 } from '../../utils'
 import 技能统一类 from '../../通用类/技能统一类'
 import { 待生效事件 } from '../../type'
+import { 获取实际帧数 } from '@/components/CycleSimulator/utils'
 
 class 弛风鸣角 extends 技能统一类 {
   static 技能数据 = 循环模拟技能基础数据?.find((item) => item.技能名称 === '弛风鸣角')
@@ -70,6 +70,7 @@ class 弛风鸣角 extends 技能统一类 {
   }
 
   释放后() {
+    // this.模拟循环.增加时间(15)
     this.模拟循环.卸除buff({ 名称: '劲风簇追', 对象: '自身' })
   }
 }

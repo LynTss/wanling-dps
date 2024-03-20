@@ -58,8 +58,7 @@ export const currentDpsFunction =
     const 团队增益数据 = { ...currentState?.zengyi?.zengyixuanxiangData, ...更新团队增益数据 }
     const 团队增益是否启用 = currentState?.zengyi?.zengyiQiyong
     const 技能基础数据 = 更新技能基础数据 || currentState?.zengyi?.skillBasicData
-
-    const 当前内存技能列表 = useCycle({
+    const 内存循环信息 = useCycle({
       characterFinalData: 当前角色面板,
       zengyixuanxiangData: 团队增益数据,
       zengyiQiyong: 团队增益是否启用,
@@ -67,6 +66,8 @@ export const currentDpsFunction =
       当前循环各加速枚举: currentState?.basic?.当前循环各加速枚举,
       currentCycleName: currentState?.basic?.currentCycleName,
     })
+
+    const 当前内存技能列表 = 内存循环信息?.cycle
 
     const 当前循环技能列表 = 更新循环技能列表?.length ? 更新循环技能列表 : 当前内存技能列表
     const 开启身法加成奇穴 = 判断是否开启身法加成奇穴(奇穴数据)
@@ -77,6 +78,7 @@ export const currentDpsFunction =
 
     const dpsTime =
       更新计算时间 ||
+      内存循环信息?.dpsTime ||
       getDpsTime(当前循环名称, 当前角色面板, 延迟, 团队增益是否启用, 团队增益数据, showTime)
 
     // 获取实际循环
