@@ -68,6 +68,7 @@ function CycleSimulator(props: CycleSimulatorProps) {
     技能基础数据: [...循环模拟技能基础数据],
     技能释放记录: [],
     当前各技能运行状态: {},
+    当前DOT运行状态: {},
     当前GCD组: {},
     当前宠物数据: {},
   })
@@ -424,6 +425,7 @@ function CycleSimulator(props: CycleSimulatorProps) {
         title={
           <CycleModalHeader
             cycle={cycle}
+            大橙武模拟={大橙武模拟}
             设置自定义循环保存弹窗={设置自定义循环保存弹窗}
             清空循环={() => setCycle([])}
             起手承契={起手承契}

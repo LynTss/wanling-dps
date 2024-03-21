@@ -201,3 +201,13 @@ export const 获取贯穿对应实际倍率 = (日志) => {
 export const 获取实际帧数 = (原始帧数, 加速值) => {
   return Math.floor((1024 * 原始帧数) / (Math.floor((1024 * 加速值) / 属性系数?.急速) + 1024))
 }
+
+export const 判断有无橙武循环数据 = (循环, 大橙武启用) => {
+  if (!大橙武启用) {
+    return 循环.filter((item) => {
+      return !item?.技能序列?.includes('触发橙武')
+    })
+  } else {
+    return 循环
+  }
+}

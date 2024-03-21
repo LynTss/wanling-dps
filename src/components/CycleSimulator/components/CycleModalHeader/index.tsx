@@ -5,6 +5,7 @@ import 快速导入默认循环 from '../../constant/快速导入默认循环'
 import { useAppSelector } from '@/hooks'
 import './index.css'
 import { 延迟设定 } from '@/data/constant'
+import { 判断有无橙武循环数据 } from '../../utils'
 interface CycleModalHeaderProps {
   cycle: CycleSimulatorSkillDTO[]
   设置自定义循环保存弹窗: (e: boolean) => void
@@ -20,6 +21,7 @@ interface CycleModalHeaderProps {
   网络延迟: number
   更新网络延迟: (e: number) => void
   模拟信息: 模拟信息类型
+  大橙武模拟: boolean
 }
 
 function CycleModalHeader(props: CycleModalHeaderProps) {
@@ -38,6 +40,7 @@ function CycleModalHeader(props: CycleModalHeaderProps) {
     网络延迟,
     更新网络延迟,
     模拟信息,
+    大橙武模拟,
   } = props
 
   const 自定义循环 = useAppSelector((state) => state?.basic?.customCycleList)
@@ -130,15 +133,15 @@ function CycleModalHeader(props: CycleModalHeaderProps) {
         <Dropdown
           overlay={
             <Menu>
-              {快速导入默认循环?.map((item) => {
+              {判断有无橙武循环数据(快速导入默认循环, 大橙武模拟)?.map((item) => {
                 return (
                   <Menu.Item key={item?.名称} onClick={() => 快捷添加循环(item?.名称)}>
                     {item?.名称}
                   </Menu.Item>
                 )
               })}
-              {自定义循环?.length
-                ? 自定义循环.map((item, index) => {
+              {判断有无橙武循环数据(自定义循环, 大橙武模拟)?.length
+                ? 判断有无橙武循环数据(自定义循环, 大橙武模拟).map((item, index) => {
                     return (
                       <Menu.Item key={index} onClick={() => 快捷添加循环(item?.名称, '自定义')}>
                         {item?.名称}
