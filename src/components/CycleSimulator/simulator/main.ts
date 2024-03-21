@@ -964,7 +964,6 @@ class 循环主类 {
     const DOT运行数据 = {}
     ;(Object.keys(this.技能类实例集合) || []).forEach((key) => {
       if (this.技能类实例集合[key]?.DOT运行数据) {
-        console.log('this.技能类实例集合[key]?.DOT运行数据', this.技能类实例集合[key]?.DOT运行数据)
         DOT运行数据[key] = this.技能类实例集合[key]?.DOT运行数据 || {}
       }
     })
