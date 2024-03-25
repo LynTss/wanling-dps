@@ -17,7 +17,6 @@ function BuffCountModal(props: BuffCountModalProps) {
   const [chartData, setChartData] = useState<any>()
   const limitRef: any = useRef<any>()
   const [覆盖率, 设置覆盖率] = useState<any>({})
-  console.log('覆盖率', 覆盖率)
 
   useEffect(() => {
     if (open) {

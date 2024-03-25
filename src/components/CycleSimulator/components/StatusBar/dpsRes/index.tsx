@@ -17,8 +17,7 @@ interface DpsResProps {
 
 function DpsRes(props: DpsResProps) {
   const { 模拟信息, 日志信息, 模拟DPS结果 } = props
-  console.log('模拟信息', 模拟信息)
-  // dps曲线
+  // buff分析
   const [buffCountModalOpen, setBuffCountModalOpen] = useState<boolean>(false)
 
   // 日志log
