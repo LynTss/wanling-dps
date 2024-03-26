@@ -27,7 +27,7 @@ export const 大CW特效Ids: EquipmentIds = [
   33133, 34369, 34399, 34429, 35593, 35623, 36796, 36797, 36804,
 ]
 // export const 大CW特效Ids: EquipmentIds = []
-export const 小CW特效Ids: EquipmentIds = [36807, 37073]
+export const 小CW特效Ids: EquipmentIds = [36807, 37073, 37104]
 
 // 2022冬至套装
 export const 冬至套装_1Ids: EquipmentIds = [36859, 39791, 98157, 98127]
