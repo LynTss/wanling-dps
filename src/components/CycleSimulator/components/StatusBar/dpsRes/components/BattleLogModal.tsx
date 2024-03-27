@@ -21,6 +21,7 @@ const BattleLogModal: React.FC<BattleLogModalProps> = (props) => {
         { 技能名称: '贯穿' },
         { 技能名称: '标鹄' },
         { 技能名称: '引爆' },
+        { 技能名称: '没石饮羽' },
       ]?.map((item) => {
         return {
           text: item?.技能名称,
@@ -79,7 +80,7 @@ const BattleLogModal: React.FC<BattleLogModalProps> = (props) => {
 
   return (
     <Modal
-      className="cycle-simulator-modal"
+      className='cycle-simulator-modal'
       open={open}
       onCancel={onCancel}
       title={
@@ -94,7 +95,7 @@ const BattleLogModal: React.FC<BattleLogModalProps> = (props) => {
       <Table
         dataSource={logData}
         columns={columns}
-        size="small"
+        size='small'
         pagination={{ pageSize: 100, showTotal: (total) => total }}
       />
     </Modal>
