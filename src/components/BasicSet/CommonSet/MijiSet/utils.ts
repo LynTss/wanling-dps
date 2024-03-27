@@ -5,14 +5,14 @@ import skillMijiBasicData from '@/data/miji'
 /**
  * 根据当前已选的秘籍、奇穴等修改技能增益
  */
-export const getSkillBasicData = (
+export const 根据秘籍格式化技能基础数据 = (
   skillBasicData: SkillBasicDTO[],
-  mijiSelectedData: MijiSelectedData[]
+  当前秘籍信息: MijiSelectedData[]
 ): SkillBasicDTO[] => {
   const newSkillData = skillBasicData.map((item) => {
     return {
       ...item,
-      技能增益列表: getSkillMijiZengyi(item, mijiSelectedData),
+      技能增益列表: getSkillMijiZengyi(item, 当前秘籍信息),
     }
   })
   return newSkillData
@@ -20,7 +20,7 @@ export const getSkillBasicData = (
 
 export const getSkillMijiZengyi = (
   skill: SkillBasicDTO,
-  mijiSelectedData: MijiSelectedData[]
+  当前秘籍信息: MijiSelectedData[]
 ): SkillGainDTO[] => {
   let zengyiList: SkillGainDTO[] = skill.技能增益列表?.filter(
     (item) => item.增益所在位置 !== '秘籍'
@@ -28,7 +28,7 @@ export const getSkillMijiZengyi = (
 
   skillMijiBasicData.forEach((item) => {
     const selectedMiji =
-      mijiSelectedData?.find((a) => {
+      当前秘籍信息?.find((a) => {
         return a?.技能名称 === item?.描述技能名称
       })?.技能已选秘籍 || []
 

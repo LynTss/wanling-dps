@@ -43,7 +43,7 @@ function CycleModalHeader(props: CycleModalHeaderProps) {
     大橙武模拟,
   } = props
 
-  const 自定义循环 = useAppSelector((state) => state?.basic?.customCycleList)
+  const 自定义循环 = useAppSelector((state) => state?.basic?.自定义循环列表)
 
   const 快捷添加循环 = (名称, 类型 = '默认') => {
     const 数据源 = 类型 === '默认' ? 快速导入默认循环 : 自定义循环
@@ -77,7 +77,7 @@ function CycleModalHeader(props: CycleModalHeaderProps) {
               <p>3、可以在单行内拖动改变技能顺序</p>
               <p>
                 更多使用说明详见：
-                <a href="https://www.jx3box.com/tool/75292" target="_blank" rel="noreferrer">
+                <a href='https://www.jx3box.com/tool/75292' target='_blank' rel='noreferrer'>
                   使用手册及FAQ
                 </a>
               </p>
@@ -98,7 +98,7 @@ function CycleModalHeader(props: CycleModalHeaderProps) {
       </div>
       <div className={'cycle-simulator-header-btns'}>
         <Select
-          size="small"
+          size='small'
           className={'cycle-simulator-header-select'}
           value={起手承契}
           onChange={设置起手承契}
@@ -112,7 +112,7 @@ function CycleModalHeader(props: CycleModalHeaderProps) {
           起手承契
         </Select>
         <Select
-          size="small"
+          size='small'
           className={'cycle-simulator-header-select'}
           value={加速等级}
           onChange={更新加速等级}
@@ -124,7 +124,7 @@ function CycleModalHeader(props: CycleModalHeaderProps) {
           })}
         />
         <Select
-          size="small"
+          size='small'
           className={'cycle-simulator-header-select'}
           value={网络延迟}
           onChange={更新网络延迟}
@@ -152,20 +152,20 @@ function CycleModalHeader(props: CycleModalHeaderProps) {
             </Menu>
           }
         >
-          <Button size="small">导入循环</Button>
+          <Button size='small'>导入循环</Button>
         </Dropdown>
         <Tooltip title={'本奇穴设置只会在循环模拟器内生效，不影响外部'}>
-          <Button size="small" onClick={() => 更新奇穴弹窗展示(true)}>
+          <Button size='small' onClick={() => 更新奇穴弹窗展示(true)}>
             奇穴设置
           </Button>
         </Tooltip>
-        <Button size="small" onClick={() => 清空循环()} danger>
+        <Button size='small' onClick={() => 清空循环()} danger>
           清空循环
         </Button>
-        <Tooltip title="自定义循环和原计算器其他循环的dps会心期望计算方式不同。会导致最终数值偏差。请勿进行跨循环比较。">
+        <Tooltip title='自定义循环和原计算器其他循环的dps会心期望计算方式不同。会导致最终数值偏差。请勿进行跨循环比较。'>
           <Button
-            size="small"
-            type="primary"
+            size='small'
+            type='primary'
             onClick={() => 设置自定义循环保存弹窗(true)}
             disabled={cycle?.length < 1 || 模拟信息?.循环执行结果 === '异常'}
           >

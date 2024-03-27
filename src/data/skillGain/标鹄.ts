@@ -1,4 +1,4 @@
-import { GainDpsTypeEnum, GainTypeEnum } from '../../@types/enum'
+import { 增益计算类型枚举, 增益类型枚举 } from '../../@types/enum'
 import { SkillGainDTO } from '../../@types/skill'
 import commonGainDTO from './common'
 
@@ -11,8 +11,8 @@ const 标鹄GainDTO: SkillGainDTO[] = [
     增益集合: [
       {
         // 贯侯是直接修改标鹄基础系数进行的加成，这里直接采用独立伤害百分比计算
-        增益类型: GainTypeEnum.伤害百分比,
-        增益计算类型: GainDpsTypeEnum.B,
+        增益类型: 增益类型枚举.伤害百分比,
+        增益计算类型: 增益计算类型枚举.B,
         增益数值: 0.2,
       },
     ],
@@ -23,8 +23,8 @@ const 标鹄GainDTO: SkillGainDTO[] = [
     常驻增益: false,
     增益集合: [
       {
-        增益类型: GainTypeEnum.伤害百分比,
-        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: 增益类型枚举.伤害百分比,
+        增益计算类型: 增益计算类型枚举.A,
         增益数值: 0.05,
       },
     ],
@@ -35,8 +35,8 @@ const 标鹄GainDTO: SkillGainDTO[] = [
     常驻增益: false,
     增益集合: [
       {
-        增益类型: GainTypeEnum.外攻会心百分比,
-        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: 增益类型枚举.外攻会心百分比,
+        增益计算类型: 增益计算类型枚举.A,
         增益数值: 0.05,
       },
     ],

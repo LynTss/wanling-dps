@@ -96,12 +96,12 @@ const DpsResModal: React.FC<DpsResModalProps> = (props) => {
 
       // 每1秒结算一次
       for (let i = 0; i < lastTime; i = i + 每秒郭氏帧) {
-        let currentDps = 0
+        let 当前计算结果DPS = 0
         if (dpsResObj[i]) {
           if (i) {
-            currentDps = Math.round(dpsResObj[i] / (Number(i) / 每秒郭氏帧))
+            当前计算结果DPS = Math.round(dpsResObj[i] / (Number(i) / 每秒郭氏帧))
           } else {
-            currentDps = Math.round(dpsResObj[i])
+            当前计算结果DPS = Math.round(dpsResObj[i])
           }
         } else {
           // 当前时间没有数据，向前找到离本次时间节点最近的数据
@@ -110,11 +110,11 @@ const DpsResModal: React.FC<DpsResModalProps> = (props) => {
               const currentTime = i - j
               if (i - j >= 0) {
                 if (currentTime) {
-                  currentDps = Math.round(
+                  当前计算结果DPS = Math.round(
                     dpsResObj[currentTime] / (Number(currentTime) / 每秒郭氏帧)
                   )
                 } else {
-                  currentDps = Math.round(dpsResObj[currentTime])
+                  当前计算结果DPS = Math.round(dpsResObj[currentTime])
                 }
                 break
               }
@@ -123,7 +123,7 @@ const DpsResModal: React.FC<DpsResModalProps> = (props) => {
         }
         dpsResLit.push({
           time: Number(i) / 每秒郭氏帧,
-          dps: currentDps,
+          dps: 当前计算结果DPS,
         })
       }
       return dpsResLit
@@ -134,7 +134,7 @@ const DpsResModal: React.FC<DpsResModalProps> = (props) => {
 
   return (
     <Modal
-      className="cycle-simulator-dps-modal"
+      className='cycle-simulator-dps-modal'
       open={open}
       onCancel={onCancel}
       title={'Dps'}
@@ -142,7 +142,7 @@ const DpsResModal: React.FC<DpsResModalProps> = (props) => {
       centered
       footer={false}
     >
-      <div className={'dps-res-chart'} id="dps-res-chart" />
+      <div className={'dps-res-chart'} id='dps-res-chart' />
     </Modal>
   )
 }

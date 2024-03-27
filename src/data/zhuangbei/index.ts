@@ -11,32 +11,31 @@ import ZHUANGBEI_YUANCHENGWUQI from './yuanchengwuqi'
 import ZHUANGBEI_JINSHENWUQI from './jinshenwuqi'
 
 // TODO 龙门武器id
-export const 龙门_武器Ids: EquipmentIds = [36911]
+export const 龙门_武器: EquipmentIds = [36911]
 // 特效武器
-export const 特效_武器Ids: EquipmentIds = [36660, 36657]
-export const 特效_武器_2Ids: EquipmentIds = [35781]
+export const 特效_武器_普通: EquipmentIds = [36660, 36657]
+export const 特效_武器_英雄: EquipmentIds = [35781]
 // 特效腰坠
-export const 特效_腰椎Ids: EquipmentIds = [37720]
-export const 特效_腰椎_2Ids: EquipmentIds = [38791]
+export const 特效_腰椎_普通: EquipmentIds = [37720]
+export const 特效_腰椎_英雄: EquipmentIds = [38791]
 // 切糕套装
-export const 切糕套装_1Ids: EquipmentIds = [94464, 94488, 94482, 94476, 94470, 94494]
+export const 切糕套装_普通: EquipmentIds = [94464, 94488, 94482, 94476, 94470, 94494]
 
-export const 切糕套装_2Ids: EquipmentIds = [96367, 96391, 96385, 96379, 96373, 96397]
+export const 切糕套装_英雄: EquipmentIds = [96367, 96391, 96385, 96379, 96373, 96397]
 // 大CW特效Ids
-export const 大CW特效Ids: EquipmentIds = [
+export const 大橙武武器: EquipmentIds = [
   33133, 34369, 34399, 34429, 35593, 35623, 36796, 36797, 36804,
 ]
 // export const 大CW特效Ids: EquipmentIds = []
-export const 小CW特效Ids: EquipmentIds = [36807, 37073, 37104]
+export const 小橙武武器: EquipmentIds = [36807, 37073, 37104]
 
 // 2022冬至套装
-export const 冬至套装_1Ids: EquipmentIds = [36859, 39791, 98157, 98127]
+export const 冬至套装: EquipmentIds = [36859, 39791, 98157, 98127]
 
 // 2件套会心 4件套 饮羽10%
-export const 套装_1Ids: EquipmentIds = [96135, 96225, 96195, 96165, 96255]
-export const 套装_3Ids: EquipmentIds = [97841, 97844, 97843, 97842, 97845]
+export const 套装_两件套双会: EquipmentIds = [96135, 96225, 96195, 96165, 96255]
 // 2件套 饮羽10% 4件套会心
-export const 套装_2Ids: EquipmentIds = [97846, 97849, 97848, 97847, 97850]
+export const 套装_两件套技能: EquipmentIds = [97846, 97849, 97848, 97847, 97850]
 
 const ZUANGBEI_DATA = {
   帽子: ZHUANGBEI_MAOZI,

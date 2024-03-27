@@ -1,24 +1,29 @@
 export default [
   {
+    version: '2.2.1',
+    date: '2024-03-27 19:10:00',
+    content: ['更新了多方案系统，可以在保存装备、循环、增益信息至方案。快捷切换对比'],
+  },
+  {
     version: '2.2.0',
     date: '2024-03-19 13:00:00',
     content: [
       '体服二改',
-      <p key="2.2.0_体服" style={{ paddingLeft: 12 }}>
+      <p key='2.2.0_体服' style={{ paddingLeft: 12 }}>
         - 于狩触发条件修改为3-5箭
       </p>,
       '重点更新事项',
-      <p key="2.2.0_模拟器" style={{ paddingLeft: 12 }}>
+      <p key='2.2.0_模拟器' style={{ paddingLeft: 12 }}>
         - 使用新的结构重新编写了计算器
-        <a href="https://www.jx3box.com/tool/75292" target="_blank" rel="noreferrer">
+        <a href='https://www.jx3box.com/tool/75292' target='_blank' rel='noreferrer'>
           使用手册参考刀宗
         </a>
       </p>,
-      <p key="2.2.0_移除延迟" style={{ paddingLeft: 12 }}>
+      <p key='2.2.0_移除延迟' style={{ paddingLeft: 12 }}>
         - 模拟器还处于调试阶段，有使用问题欢迎反馈
       </p>,
       'CW玩家请注意:',
-      <p key="3.0.0_CW提醒" style={{ paddingLeft: 12 }}>
+      <p key='3.0.0_CW提醒' style={{ paddingLeft: 12 }}>
         <p>- 目前只有在选择朝仪万汇_孰湖时才会内置CW循环</p>
         <p>- 内置循环是一个基本打不出的完美情况，满大招5特效</p>
         <p>- 其他需求的循环请在模拟器内自行设定和保存</p>
@@ -29,44 +34,44 @@ export default [
     version: '2.1.0',
     date: '2024-03-04 20:40:00',
     content: [
-      <p key="2.1.0_1">
+      <p key='2.1.0_1'>
         体肤更新一改：
         <a
-          href="https://jx3.xoyo.com/index/#/article-details?catid=2458&id=6120"
-          target="_blank"
-          rel="noreferrer"
+          href='https://jx3.xoyo.com/index/#/article-details?catid=2458&id=6120'
+          target='_blank'
+          rel='noreferrer'
         >
           技改链接
         </a>
       </p>,
-      <p key="2.1.0_2" style={{ paddingLeft: 12 }}>
+      <p key='2.1.0_2' style={{ paddingLeft: 12 }}>
         {`- 【劲风簇】伤害降低5%`}
       </p>,
-      <p key="2.1.0_3" style={{ paddingLeft: 12 }}>
+      <p key='2.1.0_3' style={{ paddingLeft: 12 }}>
         {`- 【饮羽簇】伤害降低5%`}
       </p>,
-      <p key="2.1.0_4" style={{ paddingLeft: 12 }}>
+      <p key='2.1.0_4' style={{ paddingLeft: 12 }}>
         {`- 【贯穿】伤害降低10%`}
       </p>,
-      <p key="2.1.0_5" style={{ paddingLeft: 12 }}>
+      <p key='2.1.0_5' style={{ paddingLeft: 12 }}>
         {`- 【霖集簇】伤害提高10%`}
       </p>,
-      <p key="2.1.0_6" style={{ paddingLeft: 12 }}>
+      <p key='2.1.0_6' style={{ paddingLeft: 12 }}>
         {`- 【偕行动物】伤害提高5%`}
       </p>,
-      <p key="2.1.0_6" style={{ paddingLeft: 12 }}>
+      <p key='2.1.0_6' style={{ paddingLeft: 12 }}>
         {`- 【九乌】=> 所有宠物攻击均可上两层贯穿`}
       </p>,
-      <p key="2.1.0_6" style={{ paddingLeft: 12 }}>
+      <p key='2.1.0_6' style={{ paddingLeft: 12 }}>
         {`- 【引风唤灵】调息时间【21】=>【23】`}
       </p>,
-      <p key="2.1.0_4" style={{ paddingLeft: 12, color: 'red' }}>
+      <p key='2.1.0_4' style={{ paddingLeft: 12, color: 'red' }}>
         {'技改总结：'}
       </p>,
-      <p key="2.1.0_4" style={{ paddingLeft: 12, color: 'red' }}>
+      <p key='2.1.0_4' style={{ paddingLeft: 12, color: 'red' }}>
         {`- dps削弱4%-5%`}
       </p>,
-      <p key="2.1.0_4" style={{ paddingLeft: 12, color: 'red' }}>
+      <p key='2.1.0_4' style={{ paddingLeft: 12, color: 'red' }}>
         {'体服版本只会在国外源计算器更新'}
       </p>,
     ],

@@ -99,8 +99,3 @@ export const 延迟设定: NetworkDTO[] = [
     value: 3,
   },
 ]
-
-export const 起手设定 = [
-  { label: '正常', value: 'normal' },
-  { label: '5层承契', value: 'max' },
-]

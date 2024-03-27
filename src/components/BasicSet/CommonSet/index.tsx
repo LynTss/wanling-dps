@@ -4,11 +4,20 @@ import { 延迟设定, 目标集合 } from '@/data/constant'
 import { 获取全部循环 } from '@/data/skillCycle'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 
-import { setCurrentTarget, setCurrentCycle, setNetwork, setQixueData } from '@/store/basicReducer'
+import {
+  更新网络延迟,
+  更新方案数据,
+  更新当前输出计算目标,
+  更新选中的方案数据,
+  更新角色最终属性,
+} from '@/store/basicReducer'
 import MijiSet from './MijiSet'
 import QixueSet from './QixueSet'
 import CycleSimulator from '@/components/CycleSimulator'
+import { 缓存映射 } from '@/utils/system_constant'
+import SaveProject from './SaveProject'
 import './index.css'
+import { getFinalCharacterBasicData } from '../CharacterSet/util'
 // import { getExportFunction } from '@/utils/wasm'
 // import { getExportFunction } from '@/utils/wasm'
 // import { useWasm } from '@/hooks/use-wasm'
@@ -17,16 +26,18 @@ import './index.css'
 
 function CommonSet({ getDpsFunction, setZengyiVisible }) {
   const dispatch = useAppDispatch()
-  const currentCycleName = useAppSelector((state) => state?.basic?.currentCycleName)
-  const network = useAppSelector((state) => state?.basic?.network)
-  const currentTargetName = useAppSelector((state) => state?.basic?.currentTargetName)
+  const 当前方案名称 = useAppSelector((state) => state?.basic?.当前方案名称)
+  const 全部方案数据 = useAppSelector((state) => state?.basic?.全部方案数据)
+  const 当前循环名称 = useAppSelector((state) => state?.basic?.当前循环名称)
+  const 网络延迟 = useAppSelector((state) => state?.basic?.网络延迟)
+  const 当前输出计算目标名称 = useAppSelector((state) => state?.basic?.当前输出计算目标名称)
 
   const setCurrentTargetVal = (val) => {
     const target = 目标集合?.find((item) => item.名称 === val)
     if (target) {
-      localStorage?.setItem('wl_当前目标', val)
+      localStorage?.setItem(缓存映射.当前输出计算目标名称, val)
       dispatch(
-        setCurrentTarget({
+        更新当前输出计算目标({
           name: val,
           target,
         })
@@ -36,8 +47,8 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
   }
 
   const handleChangeNetwork = (val) => {
-    localStorage?.setItem('wl_network_data_2', val)
-    dispatch(setNetwork(val))
+    localStorage?.setItem(缓存映射.网络延迟, val)
+    dispatch(更新网络延迟(val))
     getDpsFunction()
   }
 
@@ -45,16 +56,15 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
     const cycleData = skillCycle?.find((item) => item.name === val)
     const cycle = cycleData?.cycle || []
     if (cycle) {
-      localStorage?.setItem('wl_当前循环_2', val)
       dispatch(
-        setCurrentCycle({
-          name: val,
-          各加速枚举: cycleData?.各加速枚举,
+        更新方案数据({
+          属性: '当前循环名称',
+          数据: val,
+          额外数据: cycleData?.各加速枚举,
         })
       )
       if (cycleData?.qixue) {
-        localStorage?.setItem('wl_qixue_data', JSON.stringify(cycleData?.qixue))
-        dispatch(setQixueData(cycleData?.qixue))
+        dispatch(更新方案数据({ 数据: cycleData?.qixue, 属性: '当前奇穴信息' }))
       }
       getDpsFunction()
     }
@@ -62,26 +72,74 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
 
   const skillCycle = 获取全部循环()
 
+  const 更新方案 = (e) => {
+    dispatch(更新选中的方案数据(e))
+    const 目标方案 = 全部方案数据?.[e]
+    const 角色基础属性 = 目标方案?.角色基础属性
+    const 装备信息 = 目标方案?.装备信息
+
+    if (角色基础属性 && 装备信息) {
+      const final = getFinalCharacterBasicData(角色基础属性)
+      const params: any = { ...装备信息 }
+      if (params.装备列表) {
+        delete params.装备列表
+      }
+      dispatch(
+        更新角色最终属性({
+          ...final,
+          装备增益: {
+            ...params,
+          },
+        })
+      )
+
+      getDpsFunction()
+    }
+  }
+
   return (
     <div className={'common-set'}>
       {/* <h1 className={'common-title'} onClick={() => wasmTest()}> */}
       <h1 className={'common-title'}>
         基础设置
-        <Button
-          type="text"
-          size="small"
-          className={'common-title-zengyi'}
-          onClick={() => setZengyiVisible()}
-        >
-          增益详情
-        </Button>
+        <div>
+          <SaveProject getDpsFunction={getDpsFunction} />
+          <Button
+            type='text'
+            size='small'
+            className={'common-title-zengyi'}
+            onClick={() => setZengyiVisible()}
+          >
+            增益详情
+          </Button>
+        </div>
       </h1>
-      <div className="common-item">
-        <h1 className="common-label">目标</h1>
-        <div className="common-content">
+      <div className='common-item'>
+        <h1 className='common-label'>方案</h1>
+        <div className='common-content'>
           <Select
-            className="current-boss"
-            value={currentTargetName}
+            className='current-project'
+            value={当前方案名称}
+            onChange={(v) => {
+              更新方案(v)
+            }}
+          >
+            {Object.keys(全部方案数据).map((item) => {
+              return (
+                <Select.Option value={item} key={item}>
+                  {item}
+                </Select.Option>
+              )
+            })}
+          </Select>
+        </div>
+      </div>
+      <div className='common-item'>
+        <h1 className='common-label'>目标</h1>
+        <div className='common-content'>
+          <Select
+            className='current-boss'
+            value={当前输出计算目标名称}
             onChange={(v) => {
               setCurrentTargetVal(v)
             }}
@@ -96,12 +154,12 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
           </Select>
         </div>
       </div>
-      <div className="common-item">
-        <h1 className="common-label">循环</h1>
-        <div className="common-content">
+      <div className='common-item'>
+        <h1 className='common-label'>循环</h1>
+        <div className='common-content'>
           <Select
-            value={currentCycleName}
-            className="cycle-select"
+            value={当前循环名称}
+            className='cycle-select'
             onChange={(v) => {
               setCurrentCycleVal(v)
             }}
@@ -118,10 +176,10 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
           </Select>
         </div>
       </div>
-      <div className="common-item">
-        <h1 className="common-label">延迟</h1>
-        <div className="common-content">
-          <Select value={network} onChange={handleChangeNetwork}>
+      <div className='common-item'>
+        <h1 className='common-label'>延迟</h1>
+        <div className='common-content'>
+          <Select value={网络延迟} onChange={handleChangeNetwork}>
             {延迟设定.map((item) => {
               return (
                 <Select.Option key={item.value} value={item.value}>
@@ -132,7 +190,7 @@ function CommonSet({ getDpsFunction, setZengyiVisible }) {
           </Select>
         </div>
       </div>
-      <div className="common-item">
+      <div className='common-item'>
         <MijiSet getDpsFunction={getDpsFunction} />
         <QixueSet getDpsFunction={getDpsFunction} />
         <CycleSimulator />

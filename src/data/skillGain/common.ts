@@ -1,4 +1,4 @@
-import { GainDpsTypeEnum, GainTypeEnum } from '../../@types/enum'
+import { 增益计算类型枚举, 增益类型枚举 } from '../../@types/enum'
 import { SkillGainDTO } from '../../@types/skill'
 
 const 承契基础系数 = 62 / 1024
@@ -10,8 +10,8 @@ const commonGainDTO: SkillGainDTO[] = [
     常驻增益: true,
     增益集合: [
       {
-        增益类型: GainTypeEnum.伤害百分比,
-        增益计算类型: GainDpsTypeEnum.D,
+        增益类型: 增益类型枚举.伤害百分比,
+        增益计算类型: 增益计算类型枚举.D,
         增益数值: 0.08,
       },
     ],
@@ -22,8 +22,8 @@ const commonGainDTO: SkillGainDTO[] = [
     增益启用开关: true,
     增益集合: [
       {
-        增益类型: GainTypeEnum.伤害百分比,
-        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: 增益类型枚举.伤害百分比,
+        增益计算类型: 增益计算类型枚举.A,
         增益数值: 承契基础系数 * 1,
       },
     ],
@@ -34,8 +34,8 @@ const commonGainDTO: SkillGainDTO[] = [
     增益启用开关: true,
     增益集合: [
       {
-        增益类型: GainTypeEnum.伤害百分比,
-        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: 增益类型枚举.伤害百分比,
+        增益计算类型: 增益计算类型枚举.A,
         增益数值: 承契基础系数 * 2,
       },
     ],
@@ -46,8 +46,8 @@ const commonGainDTO: SkillGainDTO[] = [
     增益启用开关: true,
     增益集合: [
       {
-        增益类型: GainTypeEnum.伤害百分比,
-        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: 增益类型枚举.伤害百分比,
+        增益计算类型: 增益计算类型枚举.A,
         增益数值: 承契基础系数 * 3,
       },
     ],
@@ -58,8 +58,8 @@ const commonGainDTO: SkillGainDTO[] = [
     增益启用开关: true,
     增益集合: [
       {
-        增益类型: GainTypeEnum.伤害百分比,
-        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: 增益类型枚举.伤害百分比,
+        增益计算类型: 增益计算类型枚举.A,
         增益数值: 承契基础系数 * 4,
       },
     ],
@@ -70,8 +70,8 @@ const commonGainDTO: SkillGainDTO[] = [
     增益启用开关: true,
     增益集合: [
       {
-        增益类型: GainTypeEnum.伤害百分比,
-        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: 增益类型枚举.伤害百分比,
+        增益计算类型: 增益计算类型枚举.A,
         增益数值: 承契基础系数 * 5,
       },
     ],
@@ -82,8 +82,8 @@ const commonGainDTO: SkillGainDTO[] = [
     常驻增益: false,
     增益集合: [
       {
-        增益类型: GainTypeEnum.郭氏基础攻击,
-        增益计算类型: GainDpsTypeEnum.A,
+        增益类型: 增益类型枚举.郭氏基础攻击,
+        增益计算类型: 增益计算类型枚举.A,
         增益数值: 102,
       },
     ],

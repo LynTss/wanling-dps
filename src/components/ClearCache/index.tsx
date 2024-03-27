@@ -1,11 +1,12 @@
 import { Modal } from 'antd'
 import React from 'react'
 import { useAppDispatch, useAppSelector } from '@/hooks'
-import { setCloseBackgroundImg } from '@/store/basicReducer'
+import { 当前关闭背景图片 } from '@/store/basicReducer'
 import './index.css'
+import { 缓存映射 } from '@/utils/system_constant'
 
 function ClearCache() {
-  const closeBackgroundImg = useAppSelector((state) => state?.basic?.closeBackgroundImg)
+  const 关闭背景图 = useAppSelector((state) => state?.basic?.关闭背景图)
   const dispatch = useAppDispatch()
 
   const clearCache = () => {
@@ -21,17 +22,17 @@ function ClearCache() {
   }
 
   const handleChangeBackground = () => {
-    const newData = closeBackgroundImg ? '0' : '1'
-    localStorage.setItem('wl_close_background_img', newData)
-    dispatch(setCloseBackgroundImg(!closeBackgroundImg))
+    const newData = 关闭背景图 ? '0' : '1'
+    localStorage.setItem(缓存映射.关闭背景图, newData)
+    dispatch(当前关闭背景图片(!关闭背景图))
   }
 
   return (
-    <div className="cache-wrapper">
-      <span className="cache-btn" onClick={handleChangeBackground}>
-        {+(closeBackgroundImg || '') ? '开启背景' : '关闭背景'}
+    <div className='cache-wrapper'>
+      <span className='cache-btn' onClick={handleChangeBackground}>
+        {+(关闭背景图 || '') ? '开启背景' : '关闭背景'}
       </span>
-      <span className="cache-btn" onClick={() => clearCache()}>
+      <span className='cache-btn' onClick={() => clearCache()}>
         清除缓存
       </span>
     </div>

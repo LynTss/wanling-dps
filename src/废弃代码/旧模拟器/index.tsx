@@ -51,6 +51,7 @@ import {
 import DpsResModal from './DpsResModal'
 import SkillCountModal from './SkillCountModal'
 import './index.css'
+import { 缓存映射 } from '@/utils/system_constant'
 
 function CycleSimulator() {
   const [logData, setLogData] = useState<CycleSimulatorLog[]>([])
@@ -70,7 +71,7 @@ function CycleSimulator() {
   // 宠物顺序
   const [宠物顺序, 设置宠物顺序] = useState<string[]>([...测试宠物顺序])
   // 当前面板加速值
-  const 加速值 = useAppSelector((state) => state?.basic?.characterFinalData)?.加速值
+  const 加速值 = useAppSelector((state) => state?.basic?.角色最终属性)?.加速值
   // 当前网络延迟
   const 网络按键延迟 = 0
 
@@ -86,11 +87,11 @@ function CycleSimulator() {
   //   dpsPerSecond: 0,
   // })
   // 奇穴
-  const qixuedata = useAppSelector((state) => state?.basic?.qixueData)
+  const qixuedata = useAppSelector((state) => state?.basic?.当前奇穴信息)
 
   // 获取自定义循环
   const 自定义循环 = useMemo(() => {
-    const 循环 = JSON.parse(localStorage.getItem('wl_custom_cycle_2') || '[]') || []
+    const 循环 = JSON.parse(localStorage.getItem(缓存映射.自定义循环) || '[]') || []
     if (循环?.length) {
       return {
         名称: 循环[0]?.name,
@@ -100,7 +101,7 @@ function CycleSimulator() {
     } else {
       return false
     }
-  }, [localStorage.getItem('wl_custom_cycle_2')])
+  }, [localStorage.getItem(缓存映射.自定义循环)])
 
   useEffect(() => {
     if (!basicModalOpen) {
@@ -355,7 +356,7 @@ function CycleSimulator() {
       skillList: cycle,
     }
 
-    localStorage?.setItem('wl_custom_cycle_2', JSON.stringify([用于保存的自定义循环]))
+    localStorage?.setItem(缓存映射.自定义循环, JSON.stringify([用于保存的自定义循环]))
     设置自定义循环保存弹窗(false)
   }
 
@@ -393,17 +394,17 @@ function CycleSimulator() {
         循环模拟
       </Button>
       <Modal
-        className="cycle-simulator-modal"
+        className='cycle-simulator-modal'
         maskClosable={false}
         width={'90%'}
         title={
           <div className={'cycle-simulator-modal-header space-between'}>
             <h1 className={'cycle-simulator-modal-title'}>循环模拟（beta）</h1>
             {cycle?.length ? (
-              <Tooltip title="自定义循环和原计算器其他循环的dps会心期望计算方式不同。会导致最终数值偏差。请勿进行跨循环比较。">
+              <Tooltip title='自定义循环和原计算器其他循环的dps会心期望计算方式不同。会导致最终数值偏差。请勿进行跨循环比较。'>
                 <Button
-                  size="small"
-                  type="primary"
+                  size='small'
+                  type='primary'
                   onClick={() => 设置自定义循环保存弹窗(true)}
                   disabled={cycle?.length <= 1}
                 >
@@ -420,12 +421,12 @@ function CycleSimulator() {
         destroyOnClose
       >
         <Alert
-          type="warning"
-          message="目前默认每轮箭都有金乌，由于贯穿的计算还有很多问题，可能存在贯穿数量的偏差，仅供参考。请勿以本功能作为直接结论。功能持续迭代，后续会开放更多模拟循环相关能力。"
+          type='warning'
+          message='目前默认每轮箭都有金乌，由于贯穿的计算还有很多问题，可能存在贯穿数量的偏差，仅供参考。请勿以本功能作为直接结论。功能持续迭代，后续会开放更多模拟循环相关能力。'
         />
         <div className={'cycle-simulator-setting'}>
           <div className={'cycle-simulator-setting-header'}>
-            <div className="cycle-simulator-setting-header-left">
+            <div className='cycle-simulator-setting-header-left'>
               <h1>配置你的循环</h1>
               <Popover
                 content={
@@ -457,7 +458,7 @@ function CycleSimulator() {
             <div>
               承契起手层数：
               <Select
-                size="small"
+                size='small'
                 value={承契起手层数}
                 placeholder={'请选择承契起手层数'}
                 onChange={(e) => 设置承契起手层数(e)}
@@ -479,7 +480,7 @@ function CycleSimulator() {
                 .map((item) => {
                   return item?.技能名称 === '弛风鸣角' ? (
                     <Tooltip
-                      title="弛风鸣角没有做释放间换箭的功能"
+                      title='弛风鸣角没有做释放间换箭的功能'
                       key={`${item?.技能名称}tooltip`}
                     >
                       <AddCycleBtn
@@ -547,7 +548,7 @@ function CycleSimulator() {
                       setList={(e) => {
                         拖拽更新循环(e, '轮次内')
                       }}
-                      className="cycle-simulator-setting-turn-drop"
+                      className='cycle-simulator-setting-turn-drop'
                       animation={150}
                       draggable={'.cycle-simulator-setting-skill-drag'}
                     >
@@ -583,13 +584,13 @@ function CycleSimulator() {
                         )
                       })}
                       <div className={'cycle-turn-operate'}>
-                        <Tooltip title="复制并添加到最后">
+                        <Tooltip title='复制并添加到最后'>
                           <CopyOutlined
                             className={'cycle-turn-operate-btn'}
                             onClick={() => 复制本轮至最后(轮次)}
                           />
                         </Tooltip>
-                        <Tooltip title="删除此轮">
+                        <Tooltip title='删除此轮'>
                           <DeleteOutlined
                             className={'cycle-turn-operate-btn'}
                             onClick={() => 删除本轮次(轮次)}
@@ -631,17 +632,17 @@ function CycleSimulator() {
           </div>
           <div className={'cycle-simulator-operate'}>
             {是否实时计算 ? null : (
-              <Tooltip title="实际模拟计算较为复杂，随着延迟、加速不同。可能存在部分技能数量误差。仅供参考">
+              <Tooltip title='实际模拟计算较为复杂，随着延迟、加速不同。可能存在部分技能数量误差。仅供参考'>
                 <Button
                   className={'cycle-simulator-operate-btn'}
-                  type="primary"
+                  type='primary'
                   onClick={simulator}
                 >
                   {logData?.length ? '重新模拟' : '开始模拟'}
                 </Button>
               </Tooltip>
             )}
-            <Tooltip title="开启实时计算会影响性能，编辑循环可能出现卡顿。">
+            <Tooltip title='开启实时计算会影响性能，编辑循环可能出现卡顿。'>
               <Checkbox
                 checked={是否实时计算}
                 onChange={(e) => 设置是否实时计算(e?.target?.checked)}
@@ -650,7 +651,7 @@ function CycleSimulator() {
               </Checkbox>
             </Tooltip>
             {logData?.[logData.length - 1]?.秒伤 ? (
-              <span className="cycle-simulator-dps-res-text">
+              <span className='cycle-simulator-dps-res-text'>
                 模拟DPS：
                 <span className={'cycle-simulator-dps-res'}>
                   {获取显示秒伤(logData?.[logData.length - 1])}
@@ -688,7 +689,7 @@ function CycleSimulator() {
         />
         <Modal
           centered
-          title="保存自定义循环"
+          title='保存自定义循环'
           okButtonProps={{
             disabled: !自定义循环名称输入,
           }}
@@ -698,7 +699,7 @@ function CycleSimulator() {
         >
           <Input
             value={自定义循环名称输入}
-            placeholder="请输入自定义循环名称"
+            placeholder='请输入自定义循环名称'
             onChange={(e) => 设置自定义循环名称输入(e?.target?.value)}
           />
         </Modal>

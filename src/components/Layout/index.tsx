@@ -17,7 +17,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = (props) => {
   const { children } = props
   const random = Math.random()
-  const closeBackgroundImg = useAppSelector((state) => state?.basic?.closeBackgroundImg)
+  const 关闭背景图 = useAppSelector((state) => state?.basic?.关闭背景图)
 
   const mapKey =
     random < 1 / 6
@@ -42,10 +42,10 @@ const Layout: React.FC<LayoutProps> = (props) => {
   }
 
   return (
-    <div className="layout">
-      <div className="layout-wrapper">{children}</div>
-      {!closeBackgroundImg ? (
-        <img className="layout-bg" src={imgMap[mapKey]} alt="" />
+    <div className='layout'>
+      <div className='layout-wrapper'>{children}</div>
+      {!关闭背景图 ? (
+        <img className='layout-bg' src={imgMap[mapKey]} alt='' />
       ) : (
         <div className={'layout-bg-color'} />
       )}

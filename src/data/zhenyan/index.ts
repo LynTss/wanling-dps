@@ -1,4 +1,4 @@
-import { GainDpsTypeEnum, GainTypeEnum, ZengyanZengyiPositionEnum } from '@/@types/enum'
+import { 增益计算类型枚举, 增益类型枚举, 增益计算位置枚举 } from '@/@types/enum'
 import { ZhenyanGainDTO } from '@/@types/zhenyan'
 
 // 用于增益计算的附魔
@@ -7,27 +7,27 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '万灵阵（朱厌）',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.外攻会心百分比,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.外攻会心百分比,
         增益数值: 0.03,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏无双等级,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏无双等级,
         增益数值: 20,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A, // 和上马、秘籍、承契共同为加法
-        计算位置: ZengyanZengyiPositionEnum.伤害计算,
-        增益类型: GainTypeEnum.伤害百分比,
+        增益计算类型: 增益计算类型枚举.A, // 和上马、秘籍、承契共同为加法
+        计算位置: 增益计算位置枚举.伤害计算,
+        增益类型: 增益类型枚举.伤害百分比,
         增益数值: 61 / 1024,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏外攻会心效果等级,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏外攻会心效果等级,
         增益数值: 154 * 0.872,
       }, // 第五层阵眼-会心效果15%，覆盖率87.2%
     ],
@@ -36,27 +36,27 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '万灵阵（大招）',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.外攻会心百分比,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.外攻会心百分比,
         增益数值: 0.03,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏无双等级,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏无双等级,
         增益数值: 20,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A, // 和上马、秘籍、承契共同为加法
-        计算位置: ZengyanZengyiPositionEnum.伤害计算,
-        增益类型: GainTypeEnum.伤害百分比,
+        增益计算类型: 增益计算类型枚举.A, // 和上马、秘籍、承契共同为加法
+        计算位置: 增益计算位置枚举.伤害计算,
+        增益类型: 增益类型枚举.伤害百分比,
         增益数值: 61 / 1024,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏外攻会心效果等级,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏外攻会心效果等级,
         增益数值: 154 * 0.666,
       }, // 第五层阵眼-会心效果15%，覆盖率66.6%
     ],
@@ -65,21 +65,21 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '刀宗阵',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.破招,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.破招,
         增益数值: 1516,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏外攻破防等级,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏外攻破防等级,
         增益数值: 256,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏基础攻击,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏基础攻击,
         增益数值: 51,
       },
     ],
@@ -88,21 +88,21 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '鲸鱼阵',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏无双等级,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏无双等级,
         增益数值: 20,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏外攻破防等级,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏外攻破防等级,
         增益数值: 204,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.伤害计算,
-        增益类型: GainTypeEnum.外攻会心百分比,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.伤害计算,
+        增益类型: 增益类型枚举.外攻会心百分比,
         增益数值: 0.05,
       }, // 第五层阵眼-追命10秒会心5%-覆盖率:100%
     ],
@@ -111,21 +111,21 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '天策阵',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏基础攻击,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏基础攻击,
         增益数值: 50,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏外攻破防等级,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏外攻破防等级,
         增益数值: 200,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏基础攻击,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏基础攻击,
         增益数值: 51 * 0.4,
       }, // 第五层阵眼-雷基攻5%(12/30))-覆盖率:40%
     ],
@@ -134,27 +134,27 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '霸刀阵',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏基础攻击,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏基础攻击,
         增益数值: 50,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏无双等级,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏无双等级,
         增益数值: 20,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏外攻破防等级,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏外攻破防等级,
         增益数值: 102,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.伤害计算,
-        增益类型: GainTypeEnum.外攻会心百分比,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.伤害计算,
+        增益类型: 增益类型枚举.外攻会心百分比,
         增益数值: 0.05,
       }, // 第五层阵眼-耗能4秒会心5%-覆盖率:100%
     ],
@@ -163,27 +163,27 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '剑纯阵',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.外攻会心百分比,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.外攻会心百分比,
         增益数值: 0.03,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏无双等级,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏无双等级,
         增益数值: 20,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏外攻会心效果等级,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏外攻会心效果等级,
         增益数值: 154,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.伤害计算,
-        增益类型: GainTypeEnum.外攻会心百分比,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.伤害计算,
+        增益类型: 增益类型枚举.外攻会心百分比,
         增益数值: 0.05,
       }, // 第五层阵眼-技能会心1%5层-覆盖率:100%
     ],
@@ -192,21 +192,21 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '藏剑阵',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏身法,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏身法,
         增益数值: 31,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏基础攻击,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏基础攻击,
         增益数值: 51,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏外攻会心效果等级,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏外攻会心效果等级,
         增益数值: 204,
       },
     ],
@@ -215,27 +215,27 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '凌雪阵',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏基础攻击,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏基础攻击,
         增益数值: 50,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.外攻会心百分比,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.外攻会心百分比,
         增益数值: 0.03,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏外攻会心效果等级,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏外攻会心效果等级,
         增益数值: 154,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.伤害计算,
-        增益类型: GainTypeEnum.郭氏基础攻击,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.伤害计算,
+        增益类型: 增益类型枚举.郭氏基础攻击,
         增益数值: 102 * 0.7,
       }, // 更新第五层阵眼-技能基攻10%-覆盖率:50% => 70%
       // 旧：第五层阵眼-技能基攻10%-覆盖率:50%
@@ -245,21 +245,21 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '苍云阵',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.外攻会心百分比,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.外攻会心百分比,
         增益数值: 0.03,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏无双等级,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏无双等级,
         增益数值: 20,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.伤害计算,
-        增益类型: GainTypeEnum.郭氏外攻会心效果等级,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.伤害计算,
+        增益类型: 增益类型枚举.郭氏外攻会心效果等级,
         增益数值: 102,
       }, // 第五层阵眼-绝刀会效2%5层30秒-覆盖率:100%
     ],
@@ -268,21 +268,21 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '蓬莱阵',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.外攻会心百分比,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.外攻会心百分比,
         增益数值: 0.03,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏基础攻击,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏基础攻击,
         增益数值: 102,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏外攻破防等级,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏外攻破防等级,
         增益数值: 102,
       },
     ],
@@ -291,21 +291,21 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '丐帮阵',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏基础攻击,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏基础攻击,
         增益数值: 50,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏外攻破防等级,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏外攻破防等级,
         增益数值: 102,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.伤害计算,
-        增益类型: GainTypeEnum.外攻破防等级,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.伤害计算,
+        增益类型: 增益类型枚举.外攻破防等级,
         增益数值: 770 * 5,
       }, // 第五层阵眼-12秒叠一层，叠满1分钟，覆盖率按:100%算
     ],
@@ -314,21 +314,21 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     阵眼名称: '天罗阵',
     增益集合: [
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.伤害计算,
-        增益类型: GainTypeEnum.郭氏无视防御,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.伤害计算,
+        增益类型: 增益类型枚举.郭氏无视防御,
         增益数值: 52,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.角色属性,
-        增益类型: GainTypeEnum.郭氏外攻会心效果等级,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.角色属性,
+        增益类型: 增益类型枚举.郭氏外攻会心效果等级,
         增益数值: 150,
       },
       {
-        增益计算类型: GainDpsTypeEnum.A,
-        计算位置: ZengyanZengyiPositionEnum.伤害计算,
-        增益类型: GainTypeEnum.外攻会心百分比,
+        增益计算类型: 增益计算类型枚举.A,
+        计算位置: 增益计算位置枚举.伤害计算,
+        增益类型: 增益类型枚举.外攻会心百分比,
         增益数值: 0.05,
       }, // 第五层阵眼-1覆盖率按:100%算
     ],

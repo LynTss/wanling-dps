@@ -1,7 +1,7 @@
 import { Form, Input, Modal, Select, Tabs } from 'antd'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/hooks'
-import { setCustomCycleList } from '@/store/basicReducer'
+import { 当前自定义循环列表 } from '@/store/basicReducer'
 import './index.css'
 import 默认循环 from '@/data/skillCycle'
 import { 各加速枚举 } from '@/@types/cycle'
@@ -21,7 +21,7 @@ function SaveCustomCycleModal(props: SaveCustomCycleModalProps) {
   // 保存类型，覆盖｜新增
   const [覆盖循环名, 设置覆盖循环名] = useState<string>()
 
-  const 自定义循环 = useAppSelector((state) => state?.basic?.customCycleList)
+  const 自定义循环 = useAppSelector((state) => state?.basic?.自定义循环列表)
 
   const dispatch = useAppDispatch()
 
@@ -73,13 +73,13 @@ function SaveCustomCycleModal(props: SaveCustomCycleModalProps) {
   }
 
   const 删除循环 = (名称) => {
-    dispatch(setCustomCycleList(自定义循环.filter((item) => item.名称 !== 名称)))
+    dispatch(当前自定义循环列表(自定义循环.filter((item) => item.名称 !== 名称)))
   }
 
   return (
     <Modal
       centered
-      title="保存自定义循环"
+      title='保存自定义循环'
       okButtonProps={{
         disabled: !(自定义循环类型 === '覆盖' ? 覆盖循环名 : 自定义循环名称输入),
       }}
@@ -91,15 +91,15 @@ function SaveCustomCycleModal(props: SaveCustomCycleModalProps) {
     >
       <Tabs
         className={'cycle-custom-save-modal-content'}
-        type="card"
+        type='card'
         activeKey={自定义循环类型}
         onChange={设置自定义循环类型}
       >
-        <Tabs.TabPane tab={'覆盖'} key="覆盖">
+        <Tabs.TabPane tab={'覆盖'} key='覆盖'>
           <Select
             value={覆盖循环名}
             onChange={设置覆盖循环名}
-            optionLabelProp="label"
+            optionLabelProp='label'
             placeholder={'请选择你要覆盖的循环'}
           >
             {自定义循环.map((item) => {
@@ -119,7 +119,7 @@ function SaveCustomCycleModal(props: SaveCustomCycleModalProps) {
             })}
           </Select>
         </Tabs.TabPane>
-        <Tabs.TabPane tab={'新增'} key="新增">
+        <Tabs.TabPane tab={'新增'} key='新增'>
           <Form>
             <Form.Item
               rules={[
@@ -137,7 +137,7 @@ function SaveCustomCycleModal(props: SaveCustomCycleModalProps) {
             >
               <Input
                 value={自定义循环名称输入}
-                placeholder="请输入自定义循环名称"
+                placeholder='请输入自定义循环名称'
                 onChange={(e) => 设置自定义循环名称输入(e?.target?.value)}
               />
             </Form.Item>

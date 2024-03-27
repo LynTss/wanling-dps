@@ -12,6 +12,10 @@
   justify-content: space-between;
 }
 
+.common-title-project {
+  margin-right: 8px;
+}
+
 .common-title-zengyi {
   color: #ED4F00;
   border-color: #ED4F00;

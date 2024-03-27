@@ -5,9 +5,9 @@ import { useAppSelector } from '@/hooks'
 import './index.css'
 
 function SkillDamageTable() {
-  const characterFinalData = useAppSelector((state) => state?.basic?.characterFinalData)
-  const currentTarget = useAppSelector((state) => state?.basic?.currentTarget)
-  const skillBasicData = useAppSelector((state) => state?.zengyi?.skillBasicData)
+  const 角色最终属性 = useAppSelector((state) => state?.basic?.角色最终属性)
+  const 当前输出计算目标 = useAppSelector((state) => state?.basic?.当前输出计算目标)
+  const 技能基础数据 = useAppSelector((state) => state?.basic?.技能基础数据)
 
   const [visible, setVisible] = useState(false)
 
@@ -53,30 +53,30 @@ function SkillDamageTable() {
       title: '原始伤害-min',
       dataIndex: 'yuanshi_min',
       render: (_, row) => {
-        return skillBasicDps(row, characterFinalData)?.min
+        return skillBasicDps(row, 角色最终属性)?.min
       },
     },
     {
       title: '原始伤害-max',
       dataIndex: 'yuanshi_max',
       render: (_, row) => {
-        return skillBasicDps(row, characterFinalData)?.max
+        return skillBasicDps(row, 角色最终属性)?.max
       },
     },
     // {
     //   title: '基准伤害-min',
     //   dataIndex: 'jizhun_min',
     //   render: (_, row) => {
-    //     const damage = skillBasicDps(row, characterFinalData)?.min
-    //     return skillStandardDps(damage, characterFinalData, currentTarget)
+    //     const damage = skillBasicDps(row, 角色最终属性)?.min
+    //     return skillStandardDps(damage, 角色最终属性, 当前输出计算目标)
     //   },
     // },
     // {
     //   title: '基准伤害-min',
     //   dataIndex: 'jizhun_max',
     //   render: (_, row) => {
-    //     const damage = skillBasicDps(row, characterFinalData)?.max
-    //     return skillStandardDps(damage, characterFinalData, currentTarget)
+    //     const damage = skillBasicDps(row, 角色最终属性)?.max
+    //     return skillStandardDps(damage, 角色最终属性, 当前输出计算目标)
     //   },
     // },
     {
@@ -86,7 +86,7 @@ function SkillDamageTable() {
       fix: 'right',
       width: 120,
       render: (_, row) => {
-        return skillFinalDps(row, characterFinalData, currentTarget)?.min
+        return skillFinalDps(row, 角色最终属性, 当前输出计算目标)?.min
       },
     },
     {
@@ -96,20 +96,20 @@ function SkillDamageTable() {
       defaultSortOrder: 'descend',
       sorter: (a, b) => {
         return (
-          skillFinalDps(a, characterFinalData, currentTarget)?.max -
-          skillFinalDps(b, characterFinalData, currentTarget)?.max
+          skillFinalDps(a, 角色最终属性, 当前输出计算目标)?.max -
+          skillFinalDps(b, 角色最终属性, 当前输出计算目标)?.max
         )
       },
       fix: 'right',
       width: 120,
       render: (_, row) => {
-        return skillFinalDps(row, characterFinalData, currentTarget)?.max
+        return skillFinalDps(row, 角色最终属性, 当前输出计算目标)?.max
       },
     },
   ]
 
   return (
-    <div className="skill-dmage-wrapper">
+    <div className='skill-dmage-wrapper'>
       <Modal
         title={'技能详细数据及计算过程数据'}
         centered
@@ -122,13 +122,13 @@ function SkillDamageTable() {
         <Table
           rowKey={'技能名称'}
           className={'skillDamageTable'}
-          dataSource={skillBasicData}
+          dataSource={技能基础数据}
           pagination={false}
           columns={columns as any}
           scroll={{ x: 'max-content' }}
         />
       </Modal>
-      <span className="skillDamageBtn" onClick={() => setVisible(true)}>
+      <span className='skillDamageBtn' onClick={() => setVisible(true)}>
         单技能数据
       </span>
     </div>

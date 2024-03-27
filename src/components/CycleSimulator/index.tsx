@@ -29,7 +29,8 @@ import { currentDpsFunction } from '@/store/basicReducer/current-dps-function'
 import QixueSetModal from './components/QixueSetModal'
 import { 获取加速等级 } from '@/utils/help'
 import './index.css'
-import { setCustomCycleList } from '@/store/basicReducer'
+import { 当前自定义循环列表 } from '@/store/basicReducer'
+import { 缓存映射 } from '@/utils/system_constant'
 
 const 加速等级枚举 = {
   0: 0,
@@ -79,16 +80,16 @@ function CycleSimulator(props: CycleSimulatorProps) {
   const [cycle, setCycle] = useState<CycleSimulatorSkillDTO[]>([])
   const [自定义循环保存弹窗, 设置自定义循环保存弹窗] = useState<boolean>(false)
   // 当前面板加速值
-  const 外部加速值 = useAppSelector((state) => state?.basic?.characterFinalData)?.加速值
-  const 外部延迟 = useAppSelector((state) => state?.basic?.network)
-  const 大橙武模拟 = useAppSelector((state) => state?.basic?.equipmentBasicData)?.大橙武特效
+  const 外部加速值 = useAppSelector((state) => state?.basic?.角色最终属性)?.加速值
+  const 外部延迟 = useAppSelector((state) => state?.basic?.网络延迟)
+  const 大橙武模拟 = useAppSelector((state) => state?.basic?.装备信息)?.大橙武特效
 
   // 当前网络延迟
   const [加速等级, 更新加速等级] = useState<number>(0)
   const [网络延迟, 更新网络延迟] = useState<number>(0)
 
   // 自定义循环
-  const customCycleList = useAppSelector((state) => state?.basic?.customCycleList)
+  const 自定义循环列表 = useAppSelector((state) => state?.basic?.自定义循环列表)
 
   const 加速值 = useMemo(() => {
     return 加速等级枚举[加速等级] || 0
@@ -102,7 +103,7 @@ function CycleSimulator(props: CycleSimulatorProps) {
   const [宠物顺序, 更新宠物顺序] = useState<string[]>(Object.keys(宠物基础数据))
 
   // 奇穴
-  const reduxQixuedata = useAppSelector((state) => state?.basic?.qixueData)
+  const reduxQixuedata = useAppSelector((state) => state?.basic?.当前奇穴信息)
   const [奇穴信息, 更新奇穴信息] = useState<string[]>([])
   const [奇穴弹窗展示, 更新奇穴弹窗展示] = useState<boolean>(false)
   const [buff覆盖数据, 更新buff覆盖数据] = useState<number[]>([])
@@ -373,17 +374,17 @@ function CycleSimulator(props: CycleSimulatorProps) {
 
     const 技能序列 = cycle.map((item) => item.技能名称)
 
-    const 新自定义循环 = customCycleList?.some((item) => item?.名称 === 名称)
-      ? customCycleList.map((item) => {
+    const 新自定义循环 = 自定义循环列表?.some((item) => item?.名称 === 名称)
+      ? 自定义循环列表.map((item) => {
           return item.名称 === 名称
             ? { 名称, 各加速枚举: 各加速枚举 as any, 奇穴信息, 技能序列, 宠物顺序 }
             : item
         })
-      : (customCycleList || []).concat([
+      : (自定义循环列表 || []).concat([
           { 名称, 各加速枚举: 各加速枚举 as any, 奇穴信息, 技能序列, 宠物顺序 },
         ])
 
-    dispatch(setCustomCycleList(新自定义循环))
+    dispatch(当前自定义循环列表(新自定义循环))
 
     设置自定义循环保存弹窗(false)
     message.success('保存成功')
@@ -392,7 +393,7 @@ function CycleSimulator(props: CycleSimulatorProps) {
   useEffect(() => {
     // redux变动，更新storage信息
     const 保存信息 = {}
-    ;(customCycleList || []).forEach((item) => {
+    ;(自定义循环列表 || []).forEach((item) => {
       保存信息[item.名称] = {
         name: item?.名称,
         title: item?.名称,
@@ -404,8 +405,8 @@ function CycleSimulator(props: CycleSimulatorProps) {
         skillList: item?.技能序列,
       }
     })
-    localStorage?.setItem('wl_custom_cycle_2', JSON.stringify(保存信息))
-  }, [customCycleList, 奇穴信息, 宠物顺序])
+    localStorage?.setItem(缓存映射.自定义循环, JSON.stringify(保存信息))
+  }, [自定义循环列表, 奇穴信息, 宠物顺序])
 
   return (
     <>
@@ -419,7 +420,7 @@ function CycleSimulator(props: CycleSimulatorProps) {
         循环模拟
       </Button>
       <Modal
-        className="cycle-simulator-modal"
+        className='cycle-simulator-modal'
         maskClosable={false}
         width={'100%'}
         title={
@@ -468,7 +469,7 @@ function CycleSimulator(props: CycleSimulatorProps) {
                       setList={(e) => {
                         拖拽更新循环(e, '轮次内')
                       }}
-                      className="cycle-simulator-setting-turn-drop"
+                      className='cycle-simulator-setting-turn-drop'
                       animation={150}
                       draggable={'.cycle-simulator-setting-skill-drag'}
                     >
@@ -485,13 +486,13 @@ function CycleSimulator(props: CycleSimulatorProps) {
                         )
                       })}
                       <div className={'cycle-turn-operate'}>
-                        <Tooltip title="复制并添加到最后">
+                        <Tooltip title='复制并添加到最后'>
                           <CopyOutlined
                             className={'cycle-turn-operate-btn'}
                             onClick={() => 复制本轮至最后(轮次)}
                           />
                         </Tooltip>
-                        <Tooltip title="删除此轮">
+                        <Tooltip title='删除此轮'>
                           <DeleteOutlined
                             className={'cycle-turn-operate-btn'}
                             onClick={() => 删除本轮次(轮次)}

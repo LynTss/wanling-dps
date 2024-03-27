@@ -1,6 +1,6 @@
 import commonGainDTO from '@/data/skillGain/common'
 import { SkillBasicDTO } from '@/@types/skill'
-import { GainDpsTypeEnum, GainTypeEnum } from '@/@types/enum'
+import { 增益计算类型枚举, 增益类型枚举 } from '@/@types/enum'
 import 贯穿GainDTO from './skillGain/贯穿'
 import 劲风簇GainDTO from './skillGain/劲风簇'
 import 标鹄GainDTO from './skillGain/标鹄'
@@ -283,8 +283,8 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
         常驻增益: true,
         增益集合: [
           {
-            增益类型: GainTypeEnum.郭氏无视防御,
-            增益计算类型: GainDpsTypeEnum.A,
+            增益类型: 增益类型枚举.郭氏无视防御,
+            增益计算类型: 增益计算类型枚举.A,
             增益数值: 1024,
           },
         ],

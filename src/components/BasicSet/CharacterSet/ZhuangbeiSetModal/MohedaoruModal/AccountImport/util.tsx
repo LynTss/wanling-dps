@@ -1,4 +1,4 @@
-import { EnchantNameEnum } from '@/@types/enum'
+import { 附魔名称枚举 } from '@/@types/enum'
 import ZUANGBEI_DATA from '@/data/zhuangbei'
 
 // 获取配装数据
@@ -19,9 +19,9 @@ export const getEquipData = (data) => {
       console.warn(`存在计算器未内置附魔${fumoType}${fumoValue}`)
     }
     // 当前的value不存在，找到内置的数值最高的value
-    if (fumoType && !EnchantNameEnum[`${fumoType}${fumoValue}`]) {
+    if (fumoType && !附魔名称枚举[`${fumoType}${fumoValue}`]) {
       // 先过滤出符合当前type的附魔
-      const list = Object.keys(EnchantNameEnum).filter((item) => item?.includes(fumoType))
+      const list = Object.keys(附魔名称枚举).filter((item) => item?.includes(fumoType))
       if (list?.length) {
         msg = `存在计算器未内置附魔${fumoType}${fumoValue}，已替换为最高数值附魔`
         fumoValue = list[list.length - 1]?.match(/\d+/g)
@@ -61,7 +61,7 @@ export const getEquipData = (data) => {
     }
 
     if (item.type === '万灵' && item?.WTemporaryEnchant) {
-      equip.wucaishi = item?.WTemporaryEnchant
+      equip.五彩石 = item?.WTemporaryEnchant
     }
 
     if (item?.type === '戒指') {

@@ -1,4 +1,4 @@
-import { EnchantNameEnum } from '@/@types/enum'
+import { 附魔名称枚举 } from '@/@types/enum'
 
 // 获取配装数据
 export const getEquipData = (data) => {
@@ -14,7 +14,7 @@ export const getEquipData = (data) => {
           console.warn(`存在计算器未内置附魔${fumoType}${fumoValue}`)
         }
         if (
-          !EnchantNameEnum[`${FumoMap[fumoType]}${fumoValue}`] &&
+          !附魔名称枚举[`${FumoMap[fumoType]}${fumoValue}`] &&
           FumoMap[fumoType] &&
           !['atVitalityBase', 'atDecriticalDamageBase', 'atToughnessBase'].includes(fumoType)
         ) {
@@ -42,7 +42,7 @@ export const getEquipData = (data) => {
         }
 
         if (item === 'PRIMARY_WEAPON' && basicData?.stone) {
-          equip.wucaishi = basicData?.stone.Name
+          equip.五彩石 = basicData?.stone.Name
         }
       }
     })
