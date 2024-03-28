@@ -3,7 +3,7 @@ import { Checkbox, Tooltip } from 'antd'
 
 import { 属性系数 } from '@/data/constant'
 import { CharacterFinalDTO } from '@/@types/character'
-import { 判断是否开启身法加成奇穴, 获取身法奇穴加成后面板 } from '@/data/qixue'
+import { 判断是否开启身法加成奇穴, 获取装备加成后面板, 获取身法奇穴加成后面板 } from '@/data/qixue'
 import { 根据奇穴处理技能的基础增益信息 } from '@/utils/skill-dps'
 import DpsKernelOptimizer from '@/utils/dps-kernel-optimizer'
 import { QuestionCircleOutlined } from '@ant-design/icons'
@@ -15,6 +15,7 @@ import './index.css'
 function CharacterShow() {
   const 角色最终属性 = useAppSelector((state) => state?.basic?.角色最终属性)
   const 当前奇穴信息 = useAppSelector((state) => state?.basic?.当前奇穴信息)
+  const 装备信息 = useAppSelector((state) => state?.basic?.装备信息)
   const 当前循环名称 = useAppSelector((state) => state?.basic?.当前循环名称)
   const 当前输出计算目标 = useAppSelector((state) => state?.basic?.当前输出计算目标)
   const 技能基础数据 = useAppSelector((state) => state?.basic?.技能基础数据)
@@ -30,7 +31,16 @@ function CharacterShow() {
 
   const mapKeyList = ['身法', '攻击', '会心', '会效', '破防', '无双', '破招', '加速']
 
-  const showData = 开启卢令 ? 获取身法奇穴加成后面板(角色最终属性, 开启卢令) : 角色最终属性
+  const 显示数据 = useMemo(() => {
+    let 结果 = 角色最终属性
+    if (装备信息) {
+      结果 = 获取装备加成后面板(角色最终属性, 装备信息)
+    }
+    if (开启卢令) {
+      结果 = 获取身法奇穴加成后面板(角色最终属性, 开启卢令)
+    }
+    return 结果
+  }, [角色最终属性, 开启卢令, 装备信息])
 
   const maxDpsData: any = useMemo(() => {
     if (!openBFGS) {
@@ -72,7 +82,7 @@ function CharacterShow() {
       <div className={'character-title-wrapper'}>
         <h1 className={'character-title'}>
           角色属性
-          <Tooltip title='增益、切糕、大附魔的数值加成暂未体现在面板显示，不影响计算'>
+          <Tooltip title='增益、大附魔的数值加成暂未体现在面板显示，不影响计算'>
             <QuestionCircleOutlined className={'character-max-title-tip'} />
           </Tooltip>
         </h1>
@@ -85,14 +95,14 @@ function CharacterShow() {
       </div>
       {mapKeyList.map((item) => {
         const maxObj: any = openBFGS
-          ? getCharacterMaxData(item, maxDpsData?.maxCharacterData, 开启卢令, showData)
+          ? getCharacterMaxData(item, maxDpsData?.maxCharacterData, 开启卢令, 显示数据)
           : {}
         return (
           <div className='character-item' key={item}>
             <h1 className='character-label'>{item}</h1>
-            <Tooltip placement='topLeft' title={getCharacterDataNumber(item, showData)}>
+            <Tooltip placement='topLeft' title={getCharacterDataNumber(item, 显示数据)}>
               <div className='character-content'>
-                <span className='character-content-normal'>{getCharacterData(item, showData)}</span>
+                <span className='character-content-normal'>{getCharacterData(item, 显示数据)}</span>
                 {openBFGS && maxObj && maxObj?.value !== '-1' ? (
                   <span
                     className={`character-content-max ${
@@ -114,7 +124,7 @@ function CharacterShow() {
 export default CharacterShow
 
 // 获取属性展示
-const getCharacterData = (key: string, 角色最终属性: CharacterFinalDTO) => {
+export const getCharacterData = (key: string, 角色最终属性: CharacterFinalDTO) => {
   switch (key) {
     case '身法':
       return 角色最终属性.身法 || 0
@@ -153,7 +163,7 @@ const getCharacterData = (key: string, 角色最终属性: CharacterFinalDTO) =>
   return ''
 }
 
-const getCharacterDataNumber = (key: string, 角色最终属性: CharacterFinalDTO) => {
+export const getCharacterDataNumber = (key: string, 角色最终属性: CharacterFinalDTO) => {
   switch (key) {
     case '身法':
       return 角色最终属性.身法 || 0
@@ -176,7 +186,7 @@ const getCharacterDataNumber = (key: string, 角色最终属性: CharacterFinalD
 }
 
 // 获取最优属性展示
-const getCharacterMaxData = (
+export const getCharacterMaxData = (
   key: string,
   角色最终属性: CharacterFinalDTO,
   openLidao: boolean,
@@ -207,4 +217,15 @@ const getCharacterMaxData = (
   }
 
   return { value, upperStatus }
+}
+
+export const 显示文案和实际属性枚举 = {
+  身法: '身法',
+  攻击: '面板攻击',
+  会心: '会心值',
+  会效: '会心效果值',
+  破防: '破防值',
+  无双: '无双值',
+  破招: '破招值',
+  加速: '加速值',
 }

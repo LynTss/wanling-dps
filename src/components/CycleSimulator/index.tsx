@@ -29,7 +29,7 @@ import { currentDpsFunction } from '@/store/basicReducer/current-dps-function'
 import QixueSetModal from './components/QixueSetModal'
 import { 获取加速等级 } from '@/utils/help'
 import './index.css'
-import { 当前自定义循环列表 } from '@/store/basicReducer'
+import { 更新当前自定义循环列表 } from '@/store/basicReducer'
 import { 缓存映射 } from '@/utils/system_constant'
 
 const 加速等级枚举 = {
@@ -384,7 +384,7 @@ function CycleSimulator(props: CycleSimulatorProps) {
           { 名称, 各加速枚举: 各加速枚举 as any, 奇穴信息, 技能序列, 宠物顺序 },
         ])
 
-    dispatch(当前自定义循环列表(新自定义循环))
+    dispatch(更新当前自定义循环列表(新自定义循环))
 
     设置自定义循环保存弹窗(false)
     message.success('保存成功')

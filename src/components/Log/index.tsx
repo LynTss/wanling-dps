@@ -118,6 +118,7 @@ function Log() {
         maskClosable={false}
         title='声明'
         closable={false}
+        centered
         footer={
           <Button onClick={handleCloseNotice} type='primary'>
             使用本计算器则视作你已经知晓并同意此声明。

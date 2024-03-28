@@ -18,10 +18,10 @@ import { 装备信息数据类型 } from '@/@types/equipment'
 import { ZengyixuanxiangDataDTO } from '@/@types/zengyi'
 import { MijiSelectedData } from '@/@types/miji'
 import { SkillBasicDTO } from '@/@types/skill'
-import WanlingSkillDataDTO from '@/data/skill'
 import { 全部方案数据 } from '@/@types/common'
 import { 缓存映射 } from '@/utils/system_constant'
 import { 获取全部循环 } from '@/data/skillCycle'
+import WanlingSkillDataDTO from '@/data/skill'
 
 interface BasicState {
   // 当前方案名称
@@ -95,13 +95,13 @@ export const basicStore = createSlice({
     更新网络延迟: (state, action: PayloadAction<number>) => {
       state.网络延迟 = action.payload
     },
-    当前计算结果DPS: (state, action: PayloadAction<number>) => {
+    更新当前计算结果DPS: (state, action: PayloadAction<number>) => {
       state.当前计算结果DPS = action.payload
     },
-    当前关闭背景图片: (state, action: PayloadAction<boolean>) => {
+    更新当前关闭背景图片: (state, action: PayloadAction<boolean>) => {
       state.关闭背景图 = action.payload
     },
-    当前自定义循环列表: (state, action: PayloadAction<CustomCycle[]>) => {
+    更新当前自定义循环列表: (state, action: PayloadAction<CustomCycle[]>) => {
       state.自定义循环列表 = action.payload
     },
     更新技能基础数据: (state, action: PayloadAction<SkillBasicDTO[]>) => {
@@ -166,9 +166,9 @@ export const basicStore = createSlice({
 export const {
   更新角色最终属性,
   更新网络延迟,
-  当前计算结果DPS,
-  当前关闭背景图片,
-  当前自定义循环列表,
+  更新当前计算结果DPS,
+  更新当前关闭背景图片,
+  更新当前自定义循环列表,
   更新技能基础数据,
   更新当前输出计算目标,
   更新当前秘籍信息,

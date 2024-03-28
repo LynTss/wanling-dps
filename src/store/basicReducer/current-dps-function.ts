@@ -3,7 +3,7 @@ import { 判断是否开启身法加成奇穴 } from '@/data/qixue'
 import { RootState } from '../index'
 import { getDpsTotal } from '@/components/Dps/guoshi_dps_utils'
 import { getDpsTime, 根据奇穴处理技能的基础增益信息 } from '@/utils/skill-dps'
-import { 当前计算结果DPS } from './index'
+import { 更新当前计算结果DPS } from './index'
 import { CharacterFinalDTO } from '@/@types/character'
 import { SKillGainData, SkillBasicDTO } from '@/@types/skill'
 import { ZengyixuanxiangDataDTO } from '@/@types/zengyi'
@@ -29,6 +29,7 @@ export interface CurrentDpsFunctionRes {
   totalDps: number
   dpsList: any[]
   dpsPerSecond: number
+  dpsTime: number
 }
 
 export const currentDpsFunction =
@@ -75,7 +76,7 @@ export const currentDpsFunction =
     const 开启身法加成奇穴 = 判断是否开启身法加成奇穴(奇穴数据)
 
     if (!当前循环技能列表?.length || !当前角色面板) {
-      return { totalDps: 0, dpsList: [], dpsPerSecond: 0 }
+      return { totalDps: 0, dpsList: [], dpsPerSecond: 0, dpsTime: 0 }
     }
 
     const 战斗时间 =
@@ -90,18 +91,6 @@ export const currentDpsFunction =
     const 计算后技能基础数据 = 根据奇穴处理技能的基础增益信息(技能基础数据, 奇穴数据)
 
     const dpsFunction = 是否郭氏计算 ? getDpsTotal : getNotGuoDpsTotal
-
-    console.log('1', {
-      计算循环: 当前循环技能列表,
-      角色最终属性: 当前角色面板,
-      当前目标: 当前目标,
-      技能基础数据: 计算后技能基础数据,
-      增益启用: 团队增益是否启用,
-      增益数据: 团队增益数据,
-      默认增益集合: 更新默认增益集合 || [],
-      战斗时间,
-      开启卢令: 开启身法加成奇穴,
-    })
     // dps结果计算
     const { totalDps, dpsList } = dpsFunction({
       计算循环: 当前循环技能列表,
@@ -119,8 +108,8 @@ export const currentDpsFunction =
     const dpsPerSecond = Math.floor(totalDps / 战斗时间)
 
     if (updateCurrentDps) {
-      dispatch(当前计算结果DPS(dpsPerSecond))
+      dispatch(更新当前计算结果DPS(dpsPerSecond))
     }
 
-    return { totalDps, dpsList, dpsPerSecond }
+    return { totalDps, dpsList, dpsPerSecond, dpsTime: 战斗时间 }
   }

@@ -11,51 +11,6 @@ import {
 import { 缓存映射 } from './system_constant'
 import { 全部方案数据 } from '@/@types/common'
 
-// export const getDefaultCharacter = () => {
-//   const sessionCharacter = localStorage.getItem(缓存映射.角色基础属性)
-//   if (sessionCharacter) {
-//     try {
-//       const obj = JSON.parse(sessionCharacter)
-//       if (obj) {
-//         return Object.assign({}, DEFAULT_CHARACTER, obj)
-//       }
-//     } catch {
-//       return Object.assign({}, DEFAULT_CHARACTER)
-//     }
-//   } else {
-//     return Object.assign({}, DEFAULT_CHARACTER)
-//   }
-// }
-
-// export const getDefaultZengyiData = () => {
-//   const sessionCharacter = localStorage.getItem(缓存映射.增益数据)
-//   if (sessionCharacter) {
-//     try {
-//       const obj = JSON.parse(sessionCharacter)
-//       if (obj) {
-//         return Object.assign({}, ZENGYI_DATA_DEFAULT, obj)
-//       }
-//     } catch {
-//       return Object.assign({}, ZENGYI_DATA_DEFAULT)
-//     }
-//   } else {
-//     return Object.assign({}, ZENGYI_DATA_DEFAULT)
-//   }
-// }
-
-// export const getDefaultZengyiQiyong = () => {
-//   const sessiongQiyong = localStorage.getItem(缓存映射.增益启用)
-//   if (sessiongQiyong) {
-//     try {
-//       return +sessiongQiyong ? true : false || true
-//     } catch {
-//       return +sessiongQiyong ? true : false || true
-//     }
-//   } else {
-//     return true
-//   }
-// }
-
 export const getDefaultNetwork = () => {
   const localNetwork = localStorage.getItem(缓存映射.网络延迟)
   if (localNetwork) {
@@ -82,48 +37,6 @@ export const getDefaultCharacterFinal = () => {
     会心效果值: 0,
   }
 }
-
-// 获取奇穴
-// export const getDefaultQixue = () => {
-//   const sessionCharacter = localStorage.getItem(缓存映射.当前奇穴信息)
-//   if (sessionCharacter) {
-//     try {
-//       const array = JSON.parse(sessionCharacter)
-//       return [...(array || DEFAULT_QIXUE_VALUE)]
-//     } catch {
-//       return [...DEFAULT_QIXUE_VALUE]
-//     }
-//   } else {
-//     return [...DEFAULT_QIXUE_VALUE]
-//   }
-// }
-
-// export const getDefaultEquipment = () => {
-//   const localEquipment = localStorage.getItem(缓存映射.装备信息)
-//   if (localEquipment) {
-//     try {
-//       const obj = JSON.parse(localEquipment)
-//       if (obj) {
-//         return Object.assign({}, DEFAULT_EQUIPMENT, obj)
-//       }
-//     } catch {
-//       return Object.assign({}, DEFAULT_EQUIPMENT)
-//     }
-//   } else {
-//     return Object.assign({}, DEFAULT_EQUIPMENT)
-//   }
-// }
-
-// export const getDefaultCycle = () => {
-//   const skillCycle = 获取全部循环()
-//   const 当前循环名称 = localStorage.getItem(缓存映射.当前循环名称) || skillCycle[0]?.name
-//   return {
-//     name: 当前循环名称,
-//     各加速枚举:
-//       skillCycle.find((item) => item.name === 当前循环名称)?.各加速枚举 ||
-//       skillCycle[0]?.各加速枚举,
-//   }
-// }
 
 export const getDefaultTarget = () => {
   const 当前输出计算目标名称 =

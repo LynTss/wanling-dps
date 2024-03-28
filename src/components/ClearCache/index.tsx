@@ -1,7 +1,7 @@
 import { Modal } from 'antd'
 import React from 'react'
 import { useAppDispatch, useAppSelector } from '@/hooks'
-import { 当前关闭背景图片 } from '@/store/basicReducer'
+import { 更新当前关闭背景图片 } from '@/store/basicReducer'
 import './index.css'
 import { 缓存映射 } from '@/utils/system_constant'
 
@@ -24,7 +24,7 @@ function ClearCache() {
   const handleChangeBackground = () => {
     const newData = 关闭背景图 ? '0' : '1'
     localStorage.setItem(缓存映射.关闭背景图, newData)
-    dispatch(当前关闭背景图片(!关闭背景图))
+    dispatch(更新当前关闭背景图片(!关闭背景图))
   }
 
   return (
