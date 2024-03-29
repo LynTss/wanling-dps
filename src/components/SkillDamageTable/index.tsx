@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Modal, Table } from 'antd'
 import { skillBasicDps, skillFinalDps } from '../../utils/skill-dps'
 import { useAppSelector } from '@/hooks'
 import './index.css'
 
-function SkillDamageTable() {
+function SkillDamageTable({ visible, onClose }) {
   const 角色最终属性 = useAppSelector((state) => state?.basic?.角色最终属性)
   const 当前输出计算目标 = useAppSelector((state) => state?.basic?.当前输出计算目标)
   const 技能基础数据 = useAppSelector((state) => state?.basic?.技能基础数据)
 
-  const [visible, setVisible] = useState(false)
-
-  const hrefSkill = location.href?.includes('?skill=1')
-  useEffect(() => {
-    if (hrefSkill) {
-      setVisible(true)
-    }
-  }, [hrefSkill])
+  // const hrefSkill = location.href?.includes('?skill=1')
+  // useEffect(() => {
+  //   if (hrefSkill) {
+  //     setVisible(true)
+  //   }
+  // }, [hrefSkill])
 
   const columns = [
     {
@@ -117,7 +115,7 @@ function SkillDamageTable() {
         width={'100%'}
         className={'skillDmageVisible'}
         open={visible}
-        onCancel={() => setVisible(false)}
+        onCancel={() => onClose(false)}
       >
         <Table
           rowKey={'技能名称'}
@@ -128,9 +126,9 @@ function SkillDamageTable() {
           scroll={{ x: 'max-content' }}
         />
       </Modal>
-      <span className='skillDamageBtn' onClick={() => setVisible(true)}>
+      {/* <span className='skillDamageBtn' onClick={() => setVisible(true)}>
         单技能数据
-      </span>
+      </span> */}
     </div>
   )
 }

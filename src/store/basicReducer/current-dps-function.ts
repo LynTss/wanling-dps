@@ -68,8 +68,6 @@ export const currentDpsFunction =
       当前循环名称: currentState?.basic?.当前循环名称,
     })
 
-    console.log('内存循环信息', 内存循环信息)
-
     const 当前内存技能列表 = 内存循环信息?.cycle
 
     const 当前循环技能列表 = 更新循环技能列表?.length ? 更新循环技能列表 : 当前内存技能列表

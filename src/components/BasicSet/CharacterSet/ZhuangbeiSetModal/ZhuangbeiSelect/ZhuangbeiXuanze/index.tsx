@@ -16,7 +16,6 @@ import { useAppDispatch, useAppSelector } from '@/hooks'
 import { getFinalCharacterBasicDataByEquipment } from '../../../util'
 import { currentDpsFunction } from '@/store/basicReducer/current-dps-function'
 import './index.css'
-// import { currentDpsFunction } from '@/store/basicReducer/current-dps-function'
 
 interface ZhuangbeiXuanzeProps {
   value?: number // 装备ID
@@ -61,7 +60,6 @@ function ZhuangbeiXuanze(props: ZhuangbeiXuanzeProps, ref) {
       // 传入新的装备
       const newDpsUpList = list.map((item) => {
         const newZhuangbeiData = {
-          id: item?.id,
           ...allValue,
           镶嵌孔数组: item?.镶嵌孔数组?.map((a) => {
             return {
@@ -70,6 +68,7 @@ function ZhuangbeiXuanze(props: ZhuangbeiXuanzeProps, ref) {
             }
           }),
           当前精炼等级: getZuiDaJingLian(item),
+          id: item?.id,
           装备部位: EquipmentCharacterPositionEnum[indexKey],
         }
 
@@ -77,8 +76,6 @@ function ZhuangbeiXuanze(props: ZhuangbeiXuanzeProps, ref) {
           ...oldEquipment,
           [`${EquipmentCharacterPositionEnum[indexKey]}${indexKey}`]: newZhuangbeiData,
         })
-
-        console.log('newEquipmentData', newEquipmentData)
 
         const newDps = getEquipmentDps(newEquipmentData)
 
@@ -98,8 +95,6 @@ function ZhuangbeiXuanze(props: ZhuangbeiXuanzeProps, ref) {
     // 获取新装备下各增益
     // 获取最终面板
     const { finalData } = getFinalCharacterBasicDataByEquipment(equipmentData)
-
-    console.log('finalData', finalData)
 
     // 传入计算
     const { dpsPerSecond } = dispatch(

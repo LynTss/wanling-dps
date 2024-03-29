@@ -5,7 +5,6 @@ import Dps from '@/components/Dps'
 import TitleTip from '@/components/TitleTip'
 import Log from '@/components/Log'
 import Tools from '@/components/Tools'
-import SkillDamageTable from '@/components/SkillDamageTable'
 import ClearCache from '@/components/ClearCache'
 import './index.css'
 
@@ -29,8 +28,7 @@ function Pages() {
       <Log />
       {/* 开发者工具 */}
       <Tools />
-      {/* 技能详情 */}
-      <SkillDamageTable />
+
       {/* 清除缓存 */}
       <ClearCache />
     </>

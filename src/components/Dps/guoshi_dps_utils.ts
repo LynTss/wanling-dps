@@ -130,7 +130,6 @@ export const getFinalCycleData = (角色最终属性, 计算循环, 战斗时间
 
 // 统计增益，获取增益的集合
 export const getAllGainData = (角色最终属性, defaultGainData?): SKillGainData[] => {
-  console.log('defaultGainData', defaultGainData)
   let 总增益集合: SKillGainData[] = [...(defaultGainData || [])]
   if (角色最终属性?.装备增益?.套装会心会效) {
     // 偷懒覆盖率测试80%左右
@@ -177,7 +176,6 @@ export const getAllGainData = (角色最终属性, defaultGainData?): SKillGainD
     总增益集合 = 总增益集合.concat(装备增益数据.龙门武器)
   }
 
-  console.log('总增益集合', 总增益集合)
   return 总增益集合
 }
 
