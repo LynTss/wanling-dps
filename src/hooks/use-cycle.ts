@@ -2,7 +2,7 @@
 import { 获取全部循环 } from '@/data/skillCycle'
 import { useAppSelector } from '@/hooks'
 import { 获取加速等级 } from '@/utils/help'
-import { getZengyiJiasu } from '@/utils/skill-dps'
+import { 计算增益数据中加速值 } from '@/utils/skill-dps'
 
 function useCycle(state?) {
   let 角色最终属性: any
@@ -26,7 +26,7 @@ function useCycle(state?) {
     当前循环各加速枚举 = useAppSelector((state) => state?.basic?.当前循环各加速枚举)
     当前循环名 = useAppSelector((state) => state?.basic?.当前循环名称)
   }
-  const 增益加速值 = 增益启用 ? getZengyiJiasu(增益数据) : 0
+  const 增益加速值 = 增益启用 ? 计算增益数据中加速值(增益数据) : 0
   const 加速等级 = 获取加速等级(角色最终属性?.加速值 + 增益加速值)
 
   const 是否为大CW = !!角色最终属性?.装备增益?.大橙武特效

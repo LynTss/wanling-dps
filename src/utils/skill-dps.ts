@@ -155,7 +155,7 @@ export const getDpsTime = (
     All_Cycle_Data?.find((item) =>
       trueCurrentCycleName ? item.name === trueCurrentCycleName : item.name === 当前循环名称
     ) || All_Cycle_Data?.[0]
-  const 增益加速等级 = 增益启用 ? getZengyiJiasu(增益数据) : 0
+  const 增益加速等级 = 增益启用 ? 计算增益数据中加速值(增益数据) : 0
   const 加速等级 = 获取加速等级(角色最终属性.加速值 + 增益加速等级)
 
   if (currentCycleConfig) {
@@ -177,7 +177,7 @@ export const getDpsTime = (
   return time
 }
 
-export const getZengyiJiasu = (增益数据: ZengyixuanxiangDataDTO) => {
+export const 计算增益数据中加速值 = (增益数据: ZengyixuanxiangDataDTO) => {
   let number = 0
   ;(增益数据.小吃 || []).forEach((item) => {
     const currentXiaochi = XIAOCHI_DATA.find((a) => a.小吃名称 === item)
