@@ -2,25 +2,25 @@ export default [
   {
     // 正式服完整日志
     version: '2.2.1_无界',
-    date: '2024-03-27 19:10:00',
+    date: '2024-04-02 14:40:00',
     content: [
       '无界正式服完整更新日志',
       '无界技改相关',
-      <p key='2.2.0_体服' style={{ paddingLeft: 12 }}>
+      <p key='2.2.1_无界_体服' style={{ paddingLeft: 12 }}>
         - 于狩触发条件修改为3-5箭
       </p>,
       '计算器重点更新',
-      <p key='2.2.0_模拟器' style={{ paddingLeft: 12 }}>
+      <p key='2.2.1_无界_模拟器' style={{ paddingLeft: 12 }}>
         - 使用新的结构重新编写了计算器
         <a href='https://www.jx3box.com/tool/75292' target='_blank' rel='noreferrer'>
           使用手册参考刀宗
         </a>
       </p>,
-      <p key='2.2.0_移除延迟' style={{ paddingLeft: 12 }}>
+      <p key='2.2.1_无界_移除延迟' style={{ paddingLeft: 12 }}>
         - 模拟器还处于调试阶段，有使用问题欢迎反馈
       </p>,
       '其余更新功能:',
-      <p key='3.0.0_CW提醒' style={{ paddingLeft: 12 }}>
+      <p key='2.2.1_无界_其他功能' style={{ paddingLeft: 12 }}>
         <p>- 【多方案系统】可以在保存装备、循环、增益信息至方案。快捷切换对比</p>
         <p>
           - 【配装器内面板显示】配装器内增加了当前装备的面板显示，同时展示和原装备对比属性变化情况
