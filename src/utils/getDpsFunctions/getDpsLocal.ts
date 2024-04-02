@@ -72,9 +72,6 @@ export const currentDpsFunction = (props?: CurrentDpsFunctionProps) => {
   const 战斗时间 =
     更新计算时间 || getDpsTime(当前循环名称, 当前角色面板, 延迟, false, {} as any, showTime)
 
-  // 获取实际循环
-  // const trueCycle = 获取实际循环(当前循环名称, 当前循环技能列表, 当前角色面板)
-
   // 获取基础技能信息加成
   const 计算后技能基础数据 = 根据奇穴处理技能的基础增益信息(技能基础数据, 奇穴数据)
 
