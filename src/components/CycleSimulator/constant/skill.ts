@@ -104,7 +104,7 @@ const 循环模拟技能基础数据: CycleSimulatorSkillDTO[] = [
     技能名称: '丛云隐月',
     技能释放后添加GCD: 基础GCD帧,
     技能CD: 每秒郭氏帧 * 18,
-    技能GCD组: '公共',
+    技能GCD组: '自身',
     技能类型: '其他',
     显示类型: '奇穴技能',
     图标: 'https://icon.jx3box.com/icon/20297.png',
