@@ -313,7 +313,7 @@ export const 奇穴数据: QixueListDTO[] = [
         奇穴图片: 'https://icon.jx3box.com/icon/20301.png',
       },
       {
-        奇穴名称: '从云隐月',
+        奇穴名称: '丛云隐月',
         奇穴加成类型: '无增益',
         是否不可编辑: true,
         奇穴图片: 'https://icon.jx3box.com/icon/20297.png',

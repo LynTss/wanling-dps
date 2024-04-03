@@ -93,6 +93,10 @@ function AddCycleSkillBtns(props: AddCycleSkillBtnsProps) {
               if (!大橙武模拟 && item?.显示类型 === '大橙武模拟') {
                 return false
               }
+              if (item?.显示类型 === '奇穴技能') {
+                const 依赖名称 = item?.依赖奇穴名 || item?.技能名称
+                return 奇穴信息?.includes(依赖名称)
+              }
               return !item?.创建循环不可选 && item?.技能类型 === '其他'
             })
             .map((item) => {
