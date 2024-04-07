@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from 'react'
 import { Checkbox, Tooltip } from 'antd'
 
-import { 属性系数 } from '@/data/constant'
+import { 属性系数 } from '@/数据/常量'
 import { CharacterFinalDTO } from '@/@types/character'
-import { 判断是否开启身法加成奇穴, 获取装备加成后面板, 获取身法奇穴加成后面板 } from '@/data/qixue'
-import { 计算增益数据中加速值, 根据奇穴处理技能的基础增益信息 } from '@/utils/skill-dps'
+import { 判断是否开启身法加成奇穴, 获取装备加成后面板, 获取身法奇穴加成后面板 } from '@/数据/奇穴'
+import { 计算增益数据中加速值, 根据秘籍奇穴装备格式化技能信息 } from '@/utils/skill-dps'
 import DpsKernelOptimizer from '@/utils/dps-kernel-optimizer'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 import { useAppSelector } from '@/hooks'
@@ -19,6 +19,7 @@ function CharacterShow() {
   const 当前循环名称 = useAppSelector((state) => state?.basic?.当前循环名称)
   const 当前输出计算目标 = useAppSelector((state) => state?.basic?.当前输出计算目标)
   const 技能基础数据 = useAppSelector((state) => state?.basic?.技能基础数据)
+  const 当前秘籍信息 = useAppSelector((state) => state?.basic?.当前秘籍信息)
   const 增益数据 = useAppSelector((state) => state?.basic?.增益数据)
   const 增益启用 = useAppSelector((state) => state?.basic?.增益启用)
   const 循环信息 = useCycle()?.cycle
@@ -34,10 +35,10 @@ function CharacterShow() {
   const 显示数据 = useMemo(() => {
     let 结果 = 角色最终属性
     if (装备信息) {
-      结果 = 获取装备加成后面板(角色最终属性, 装备信息)
+      结果 = 获取装备加成后面板(结果, 装备信息)
     }
     if (开启卢令) {
-      结果 = 获取身法奇穴加成后面板(角色最终属性, 开启卢令)
+      结果 = 获取身法奇穴加成后面板(结果, 开启卢令)
     }
     if (增益启用) {
       结果 = {
@@ -53,8 +54,12 @@ function CharacterShow() {
       return {}
     }
 
-    // 获取基础技能信息加成
-    const 计算后技能基础数据 = 根据奇穴处理技能的基础增益信息(技能基础数据, 当前奇穴信息)
+    const 计算后技能基础数据 = 根据秘籍奇穴装备格式化技能信息({
+      技能基础数据,
+      秘籍信息: 当前秘籍信息,
+      奇穴数据: 当前奇穴信息,
+      装备增益: 装备信息,
+    })
 
     if (角色最终属性?.身法) {
       const res = DpsKernelOptimizer({

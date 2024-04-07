@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { 更新当前自定义循环列表 } from '@/store/basicReducer'
 import './index.css'
-import 默认循环 from '@/data/skillCycle'
+import 默认循环 from '@/数据/计算循环'
 import { 各加速枚举 } from '@/@types/cycle'
 
 interface SaveCustomCycleModalProps {

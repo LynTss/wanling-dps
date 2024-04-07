@@ -1,5 +1,5 @@
 import { EquipmentCharacterPositionEnum } from '@/@types/enum'
-import { AllEnchantDTO } from '@/data/enchantGain'
+import { AllEnchantDTO } from '@/数据/附魔'
 
 export const 修改装备信息 = (原装备信息, 当前附魔数据) => {
   return {
@@ -43,11 +43,8 @@ export const 初始化所有组合 = () => {
     })
   })
 
-  // console.log('res', res)
   const generateCombinationsRes = generateCombinations(res)
-  // console.log('generateCombinationsRes', generateCombinationsRes)
   const filterUniqueObjectsRes = filterUniqueObjects(generateCombinationsRes)
-  // console.log('filterUniqueObjects', filterUniqueObjectsRes)
 
   return filterUniqueObjectsRes
 }

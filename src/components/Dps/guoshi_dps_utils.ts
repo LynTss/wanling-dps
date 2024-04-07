@@ -1,4 +1,3 @@
-import { TuanduiZengyi_DATA } from './../../data/tuanduizengyi/index'
 import { getMianBanGongJI, getShenfaJiachengHuixin } from '@/components/BasicSet/CharacterSet/util'
 import { 增益计算类型枚举 } from './../../@types/enum'
 import { TargetDTO } from '@/@types/character'
@@ -9,11 +8,12 @@ import { 增益类型枚举 } from '@/@types/enum'
 import { DpsGainBasicDTO, SkillBasicDTO, SKillGainData } from '@/@types/skill'
 import { skillFinalDps } from '@/utils/skill-dps'
 import { ZengyixuanxiangDataDTO } from '@/@types/zengyi'
-import { Zhenyan_DATA } from '@/data/zhenyan'
-import { 属性系数 } from '@/data/constant'
-import XIAOCHI_DATA from '@/data/xiaochi'
-import 装备增益数据 from '@/data/zhuangbei/zhuangbeiGain'
-import { 获取身法奇穴加成后面板 } from '@/data/qixue'
+import { TuanduiZengyi_DATA } from '@/数据/团队增益'
+import { Zhenyan_DATA } from '@/数据/阵眼'
+import { 属性系数 } from '@/数据/常量'
+import XIAOCHI_DATA from '@/数据/小药小吃'
+import 装备增益数据 from '@/数据/装备/装备增益数据'
+import { 获取身法奇穴加成后面板 } from '@/数据/奇穴'
 
 interface GetDpsTotalParams {
   计算循环: CycleDTO[]
@@ -102,22 +102,7 @@ export const getFinalCycleData = (角色最终属性, 计算循环, 战斗时间
       技能数量: Math.floor(战斗时间 / 10),
     })
   }
-  // if (角色最终属性?.装备增益?.大橙武特效) {
-  //   const 总数列表 = 最终循环
-  //     .filter((i) => i.技能名称.includes('劲风簇'))
-  //     .map((i) => {
-  //       return { 技能数量: i.技能数量 }
-  //     })
-  //   let 总数 = 0
-  //   const 触发率 = 0.5
-  //   总数列表.forEach((i) => {
-  //     总数 = 总数 + i.技能数量
-  //   })
-  //   最终循环.push({
-  //     技能名称: '劲风簇·神兵',
-  //     技能数量: Math.floor(总数 * 触发率),
-  //   })
-  // }
+
   if (角色最终属性?.装备增益?.龙门武器) {
     最终循环.push({
       技能名称: '剑风',

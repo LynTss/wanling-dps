@@ -6,13 +6,13 @@ import {
   getCharacterDataNumber,
   显示文案和实际属性枚举,
 } from '@/components/BasicSet/CharacterShow'
-import { 判断是否开启身法加成奇穴, 获取身法奇穴加成后面板, 获取装备加成后面板 } from '@/data/qixue'
+import { 判断是否开启身法加成奇穴, 获取身法奇穴加成后面板, 获取装备加成后面板 } from '@/数据/奇穴'
 import { useAppSelector } from '@/hooks'
 import { Tooltip } from 'antd'
 import classnames from 'classnames'
 import React, { useMemo } from 'react'
-import './index.css'
 import { 计算增益数据中加速值 } from '@/utils/skill-dps'
+import './index.css'
 
 interface CharacterActiveProps {
   当前角色最终属性: CharacterFinalDTO
@@ -32,10 +32,10 @@ function CharacterActive(props: CharacterActiveProps) {
   const 获取计算后原始属性 = (角色属性, 装备信息) => {
     let 结果 = 角色属性
     if (装备信息) {
-      结果 = 获取装备加成后面板(角色属性, 装备信息)
+      结果 = 获取装备加成后面板(结果, 装备信息)
     }
     if (开启卢令) {
-      结果 = 获取身法奇穴加成后面板(角色属性, 开启卢令)
+      结果 = 获取身法奇穴加成后面板(结果, 开启卢令)
     }
     if (增益启用) {
       结果 = {

@@ -1,18 +1,16 @@
 import { useAppDispatch, useAppSelector } from '@/hooks'
-import skillMijiBasicData from '@/data/miji'
+import skillMijiBasicData from '@/数据/秘籍'
 import { Button, Checkbox, Col, Drawer, message, Row } from 'antd'
 import React, { useState } from 'react'
-import { 更新当前秘籍信息, 更新技能基础数据 } from '@/store/basicReducer'
+import { 更新当前秘籍信息 } from '@/store/basicReducer'
 import { MijiBasicDataDTO, SkillMijiBasicDataDTO } from '@/@types/miji'
-import { 根据秘籍格式化技能基础数据 } from './utils'
-import './index.css'
 import { 缓存映射 } from '@/utils/system_constant'
+import './index.css'
 
-function MijiSet({ getDpsFunction }) {
+function MijiSet({ getDpsFunction, disabled }) {
   const [visible, setVisible] = useState<boolean>(false)
   const dispatch = useAppDispatch()
   const 当前秘籍信息 = useAppSelector((state) => state?.basic?.当前秘籍信息)
-  const 技能基础数据 = useAppSelector((state) => state?.basic?.技能基础数据)
 
   const selectMiji = (e, mijiData: MijiBasicDataDTO, skillData: SkillMijiBasicDataDTO) => {
     const newData = 当前秘籍信息
@@ -56,16 +54,12 @@ function MijiSet({ getDpsFunction }) {
     localStorage.setItem(缓存映射.当前秘籍信息, JSON.stringify(newData))
     dispatch(更新当前秘籍信息(newData))
 
-    const 秘籍格式化后技能基础数据 = 根据秘籍格式化技能基础数据(技能基础数据, newData)
-
-    dispatch(更新技能基础数据(秘籍格式化后技能基础数据))
-
     getDpsFunction()
   }
 
   return (
     <>
-      <Button className='miji-set-button' onClick={() => setVisible(true)}>
+      <Button disabled={disabled} className='miji-set-button' onClick={() => setVisible(true)}>
         秘籍设置
       </Button>
       <Drawer

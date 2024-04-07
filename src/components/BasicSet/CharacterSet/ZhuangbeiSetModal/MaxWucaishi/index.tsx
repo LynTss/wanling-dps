@@ -5,7 +5,7 @@ import { currentDpsFunction } from '@/store/basicReducer/current-dps-function'
 import { useAppDispatch } from '@/hooks'
 import { getFinalCharacterBasicDataByEquipment } from '../../util'
 import { RiseOutlined } from '@ant-design/icons'
-import WUCAISHI_DATA from '@/data/wucaishi'
+import WUCAISHI_DATA from '@/数据/五彩石'
 
 import './index.css'
 
@@ -45,7 +45,6 @@ function MaxWucaishi({ 一键替换五彩石, 对比Dps, 对比装备信息 }) {
             } as any,
           })
         )
-        // console.log('dpsPerSecond', dpsPerSecond)
         if (dpsPerSecond > maxDps) {
           maxDps = dpsPerSecond
           最大五彩石 = 五彩石原始数据[i]?.五彩石名称

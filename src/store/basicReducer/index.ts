@@ -13,21 +13,23 @@ import {
   加载缓存全部方案数据,
   加载缓存当前方案名称,
   获取方案内信息,
+  加载技能原始数据,
 } from '@/utils/default'
 import { 装备信息数据类型 } from '@/@types/equipment'
 import { ZengyixuanxiangDataDTO } from '@/@types/zengyi'
 import { MijiSelectedData } from '@/@types/miji'
 import { SkillBasicDTO } from '@/@types/skill'
-import { 全部方案数据 } from '@/@types/common'
+import { 全局平台标识类型, 全部方案数据 } from '@/@types/common'
 import { 缓存映射 } from '@/utils/system_constant'
-import { 获取全部循环 } from '@/data/skillCycle'
-import WanlingSkillDataDTO from '@/data/skill'
+import { 获取全部循环 } from '@/数据/计算循环'
 
 interface BasicState {
   // 当前方案名称
   当前方案名称: string
   // 全部方案数据
   全部方案数据: 全部方案数据
+  // 当前平台标识
+  当前平台标识: 全局平台标识类型
   // 角色面板属性信息（不包含各种数据增益。只为装备带来的基础属性
   角色基础属性: CharacterBasicDTO
   // 角色装备属性信息（不包含各种数据增益。只为装备带来的基础属性
@@ -66,6 +68,7 @@ const initialState: BasicState = {
   当前方案名称: 加载缓存当前方案名称(),
   全部方案数据: 加载缓存全部方案数据(),
   // 方案内信息
+  当前平台标识: 获取方案内信息('当前平台标识'),
   角色基础属性: 获取方案内信息('角色基础属性'),
   装备信息: 获取方案内信息('装备信息'),
   增益启用: 获取方案内信息('增益启用'),
@@ -82,13 +85,17 @@ const initialState: BasicState = {
   关闭背景图: getCloseBackgroundImg(),
   自定义循环列表: getDefaultCustomCycleList(),
   当前秘籍信息: getDefaultMijiSelectedData(),
-  技能基础数据: WanlingSkillDataDTO,
+  技能基础数据: 加载技能原始数据(),
 }
 
 export const basicStore = createSlice({
   name: 'basic',
   initialState,
   reducers: {
+    更新当前平台标识: (state, action: PayloadAction<全局平台标识类型>) => {
+      state.当前平台标识 = action.payload
+      localStorage.setItem(缓存映射.当前平台标识, action.payload)
+    },
     更新角色最终属性: (state, action: PayloadAction<CharacterFinalDTO>) => {
       state.角色最终属性 = { ...action.payload }
     },
@@ -128,11 +135,12 @@ export const basicStore = createSlice({
         // 更新当前正在使用的属性
         state[目标属性] = action?.payload?.数据
         if (目标属性 === '当前循环名称') {
-          state.当前循环各加速枚举 = { ...action.payload.额外数据 }
+          state.当前循环各加速枚举 = { ...action.payload.额外数据?.各加速枚举 }
+          state.当前奇穴信息 = [...(action.payload.额外数据?.奇穴信息 || [])]
         }
         const 当前方案名称 = state.当前方案名称
         // 更新全部方案内对应的属性
-        if (state.全部方案数据?.[当前方案名称]?.[目标属性]) {
+        if (state.全部方案数据?.[当前方案名称]) {
           state.全部方案数据[当前方案名称][目标属性] = action?.payload?.数据
           // 更新浏览器缓存
           localStorage.setItem(缓存映射.全部方案数据, JSON.stringify(state.全部方案数据))
@@ -145,6 +153,9 @@ export const basicStore = createSlice({
 
       if (目标方案) {
         state.当前方案名称 = 切换的目标方案名称
+        localStorage.setItem(缓存映射.当前方案名称, action.payload)
+
+        state.当前平台标识 = 目标方案.当前平台标识
         state.角色基础属性 = 目标方案.角色基础属性
         state.装备信息 = 目标方案.装备信息
         state.增益启用 = 目标方案.增益启用
@@ -152,7 +163,7 @@ export const basicStore = createSlice({
         state.当前奇穴信息 = 目标方案.当前奇穴信息
         state.当前循环名称 = 目标方案.当前循环名称
 
-        const 全部循环 = 获取全部循环()
+        const 全部循环 = 获取全部循环(目标方案.当前平台标识)
         const 加速枚举 =
           全部循环.find((item) => item.name === 目标方案.当前循环名称)?.各加速枚举 ||
           全部循环[0]?.各加速枚举
@@ -164,6 +175,7 @@ export const basicStore = createSlice({
 })
 
 export const {
+  更新当前平台标识,
   更新角色最终属性,
   更新网络延迟,
   更新当前计算结果DPS,

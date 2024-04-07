@@ -1,4 +1,4 @@
-import { guoshiXishuBasic, guoshiResult, guoshiBasic, 获取加速等级 } from './help'
+import { guoshiXishuBasic, guoshiResult, guoshiBasic } from './help'
 /**
  * @name 技能伤害dps
  * @description 技能伤害计算遵循郭氏理论
@@ -6,15 +6,15 @@ import { guoshiXishuBasic, guoshiResult, guoshiBasic, 获取加速等级 } from 
  */
 import { CharacterFinalDTO, TargetDTO } from '@/@types/character'
 import { SkillBasicDTO } from '@/@types/skill'
-import { 属性系数, 每等级减伤, 非侠系数 } from '@/data/constant'
+import { 属性系数, 每等级减伤, 非侠系数 } from '@/数据/常量'
 import { guoshiFangyu, guoshiPofang } from './help'
-import { 获取全部循环 } from '@/data/skillCycle'
 import { ZengyixuanxiangDataDTO } from '@/@types/zengyi'
-import XIAOCHI_DATA from '@/data/xiaochi'
+import XIAOCHI_DATA from '@/数据/小药小吃'
 import { 增益类型枚举 } from '@/@types/enum'
-import 奇穴数据 from '@/data/qixue'
+import 奇穴数据 from '@/数据/奇穴'
 import { QixueDataDTO } from '@/@types/qixue'
-// import { CycleDTO } from '@/@types/cycle'
+import { 根据装备格式化技能基础数据 } from '@/components/BasicSet/CharacterSet/ZhuangbeiSetModal/utils'
+import { 根据秘籍格式化技能基础数据 } from '@/components/BasicSet/CommonSet/MijiSet/utils'
 
 /**
  * @name 破招原始伤害计算
@@ -36,6 +36,7 @@ export const skillBasicDps = (skillConfig: SkillBasicDTO, characterConfig: Chara
     技能基础伤害_最大值 = 0,
     伤害计算次数 = 1,
     技能伤害系数,
+    技能破招系数,
   } = skillConfig
 
   if (技能名称 === '破') {
@@ -46,16 +47,17 @@ export const skillBasicDps = (skillConfig: SkillBasicDTO, characterConfig: Chara
     }
   }
 
-  function getSkill(damage, weapon_damage) {
+  function getSkill(damage, weapon_damage, 技能破招系数) {
     return (
       Math.floor(面板攻击 * 技能伤害系数) +
       Math.floor(damage) +
-      Math.floor(weapon_damage * 武器伤害系数)
+      Math.floor(weapon_damage * 武器伤害系数) +
+      (技能破招系数 ? Math.floor(技能破招系数 * 破招值) : 0)
     )
   }
 
-  const min = getSkill(技能基础伤害_最小值, 武器伤害_最小值) * 伤害计算次数
-  const max = getSkill(技能基础伤害_最大值, 武器伤害_最大值) * 伤害计算次数
+  const min = getSkill(技能基础伤害_最小值, 武器伤害_最小值, 技能破招系数) * 伤害计算次数
+  const max = getSkill(技能基础伤害_最大值, 武器伤害_最大值, 技能破招系数) * 伤害计算次数
   return {
     min,
     max,
@@ -136,47 +138,6 @@ export const skillWushuangDps = (damage: number, characterConfig: CharacterFinal
   return guoshiResult(damage, guoshiWuShuang)
 }
 
-// 获取加速、延迟计算后的时间
-export const getDpsTime = (
-  当前循环名称: string,
-  角色最终属性: CharacterFinalDTO,
-  网络延迟: number,
-  增益启用: boolean,
-  增益数据: ZengyixuanxiangDataDTO,
-  cons = false
-): number => {
-  let time = 300
-  // 根据是否选择CW选择对应循环
-  const trueCurrentCycleName = getTrueCycleName(当前循环名称, 角色最终属性)
-
-  const All_Cycle_Data = 获取全部循环() || []
-
-  const currentCycleConfig =
-    All_Cycle_Data?.find((item) =>
-      trueCurrentCycleName ? item.name === trueCurrentCycleName : item.name === 当前循环名称
-    ) || All_Cycle_Data?.[0]
-  const 增益加速等级 = 增益启用 ? 计算增益数据中加速值(增益数据) : 0
-  const 加速等级 = 获取加速等级(角色最终属性.加速值 + 增益加速等级)
-
-  if (currentCycleConfig) {
-    if (currentCycleConfig.各加速枚举) {
-      time = currentCycleConfig.各加速枚举?.[加速等级]?.[网络延迟]?.dpsTime || 180
-    } else if (currentCycleConfig.cycleList) {
-      let 总帧数 = 0
-      currentCycleConfig.cycleList.forEach((item) => {
-        const 循环帧 = (item.循环完整帧数 - item.计算技能数 * (1 - 网络延迟 * 0.5)) * item.循环次数
-        总帧数 = 总帧数 + 循环帧
-      })
-      time = (总帧数 + (加速等级 < 1 ? 300 : 加速等级 === 2 ? -60 : 0)) / 16 + 18
-    }
-  }
-  if (cons) {
-    console.log('战斗时间', time)
-  }
-  // console.log('战斗时间', time)
-  return time
-}
-
 export const 计算增益数据中加速值 = (增益数据: ZengyixuanxiangDataDTO) => {
   let number = 0
   ;(增益数据.小吃 || []).forEach((item) => {
@@ -203,39 +164,6 @@ export const getTrueCycleName = (当前循环名称: string, 角色最终属性:
 
   return 当前循环名称
 }
-
-// export const 获取实际循环 = (
-//   当前循环名称: string,
-//   currentCycle: CycleDTO[],
-//   角色最终属性: CharacterFinalDTO
-// ) => {
-//   let trueCycle: CycleDTO[] = [...(currentCycle || [])]
-
-//   const All_Cycle_Data = 获取全部循环()
-
-//   // 大CW特效循环变动
-//   if (
-//     角色最终属性?.装备增益?.大橙武特效 &&
-//     当前循环名称?.includes('朝仪万汇_') &&
-//     !当前循环名称?.includes('_cw')
-//   ) {
-//     const trueName = `${当前循环名称}_cw`
-
-//     console.log('trueName', trueName)
-
-//     trueCycle = All_Cycle_Data?.find((item) => item.name === trueName)?.cycle || currentCycle
-
-//     console.log(
-//       'All_Cycle_Data?.find((item) => item.name === trueName)?.cycle',
-//       All_Cycle_Data?.find((item) => item.name === trueName)
-//     )
-//     console.log('All_Cycle_Data', All_Cycle_Data)
-//     // console.log('trueCycle', trueCycle)
-//   }
-
-//   // console.log('trueCycle', trueCycle)
-//   return trueCycle
-// }
 
 export const 根据奇穴处理技能的基础增益信息 = (skillBasicData, 当前奇穴信息) => {
   let newSkillBasicData: SkillBasicDTO[] = [...(skillBasicData || [])]
@@ -305,4 +233,15 @@ const getAllQixueData = (当前奇穴信息: string[]): QixueDataDTO[] => {
     }
   })
   return res
+}
+
+export const 根据秘籍奇穴装备格式化技能信息 = ({ 技能基础数据, 秘籍信息, 奇穴数据, 装备增益 }) => {
+  const 秘籍格式化后技能基础数据 = 根据秘籍格式化技能基础数据(技能基础数据, 秘籍信息)
+  const 装备格式化后技能基础数据 = 根据奇穴处理技能的基础增益信息(
+    秘籍格式化后技能基础数据,
+    奇穴数据
+  )
+  const 计算后技能基础数据 = 根据装备格式化技能基础数据(装备格式化后技能基础数据, 装备增益)
+
+  return 计算后技能基础数据
 }

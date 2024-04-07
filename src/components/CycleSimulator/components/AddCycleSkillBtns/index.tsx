@@ -1,15 +1,15 @@
 import { Col, Row, Space, Tag } from 'antd'
 import React from 'react'
-import { CycleSimulatorSkillDTO, 模拟信息类型 } from '../../simulator/type'
+import { 循环基础技能数据类型, 模拟信息类型 } from '../../simulator/type'
 import AddCycleSkillBtn from './AddCycleSkillBtn'
 import { 快捷添加数据, 快捷添加数据类型 } from './快捷添加'
 import './index.css'
 import AddPetBtns from './AddPetBtns'
 
 interface AddCycleSkillBtnsProps {
-  新增循环技能: (data: CycleSimulatorSkillDTO) => void
-  批量新增循环: (data: CycleSimulatorSkillDTO[]) => void
-  处理循环结果对象: { 完整循环: CycleSimulatorSkillDTO[] }
+  新增循环技能: (data: 循环基础技能数据类型) => void
+  批量新增循环: (data: 循环基础技能数据类型[]) => void
+  处理循环结果对象: { 完整循环: 循环基础技能数据类型[] }
   模拟信息: 模拟信息类型
   大橙武模拟: boolean
   奇穴信息: string[]
@@ -30,7 +30,7 @@ function AddCycleSkillBtns(props: AddCycleSkillBtnsProps) {
   } = props
 
   const 批量新增循环技能 = (数据: 快捷添加数据类型) => {
-    const 技能原始数据: CycleSimulatorSkillDTO[] = 数据?.技能序列
+    const 技能原始数据: 循环基础技能数据类型[] = 数据?.技能序列
       .map((item) => {
         return 模拟信息?.技能基础数据?.find((a) => a.技能名称 === item) || ({} as any)
       })

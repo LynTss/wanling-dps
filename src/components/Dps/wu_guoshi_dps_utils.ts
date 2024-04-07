@@ -1,12 +1,12 @@
 // !收益采用非郭式算法
-import { 每等级减伤, 非侠系数 } from '@/data/constant'
+import { 每等级减伤, 非侠系数 } from '@/数据/常量'
 import { TargetDTO } from '@/@types/character'
 import { CharacterFinalDTO } from '@/@types/character'
 import { CycleDTO } from '@/@types/cycle'
 import { 增益类型枚举 } from '@/@types/enum'
 import { DpsGainBasicDTO, SkillBasicDTO, SKillGainData } from '@/@types/skill'
 import { ZengyixuanxiangDataDTO } from '@/@types/zengyi'
-import { 加成系数, 属性系数 } from '@/data/constant'
+import { 加成系数, 属性系数 } from '@/数据/常量'
 import {
   getAllGainData,
   getFinalCycleData,
@@ -15,7 +15,7 @@ import {
   getZengyi,
   通用增益计算,
 } from './guoshi_dps_utils'
-import { 获取身法奇穴加成后面板 } from '@/data/qixue'
+import { 获取身法奇穴加成后面板 } from '@/数据/奇穴'
 
 interface GetDpsTotalParams {
   计算循环: CycleDTO[]
@@ -336,6 +336,7 @@ export const skillBasicDps = (skillConfig: SkillBasicDTO, characterConfig: Chara
     技能基础伤害_最大值 = 0,
     伤害计算次数 = 1,
     技能伤害系数,
+    技能破招系数,
   } = skillConfig
   if (技能名称 === '破') {
     const poDps = 破招值 * 技能伤害系数
@@ -345,11 +346,16 @@ export const skillBasicDps = (skillConfig: SkillBasicDTO, characterConfig: Chara
     }
   }
 
-  function getSkill(damage, weapon_damage) {
-    return 面板攻击 * 技能伤害系数 + damage + weapon_damage * 武器伤害系数
+  function getSkill(damage, weapon_damage, 技能破招系数) {
+    return (
+      面板攻击 * 技能伤害系数 +
+      damage +
+      weapon_damage * 武器伤害系数 +
+      (技能破招系数 ? 技能破招系数 * 破招值 : 0)
+    )
   }
-  const min = getSkill(技能基础伤害_最小值, 武器伤害_最小值) * 伤害计算次数
-  const max = getSkill(技能基础伤害_最大值, 武器伤害_最大值) * 伤害计算次数
+  const min = getSkill(技能基础伤害_最小值, 武器伤害_最小值, 技能破招系数) * 伤害计算次数
+  const max = getSkill(技能基础伤害_最大值, 武器伤害_最大值, 技能破招系数) * 伤害计算次数
 
   return { min, max }
 }

@@ -2,7 +2,7 @@
 /**
  * @name 循环基础技能
  */
-export interface CycleSimulatorSkillDTO {
+export interface 循环基础技能数据类型 {
   /**
    * @name 技能名称
    */
@@ -70,7 +70,7 @@ export interface CycleSimulatorSkillDTO {
 }
 
 // 用来显示的循环技能类型类型
-export interface ShowCycleSingleSkill extends CycleSimulatorSkillDTO {
+export interface ShowCycleSingleSkill extends 循环基础技能数据类型 {
   /**
    * 本技能计划释放时间
    */
@@ -101,7 +101,7 @@ export interface ShowCycle {
   本轮箭总用时: number
 }
 
-export interface CycleSimulatorLog {
+export interface 循环日志数据类型 {
   /**
    * 日志
    */

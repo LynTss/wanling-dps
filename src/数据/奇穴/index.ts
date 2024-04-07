@@ -2,11 +2,11 @@ import { QixueListDTO } from '@/@types/qixue'
 import { CharacterFinalDTO } from '@/@types/character'
 import {
   getMianBanGongJI,
-  getShenfa,
+  卢令身法加成,
   getShenfaJiachengHuixin,
 } from '@/components/BasicSet/CharacterSet/util'
 import { 装备信息数据类型 } from '@/@types/equipment'
-import 装备增益数据 from '../zhuangbei/zhuangbeiGain'
+import 装备增益数据 from '../装备/装备增益数据'
 
 export const 身法加成奇穴 = '卢令'
 export const 无视防御奇穴 = ''
@@ -441,7 +441,7 @@ export const 获取装备加成后面板 = (
 // 判断身法奇穴加成后面板
 export const 获取身法奇穴加成后面板 = (data: CharacterFinalDTO, openLuLing): CharacterFinalDTO => {
   if (openLuLing) {
-    const 加成后面板身法 = getShenfa(data.身法, true)
+    const 加成后面板身法 = 卢令身法加成(data.身法, true)
     return {
       ...data,
       身法: 加成后面板身法,

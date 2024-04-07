@@ -1,6 +1,8 @@
+import { 全局平台标识枚举 } from '@/@types/enum'
 import { MijiSelectedData } from '@/@types/miji'
 
 export const DEFAULT_PROJECT_NAME = '默认方案'
+export const DEFAULT_PLATFORM = 全局平台标识枚举.旗舰版
 
 export const DEFAULT_CHARACTER = {
   等级: 120,
@@ -19,7 +21,7 @@ export const DEFAULT_CHARACTER = {
 }
 
 export const ZENGYI_DATA_DEFAULT = {
-  阵眼: '万灵阵',
+  阵眼: '万灵阵（朱厌）',
   小吃: [
     '断浪·上品亢龙散（外攻）',
     '断浪·上品轻身丹（身法）',

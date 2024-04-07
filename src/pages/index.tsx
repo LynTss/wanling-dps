@@ -6,6 +6,7 @@ import TitleTip from '@/components/TitleTip'
 import Log from '@/components/Log'
 import Tools from '@/components/Tools'
 import ClearCache from '@/components/ClearCache'
+import WjSwitch from '@/components/WjSwitch'
 import './index.css'
 
 function Pages() {
@@ -28,9 +29,10 @@ function Pages() {
       <Log />
       {/* 开发者工具 */}
       <Tools />
-
       {/* 清除缓存 */}
       <ClearCache />
+      {/* 无界全局开关 */}
+      <WjSwitch getDps={getDps} />
     </>
   )
 }

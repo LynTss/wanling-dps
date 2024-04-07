@@ -32,16 +32,21 @@ export default [
   //   ],
   // },
   {
+    version: '2.2.2_体服',
+    date: '2024-04-07 14:00:00',
+    content: [<p key='2.2.2_1'>新增了悟切换开关，暂无循环和技能系数</p>],
+  },
+  {
     version: '2.2.1_体服',
     date: '2024-04-03 11:00:00',
     content: [
-      <p key='3.0.9_1'>
+      <p key='2.2.1_1'>
         体肤更新三改
         <a href='https://jx3.xoyo.com/announce/gg.html?id=1333643' target='_blank' rel='noreferrer'>
           技改链接
         </a>
       </p>,
-      <p key='3.0.9_2' style={{ paddingLeft: 12 }}>
+      <p key='2.2.1_2' style={{ paddingLeft: 12 }}>
         {`- 模拟器新增【丛云隐月】`}
       </p>,
     ],

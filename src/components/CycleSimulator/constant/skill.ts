@@ -1,4 +1,4 @@
-import { Buff枚举, CycleSimulatorSkillDTO, 日志类型 } from '../simulator/type'
+import { Buff枚举, 循环基础技能数据类型, 日志类型 } from '../simulator/type'
 import { 基础GCD帧, 每秒郭氏帧 } from '.'
 
 // 技能图标引入
@@ -25,7 +25,7 @@ import xiong from '../assets/Chongwu/xiong.png'
 import yezhu from '../assets/Chongwu/yezhu.png'
 import ying from '../assets/Chongwu/ying.png'
 
-const 循环模拟技能基础数据: CycleSimulatorSkillDTO[] = [
+const 循环模拟技能基础数据: 循环基础技能数据类型[] = [
   {
     技能名称: '引风唤灵',
     技能释放后添加GCD: 基础GCD帧,

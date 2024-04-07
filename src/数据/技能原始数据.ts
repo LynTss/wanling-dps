@@ -1,11 +1,11 @@
-import commonGainDTO from '@/data/skillGain/common'
+import commonGainDTO from '@/数据/技能增益/common'
 import { SkillBasicDTO } from '@/@types/skill'
 import { 增益计算类型枚举, 增益类型枚举 } from '@/@types/enum'
-import 贯穿GainDTO from './skillGain/贯穿'
-import 劲风簇GainDTO from './skillGain/劲风簇'
-import 标鹄GainDTO from './skillGain/标鹄'
-import 饮羽簇GainDTO from './skillGain/饮羽簇'
-import 宠物GainDTO from './skillGain/宠物通用'
+import 贯穿GainDTO from './技能增益/贯穿'
+import 劲风簇GainDTO from './技能增益/劲风簇'
+import 标鹄GainDTO from './技能增益/标鹄'
+import 饮羽簇GainDTO from './技能增益/饮羽簇'
+import 宠物GainDTO from './技能增益/宠物通用'
 
 const 外攻基础系数 = 16 * 10
 

@@ -9,14 +9,11 @@ class 贯穿 extends 通用DOT类 {
   获得和刷新贯穿(来源?) {
     const 审固 = this.模拟循环.校验奇穴是否存在('审固')
     // const 贯穿buff数据 = this.模拟循环.当前目标buff列表?.['贯穿']
-    // console.log('贯穿buff数据', 贯穿buff数据)
     const 当前最后一跳贯穿数据 =
       this?.DOT运行数据?.待生效数据?.[this?.DOT运行数据?.待生效数据?.length - 1] || {}
     const 当前贯穿层数 = 当前最后一跳贯穿数据?.当前层数 || 0
-    // console.log('当前贯穿层数', 当前贯穿层数)
     const 贯穿最大层数 = this?.模拟循环?.Buff和Dot数据?.贯穿?.最大层数 || 6
     const 新贯穿层数 = Math.min(当前贯穿层数 + 1, 贯穿最大层数)
-    // console.log('新贯穿层数', 新贯穿层数)
     const 原始数据 = this.获取当前DOT数据('贯穿')
     const 贯穿待生效数据 = [...this.DOT运行数据.待生效数据]
 

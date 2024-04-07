@@ -1,4 +1,4 @@
-import 奇穴数据, { QixueNameMap } from '@/data/qixue'
+import 奇穴数据, { QixueNameMap } from '@/数据/奇穴'
 import { Button, Drawer, Form, Select } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { DEFAULT_QIXUE_VALUE } from '@/pages/constant'
@@ -9,10 +9,11 @@ import './index.css'
 interface QixueSetProps {
   getDpsFunction?: () => void
   className?: string
+  disabled?: boolean
 }
 
 const QixueSet: React.FC<QixueSetProps> = (props) => {
-  const { getDpsFunction, ...rest } = props
+  const { getDpsFunction, disabled, ...rest } = props
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
   const [form] = Form.useForm()
 
@@ -44,7 +45,12 @@ const QixueSet: React.FC<QixueSetProps> = (props) => {
 
   return (
     <>
-      <Button className='qixue-set-button' onClick={() => setDrawerOpen(true)} {...rest}>
+      <Button
+        disabled={disabled}
+        className='qixue-set-button'
+        onClick={() => setDrawerOpen(true)}
+        {...rest}
+      >
         奇穴设置
       </Button>
       <Drawer

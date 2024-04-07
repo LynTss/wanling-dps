@@ -1,5 +1,5 @@
 import { 附魔名称枚举 } from '@/@types/enum'
-import ZUANGBEI_DATA from '@/data/zhuangbei'
+import ZUANGBEI_DATA from '@/数据/装备'
 
 // 获取配装数据
 export const getEquipData = (data) => {

@@ -62,18 +62,18 @@ function AccountImport({ onOk }) {
 
   return (
     <div>
-      <div className="pz-daoru-input-wrap no-padding">
+      <div className='pz-daoru-input-wrap no-padding'>
         <Input
-          className="pz-daoru-input-wrap-input"
+          className='pz-daoru-input-wrap-input'
           value={name}
           onChange={(e) => changeName(e.target.value.trim())}
-          placeholder="请输入角色名称"
+          placeholder='请输入角色名称'
         />
         <Input
-          className="pz-daoru-input-wrap-input"
+          className='pz-daoru-input-wrap-input'
           value={server}
           onChange={(e) => changeServer(e.target.value.trim())}
-          placeholder="请输入区服名称"
+          placeholder='请输入区服名称'
         />
         <ServerCascader />
         <Button disabled={loading || !name || !server} onClick={() => handleGetPzData()}>
@@ -81,7 +81,7 @@ function AccountImport({ onOk }) {
         </Button>
       </div>
       {loading ? (
-        <div className="pz-daoru-text-wrap">
+        <div className='pz-daoru-text-wrap'>
           正在获取配装方案
           <Spin style={{ marginLeft: 12 }} spinning={true} />
         </div>
@@ -89,45 +89,45 @@ function AccountImport({ onOk }) {
         <>
           {data ? (
             <div className={'pz-daoru-success'}>
-              <p className="pz-daoru-success-tip">成功获取配装方案</p>
-              <div className="pz-daoru-success-content">
-                <div className="pz-daoru-success-info">
-                  <div className="pz-daoru-success-user">
+              <p className='pz-daoru-success-tip'>成功获取配装方案</p>
+              <div className='pz-daoru-success-content'>
+                <div className='pz-daoru-success-info'>
+                  <div className='pz-daoru-success-user'>
                     <img
-                      className="pz-daoru-success-avatar"
+                      className='pz-daoru-success-avatar'
                       src={data?.showData?.user_avatar}
-                      alt=""
+                      alt=''
                     />
                     <div>{data?.showData?.display_name}</div>
                   </div>
-                  <div className="pz-daoru-success-title" title={data?.showData?.title}>
+                  <div className='pz-daoru-success-title' title={data?.showData?.title}>
                     {data?.showData?.title}
                   </div>
                 </div>
-                <Button type="primary" onClick={handleClickImport}>
+                <Button type='primary' onClick={handleClickImport}>
                   导入
                 </Button>
               </div>
             </div>
           ) : null}
           {errorMsg ? (
-            <div className="pz-daoru-text-wrap pz-daoru-text-error">{errorMsg}</div>
+            <div className='pz-daoru-text-wrap pz-daoru-text-error'>{errorMsg}</div>
           ) : null}
         </>
       )}
       <Modal
         footer={null}
-        title="如何获取配装ID"
+        title='如何获取配装ID'
         open={helpVisible}
         onCancel={() => setHelpVisible(false)}
       >
         <p>
           1、打开你的配装方案，点击导出。
-          <Image className="pz-daoru-help-img" src={Img_Help_1} />
+          <Image className='pz-daoru-help-img' src={Img_Help_1} />
         </p>
         <p>
           2、选择数据版,复制配装ID.
-          <Image className="pz-daoru-help-img" src={Img_Help_2} />
+          <Image className='pz-daoru-help-img' src={Img_Help_2} />
         </p>
       </Modal>
     </div>

@@ -1,9 +1,9 @@
 import { CycleDTO, CycleGain } from '@/@types/cycle'
-import { CycleSimulatorLog } from './simulator/type'
+import { 循环日志数据类型 } from './simulator/type'
 import { 每秒郭氏帧 } from './constant'
-import { 属性系数 } from '@/data/constant'
+import { 属性系数 } from '@/数据/常量'
 
-export const getDpsCycle = (data: CycleSimulatorLog[]): CycleDTO[] => {
+export const getDpsCycle = (data: 循环日志数据类型[]): CycleDTO[] => {
   const res: { [key: string]: CycleDTO } = {}
   for (let i = 0; i < data.length; i++) {
     const 当前数据 = data[i]
@@ -75,7 +75,7 @@ export const getDpsCycle = (data: CycleSimulatorLog[]): CycleDTO[] => {
   return 结果循环
 }
 
-export const getSingleSkillDpsCycle = (当前数据: CycleSimulatorLog): CycleDTO => {
+export const getSingleSkillDpsCycle = (当前数据: 循环日志数据类型): CycleDTO => {
   const 当前日志对应技能枚举 = 获取当前日志对应技能枚举(当前数据?.日志)
   const 伤害次数 = 当前数据?.其他数据?.伤害次数 || 1
   let 增益列表: CycleGain[] = []

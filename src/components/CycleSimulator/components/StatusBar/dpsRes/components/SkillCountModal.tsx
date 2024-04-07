@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import DpsCountModal from '@/components/Dps/DpsCountModal'
 import { DpsListData } from '@/components/Dps/guoshi_dps_utils'
 import '../../../../index.css'
-import { CycleSimulatorLog } from '../../../../simulator/type'
+import { 循环日志数据类型 } from '../../../../simulator/type'
 import { 获取贯穿对应实际倍率 } from '@/components/CycleSimulator/utils'
 import { Divider, Popover } from 'antd'
 
@@ -11,7 +11,7 @@ interface SkillCountModalProps {
   onCancel: () => void
   dpsList: DpsListData[]
   total: number
-  logData: CycleSimulatorLog[]
+  logData: 循环日志数据类型[]
 }
 
 const SkillCountModal: React.FC<SkillCountModalProps> = (props) => {

@@ -13,7 +13,7 @@ import {
   冬至套装,
   套装_两件套双会,
   套装_两件套技能,
-} from '@/data/zhuangbei'
+} from '@/数据/装备'
 
 export const getNewEquipmentData = (value) => {
   let 套装_两件套双会数量 = 0
@@ -139,12 +139,9 @@ export const getNewEquipmentData = (value) => {
   return data
 }
 
-export const 根据装备格式化技能基础数据 = (
-  skillBasicData,
-  套装技能: number,
-  大橙武特效: boolean,
-  小橙武特效: boolean
-) => {
+export const 根据装备格式化技能基础数据 = (skillBasicData, 装备增益) => {
+  const { 套装技能 = 0, 大橙武特效 = false, 小橙武特效 = false } = 装备增益
+
   return skillBasicData.map((item) => {
     return {
       ...item,
