@@ -88,6 +88,18 @@ const commonGainDTO: SkillGainDTO[] = [
       },
     ],
   },
+  {
+    增益名称: '卢令',
+    增益所在位置: '奇穴',
+    常驻增益: false,
+    增益集合: [
+      {
+        增益类型: 增益类型枚举.郭氏身法,
+        增益计算类型: 增益计算类型枚举.A,
+        增益数值: 102,
+      },
+    ],
+  },
 ]
 
 export default commonGainDTO

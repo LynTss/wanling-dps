@@ -13,7 +13,6 @@ interface DpsKernelOptimizerParams {
   技能基础数据: SkillBasicDTO[]
   增益数据: ZengyixuanxiangDataDTO
   增益启用: boolean
-  开启卢令: boolean
 }
 
 // 计算dps最大期望值的算法
@@ -24,7 +23,6 @@ const DpsKernelOptimizer = ({
   技能基础数据,
   增益启用,
   增益数据,
-  开启卢令,
 }: DpsKernelOptimizerParams) => {
   // 当前计算环境下的原属性总量
   const basicDTO = { ...角色最终属性 }
@@ -49,7 +47,6 @@ const DpsKernelOptimizer = ({
       增益启用,
       增益数据,
       战斗时间: 300, // 这里只需要算总dps，算固定300秒的dps
-      开启卢令,
     })
 
     // 由于dps太大，导致用1除灰远小于计算容差，所以这里取一个较大的值去除以最终结果。以达到dps越大最终结果越小的目的，用于算法计算

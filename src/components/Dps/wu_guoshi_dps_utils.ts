@@ -15,7 +15,6 @@ import {
   getZengyi,
   通用增益计算,
 } from './guoshi_dps_utils'
-import { 获取身法奇穴加成后面板 } from '@/数据/奇穴'
 
 interface GetDpsTotalParams {
   计算循环: CycleDTO[]
@@ -26,7 +25,6 @@ interface GetDpsTotalParams {
   增益数据: ZengyixuanxiangDataDTO
   战斗时间: number
   默认增益集合?: SKillGainData[]
-  开启卢令: boolean
 }
 
 export interface DpsListData {
@@ -46,15 +44,12 @@ export const getNotGuoDpsTotal = (props: GetDpsTotalParams) => {
     增益启用,
     增益数据,
     默认增益集合,
-    开启卢令,
   } = props
   // 总dps
   let total = 0
   // 每个技能的dps总和列表
   const dpsList: DpsListData[] = []
   const 计算目标 = 当前目标
-
-  const 最终人物属性 = 获取身法奇穴加成后面板(角色最终属性, 开启卢令)
 
   // 获取装备增益等带来的最终增益集合
   let 总增益集合: SKillGainData[] = getAllGainData(角色最终属性, 默认增益集合)
@@ -79,11 +74,10 @@ export const getNotGuoDpsTotal = (props: GetDpsTotalParams) => {
     // 获取循环内某个技能的总dps
     const skillDpsAll = getSingleSkillTotalDps(
       item,
-      最终人物属性,
+      角色最终属性,
       计算目标,
       技能基础数据,
-      总增益集合,
-      开启卢令
+      总增益集合
     )
     dpsList.push({
       name: item.技能名称,
@@ -102,9 +96,7 @@ export const getSingleSkillTotalDps = (
   最终人物属性: CharacterFinalDTO,
   计算目标: TargetDTO,
   技能基础数据: SkillBasicDTO[],
-  总增益集合: SKillGainData[],
-  开启卢令: boolean
-  // 是否郭氏计算?: boolean
+  总增益集合: SKillGainData[]
 ) => {
   // 在技能数据模型中找到当前执行循环内技能的数据，获取各种系数
   const 当前技能属性 = 技能基础数据.find((item) => item.技能名称 === 循环?.技能名称)
@@ -133,8 +125,7 @@ export const getSingleSkillTotalDps = (
             最终人物属性,
             增益.增益技能数,
             计算目标,
-            [...技能增益集合, ...技能独立增益集合列表],
-            开启卢令
+            [...技能增益集合, ...技能独立增益集合列表]
           )
           totalDps = totalDps + 期望技能总伤
         }
@@ -143,7 +134,7 @@ export const getSingleSkillTotalDps = (
 
     // 判断常规未增益技能的总伤
     const 期望技能总伤 = 无增益技能数
-      ? geSkillTotalDps(当前技能属性, 最终人物属性, 无增益技能数, 计算目标, 技能增益集合, 开启卢令)
+      ? geSkillTotalDps(当前技能属性, 最终人物属性, 无增益技能数, 计算目标, 技能增益集合)
           ?.期望技能总伤 || 0
       : 0
 
@@ -161,8 +152,7 @@ export const geSkillTotalDps = (
   人物属性: CharacterFinalDTO,
   技能总数: number,
   当前目标: TargetDTO,
-  总增益集合: SKillGainData[],
-  开启卢令: boolean
+  总增益集合: SKillGainData[]
 ) => {
   let 增益计算基础: DpsGainBasicDTO = {
     计算目标: 当前目标,
@@ -197,27 +187,23 @@ export const geSkillTotalDps = (
       }
     })
 
-  // 计算身法带来的面板增益
-  const 卢令郭氏身法 = 开启卢令 ? 102 : 0
   // 郭氏身法在是否开启卢令下的提升百分比
-  const guoShenfaPercent =
-    (1024 + 增益计算基础?.郭氏身法 + 卢令郭氏身法) / 1024 / ((1024 + 卢令郭氏身法) / 1024) - 1
+  const 身法提升百分比 = 增益计算基础?.郭氏身法 / 1024
   // 郭式身法对人物属性身法的提升值
-  const 郭式身法对人物属性身法的提升值 = 增益计算基础?.最终人物属性.身法 * guoShenfaPercent
+  const 郭式身法对属性身法的提升值 = 增益计算基础?.最终人物属性.身法 * 身法提升百分比
+  // 郭式力道对增益提供的力道二次加成提升值
+  const 郭式力道对增益内力道的提升值 = 增益计算基础?.身法数值加成 * 身法提升百分比
   // 身法数值的提升值
-  const 身法提升值 =
-    增益计算基础?.身法数值加成 +
-    (增益计算基础?.身法数值加成 * (增益计算基础?.郭氏身法 + 卢令郭氏身法)) / 1024
-
-  const 总身法提升值 = 郭式身法对人物属性身法的提升值 + 身法提升值
+  const 增益内身法提升值 = 增益计算基础?.身法数值加成 + 郭式力道对增益内力道的提升值
+  const 总身法提升值 = 郭式身法对属性身法的提升值 + 增益内身法提升值
 
   增益计算基础 = {
     ...增益计算基础,
     最终人物属性: {
       ...增益计算基础?.最终人物属性,
       身法: 增益计算基础?.最终人物属性.身法 + 总身法提升值,
-      面板攻击: 增益计算基础?.最终人物属性.面板攻击 + 身法提升值 * 加成系数.身法加成面板攻击,
-      会心值: 增益计算基础?.最终人物属性.会心值 + 身法提升值 * 加成系数.身法加成会心,
+      面板攻击: 增益计算基础?.最终人物属性.面板攻击 + 总身法提升值 * 加成系数.身法加成面板攻击,
+      会心值: 增益计算基础?.最终人物属性.会心值 + 总身法提升值 * 加成系数.身法加成会心,
     },
   }
 

@@ -189,17 +189,17 @@ export const DEFAULT_MIJI_SELECTED_DATA: MijiSelectedData[] = [
 // 默认奇穴
 export const DEFAULT_QIXUE_VALUE = [
   '素矰',
-  '棘矢',
+  '孰湖',
   '襄尺',
   '长右',
   '鹿蜀',
-  '诸怀',
+  '桑柘',
   '于狩',
-  '九乌',
+  '卢令',
   '托月',
   '佩弦',
-  '审固',
-  '朱厌',
+  '贯侯',
+  '朝仪万汇',
 ]
 
 // 默认起手

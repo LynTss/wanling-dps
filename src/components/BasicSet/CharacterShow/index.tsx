@@ -69,7 +69,6 @@ function CharacterShow() {
         技能基础数据: 计算后技能基础数据,
         增益启用,
         增益数据,
-        开启卢令,
       })
       return res
     } else {
