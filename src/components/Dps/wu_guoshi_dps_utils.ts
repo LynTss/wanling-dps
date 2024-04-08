@@ -8,6 +8,7 @@ import { DpsGainBasicDTO, SkillBasicDTO, SKillGainData } from '@/@types/skill'
 import { ZengyixuanxiangDataDTO } from '@/@types/zengyi'
 import { 加成系数, 属性系数 } from '@/数据/常量'
 import {
+  DpsListData,
   getAllGainData,
   getFinalCycleData,
   getGainList,
@@ -25,12 +26,6 @@ interface GetDpsTotalParams {
   增益数据: ZengyixuanxiangDataDTO
   战斗时间: number
   默认增益集合?: SKillGainData[]
-}
-
-export interface DpsListData {
-  name: string // 技能名称
-  number: number // 技能数量
-  dps: number // 技能总输出
 }
 
 // 计算技能循环总输出
@@ -72,7 +67,7 @@ export const getNotGuoDpsTotal = (props: GetDpsTotalParams) => {
   // 遍历循环，获取每一个技能的总输出
   最终循环.forEach((item) => {
     // 获取循环内某个技能的总dps
-    const skillDpsAll = getSingleSkillTotalDps(
+    const { totalDps, 总会心数量 } = getSingleSkillTotalDps(
       item,
       角色最终属性,
       计算目标,
@@ -81,10 +76,11 @@ export const getNotGuoDpsTotal = (props: GetDpsTotalParams) => {
     )
     dpsList.push({
       name: item.技能名称,
-      dps: skillDpsAll,
+      dps: totalDps,
       number: item.技能数量,
+      会心几率: 总会心数量 / item.技能数量,
     })
-    total = total + skillDpsAll
+    total = total + totalDps
   })
 
   return { totalDps: total, dpsList }
@@ -102,6 +98,7 @@ export const getSingleSkillTotalDps = (
   const 当前技能属性 = 技能基础数据.find((item) => item.技能名称 === 循环?.技能名称)
   // 总输出
   let totalDps = 0
+  let 总会心数量 = 0
   let 无增益技能数 = 循环?.技能数量
   let 技能增益集合 = [...总增益集合]
   if (当前技能属性) {
@@ -120,7 +117,7 @@ export const getSingleSkillTotalDps = (
         无增益技能数 = 无增益技能数 - 增益.增益技能数
         const 技能独立增益集合列表: SKillGainData[] = getGainList(增益, 当前技能属性)
         if (增益?.增益技能数) {
-          const { 期望技能总伤 } = geSkillTotalDps(
+          const { 期望技能总伤, 会心数量 } = geSkillTotalDps(
             当前技能属性,
             最终人物属性,
             增益.增益技能数,
@@ -128,22 +125,29 @@ export const getSingleSkillTotalDps = (
             [...技能增益集合, ...技能独立增益集合列表]
           )
           totalDps = totalDps + 期望技能总伤
+          总会心数量 = 总会心数量 + 会心数量
         }
       })
     }
 
-    // 判断常规未增益技能的总伤
-    const 期望技能总伤 = 无增益技能数
-      ? geSkillTotalDps(当前技能属性, 最终人物属性, 无增益技能数, 计算目标, 技能增益集合)
-          ?.期望技能总伤 || 0
-      : 0
+    if (无增益技能数) {
+      // 判断常规未增益技能的总伤
+      const { 期望技能总伤, 会心数量 } = geSkillTotalDps(
+        当前技能属性,
+        最终人物属性,
+        无增益技能数,
+        计算目标,
+        技能增益集合
+      )
 
-    totalDps = totalDps + 期望技能总伤
+      totalDps = totalDps + 期望技能总伤
+      总会心数量 = 总会心数量 + 会心数量
+    }
 
-    return totalDps
+    return { totalDps, 总会心数量 }
   }
 
-  return totalDps
+  return { totalDps, 总会心数量 }
 }
 
 // 技能dps结果期望
@@ -296,9 +300,9 @@ const getSkillDamage = ({
 
   const 平均伤害 = (最小技能总伤 + 最大技能总伤) / 2
 
-  const 会心数量 = (最终人物属性.会心值 / 属性系数.会心) * 技能总数
-
   const 会心期望率 = 最终人物属性.会心值 / 属性系数.会心 + 额外会心率
+
+  const 会心数量 = 会心期望率 * 技能总数
 
   const 面板会心效果 = 最终人物属性.会心效果值 / 属性系数.会效
   const 郭式额外会心效果 = 郭氏额外会效果值 / 1024
