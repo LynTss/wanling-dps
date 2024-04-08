@@ -7,7 +7,6 @@ export const useWasm = (url) => {
   useEffect(() => {
     const fetchWasm = async () => {
       const wasm = await fetch(url)
-      console.log('wasm', wasm)
 
       // wasm.
       const instance = await AsBind?.AsBind?.instantiate(wasm, {})

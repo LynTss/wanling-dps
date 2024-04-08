@@ -29,18 +29,15 @@ function AccountImport({ onOk }) {
       //   // zone: '电信八区',
       // })
       const requestRes: any = {}
-      console.log('requestRes', requestRes)
       if (requestRes?.data && requestRes?.status === 200) {
         res = requestRes?.data
       } else {
         errorMessage = '没有查询到角色信息，清稍后再试'
       }
     } catch (e) {
-      console.log('e', e)
       errorMessage = '没有查询到角色信息，清稍后再试'
     }
     setLoading(false)
-    console.log('res', res)
     if (!errorMessage) {
       const getData = getPzData(res?.equip)
       if (getData?.msg) {
@@ -143,8 +140,6 @@ const getPzData = (data) => {
   let msg: any = ''
   if (data) {
     const { equip, errorMsg } = getEquipData(data)
-    console.log('equip', equip)
-    console.log('equipData', equipData)
     if (equip) {
       equipData = equip
     }

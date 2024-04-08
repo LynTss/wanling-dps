@@ -9,7 +9,6 @@ function JclSkillDaoru() {
 
   const getDetail = () => {
     if (inputValue) {
-      console.log('inputValue', inputValue)
       try {
         const res = JCL技能序列导入(inputValue)
         if (res?.length) {
