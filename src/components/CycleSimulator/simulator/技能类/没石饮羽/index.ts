@@ -1,20 +1,16 @@
 import 循环模拟技能基础数据 from '../../../constant/skill'
-import { 根据加速等级获取虚拟加速值 } from '../../utils'
 import 技能统一类 from '../../通用类/技能统一类'
 import { 待生效事件 } from '../../type'
-import { 获取实际帧数 } from '@/components/CycleSimulator/utils'
 
 class 没石饮羽 extends 技能统一类 {
   static 技能数据 = 循环模拟技能基础数据?.find((item) => item.技能名称 === '没石饮羽')
-  static 作用间隔帧 = 6
+  static 初始作用间隔帧 = 20 // 固定时间轴，不吃加速
+  static 作用间隔帧 = 6 // 固定时间轴，不吃加速
   static 作用次数 = 3
 
   constructor(模拟循环) {
     super(模拟循环)
     // 根据加速修改实际读条帧
-
-    const 循环加速值 = 根据加速等级获取虚拟加速值(this.模拟循环.加速等级)
-    没石饮羽.作用间隔帧 = 获取实际帧数(6, 循环加速值)
   }
 
   生命周期() {
@@ -43,7 +39,7 @@ class 没石饮羽 extends 技能统一类 {
     }
 
     for (let i = 0; i < 没石饮羽.作用次数; i++) {
-      const 事件时间 = this.模拟循环.当前时间 + 20 + 没石饮羽.作用间隔帧 * i
+      const 事件时间 = this.模拟循环.当前时间 + 没石饮羽.初始作用间隔帧 + 没石饮羽.作用间隔帧 * i
       待生效事件.push({
         事件名称: `没石饮羽·${i + 1}`,
         事件时间: 事件时间,
