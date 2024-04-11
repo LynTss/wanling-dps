@@ -153,18 +153,6 @@ export const 计算增益数据中加速值 = (增益数据: ZengyixuanxiangData
   return number
 }
 
-export const getTrueCycleName = (当前循环名称: string, 角色最终属性: CharacterFinalDTO) => {
-  if (
-    角色最终属性?.装备增益?.大橙武特效 &&
-    当前循环名称?.includes('朝仪万汇_') &&
-    !当前循环名称?.includes('_cw')
-  ) {
-    return `${当前循环名称}_cw`
-  }
-
-  return 当前循环名称
-}
-
 export const 根据奇穴处理技能的基础增益信息 = (skillBasicData, 当前奇穴信息) => {
   let newSkillBasicData: SkillBasicDTO[] = [...(skillBasicData || [])]
 

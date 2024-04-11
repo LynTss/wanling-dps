@@ -1,7 +1,7 @@
 // 循环
-import 朝仪万汇_棘矢 from './现启用循环/朝仪万汇_棘矢.json'
-import 朝仪万汇_孰湖 from './现启用循环/朝仪万汇_孰湖.json'
-import 朝仪万汇_孰湖_cw from './现启用循环/朝仪万汇_孰湖_cw.json'
+import 朝仪_棘矢_考古 from './现启用循环/朝仪_棘矢_考古.json'
+import 朝仪_孰湖_三压 from './现启用循环/朝仪_孰湖_三压.json'
+import 朝仪_孰湖_橙武 from './现启用循环/朝仪_孰湖_橙武.json'
 import 朱厌_一键宏 from './现启用循环/朱厌_一键宏.json'
 import 朱厌_压缩 from './现启用循环/朱厌_压缩.json'
 // 无界
@@ -11,11 +11,11 @@ import { 缓存映射 } from '@/utils/system_constant'
 import { 全局平台标识枚举 } from '@/@types/enum'
 
 const 计算循环 = [
-  { ...朝仪万汇_孰湖 },
-  { ...朝仪万汇_棘矢 },
+  { ...朝仪_孰湖_三压 },
+  { ...朝仪_棘矢_考古 },
   { ...朱厌_压缩 },
   { ...朱厌_一键宏 },
-  { ...朝仪万汇_孰湖_cw },
+  { ...朝仪_孰湖_橙武 },
 ]
 
 const 无界_计算循环 = [{ ...无界循环 }]

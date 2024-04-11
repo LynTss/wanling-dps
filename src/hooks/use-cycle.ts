@@ -35,16 +35,19 @@ function useCycle(state?) {
 
   const 是否为大CW = !!角色最终属性?.装备增益?.大橙武特效
   const All_Cycle_Data = 获取全部循环(当前平台标识)
+  let 当前循环 = All_Cycle_Data?.find((item) => item?.name === 当前循环名)
 
-  const 该循环是否存在大CW循环 = All_Cycle_Data?.find((item) => item.name === `${当前循环名}_cw`)
-  if (是否为大CW && 该循环是否存在大CW循环) {
-    当前循环各加速枚举 = 该循环是否存在大CW循环?.各加速枚举
+  const 是否存在大CW循环 = All_Cycle_Data?.find((item) => item.name?.includes(`橙武`))
+  if (是否为大CW && 是否存在大CW循环) {
+    当前循环各加速枚举 = 是否存在大CW循环?.各加速枚举
+    当前循环 = 是否存在大CW循环
   }
   const 循环信息 = 当前循环各加速枚举?.[加速等级]?.[网络延迟]
 
   return {
     cycle: 循环信息?.cycle || [],
     dpsTime: 循环信息?.dpsTime || 0,
+    qixue: 当前循环?.qixue,
   }
 }
 
