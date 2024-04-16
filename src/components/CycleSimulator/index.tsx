@@ -85,9 +85,9 @@ function CycleSimulator(props: CycleSimulatorProps) {
   const 外部延迟 = useAppSelector((state) => state?.basic?.网络延迟)
   const 大橙武模拟 = useAppSelector((state) => state?.basic?.装备信息)?.大橙武特效
 
-  // 当前网络延迟
   const [加速等级, 更新加速等级] = useState<number>(0)
   const [网络延迟, 更新网络延迟] = useState<number>(0)
+  const [显示标鹄层数, 更新显示标鹄层数] = useState<boolean>(false)
 
   // 自定义循环
   const 自定义循环列表 = useAppSelector((state) => state?.basic?.自定义循环列表)
@@ -442,6 +442,8 @@ function CycleSimulator(props: CycleSimulatorProps) {
             网络延迟={网络延迟}
             更新网络延迟={更新网络延迟}
             模拟信息={模拟信息}
+            显示标鹄层数={显示标鹄层数}
+            更新显示标鹄层数={更新显示标鹄层数}
           />
         }
         centered
@@ -484,6 +486,7 @@ function CycleSimulator(props: CycleSimulatorProps) {
                             模拟信息={模拟信息}
                             buff覆盖数据={buff覆盖数据}
                             更新buff覆盖数据={更新buff覆盖数据}
+                            显示标鹄层数={显示标鹄层数}
                           />
                         )
                       })}

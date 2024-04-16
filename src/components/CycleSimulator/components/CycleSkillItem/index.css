@@ -85,3 +85,42 @@
 .cycle-simulator-setting-buff-item {
   width: 20px;
 }
+
+.cycle-simulator-setting-skill-count {
+  position: absolute;
+  left: -7px;
+  bottom: -5px;
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  line-height: 18px;
+  ;
+  /* background: var(--ant-primary-color); */
+  /* background: #fff; */
+  opacity: 0.9;
+  /* color: var(--ant-primary-color); */
+  /* color: #f4b940; */
+  /* background: #b98318; */
+  color: #fff;
+  text-align: center;
+  font-weight: 700;
+  font-size: 14px;
+  border: 1px solid #fff;
+}
+
+.cycle-simulator-setting-skill-count.count1 {
+  background: #531dab
+}
+
+.cycle-simulator-setting-skill-count.count2 {
+  background: #389e0d;;
+}
+
+.cycle-simulator-setting-skill-count.count3 {
+  background: #096dd9;
+}
+
+.cycle-simulator-setting-skill-count.count4 {
+  background: #d4380d;
+}

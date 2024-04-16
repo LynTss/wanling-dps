@@ -16,10 +16,11 @@ interface CycleSkillItemProps {
   模拟信息: 模拟信息类型
   buff覆盖数据: number[]
   更新buff覆盖数据: (e: number[]) => void
+  显示标鹄层数: boolean
 }
 
 function CycleSkillItem(props: CycleSkillItemProps) {
-  const { 技能, 删除循环技能, 模拟信息, buff覆盖数据, 更新buff覆盖数据 } = props
+  const { 技能, 删除循环技能, 模拟信息, buff覆盖数据, 更新buff覆盖数据, 显示标鹄层数 } = props
 
   const 判断开始释放时间 = (技能?.开始读条时间 ? 技能.开始读条时间 : 技能.实际释放时间) || 0
   const 读条时间 = 技能?.开始读条时间
@@ -118,6 +119,13 @@ function CycleSkillItem(props: CycleSkillItemProps) {
           className={'cycle-simulator-setting-skill-close'}
           onClick={() => 删除循环技能(技能?.index || 0)}
         />
+        {显示标鹄层数 && 技能释放结果?.释放时标鹄层数 && !技能?.不显示标鹄层数 ? (
+          <span
+            className={`cycle-simulator-setting-skill-count count${技能释放结果?.释放时标鹄层数}`}
+          >
+            {技能释放结果?.释放时标鹄层数}
+          </span>
+        ) : null}
       </div>
     </Badge>
   )

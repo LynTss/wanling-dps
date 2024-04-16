@@ -1,4 +1,4 @@
-import { Button, Dropdown, Menu, Popover, Select, Tooltip } from 'antd'
+import { Button, Checkbox, Dropdown, Menu, Popover, Select, Tooltip } from 'antd'
 import React from 'react'
 import { 循环基础技能数据类型, 模拟信息类型 } from '../../simulator/type'
 import 快速导入默认循环 from '../../constant/快速导入默认循环'
@@ -22,6 +22,8 @@ interface CycleModalHeaderProps {
   更新网络延迟: (e: number) => void
   模拟信息: 模拟信息类型
   大橙武模拟: boolean
+  显示标鹄层数: boolean
+  更新显示标鹄层数: (e: boolean) => void
 }
 
 function CycleModalHeader(props: CycleModalHeaderProps) {
@@ -41,6 +43,8 @@ function CycleModalHeader(props: CycleModalHeaderProps) {
     更新网络延迟,
     模拟信息,
     大橙武模拟,
+    显示标鹄层数,
+    更新显示标鹄层数,
   } = props
 
   const 自定义循环 = useAppSelector((state) => state?.basic?.自定义循环列表)
@@ -97,6 +101,9 @@ function CycleModalHeader(props: CycleModalHeaderProps) {
         </Popover> */}
       </div>
       <div className={'cycle-simulator-header-btns'}>
+        <Checkbox checked={显示标鹄层数} onChange={(e) => 更新显示标鹄层数(e?.target?.checked)}>
+          <Tooltip title='显示技能开始释放时的标鹄层数'>显示标鹄层数</Tooltip>
+        </Checkbox>
         <Select
           size='small'
           className={'cycle-simulator-header-select'}

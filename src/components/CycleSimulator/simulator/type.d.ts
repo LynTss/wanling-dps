@@ -165,6 +165,10 @@ export interface 循环基础技能数据类型 {
    * 消耗箭数
    */
   消耗箭数?: number
+  /**
+   * 不显示标鹄层数
+   */
+  不显示标鹄层数?: boolean
 }
 
 export interface 角色状态信息类型 {
@@ -360,6 +364,7 @@ export interface 技能释放记录结果 {
   实际伤害技能?: string // 针对造成伤害的实际名称
   伤害段数?: number // 针对行、沧的实际伤害段数
   重要buff列表?: string[] // 影响技能结果的重要buff列表
+  释放时标鹄层数?: number
   造成buff数据?: {
     // 针对吃影子、灭这种会添加有益buff的情况
     buff名称: string
