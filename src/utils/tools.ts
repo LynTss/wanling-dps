@@ -50,6 +50,7 @@ export const zhuangbeidaoru = (list: MoHeZhuangBeiShuJu[]) => {
             return null
           }
         })
+        .filter((item) => item?.增益类型 !== '未匹配')
         .filter((a) => a),
       镶嵌孔数组: Object.keys(item)
         .filter((key) => key.includes('_DiamondAttributeID'))

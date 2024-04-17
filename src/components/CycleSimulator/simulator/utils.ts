@@ -56,6 +56,18 @@ export const 根据奇穴修改技能数据 = (奇穴: string[]): 循环基础�
         ...技能,
         技能CD: 技能原始CD,
       }
+    } else if (技能?.技能名称 === '饮羽簇') {
+      let 技能原始CD = 技能.技能CD || 0
+      if (判断奇穴('丛云隐月')) {
+        技能原始CD = 每秒郭氏帧 * 7
+      } else {
+        技能原始CD = 每秒郭氏帧 * 8
+      }
+      console.log('技能原始CD', 技能原始CD)
+      return {
+        ...技能,
+        技能CD: 技能原始CD,
+      }
     } else {
       return 技能
     }
