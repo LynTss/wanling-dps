@@ -8,7 +8,7 @@
 }
 
 .cycle-simulator-setting-skill.cycle-simulator-setting-skill-highlight .cycle-simulator-setting-skill-img {
-  -webkit-filter: hue-rotate(60deg) saturate(90%) contrast(90%);
+  -webkit-filter: hue-rotate(-30deg) saturate(90%) contrast(90%);
   transition: .2s;
 }
 
