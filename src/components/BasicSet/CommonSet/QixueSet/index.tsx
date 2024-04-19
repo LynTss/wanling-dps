@@ -20,7 +20,8 @@ const QixueSet: React.FC<QixueSetProps> = (props) => {
 
   const dispatch = useAppDispatch()
   const 当前奇穴信息 = useAppSelector((state) => state?.basic?.当前奇穴信息)
-  const 当前循环奇穴 = useCycle()?.qixue
+  const 当前循环 = useCycle()
+  const 当前循环奇穴 = 当前循环?.isDefaultCw ? 当前循环?.qixue : []
 
   const handleChangeQixue = () => {
     setTimeout(() => {
@@ -28,6 +29,7 @@ const QixueSet: React.FC<QixueSetProps> = (props) => {
         const newArray = Object.keys(values).map((key) => {
           return values[key]
         })
+
         dispatch(更新方案数据({ 数据: newArray, 属性: '当前奇穴信息' }))
       })
       getDpsFunction && getDpsFunction()

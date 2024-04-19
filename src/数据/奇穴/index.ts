@@ -39,6 +39,7 @@ export const 奇穴数据: QixueListDTO[] = [
           '贯穿·4',
           '贯穿·5',
           '贯穿·6',
+          '贯穿·8',
           '贯穿·9',
           '贯穿·12',
           '贯穿·15',
@@ -49,7 +50,7 @@ export const 奇穴数据: QixueListDTO[] = [
       {
         奇穴名称: '争疾',
         奇穴加成类型: '无增益',
-        是否不可编辑: true,
+        // 是否不可编辑: true,
         奇穴图片: 'https://icon.jx3box.com/icon/20312.png',
       },
     ],
@@ -440,8 +441,8 @@ export const 获取装备加成后面板 = (
 }
 
 // 判断身法奇穴加成后面板
-export const 获取身法奇穴加成后面板 = (data: CharacterFinalDTO, openLuLing): CharacterFinalDTO => {
-  if (openLuLing) {
+export const 获取身法奇穴加成后面板 = (data: CharacterFinalDTO, 开启卢令): CharacterFinalDTO => {
+  if (开启卢令) {
     const 加成后面板身法 = 卢令身法加成(data.身法, true)
     return {
       ...data,

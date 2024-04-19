@@ -177,11 +177,11 @@ export const getCharacterDataNumber = (key: string, 角色最终属性: Characte
   switch (key) {
     case '身法':
       return 角色最终属性.身法 || 0
-    case '攻击力':
+    case '攻击':
       return 角色最终属性.面板攻击 || 0
     case '会心':
       return 角色最终属性.会心值
-    case '会心效果':
+    case '会效':
       return 角色最终属性.会心效果值
     case '破防':
       return 角色最终属性.破防值
@@ -199,10 +199,10 @@ export const getCharacterDataNumber = (key: string, 角色最终属性: Characte
 export const getCharacterMaxData = (
   key: string,
   角色最终属性: CharacterFinalDTO,
-  openLidao: boolean,
+  开启卢令: boolean,
   oldData
 ) => {
-  const data = openLidao ? 获取身法奇穴加成后面板(角色最终属性, openLidao) : 角色最终属性
+  const data = 开启卢令 ? 获取身法奇穴加成后面板(角色最终属性, 开启卢令) : 角色最终属性
   let value: number | string | undefined = '-1'
   let upperStatus = false
   switch (key) {

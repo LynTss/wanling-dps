@@ -40,7 +40,9 @@ function useCycle(state?) {
   // 只有选择的循环为默认循环时，才会根据是否存在大CW循环来判断是否为大CW
   const 是否存在大CW循环 =
     当前循环?.type === '默认' && All_Cycle_Data?.find((item) => item.name?.includes(`橙武`))
-  if (是否为大CW && 是否存在大CW循环) {
+
+  const 本次是否切换为大CW循环 = 是否为大CW && 是否存在大CW循环
+  if (本次是否切换为大CW循环) {
     当前循环各加速枚举 = 是否存在大CW循环?.各加速枚举
     当前循环 = 是否存在大CW循环
   }
@@ -50,6 +52,7 @@ function useCycle(state?) {
     cycle: 循环信息?.cycle || [],
     dpsTime: 循环信息?.dpsTime || 0,
     qixue: 当前循环?.qixue,
+    isDefaultCw: !!本次是否切换为大CW循环,
   }
 }
 
