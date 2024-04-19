@@ -63,7 +63,6 @@ export const 根据奇穴修改技能数据 = (奇穴: string[]): 循环基础�
       } else {
         技能原始CD = 每秒郭氏帧 * 8
       }
-      console.log('技能原始CD', 技能原始CD)
       return {
         ...技能,
         技能CD: 技能原始CD,

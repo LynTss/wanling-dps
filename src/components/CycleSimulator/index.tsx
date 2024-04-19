@@ -99,7 +99,7 @@ function CycleSimulator(props: CycleSimulatorProps) {
   // 是否实时计算
   const 是否实时计算 = true
 
-  const [起手承契, 设置起手承契] = useState<number>(0)
+  const [起手承契, 设置起手承契] = useState<number>(5)
 
   const [宠物顺序, 更新宠物顺序] = useState<string[]>(Object.keys(宠物基础数据))
 
