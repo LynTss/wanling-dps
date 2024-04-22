@@ -51,6 +51,7 @@ const QixueSet: React.FC<QixueSetProps> = (props) => {
   return (
     <>
       <Button
+        size='small'
         disabled={disabled}
         className='qixue-set-button'
         onClick={() => setDrawerOpen(true)}

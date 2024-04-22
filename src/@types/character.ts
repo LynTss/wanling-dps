@@ -9,22 +9,17 @@ export interface BasicDataDTO {
   基础攻击: number
   /**
    * @name 破防值
-   * @description 游戏内现实的具体破防值
+   * @description 游戏内显示的具体破防值
    */
   破防值: number
   /**
    * @name 无双值
-   * @description 游戏内现实的具体无双值
+   * @description 游戏内显示的具体无双值
    */
   无双值: number
-  // /**
-  //  * @name 力道
-  //  * @description 游戏内现实的具体力道值
-  //  */
-  // 力道: number
   /**
    * @name 身法
-   * @description 游戏内现实的具体身法值
+   * @description 游戏内显示的具体身法值
    */
   身法: number
   /**
@@ -33,12 +28,12 @@ export interface BasicDataDTO {
   体质: number
   /**
    * @name 加速值
-   * @description 游戏内现实的具体无双值
+   * @description 游戏内显示的具体无双值
    */
   加速值: number
   /**
    * @name 破招值
-   * @description 游戏内现实的具体无双值
+   * @description 游戏内显示的具体无双值
    */
   破招值: number
   /**
@@ -57,6 +52,11 @@ export interface BasicDataDTO {
    * @name 会心效果值
    */
   会心效果值: number
+  /**
+   * @name 全能值
+   * @description 游戏内显示的具体全能值
+   */
+  全能值: number
 }
 
 /**

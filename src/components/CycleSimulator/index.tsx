@@ -413,6 +413,7 @@ function CycleSimulator(props: CycleSimulatorProps) {
     <>
       <Button
         danger
+        size='small'
         disabled={disabled}
         onClick={() => {
           setBasicModalOpen(true)

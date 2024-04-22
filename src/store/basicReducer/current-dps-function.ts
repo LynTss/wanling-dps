@@ -97,14 +97,16 @@ export const currentDpsFunction =
 
     const 战斗时间 = 更新计算时间 || 内存循环信息?.dpsTime || 0
 
-    const dpsFunction =
-      当前平台标识 === 全局平台标识枚举.旗舰版
-        ? 是否郭氏计算
-          ? getDpsTotal
-          : getNotGuoDpsTotal
-        : 是否郭氏计算
-        ? getDpsTotal
-        : getNotGuoDpsTotal
+    // const dpsFunction =
+    //   当前平台标识 === 全局平台标识枚举.旗舰版
+    //     ? 是否郭氏计算
+    //       ? getDpsTotal
+    //       : getNotGuoDpsTotal
+    //     : 是否郭氏计算
+    //     ? getDpsTotal
+    //     : getNotGuoDpsTotal
+
+    const dpsFunction = 是否郭氏计算 ? getDpsTotal : getNotGuoDpsTotal
 
     // dps结果计算
     const { totalDps, dpsList } = dpsFunction({
