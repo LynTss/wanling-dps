@@ -460,6 +460,7 @@ function CycleSimulator(props: CycleSimulatorProps) {
             完整循环={处理循环结果对象?.完整循环 as any}
             日志信息={logData}
             模拟DPS结果={模拟DPS结果}
+            奇穴信息={奇穴信息}
           />
           {/* // 循环展示模块 */}
           <div className={'cycle-simulator-setting-res'}>

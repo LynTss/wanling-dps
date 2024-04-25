@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import { Space, Tooltip } from 'antd'
 import { Buff枚举, DOT列表 } from '../../../simulator/type'
@@ -11,12 +11,21 @@ interface BuffProps {
   buff列表: Buff枚举
   DOT列表?: DOT列表
   当前时间点: number
+  奇穴信息?: string[]
 }
 
 function Buff(props: BuffProps) {
-  const { title, buff列表, DOT列表 = {}, 当前时间点 } = props
+  const { title, buff列表, DOT列表 = {}, 奇穴信息, 当前时间点 } = props
 
   const 当前buff列表 = Object.keys(buff列表).map((item) => buff列表[item])
+  const 最终显示buff列表 = useMemo(() => {
+    const res = [...(当前buff列表 || [])]
+    // 判断诸怀
+    if (奇穴信息?.includes('诸怀') && buff列表?.['承契']?.当前层数) {
+      res.push(原始Buff数据?.['诸怀'])
+    }
+    return res
+  }, [当前buff列表, buff列表, 奇穴信息])
   const 当前Dot列表 = Object.keys(DOT列表)
     .map((item) => {
       const 原始数据 = 原始Buff数据?.[item]
@@ -31,8 +40,8 @@ function Buff(props: BuffProps) {
     <div className={'cycle-status-bar-content cycle-status-bar-buff-content'}>
       <div className={'cycle-status-bar-title'}>{title}</div>
       <Space className={'cycle-status-bar-buff-list'} size={[8, 8]} wrap>
-        {当前buff列表?.length
-          ? 当前buff列表.map((item) => {
+        {最终显示buff列表?.length
+          ? 最终显示buff列表.map((item) => {
               const 应该消失时间 = (item.刷新时间 || 0) + (item.最大持续时间 || 0)
               const 剩余时间 = 应该消失时间 - 当前时间点 || 0
               const 剩余时间秒 = (剩余时间 / 每秒郭氏帧).toFixed(1)
@@ -43,14 +52,7 @@ function Buff(props: BuffProps) {
                     <Tooltip
                       title={
                         <div>
-                          {item.名称 === '流岚' ? (
-                            <>
-                              {item.名称}
-                              {((层数 - 1) * 20 + 剩余时间 / 每秒郭氏帧).toFixed(1)}秒
-                            </>
-                          ) : (
-                            <>{`${item.名称}${层数 > 1 ? `${层数}层` : ''}`}</>
-                          )}
+                          <>{`${item.名称}${层数 > 1 ? `${层数}层` : ''}`}</>
                           <p>{item.备注}</p>
                         </div>
                       }
@@ -66,7 +68,7 @@ function Buff(props: BuffProps) {
                       剩余时间 < 每秒郭氏帧 * 2 ? 'cycle-status-bar-buff-second-limit' : ''
                     }`}
                   >
-                    {剩余时间秒}
+                    {+剩余时间秒 >= 0 ? 剩余时间秒 : null}
                   </p>
                 </div>
               )

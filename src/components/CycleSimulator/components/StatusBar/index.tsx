@@ -9,19 +9,20 @@ import {
 
 import Jian from './jian'
 import Buff from './buff'
-import './index.css'
 import DpsRes from './dpsRes'
 import Chongwu from './chongwu'
+import './index.css'
 
 interface StatusBarProps {
   模拟信息: 模拟信息类型
   完整循环: ShowCycleSingleSkill[]
   日志信息: 循环日志数据类型[]
   模拟DPS结果: 模拟DPS结果
+  奇穴信息: string[]
 }
 
 function StatusBar(props: StatusBarProps) {
-  const { 模拟信息, 日志信息, 模拟DPS结果 } = props
+  const { 模拟信息, 日志信息, 模拟DPS结果, 奇穴信息 } = props
 
   return (
     <div className={'cycle-status-bar'}>
@@ -31,6 +32,7 @@ function StatusBar(props: StatusBarProps) {
         title='自身Buff'
         buff列表={模拟信息?.当前自身buff列表}
         当前时间点={模拟信息?.当前时间}
+        奇穴信息={奇穴信息 || []}
       />
       <Buff
         title='目标Buff'

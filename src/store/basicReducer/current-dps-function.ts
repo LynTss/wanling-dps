@@ -67,15 +67,6 @@ export const currentDpsFunction =
     const 当前为无界平台 = 当前平台标识 === 全局平台标识枚举.无界
     const 当前秘籍信息 = 更新秘籍信息 || currentState?.basic?.当前秘籍信息
 
-    const 技能基础数据 =
-      更新技能基础数据 ||
-      根据秘籍奇穴装备格式化技能信息({
-        技能基础数据: currentState?.basic?.技能基础数据,
-        秘籍信息: 当前秘籍信息,
-        奇穴数据,
-        装备增益: 当前角色面板?.装备增益,
-      })
-
     const 内存循环信息 = useCycle({
       角色最终属性: 当前角色面板,
       增益数据: 团队增益数据,
@@ -87,7 +78,20 @@ export const currentDpsFunction =
       当前平台标识,
     })
 
+    const 技能基础数据 =
+      更新技能基础数据 ||
+      根据秘籍奇穴装备格式化技能信息({
+        技能基础数据: currentState?.basic?.技能基础数据,
+        秘籍信息: 当前秘籍信息,
+        奇穴数据: 更新奇穴数据?.length ? 更新奇穴数据 : 内存循环信息?.qixue,
+        装备增益: 当前角色面板?.装备增益,
+      })
+
+    console.log('内存循环信息', 内存循环信息)
+
     const 当前内存技能列表 = 内存循环信息?.cycle
+
+    console.log('当前内存技能列表', 当前内存技能列表)
 
     const 当前循环技能列表 = 更新循环技能列表?.length ? 更新循环技能列表 : 当前内存技能列表
 
@@ -107,6 +111,17 @@ export const currentDpsFunction =
     //     : getNotGuoDpsTotal
 
     const dpsFunction = 是否郭氏计算 ? getDpsTotal : getNotGuoDpsTotal
+
+    console.log('111', {
+      计算循环: 当前循环技能列表,
+      角色最终属性: 当前角色面板,
+      当前目标: 当前目标,
+      技能基础数据: 技能基础数据,
+      增益启用: 团队增益是否启用,
+      增益数据: 团队增益数据,
+      默认增益集合: 更新默认增益集合 || [],
+      战斗时间,
+    })
 
     // dps结果计算
     const { totalDps, dpsList } = dpsFunction({

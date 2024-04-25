@@ -186,7 +186,7 @@ const 获取排序后的Dps列表 = (dpsList = []) => {
 const 根据奇穴判断计算循环 = (奇穴 = [], 加速值 = 0, 是否为大CW) => {
   let 加速等级 = 获取加速等级(加速值) || 0
   const 延迟 = 0
-  const defaultCycle = (Cycle_Data || []).find((item) => item.name === '朝仪_棘矢_考古')
+  const defaultCycle = (Cycle_Data || []).find((item) => item.name === '朝仪_考古')
   let res
   let cycle
   if (是否为大CW) {
@@ -194,11 +194,11 @@ const 根据奇穴判断计算循环 = (奇穴 = [], 加速值 = 0, 是否为大
   } else if (奇穴.includes('朱厌')) {
     res = (Cycle_Data || []).find((item) => item.name === '朱厌_压缩')
   } else if (奇穴.includes('棘矢')) {
-    res = (Cycle_Data || []).find((item) => item.name === '朝仪_棘矢_考古')
+    res = (Cycle_Data || []).find((item) => item.name === '朝仪_考古')
   } else if (奇穴.includes('丛云隐月')) {
     res = (Cycle_Data || []).find((item) => item.name === '朝仪_孰湖_丛云')
   } else {
-    res = (Cycle_Data || []).find((item) => item.name === '朝仪_孰湖_三压')
+    res = (Cycle_Data || []).find((item) => item.name === '朝仪_三压')
   }
   if (res) {
     cycle = res.各加速枚举 && res.各加速枚举[加速等级]?.[延迟] || ''

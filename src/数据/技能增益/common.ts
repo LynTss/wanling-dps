@@ -79,7 +79,7 @@ const commonGainDTO: SkillGainDTO[] = [
   {
     增益名称: '诸怀',
     增益所在位置: '奇穴',
-    常驻增益: false,
+    增益启用开关: false,
     增益集合: [
       {
         增益类型: 增益类型枚举.郭氏基础攻击,
