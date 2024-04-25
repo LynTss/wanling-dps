@@ -87,11 +87,7 @@ export const currentDpsFunction =
         装备增益: 当前角色面板?.装备增益,
       })
 
-    console.log('内存循环信息', 内存循环信息)
-
     const 当前内存技能列表 = 内存循环信息?.cycle
-
-    console.log('当前内存技能列表', 当前内存技能列表)
 
     const 当前循环技能列表 = 更新循环技能列表?.length ? 更新循环技能列表 : 当前内存技能列表
 
@@ -111,17 +107,6 @@ export const currentDpsFunction =
     //     : getNotGuoDpsTotal
 
     const dpsFunction = 是否郭氏计算 ? getDpsTotal : getNotGuoDpsTotal
-
-    console.log('111', {
-      计算循环: 当前循环技能列表,
-      角色最终属性: 当前角色面板,
-      当前目标: 当前目标,
-      技能基础数据: 技能基础数据,
-      增益启用: 团队增益是否启用,
-      增益数据: 团队增益数据,
-      默认增益集合: 更新默认增益集合 || [],
-      战斗时间,
-    })
 
     // dps结果计算
     const { totalDps, dpsList } = dpsFunction({

@@ -4,7 +4,7 @@ import { useAppSelector } from '@/hooks'
 import { 获取加速等级 } from '@/utils/help'
 import { 计算增益数据中加速值 } from '@/utils/skill-dps'
 
-function useCycle(state?) {
+function useCycle(state?, merge?) {
   let 角色最终属性: any
   let 增益数据: any
   let 增益启用: any
@@ -12,7 +12,7 @@ function useCycle(state?) {
   let 当前循环各加速枚举: any
   let 当前循环名: any
   let 当前平台标识: any
-  if (state) {
+  if (state && !merge) {
     角色最终属性 = state?.角色最终属性
     增益数据 = state?.增益数据
     增益启用 = state?.增益启用
@@ -28,8 +28,10 @@ function useCycle(state?) {
     当前循环各加速枚举 = useAppSelector((state) => state?.basic?.当前循环各加速枚举)
     当前循环名 = useAppSelector((state) => state?.basic?.当前循环名称)
     当前平台标识 = useAppSelector((state) => state?.basic?.当前平台标识)
+    if (merge) {
+      角色最终属性 = state?.角色最终属性 || useAppSelector((state) => state?.basic?.角色最终属性)
+    }
   }
-
   const 增益加速值 = 增益启用 ? 计算增益数据中加速值(增益数据) : 0
   const 加速等级 = 获取加速等级(角色最终属性?.加速值 + 增益加速值)
 
@@ -47,7 +49,6 @@ function useCycle(state?) {
     当前循环 = 是否存在大CW循环
   }
   const 循环信息 = 当前循环各加速枚举?.[加速等级]?.[网络延迟]
-
   return {
     cycle: 循环信息?.cycle || [],
     dpsTime: 循环信息?.dpsTime || 0,
