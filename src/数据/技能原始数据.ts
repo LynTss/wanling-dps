@@ -84,6 +84,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     武器伤害系数: 0,
     伤害计算次数: 1,
     技能增益列表: 宠物GainDTO,
+    宠物伤害: true,
   },
   {
     技能名称: '攻击-虎',
@@ -93,6 +94,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     武器伤害系数: 0,
     伤害计算次数: 1,
     技能增益列表: 宠物GainDTO,
+    宠物伤害: true,
   },
   {
     技能名称: '攻击-鹰',
@@ -102,6 +104,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     武器伤害系数: 0,
     伤害计算次数: 1,
     技能增益列表: 宠物GainDTO,
+    宠物伤害: true,
   },
   {
     技能名称: '攻击-熊',
@@ -111,6 +114,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     武器伤害系数: 0,
     伤害计算次数: 1,
     技能增益列表: 宠物GainDTO,
+    宠物伤害: true,
   },
   {
     技能名称: '重击', // 野猪
@@ -120,6 +124,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     武器伤害系数: 0,
     伤害计算次数: 1,
     技能增益列表: 宠物GainDTO,
+    宠物伤害: true,
   },
   {
     技能名称: '践踏', // 大象
@@ -129,6 +134,7 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     武器伤害系数: 0,
     伤害计算次数: 1,
     技能增益列表: 宠物GainDTO,
+    宠物伤害: true,
   },
   {
     技能名称: '贯穿·1',

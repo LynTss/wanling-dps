@@ -425,7 +425,8 @@ class 循环主类 {
     隐藏日志 = false,
     宠物 = false
   ) {
-    const 技能增益列表 = 技能原始数据?.find((item) => item.技能名称 === 来源)?.技能增益列表 || []
+    const 当前技能数据 = 技能原始数据?.find((item) => item.技能名称 === 来源)
+    const 技能增益列表 = 当前技能数据?.技能增益列表 || []
     const 有关的buff列表 =
       技能增益列表
         ?.filter((item) => {
@@ -453,7 +454,11 @@ class 循环主类 {
 
     const 总增益列表 = 有关的buff列表.concat(额外增益列表)
 
-    if (this.校验奇穴是否存在('诸怀') && 总增益列表?.some((item) => item?.includes('承契'))) {
+    if (
+      this.校验奇穴是否存在('诸怀') &&
+      总增益列表?.some((item) => item?.includes('承契')) &&
+      !当前技能数据?.宠物伤害
+    ) {
       总增益列表.push('诸怀')
     }
 

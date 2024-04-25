@@ -55,6 +55,11 @@ export interface SkillBasicDTO {
    * @default 0
    */
   技能破招系数?: number
+  /**
+   * @name 宠物伤害
+   * @description 是否为宠物造成的伤害
+   */
+  宠物伤害?: boolean
 }
 
 /**
