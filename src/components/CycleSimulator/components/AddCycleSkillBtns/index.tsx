@@ -41,7 +41,9 @@ function AddCycleSkillBtns(props: AddCycleSkillBtnsProps) {
   }
 
   const hrefDev = location.href?.includes('?dev=1')
-  const DEV = process.env.NODE_ENV === 'development' || hrefDev
+  // const DEV = process.env.NODE_ENV === 'development' || hrefDev
+  const DEV = hrefDev
+  console.log('DEV', DEV)
 
   return (
     <div className={'cycle-simulator-setting-btns'}>
