@@ -22,7 +22,7 @@ export const DEFAULT_CHARACTER = {
 }
 
 export const ZENGYI_DATA_DEFAULT = {
-  阵眼: '万灵阵（朱厌）',
+  阵眼: '万灵阵(丛朱)',
   小吃: [
     '断浪·上品亢龙散（外攻）',
     '断浪·上品轻身丹（身法）',
