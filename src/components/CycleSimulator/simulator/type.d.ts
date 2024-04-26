@@ -10,9 +10,11 @@ import { 弛律召野类型 } from './技能类/弛律召野'
 import { 丛云隐月类型 } from './技能类/丛云隐月'
 import { 寒更晓箭类型 } from './技能类/寒更晓箭'
 import { 金乌见坠类型 } from './技能类/金乌见坠'
+import { 空弦惊雁类型 } from './技能类/空弦惊雁'
 import { 贯穿DOT类型 } from './DOT类/贯穿'
 import { 宠物类型 } from './通用类/宠物'
 import { DpsListData } from '@/components/Dps/guoshi_dps_utils'
+import { 箭形态枚举 } from '../constant/enum'
 
 // 将一个技能从释放到释放结束的各阶段定义类型
 export interface 技能类类型 {
@@ -62,6 +64,7 @@ export interface 技能类实例集合 {
   弛律召野?: 弛律召野类型
   丛云隐月?: 丛云隐月类型
   金乌见坠?: 金乌见坠类型
+  空弦惊雁?: 空弦惊雁类型
   触发橙武?: 触发橙武类型
 }
 
@@ -172,8 +175,12 @@ export interface 循环基础技能数据类型 {
 }
 
 export interface 角色状态信息类型 {
-  箭数: number
-  箭形态: '黄箭' | '红箭' | '蓝箭' | '紫箭'
+  // 箭数: number
+  箭袋信息: 箭袋信息类型[]
+}
+
+export interface 箭袋信息类型 {
+  箭形态: 箭形态枚举
 }
 
 export interface Buff枚举 {

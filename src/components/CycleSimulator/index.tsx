@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { Button, Modal, Tooltip, message } from 'antd'
 import { ReactSortable } from 'react-sortablejs'
 
-import { CopyOutlined, DeleteOutlined } from '@ant-design/icons'
+import { CopyOutlined, DeleteOutlined, AlertOutlined } from '@ant-design/icons'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 
 import 循环模拟技能基础数据, { 宠物基础数据 } from './constant/skill'
@@ -28,9 +28,10 @@ import SaveCustomCycleModal from './components/SaveCustomCycleModal'
 import { currentDpsFunction } from '@/store/basicReducer/current-dps-function'
 import QixueSetModal from './components/QixueSetModal'
 import { 获取加速等级 } from '@/utils/help'
-import './index.css'
 import { 更新当前自定义循环列表 } from '@/store/basicReducer'
 import { 缓存映射 } from '@/utils/system_constant'
+import './index.css'
+import { 箭形态枚举 } from './constant/enum'
 
 const 加速等级枚举 = {
   0: 0,
@@ -59,8 +60,9 @@ function CycleSimulator(props: CycleSimulatorProps) {
 
   const [模拟信息, 更新模拟信息] = useState<模拟信息类型>({
     角色状态信息: {
-      箭数: 8,
-      箭形态: '红箭',
+      箭袋信息: Array.from({ length: 8 }, () => {
+        return { 箭形态: 箭形态枚举.红箭 }
+      }),
     },
     当前时间: 0,
     当前自身buff列表: {},
@@ -250,7 +252,7 @@ function CycleSimulator(props: CycleSimulatorProps) {
   const 新增循环技能 = (item: 循环基础技能数据类型) => {
     const 没箭了 =
       item?.技能名称 !== '寒更晓箭' &&
-      模拟信息.角色状态信息.箭数 === 0 &&
+      模拟信息.角色状态信息.箭袋信息?.length === 0 &&
       cycle?.[cycle.length - 1]?.技能名称 !== '寒更晓箭'
     const 换箭 = 循环模拟技能基础数据?.find((a) => a.技能名称 === '寒更晓箭')
     let newCycle
@@ -282,7 +284,7 @@ function CycleSimulator(props: CycleSimulatorProps) {
   const 复制本轮至最后 = (轮次) => {
     const 没箭了 =
       轮次?.[0]?.技能名称 !== '寒更晓箭' &&
-      模拟信息.角色状态信息.箭数 === 0 &&
+      模拟信息.角色状态信息.箭袋信息?.length === 0 &&
       cycle?.[cycle.length - 1]?.技能名称 !== '寒更晓箭'
 
     const 换箭 = 循环模拟技能基础数据?.find((a) => a.技能名称 === '寒更晓箭')
@@ -310,6 +312,25 @@ function CycleSimulator(props: CycleSimulatorProps) {
     })
     // 更新循环
     setCycle(newCycle)
+  }
+
+  // 删除本轮后全部循环
+  const 删除本轮后全部循环 = (轮次) => {
+    Modal.confirm({
+      title: '确认删除本轮后全部循环吗？',
+      onOk() {
+        // 获取最大的索引，判断生效范围
+        const maxIndex = 轮次.reduce(function (min, obj) {
+          return Math.max(min, obj.index)
+        }, Number.NEGATIVE_INFINITY)
+        // 将数组哪索引范围内跌元素替换为新的数组元素
+        const newCycle = cycle.filter((item, index) => {
+          return index <= maxIndex
+        })
+        // 更新循环
+        setCycle(newCycle)
+      },
+    })
   }
 
   // 确认保存自定义循环
@@ -493,6 +514,13 @@ function CycleSimulator(props: CycleSimulatorProps) {
                         )
                       })}
                       <div className={'cycle-turn-operate'}>
+                        <Tooltip title='删除本轮后全部循环'>
+                          <AlertOutlined
+                            className={'cycle-turn-operate-btn'}
+                            style={{ color: '#FF0000' }}
+                            onClick={() => 删除本轮后全部循环(轮次)}
+                          />
+                        </Tooltip>
                         <Tooltip title='复制并添加到最后'>
                           <CopyOutlined
                             className={'cycle-turn-operate-btn'}

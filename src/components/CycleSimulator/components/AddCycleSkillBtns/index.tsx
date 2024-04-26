@@ -40,6 +40,9 @@ function AddCycleSkillBtns(props: AddCycleSkillBtnsProps) {
     }
   }
 
+  const hrefDev = location.href?.includes('?dev=1')
+  const DEV = process.env.NODE_ENV === 'development' || hrefDev
+
   return (
     <div className={'cycle-simulator-setting-btns'}>
       <div className={'cycle-simulator-setting-item'}>
@@ -93,6 +96,9 @@ function AddCycleSkillBtns(props: AddCycleSkillBtnsProps) {
               if (!大橙武模拟 && item?.显示类型 === '大橙武模拟') {
                 return false
               }
+              if (!DEV && item?.技能名称 === '空弦惊雁') {
+                return false
+              }
               if (item?.显示类型 === '奇穴技能') {
                 const 依赖名称 = item?.依赖奇穴名 || item?.技能名称
                 return 奇穴信息?.includes(依赖名称)
@@ -118,12 +124,12 @@ function AddCycleSkillBtns(props: AddCycleSkillBtnsProps) {
         <span className={'cycle-btn-type'}>宠物</span>
         <AddPetBtns 宠物顺序={宠物顺序} 更新宠物顺序={更新宠物顺序} />
       </div>
-      <div className={'cycle-simulator-setting-item'}>
+      <div className={`cycle-simulator-setting-item cycle-simulator-setting-fast-item`}>
         <span className={'cycle-btn-type'}>快捷添加</span>
         <Row className={'cycle-simulator-setting-quick'} gutter={[16, 8]}>
           {快捷添加数据.map((item) => {
             return (
-              <Col span={12} key={item?.名称}>
+              <Col span={24} key={item?.名称}>
                 <Tag
                   color={item?.color || 'blue'}
                   onClick={() => 批量新增循环技能(item)}
