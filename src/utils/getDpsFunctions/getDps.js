@@ -192,7 +192,7 @@ const 获取排序后的Dps列表 = (dpsList = []) => {
 const 根据奇穴和加速判断计算循环 = (奇穴 = [], 加速值 = 0, 是否为大CW) => {
   let 加速等级 = 获取加速等级(加速值) || 0
   const 延迟 = 0
-  const defaultCycle = (Cycle_Data || []).find((item) => item.name === '朝仪_三压')
+  const defaultCycle = (Cycle_Data || []).find((item) => item.name === '朝仪_丛云_全压缩')
   // 循环内容
   let res
   // 计算循环技能列表
