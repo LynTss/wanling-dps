@@ -199,10 +199,14 @@ const 根据奇穴和加速判断计算循环 = (奇穴 = [], 加速值 = 0, 是
   let cycle = []
   if (是否为大CW) {
     res = (Cycle_Data || []).find((item) => item.name?.includes('橙武'))
+  } else if (奇穴.includes('丛云隐月')) {
+    if (奇穴.includes('朱厌')) {
+      res = (Cycle_Data || []).find((item) => item.name === '丛朱')
+    } else {
+      res = (Cycle_Data || []).find((item) => item.name === '朝仪_丛云_全压缩')
+    }
   } else if (奇穴.includes('朱厌')) {
     res = (Cycle_Data || []).find((item) => item.name === '朱厌_压缩')
-  } else if (奇穴.includes('丛云隐月')) {
-    res = (Cycle_Data || []).find((item) => item.name === '朝仪_孰湖_丛云')
   } else if (奇穴.includes('桑柘') && 奇穴.includes('棘矢'))  {
     res = (Cycle_Data || []).find((item) => item.name === '朝仪_考古')
   } else {
