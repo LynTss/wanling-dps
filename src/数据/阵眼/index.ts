@@ -33,7 +33,7 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     ],
   },
   {
-    阵眼名称: '万灵阵(丛大全压缩)',
+    阵眼名称: '万灵阵(丛大)',
     增益集合: [
       {
         增益计算类型: 增益计算类型枚举.A,
@@ -91,7 +91,7 @@ export const Zhenyan_DATA: ZhenyanGainDTO[] = [
     ],
   },
   {
-    阵眼名称: '万灵阵(大招三压)',
+    阵眼名称: '万灵阵(三压)',
     增益集合: [
       {
         增益计算类型: 增益计算类型枚举.A,
