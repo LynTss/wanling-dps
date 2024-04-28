@@ -7,7 +7,7 @@ import { AllEnchantDTO } from '@/数据/附魔'
 import WUCAISHI_DATA from '@/数据/五彩石'
 import XIANGQIAN_DATA from '@/数据/镶嵌孔'
 import ZUANGBEI_DATA from '@/数据/装备'
-import { jinglianJieguo } from '@/utils/help'
+import { 精炼加成系数算法 } from '@/utils/help'
 
 export const getFinalCharacterBasicData = (data: CharacterBasicDTO): CharacterFinalDTO => {
   return {
@@ -122,7 +122,7 @@ export const switchZhuangbei = (
         newObj.武器伤害_最大值 += zhuangbei.武器伤害_最大值
       }
       zhuangbei.装备增益.forEach((item) => {
-        const shuzhi = jinglianJieguo(item.增益数值, a.当前精炼等级)
+        const shuzhi = 精炼加成系数算法(item.增益数值, a.当前精炼等级)
         newObj = switchData(item.增益类型, shuzhi, newObj)
       })
       a.镶嵌孔数组?.forEach((item) => {

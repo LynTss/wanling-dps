@@ -1,7 +1,6 @@
 import { Modal } from 'antd'
 import React, { useMemo } from 'react'
 import { DpsListData } from '../guoshi_dps_utils'
-import { 求平均值 } from '@/utils/help'
 import './index.css'
 
 function DpsCountModal({ visible, onClose, dpsList, total, title = '技能统计' as any }) {
@@ -27,19 +26,21 @@ function DpsCountModal({ visible, onClose, dpsList, total, title = '技能统计
       if (guanchuanList?.length) {
         let number = 0
         let dps = 0
-        const 会心几率: number[] = []
+        const 会心几率数量: number[] = []
 
         guanchuanList.forEach((item) => {
           number = number + item?.number
           dps = dps + item?.dps
-          会心几率.push(item?.会心几率)
+          会心几率数量.push(item?.会心几率 * item?.number)
         })
+
+        const 总会心数量期望 = 会心几率数量.reduce((a, b) => a + b, 0)
 
         resList.push({
           name: '贯穿',
           number: number,
           dps: dps,
-          会心几率: 求平均值(会心几率),
+          会心几率: 总会心数量期望 / number,
         })
       }
     }
@@ -47,19 +48,21 @@ function DpsCountModal({ visible, onClose, dpsList, total, title = '技能统计
     if (gongjiList?.length) {
       let number = 0
       let dps = 0
-      const 会心几率: number[] = []
+      const 会心几率数量: number[] = []
 
       gongjiList.forEach((item) => {
         number = number + item?.number
         dps = dps + item?.dps
-        会心几率.push(item?.会心几率)
+        会心几率数量.push(item?.会心几率 * item?.number)
       })
+
+      const 总会心数量期望 = 会心几率数量.reduce((a, b) => a + b, 0)
 
       resList.push({
         name: '攻击',
         number: number,
         dps: dps,
-        会心几率: 求平均值(会心几率),
+        会心几率: 总会心数量期望 / number,
       })
     }
 

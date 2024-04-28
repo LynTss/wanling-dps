@@ -1,18 +1,18 @@
-import { getMianBanGongJI, getShenfaJiachengHuixin } from '@/components/BasicSet/CharacterSet/util'
-import { 增益计算类型枚举 } from './../../@types/enum'
-import { TargetDTO } from '@/@types/character'
-import { guoshiHuixinLv, guoshiHuixinshanghai, guoshiResult } from '@/utils/help'
-import { CharacterFinalDTO } from '@/@types/character'
-import { CycleDTO, CycleGain } from '@/@types/cycle'
-import { 增益类型枚举 } from '@/@types/enum'
 import { DpsGainBasicDTO, SkillBasicDTO, SKillGainData } from '@/@types/skill'
-import { skillFinalDps, 获取全能加成面板 } from '@/utils/skill-dps'
 import { ZengyixuanxiangDataDTO } from '@/@types/zengyi'
+import { CycleDTO, CycleGain } from '@/@types/cycle'
+import { CharacterFinalDTO } from '@/@types/character'
+import { 增益计算类型枚举 } from '@/@types/enum'
+import { TargetDTO } from '@/@types/character'
+import { 增益类型枚举 } from '@/@types/enum'
+import { getMianBanGongJI, getShenfaJiachengHuixin } from '@/components/BasicSet/CharacterSet/util'
+import { 获取全能加成面板 } from '@/utils/skill-dps'
 import { TuanduiZengyi_DATA } from '@/数据/团队增益'
 import { Zhenyan_DATA } from '@/数据/阵眼'
 import { 属性系数 } from '@/数据/常量'
 import XIAOCHI_DATA from '@/数据/小药小吃'
 import 装备增益数据 from '@/数据/装备/装备增益数据'
+import { 完整技能伤害 } from '@/utils/dps/郭氏计算'
 
 interface GetDpsTotalParams {
   计算循环: CycleDTO[]
@@ -300,13 +300,6 @@ export const geSkillTotalDps = (
       }
     })
 
-  // 将ABCD类技能增伤相乘
-  const 最终技能增伤 =
-    增益计算基础?.技能增伤?.通用A类增伤 *
-    增益计算基础?.技能增伤?.技能独立增伤 *
-    增益计算基础?.技能增伤?.易伤增伤 *
-    增益计算基础?.技能增伤?.非侠增伤
-
   增益计算基础 = {
     ...增益计算基础,
     最终人物属性: {
@@ -336,72 +329,16 @@ export const geSkillTotalDps = (
     },
   }
 
-  // 计算系数增伤对技能系数本身的影响
-  const 计算技能属性 = {
-    ...当前技能属性,
-    技能伤害系数: 当前技能属性.技能伤害系数 * 增益计算基础?.技能增伤?.系数增伤,
-  }
-
-  console.log('增益计算基础?.技能增伤?.系数增伤', 增益计算基础?.技能增伤?.系数增伤)
-
-  const { 期望技能总伤, 会心数量 } = getSkillDamage({
-    当前技能属性: 计算技能属性,
+  const { 期望技能总伤, 会心数量 } = 完整技能伤害({
+    当前技能属性,
     技能总数,
     当前目标: 增益计算基础?.计算目标,
     最终人物属性: 增益计算基础?.最终人物属性,
-    技能增伤: 最终技能增伤,
+    技能增伤: 增益计算基础?.技能增伤,
     郭氏额外会效果值: 增益计算基础?.郭氏额外会效果值,
     额外会心率: 增益计算基础?.额外会心率,
     郭式无视防御: 增益计算基础?.郭式无视防御,
   })
-
-  return { 期望技能总伤, 会心数量 }
-}
-
-const getSkillDamage = ({
-  当前技能属性,
-  技能总数,
-  当前目标,
-  最终人物属性,
-  技能增伤,
-  郭氏额外会效果值,
-  额外会心率,
-  郭式无视防御,
-}: {
-  当前技能属性: SkillBasicDTO
-  最终人物属性: CharacterFinalDTO
-  技能增伤: number
-  当前目标: TargetDTO
-  技能总数: number
-  郭氏额外会效果值: number
-  额外会心率: number
-  郭式无视防御: number
-}) => {
-  const 目标 = {
-    ...当前目标,
-    防御点数:
-      guoshiResult(当前目标.防御点数, -郭式无视防御) > 0
-        ? guoshiResult(当前目标.防御点数, -郭式无视防御)
-        : 0,
-  }
-
-  const { min, max } = skillFinalDps(当前技能属性, 最终人物属性, 目标)
-
-  const 最小技能总伤 = min * 技能增伤
-  const 最大技能总伤 = max * 技能增伤
-
-  const 平均伤害 = Math.floor((最小技能总伤 + 最大技能总伤) / 2)
-
-  const 会心期望率 = guoshiHuixinLv(最终人物属性.会心值) + 额外会心率
-
-  const 会心数量 = 会心期望率 * 技能总数
-
-  const 会心实际伤害 = guoshiHuixinshanghai(最终人物属性.会心效果值, 平均伤害, 郭氏额外会效果值)
-
-  const 技能期望伤害 = Math.round(平均伤害 + 会心期望率 * (会心实际伤害 - 平均伤害))
-  // const 技能期望伤害 = Math.round(平均伤害 + 会心期望率 * (会心实际伤害 - 平均伤害))
-
-  const 期望技能总伤 = (技能期望伤害 ? 技能期望伤害 : 1) * 技能总数
 
   return { 期望技能总伤, 会心数量 }
 }

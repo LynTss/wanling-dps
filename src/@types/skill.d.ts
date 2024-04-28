@@ -125,13 +125,7 @@ export interface DpsGainBasicDTO {
    * @name 技能增伤
    * @description 各种类型的技能增伤
    */
-  技能增伤: {
-    通用A类增伤: number
-    技能独立增伤: number
-    易伤增伤: number
-    非侠增伤: number
-    系数增伤: number // 这里的系数增伤直接修改系数，不乘在最后
-  }
+  技能增伤: 技能增伤害类型
   /**
    * @name 郭氏额外会效果值
    * @description 郭氏额外会效果值，直接带入会效计算公式，和其他会效加成加法计算
@@ -185,4 +179,12 @@ export interface DpsGainBasicDTO {
    * 当前面板武伤的百分比增益计算，先计算加法再计算乘法
    */
   郭氏武器伤害: number
+}
+
+export interface 技能增伤害类型 {
+  通用A类增伤: number
+  技能独立增伤: number
+  易伤增伤: number
+  非侠增伤: number
+  系数增伤: number // 这里的系数增伤直接修改系数，不乘在最后
 }
