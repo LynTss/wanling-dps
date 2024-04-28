@@ -253,7 +253,6 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能伤害系数: 获取实际系数(215),
     技能基础伤害_最小值: 37,
     技能基础伤害_最大值: 42,
-    武器伤害系数: 1, // 应该是有的
     伤害计算次数: 1,
     技能增益列表: commonGainDTO,
   },
