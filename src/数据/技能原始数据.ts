@@ -6,6 +6,7 @@ import 劲风簇GainDTO from './技能增益/劲风簇'
 import 标鹄GainDTO from './技能增益/标鹄'
 import 饮羽簇GainDTO from './技能增益/饮羽簇'
 import 宠物GainDTO from './技能增益/宠物通用'
+import 风矢增益数据 from './技能增益/风矢'
 
 const 外攻基础系数 = 16 * 10
 
@@ -69,12 +70,12 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
   },
   {
     技能名称: '风矢',
-    技能伤害系数: 0.25,
+    技能伤害系数: 获取实际系数(160 * 0.1),
     技能基础伤害_最小值: 0,
     技能基础伤害_最大值: 0,
     武器伤害系数: 1,
     伤害计算次数: 1,
-    技能增益列表: commonGainDTO,
+    技能增益列表: 风矢增益数据,
   },
   {
     技能名称: '攻击-狼',
@@ -259,7 +260,8 @@ const WanlingSkillDataDTO: SkillBasicDTO[] = [
     技能伤害系数: 获取实际系数(215),
     技能基础伤害_最小值: 37,
     技能基础伤害_最大值: 42,
-    武器伤害系数: 1, // 应该是有的
+    武器伤害系数: 0, // 待测试
+    // 武器伤害系数: 1, // 应该是有的
     伤害计算次数: 1,
     技能增益列表: commonGainDTO,
   },
