@@ -21,7 +21,6 @@ import Zhuangbeizengyi from './Zhuangbeizengyi'
 import MaxFumo from './MaxFumo'
 import MaxWucaishi from './MaxWucaishi'
 import { 根据秘籍奇穴装备格式化技能信息 } from '@/utils/skill-dps'
-import { 判断奇穴是否应该切换为CW奇穴 } from '@/utils/help'
 import './index.css'
 
 function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
@@ -31,7 +30,6 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
   const 角色最终属性 = useAppSelector((state) => state?.basic?.角色最终属性)
   const 装备信息 = useAppSelector((state) => state?.basic?.装备信息)
   const 当前计算结果DPS = useAppSelector((state) => state?.basic?.当前计算结果DPS)
-  const 当前循环名称 = useAppSelector((state) => state?.basic?.当前循环名称)
   const 技能基础数据 = useAppSelector((state) => state?.basic?.技能基础数据)
   const 当前奇穴信息 = useAppSelector((state) => state?.basic?.当前奇穴信息)
   const 当前秘籍信息 = useAppSelector((state) => state?.basic?.当前秘籍信息)
@@ -195,14 +193,10 @@ function ZhuangbeiSet({ visible, onClose, getDpsFunction }) {
         冬至套装: data?.冬至套装,
       })
 
-      const 奇穴 = data.大橙武特效
-        ? 判断奇穴是否应该切换为CW奇穴(当前奇穴信息, 当前循环名称)
-        : 当前奇穴信息
-
       const 更新技能基础数据 = 根据秘籍奇穴装备格式化技能信息({
         技能基础数据: 技能基础数据,
         秘籍信息: 当前秘籍信息,
-        奇穴数据: 奇穴,
+        奇穴数据: 当前奇穴信息,
         装备增益: data,
       })
 

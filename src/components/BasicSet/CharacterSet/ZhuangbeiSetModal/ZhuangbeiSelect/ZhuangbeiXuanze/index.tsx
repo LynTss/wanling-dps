@@ -18,7 +18,6 @@ import { currentDpsFunction } from '@/store/basicReducer/current-dps-function'
 import { 根据秘籍奇穴装备格式化技能信息 } from '@/utils/skill-dps'
 import classnames from 'classnames'
 import './index.css'
-import { 判断奇穴是否应该切换为CW奇穴 } from '@/utils/help'
 
 interface ZhuangbeiXuanzeProps {
   value?: number // 装备ID
@@ -40,7 +39,6 @@ function ZhuangbeiXuanze(props: ZhuangbeiXuanzeProps, ref) {
   const 当前奇穴信息 = useAppSelector((state) => state?.basic?.当前奇穴信息)
   const 当前秘籍信息 = useAppSelector((state) => state?.basic?.当前秘籍信息)
   const 当前计算结果DPS = useAppSelector((state) => state?.basic?.当前计算结果DPS)
-  const 当前循环名称 = useAppSelector((state) => state?.basic?.当前循环名称)
   const [dpsUpList, setDpsUpList] = useState<{ uuid: string; dpsUp: number }[]>()
   const dispatch = useAppDispatch()
 
@@ -102,14 +100,10 @@ function ZhuangbeiXuanze(props: ZhuangbeiXuanzeProps, ref) {
     // 获取最终面板
     const { finalData } = getFinalCharacterBasicDataByEquipment(equipmentData)
 
-    const 奇穴 = finalData?.装备增益?.大橙武特效
-      ? 判断奇穴是否应该切换为CW奇穴(当前奇穴信息, 当前循环名称)
-      : 当前奇穴信息
-
     const 更新技能基础数据 = 根据秘籍奇穴装备格式化技能信息({
       技能基础数据: 技能基础数据,
       秘籍信息: 当前秘籍信息,
-      奇穴数据: 奇穴,
+      奇穴数据: 当前奇穴信息,
       装备增益: equipmentData,
     })
 

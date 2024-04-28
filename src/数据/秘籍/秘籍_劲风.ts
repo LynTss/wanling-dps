@@ -9,7 +9,7 @@ const Miji_Gufengpolang: MijiBasicDataDTO[] = [
       {
         增益类型: 增益类型枚举.伤害百分比,
         增益计算类型: 增益计算类型枚举.A,
-        增益数值: 0.03,
+        增益数值: 31 / 1024,
       },
     ],
   },
@@ -20,7 +20,7 @@ const Miji_Gufengpolang: MijiBasicDataDTO[] = [
       {
         增益类型: 增益类型枚举.伤害百分比,
         增益计算类型: 增益计算类型枚举.A,
-        增益数值: 0.02,
+        增益数值: 21 / 1024,
       },
     ],
   },

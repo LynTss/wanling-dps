@@ -1,5 +1,4 @@
 import { 属性系数, 精炼加成系数 } from '@/数据/常量'
-import { 获取全部循环 } from '@/数据/计算循环'
 
 /**
  * @name 郭氏基础系数算法
@@ -120,17 +119,4 @@ export const 求平均值 = (data: number[]) => {
   // 计算平均值
   const average = sum / data.length
   return average
-}
-
-// 当选择默认循环切开启CW时
-export const 判断奇穴是否应该切换为CW奇穴 = (原奇穴, 当前循环名) => {
-  const All_Cycle_Data = 获取全部循环()
-  const 当前循环 = All_Cycle_Data?.find((item) => item?.name === 当前循环名)
-
-  const 大CW循环 = All_Cycle_Data?.find((item) => item.name?.includes(`橙武`))
-  if (当前循环?.type === '默认' && 大CW循环) {
-    return 大CW循环?.qixue
-  } else {
-    return 原奇穴
-  }
 }
