@@ -28,7 +28,7 @@ const 获取实际系数 = (系数, dot跳数?, dot间隔?) => {
 // const 贯穿伤害系数 = (215 * 0.7 * 1.15 * 0.9) / 160 / 4
 const 贯穿伤害系数 = 获取实际系数(215 * 0.7 * 1.15 * 0.9 * 0.9 * 0.9, 4, 8)
 
-const 贯穿基础伤害 = 0
+const 贯穿基础伤害 = 32
 const 破招全局系数 = 13.1925
 
 const WanlingSkillDataDTO: SkillBasicDTO[] = [

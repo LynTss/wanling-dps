@@ -166,35 +166,7 @@ export const 获取显示秒伤 = (最后一条伤害数据) => {
 export const Skill_Cycle_Map = {}
 
 const 获取当前日志对应技能枚举 = (日志) => {
-  if (日志?.includes('贯穿')) {
-    const { 本次倍率 } = 获取贯穿对应实际倍率(日志)
-    return `贯穿·${本次倍率}`
-  } else {
-    return Skill_Cycle_Map[日志] || 日志
-  }
-}
-
-export const 获取贯穿对应实际倍率 = (日志) => {
-  const 当前层数 = Number(日志?.split('·')?.[1])
-  const 当前引爆跳数 = 日志?.includes('- 引爆') ? Number(日志?.split('【')?.[2]?.[0]) : 0
-  if (当前引爆跳数) {
-    const 层数 = Number(日志?.split('【')?.[1]?.[0])
-    const 当前引爆倍率 = 日志?.includes('- 引爆') ? 当前引爆跳数 : 1
-    return {
-      本次倍率: 层数 * 当前引爆倍率,
-      引爆: true,
-    }
-  } else if (当前层数) {
-    return {
-      本次倍率: 当前层数,
-      引爆: false,
-    }
-  } else {
-    return {
-      本次倍率: 1,
-      引爆: false,
-    }
-  }
+  return Skill_Cycle_Map[日志] || 日志
 }
 
 // 读条技能的实际帧数

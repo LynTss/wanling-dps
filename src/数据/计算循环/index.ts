@@ -1,10 +1,9 @@
 // 循环
 import 朝仪_考古 from './现启用循环/朝仪_考古.json'
 import 朝仪_三压 from './现启用循环/朝仪_三压.json'
-import 朝仪_丛云_全压缩 from './现启用循环/朝仪_丛云_全压缩.json'
-import 丛朱 from './现启用循环/丛朱.json'
+import 朝仪_丛云 from './现启用循环/朝仪_丛云.json'
+import 朱厌_丛云 from './现启用循环/朱厌_丛云.json'
 import 朝仪_橙武 from './现启用循环/朝仪_橙武.json'
-import 朱厌_一键宏 from './现启用循环/朱厌_一键宏.json'
 import 朱厌_压缩 from './现启用循环/朱厌_压缩.json'
 // 无界
 import 无界循环 from './无界/无界循环.json'
@@ -13,12 +12,11 @@ import { 缓存映射 } from '@/utils/system_constant'
 import { 全局平台标识枚举 } from '@/@types/enum'
 
 const 计算循环 = [
-  { ...朝仪_丛云_全压缩 },
-  { ...丛朱 },
+  { ...朝仪_丛云 },
+  { ...朱厌_丛云 },
   { ...朝仪_三压 },
   { ...朝仪_考古 },
   { ...朱厌_压缩 },
-  { ...朱厌_一键宏 },
   { ...朝仪_橙武 },
 ]
 

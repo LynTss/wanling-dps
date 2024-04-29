@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react'
 import DpsCountModal from '@/components/Dps/DpsCountModal'
 import { 循环日志数据类型 } from '../../../../simulator/type'
-import { 获取贯穿对应实际倍率 } from '@/components/CycleSimulator/utils'
 import { Divider, Popover } from 'antd'
 import { 技能伤害结果列表类型 } from '@/@types/dps'
 import '../../../../index.css'
@@ -74,18 +73,45 @@ const SkillCountModal: React.FC<SkillCountModalProps> = (props) => {
 
 export default SkillCountModal
 
+export const 获取贯穿对应实际倍率 = (日志) => {
+  const 当前层数 = Number(日志?.split('·')?.[1])
+  const 当前引爆跳数 = 日志?.includes('- 引爆') ? Number(日志?.split('【')?.[2]?.[0]) : 0
+  if (当前引爆跳数) {
+    const 层数 = Number(日志?.split('【')?.[1]?.[0])
+    const 当前引爆倍率 = 日志?.includes('- 引爆') ? 当前引爆跳数 : 1
+    return {
+      本次倍率: 层数 * 当前引爆倍率,
+      引爆: true,
+    }
+  } else if (当前层数) {
+    return {
+      本次倍率: 当前层数,
+      引爆: false,
+    }
+  } else {
+    return {
+      本次倍率: 1,
+      引爆: false,
+    }
+  }
+}
+
 const 获取贯穿总倍率 = (贯穿数组) => {
   let 倍率 = 0
   let 引爆倍率 = 0
 
-  const 贯穿统计完整数据 = 贯穿数组.map((item) => {
-    const { 本次倍率, 引爆 } = 获取贯穿对应实际倍率(item)
-    倍率 = 倍率 + 本次倍率
-    if (引爆) {
-      引爆倍率 = 引爆倍率 + 本次倍率
-    }
-    return 本次倍率
-  })
+  const 贯穿统计完整数据 = 贯穿数组
+    .map((item) => {
+      const { 本次倍率, 引爆 } = 获取贯穿对应实际倍率(item)
+      if (引爆) {
+        引爆倍率 = 引爆倍率 + 本次倍率
+        return -1
+      } else {
+        倍率 = 倍率 + 本次倍率
+        return 本次倍率
+      }
+    })
+    .filter((item) => item !== -1)
 
   const 贯穿统计数组 = 获取贯穿的出现次数(贯穿统计完整数据)
   return {
