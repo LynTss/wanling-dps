@@ -11,7 +11,7 @@ import { useAppSelector } from '@/hooks'
 import { Tooltip } from 'antd'
 import classnames from 'classnames'
 import React, { useMemo } from 'react'
-import { 计算增益数据中加速值 } from '@/utils/skill-dps'
+import { 计算增益数据中加速值 } from '@/utils/help'
 import './index.css'
 
 interface CharacterActiveProps {

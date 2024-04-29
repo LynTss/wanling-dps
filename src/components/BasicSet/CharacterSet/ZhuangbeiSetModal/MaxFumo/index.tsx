@@ -98,7 +98,7 @@ function MaxFumo({ 一键替换附魔, 对比Dps, 对比装备信息 }) {
       setOpen(true)
       更新计算用时(计算用时)
     } else {
-      message.success(`当前附魔已为最佳方案，无需替换，计算用时${计算用时}ms`)
+      message.success(`当前附魔已为最佳方案，无需替换。计算用时${计算用时}ms`)
     }
   }
 

@@ -1,15 +1,15 @@
 import React, { useMemo } from 'react'
 import DpsCountModal from '@/components/Dps/DpsCountModal'
-import { DpsListData } from '@/components/Dps/guoshi_dps_utils'
-import '../../../../index.css'
 import { 循环日志数据类型 } from '../../../../simulator/type'
 import { 获取贯穿对应实际倍率 } from '@/components/CycleSimulator/utils'
 import { Divider, Popover } from 'antd'
+import { 技能伤害结果列表类型 } from '@/@types/dps'
+import '../../../../index.css'
 
 interface SkillCountModalProps {
   open: boolean
   onCancel: () => void
-  dpsList: DpsListData[]
+  dpsList: 技能伤害结果列表类型[]
   total: number
   logData: 循环日志数据类型[]
 }

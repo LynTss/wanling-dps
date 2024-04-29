@@ -3,7 +3,7 @@ import { CycleDTO } from '@/@types/cycle'
 import { SkillBasicDTO } from '@/@types/skill'
 import { ZengyixuanxiangDataDTO } from '@/@types/zengyi'
 import { optimizationTool } from './optimization-tool'
-import { getNotGuoDpsTotal } from '@/components/Dps/wu_guoshi_dps_utils'
+import { 非郭氏技能总伤害计算 } from '@/utils/dps/非郭氏计算'
 
 interface DpsKernelOptimizerParams {
   // 以下为获取dps结果的的基本必要参数集
@@ -39,7 +39,7 @@ const DpsKernelOptimizer = ({
 
   const getDpsFunction = (x) => {
     const newCharacterData = getNewCharacterData(basicDTO, x?.[0], x?.[1])
-    const { totalDps } = getNotGuoDpsTotal({
+    const { totalDps } = 非郭氏技能总伤害计算({
       计算循环,
       角色最终属性: newCharacterData,
       当前目标: 当前输出计算目标,

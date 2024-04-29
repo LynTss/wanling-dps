@@ -1,7 +1,7 @@
 import React from 'react'
 import { Modal, Table } from 'antd'
 import { useAppSelector } from '@/hooks'
-import 完整技能伤害 from '@/utils/dps/郭氏计算'
+import { 完整技能伤害 } from '@/utils/dps/郭氏计算'
 import './index.css'
 
 function SkillDamageTable({ visible, onClose }) {
@@ -55,7 +55,6 @@ function SkillDamageTable({ visible, onClose }) {
       fix: 'right',
       width: 120,
       render: (_, row) => {
-        console.log('row', row)
         return 完整技能伤害({
           当前技能属性: row,
           最终人物属性: 角色最终属性,

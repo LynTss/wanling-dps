@@ -1,14 +1,14 @@
 import { Modal } from 'antd'
 import React, { useMemo } from 'react'
-import { DpsListData } from '../guoshi_dps_utils'
+import { 技能伤害结果列表类型 } from '@/@types/dps'
 import './index.css'
 
 function DpsCountModal({ visible, onClose, dpsList, total, title = '技能统计' as any }) {
   const sortDpsList = useMemo(() => {
-    const list: DpsListData[] = [...dpsList]
-    const resList: DpsListData[] = []
-    const guanchuanList: DpsListData[] = []
-    const gongjiList: DpsListData[] = []
+    const list: 技能伤害结果列表类型[] = [...dpsList]
+    const resList: 技能伤害结果列表类型[] = []
+    const guanchuanList: 技能伤害结果列表类型[] = []
+    const gongjiList: 技能伤害结果列表类型[] = []
 
     const isSingleSkillCycle = list.some((item) => item.countName === '贯穿_一层_承契_1')
     list.forEach((item) => {
@@ -31,7 +31,7 @@ function DpsCountModal({ visible, onClose, dpsList, total, title = '技能统计
         guanchuanList.forEach((item) => {
           number = number + item?.number
           dps = dps + item?.dps
-          会心几率数量.push(item?.会心几率 * item?.number)
+          会心几率数量.push((item?.会心几率 || 0) * item?.number)
         })
 
         const 总会心数量期望 = 会心几率数量.reduce((a, b) => a + b, 0)
@@ -53,7 +53,7 @@ function DpsCountModal({ visible, onClose, dpsList, total, title = '技能统计
       gongjiList.forEach((item) => {
         number = number + item?.number
         dps = dps + item?.dps
-        会心几率数量.push(item?.会心几率 * item?.number)
+        会心几率数量.push((item?.会心几率 || 0) * item?.number)
       })
 
       const 总会心数量期望 = 会心几率数量.reduce((a, b) => a + b, 0)
@@ -107,7 +107,9 @@ function DpsCountModal({ visible, onClose, dpsList, total, title = '技能统计
                     <div className={'dps-count'}>
                       <span className='dps-count-1'>{item.number}</span>
                       <span className='dps-count-2'>{item.dps}</span>
-                      <span className='dps-count-3'>{(item.会心几率 * 100).toFixed(2)}%</span>
+                      <span className='dps-count-3'>
+                        {((item?.会心几率 || 0) * 100).toFixed(2)}%
+                      </span>
                       <span className='dps-count-4'>{((item.dps / total) * 100).toFixed(2)}%</span>
                     </div>
                   </div>
