@@ -6,7 +6,13 @@
 import { CharacterFinalDTO, TargetDTO } from '@/@types/character'
 import { SkillBasicDTO } from '@/@types/skill'
 import { 属性系数, 每等级减伤 } from '@/数据/常量'
-import { 郭氏基础系数算法, 郭氏结果算法, 郭氏值算法, 郭氏防御值算法 } from '@/utils/help'
+import {
+  郭氏基础系数算法,
+  郭氏结果算法,
+  郭氏值算法,
+  郭氏防御值算法,
+  郭氏无双害算法,
+} from '@/utils/help'
 
 /**
  * @name 破招原始伤害计算
@@ -84,7 +90,10 @@ export const 等级减伤计算公式 = (
 }
 
 // 无双计算后dps
-export const 无双伤害计算公式 = (伤害: number, 人物属性: CharacterFinalDTO) => {
-  const 郭氏无双值 = 郭氏基础系数算法(人物属性.无双值, 属性系数.无双)
-  return 郭氏结果算法(伤害, 郭氏无双值)
+export const 无双伤害计算公式 = (
+  伤害: number,
+  人物属性: CharacterFinalDTO,
+  郭氏额外无双等级: number
+) => {
+  return 郭氏无双害算法(伤害, 人物属性.无双值, 郭氏额外无双等级)
 }

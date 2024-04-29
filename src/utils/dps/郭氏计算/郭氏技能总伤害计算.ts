@@ -1,12 +1,12 @@
 import { DpsGainBasicDTO, SkillBasicDTO, SKillGainData } from '@/@types/skill'
-import { ZengyixuanxiangDataDTO } from '@/@types/zengyi'
 import { CycleDTO } from '@/@types/cycle'
 import { CharacterFinalDTO } from '@/@types/character'
 import { TargetDTO } from '@/@types/character'
 import { 增益类型枚举 } from '@/@types/enum'
+import { 技能伤害结果列表类型 } from '@/@types/dps'
 import { getMianBanGongJI, getShenfaJiachengHuixin } from '@/components/BasicSet/CharacterSet/util'
 import { 获取全能加成面板 } from '@/utils/help'
-import { 属性系数 } from '@/数据/常量'
+// import { 属性系数 } from '@/数据/常量'
 import {
   增益排序,
   根据增益修改最终循环,
@@ -15,22 +15,11 @@ import {
   计算该技能下多个增益的增益集合,
   通用增益计算,
 } from '../统一工具函数/增益计算函数'
+import { 技能总伤害计算入参类型 } from '../interface'
 import 完整技能伤害 from './技能伤害公式'
-import { 技能伤害结果列表类型 } from '@/@types/dps'
-
-interface GetDpsTotalParams {
-  计算循环: CycleDTO[]
-  角色最终属性: CharacterFinalDTO
-  当前目标: TargetDTO
-  技能基础数据: SkillBasicDTO[]
-  增益启用: boolean
-  增益数据: ZengyixuanxiangDataDTO
-  默认增益集合?: SKillGainData[]
-  战斗时间: number
-}
 
 // 计算技能循环总输出
-export const 郭氏技能总伤害计算 = (props: GetDpsTotalParams) => {
+export const 郭氏技能总伤害计算 = (props: 技能总伤害计算入参类型) => {
   const { 计算循环, 角色最终属性, 当前目标, 技能基础数据, 增益启用, 增益数据, 战斗时间 } = props
   // 总dps
   let total = 0
@@ -227,9 +216,6 @@ export const 计算技能总伤 = (
     ...增益计算基础,
     最终人物属性: {
       ...增益计算基础?.最终人物属性,
-      无双值:
-        增益计算基础?.最终人物属性.无双值 +
-        Math.floor((属性系数.无双 * 增益计算基础?.郭氏无双等级) / 1024),
       破防值:
         增益计算基础?.最终人物属性.破防值 +
         Math.floor((增益计算基础?.最终人物属性.破防值 * 增益计算基础?.郭氏破防等级) / 1024),
@@ -259,6 +245,7 @@ export const 计算技能总伤 = (
     最终人物属性: 增益计算基础?.最终人物属性,
     技能增伤: 增益计算基础?.技能增伤,
     郭氏额外会效果值: 增益计算基础?.郭氏额外会效果值,
+    郭氏额外无双等级: 增益计算基础?.郭氏无双等级,
     额外会心率: 增益计算基础?.额外会心率,
     郭式无视防御: 增益计算基础?.郭式无视防御,
   })

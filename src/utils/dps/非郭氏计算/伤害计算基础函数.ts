@@ -81,7 +81,11 @@ export const 等级减伤计算公式 = (
 }
 
 // 无双计算后dps
-export const 无双伤害计算公式 = (伤害: number, 人物属性: CharacterFinalDTO) => {
+export const 无双伤害计算公式 = (
+  伤害: number,
+  人物属性: CharacterFinalDTO,
+  郭氏额外无双等级: number
+) => {
   const 无双百分比 = 人物属性.无双值 / 属性系数.无双
-  return 伤害 * (1 + 无双百分比)
+  return 伤害 * (1 + 无双百分比 + 郭氏额外无双等级 / 1024)
 }
