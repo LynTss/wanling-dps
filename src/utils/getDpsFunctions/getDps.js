@@ -192,7 +192,7 @@ const 获取排序后的Dps列表 = (dpsList = []) => {
 const 根据奇穴和加速判断计算循环 = (奇穴 = [], 加速值 = 0, 是否为大CW) => {
   let 加速等级 = 获取加速等级(加速值) || 0
   const 延迟 = 0
-  const defaultCycle = (Cycle_Data || []).find((item) => item.name === '朝仪_丛云_全压缩')
+  const defaultCycle = (Cycle_Data || []).find((item) => item.name === '朝仪_丛云')
   // 循环内容
   let res
   // 计算循环技能列表
@@ -201,9 +201,9 @@ const 根据奇穴和加速判断计算循环 = (奇穴 = [], 加速值 = 0, 是
     res = (Cycle_Data || []).find((item) => item.name?.includes('橙武'))
   } else if (奇穴.includes('丛云隐月')) {
     if (奇穴.includes('朱厌')) {
-      res = (Cycle_Data || []).find((item) => item.name === '丛朱')
+      res = (Cycle_Data || []).find((item) => item.name === '朱厌_丛云')
     } else {
-      res = (Cycle_Data || []).find((item) => item.name === '朝仪_丛云_全压缩')
+      res = (Cycle_Data || []).find((item) => item.name === '朝仪_丛云')
     }
   } else if (奇穴.includes('朱厌')) {
     res = (Cycle_Data || []).find((item) => item.name === '朱厌_压缩')

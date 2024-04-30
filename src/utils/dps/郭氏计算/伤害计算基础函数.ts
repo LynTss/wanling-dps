@@ -6,13 +6,6 @@
 import { CharacterFinalDTO, TargetDTO } from '@/@types/character'
 import { SkillBasicDTO } from '@/@types/skill'
 import { 属性系数, 每等级减伤 } from '@/数据/常量'
-import {
-  郭氏基础系数算法,
-  郭氏结果算法,
-  郭氏值算法,
-  郭氏防御值算法,
-  郭氏无双害算法,
-} from '@/utils/help'
 
 /**
  * @name 破招原始伤害计算
@@ -85,8 +78,7 @@ export const 等级减伤计算公式 = (
 ) => {
   const 等级差 = Math.abs((人物属性?.等级 || 120) - 当前目标.等级)
   const 等级差距减伤 = 等级差 * 每等级减伤
-  const 郭氏减伤值 = -郭氏值算法(等级差距减伤)
-  return 郭氏结果算法(伤害, 郭氏减伤值)
+  return Math.floor(伤害 * (1 - 等级差距减伤))
 }
 
 // 无双计算后dps
@@ -96,4 +88,52 @@ export const 无双伤害计算公式 = (
   郭氏额外无双等级: number
 ) => {
   return 郭氏无双害算法(伤害, 人物属性.无双值, 郭氏额外无双等级)
+}
+
+/**
+ * @name 郭氏基础系数算法
+ */
+export const 郭氏基础系数算法 = (点数, 系数) => {
+  return Math.floor((点数 * 1024) / 系数)
+}
+
+/**
+ * @name 郭氏结果算法
+ */
+export const 郭氏结果算法 = (基础值, 郭氏值, 基础系数 = 1) => {
+  return Math.floor(基础值 * (基础系数 + 郭氏值 / 1024))
+}
+
+/**
+ * @name 郭氏会心率
+ */
+export const 郭氏会心率算法 = (会心值) => {
+  const 郭氏会心值 = Math.floor((会心值 * 1024) / 属性系数.会心)
+  return 郭氏会心值 / 1024
+}
+
+/**
+ * @name 郭氏会心伤害算法
+ */
+export const 郭氏会心伤害算法 = (伤害, 会效值, 郭氏额外会效果值) => {
+  const 郭氏会效值 = 郭氏基础系数算法(会效值, 属性系数.会效)
+
+  // 会心效果最大值为300%，既1.25%额外会心效果，郭氏值为 1280
+  const 计算额外郭氏会效值 = Math.min(郭氏会效值 + 郭氏额外会效果值, 1280)
+  return Math.floor(伤害 * 1.75) + Math.floor((伤害 * 计算额外郭氏会效值) / 1024)
+}
+
+/**
+ * @name 郭氏无双害算法
+ */
+export const 郭氏无双害算法 = (伤害, 无双值, 郭氏额外无双值) => {
+  const 郭氏无双值 = 郭氏基础系数算法(无双值, 属性系数.无双)
+  return 伤害 + Math.floor(伤害 * ((郭氏无双值 + 郭氏额外无双值) / 1024))
+}
+
+/**
+ * @name 郭氏防御值算法
+ */
+export const 郭氏防御值算法 = (防御点数, 防御系数) => {
+  return Math.floor((防御点数 * 1024) / (防御点数 + 防御系数))
 }
