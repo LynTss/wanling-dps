@@ -2,7 +2,7 @@ import { CharacterBasicDTO, CharacterFinalDTO, FinalCharterBasicDataDTO } from '
 import { WuCaiShiDTO } from '@/@types/enchant'
 import { 增益类型枚举 } from '@/@types/enum'
 import { 装备信息数据类型, EquipmentListDTO } from '@/@types/equipment'
-import { 加成系数 } from '@/数据/常量'
+import { 加成系数, 基础属性加成系数 } from '@/数据/常量'
 import { AllEnchantDTO } from '@/数据/附魔'
 import WUCAISHI_DATA from '@/数据/五彩石'
 import XIANGQIAN_DATA from '@/数据/镶嵌孔'
@@ -43,8 +43,8 @@ export const getFinalCharacterBasicDataByEquipment = (
 ): FinalCharterBasicDataDTO => {
   let basicDTO: CharacterBasicDTO = {
     等级: 120,
-    基础攻击: 3277 + 7, // 心法基础3277攻击+基础41点力道增加6点攻击
-    破防值: 12, // 基础41力道增加12点破防
+    基础攻击: 3277 + Math.round(41 * 基础属性加成系数.力道转换攻击), // 心法基础3277攻击+基础41点力道增加6点攻击
+    破防值: Math.round(41 * 基础属性加成系数.力道转换破防), // 基础41力道增加12点破防
     无双值: 0,
     身法: 41,
     体质: 41,

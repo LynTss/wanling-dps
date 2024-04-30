@@ -87,6 +87,8 @@ function CharacterShow() {
     openBFGS,
   ])
 
+  console.log('角色最终属性', 角色最终属性)
+
   return (
     <div className={'character-show'}>
       <div className={'character-title-wrapper'}>
@@ -139,7 +141,7 @@ export const getCharacterData = (key: string, 角色最终属性: CharacterFinal
     case '身法':
       return 角色最终属性.身法 || 0
     case '攻击':
-      return 角色最终属性.面板攻击 || 0
+      return 角色最终属性.面板攻击 + 495 || 0
     case '会心':
       return ((角色最终属性.会心值 / 属性系数.会心) * 100).toFixed(2) + `%`
     case '会效':
